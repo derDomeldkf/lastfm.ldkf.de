@@ -441,13 +441,9 @@
 		$url="include/prox.php?artist=".$lyric_band."&song=".$lyric_name;	
 		$content='
 			<td class="list_image">
-   			<span class="">
-       			<span class="chartlist-image">
-						<label href="'.$url.'" style="padding:1px; margin:0;" data-toggle="modal" data-target="#modaleins">
-							<div class="lyric" style="border-radius: 3px;"></div>
-						</label>
-         		</span>
- 	  	 		</span>  
+					<label href="'.$url.'" style="padding:1px; margin:0;" data-toggle="modal" data-target="#modaleins">
+						<div class="lyric" style="border-radius: 3px;"></div>
+					</label>
  	  	 	</td>
  	  	 ';
  	  	 return $content;
