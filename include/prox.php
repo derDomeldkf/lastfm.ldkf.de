@@ -10,7 +10,7 @@
       		<div class="modal-header" style="padding-top:5px; padding-bottom:20px; padding-right:10px;">
         			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       		</div>
-      		<div class="modal-body"><h3>Lyrics für diesen Song nicht gefunden.</h3><br>'.$url.'</div><div class="modal-footer">
+      		<div class="modal-body"><h3>Lyrics für diesen Song nicht gefunden.</h3><br>'.$url.'<br>'.$url2.'</div><div class="modal-footer">
         			<button type="button" class="btn btn-default" data-dismiss="modal">Schlie&szlig;en</button>
       		</div>
       	</div>

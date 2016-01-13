@@ -408,25 +408,26 @@
 	function head() {
 		$content="";
 		$content= '
-			<div style="margin-left:30px;"><div class="modal fade" id="modaleins" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- 				<div class="modal-dialog" role="document">
-    				<div class="modal-content">
-      				<div class="modal-header" style="padding-top:5px; padding-bottom:20px; padding-right:10px;">
-      					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<div style="margin-left:30px;">
+				<div class="modal fade" id="modaleins" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+ 					<div class="modal-dialog" role="document">
+    					<div class="modal-content">
+      					<div class="modal-header" style="padding-top:5px; padding-bottom:20px; padding-right:10px;">
+      						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      					</div>
+      					<div class="modal-body" id="modal_text">
+      						<div style="heihgt:70px;">
+      							<h4>Lyrics werden geladen</h4>
+      					 		<figure style="">
+  							     		<img src="pic/loading.gif" width="40px" height="40px">
+  							  		</figure>
+  							 	</div>
+      					</div>
       				</div>
-      				<div class="modal-body" id="modal_text">
-      					<div style="heihgt:70px;">
-      					 <h4>Lyrics werden geladen</h4>
-      					 <figure style="">
-  							     <img src="pic/loading.gif" width="40px" height="40px">
-  							  </figure>
-  							 </div>
-      				</div>
-      			</div>
-  				</div>
-			</div>           
-			<table>
-   			<tbody>';
+  					</div>
+				</div>           
+				<table>
+   				<tbody>';
    	return $content;
    }
    
@@ -463,7 +464,25 @@
       		</div>
       	</div>
      ';
-     return $content;
+		return $content;
+  	}
+  	function month_rename($date_eng) {
+		$date_eng =  str_replace("Monday", "Montag",$date_eng);
+		$date_eng =  str_replace("Tuesday", "Dienstag",$date_eng);
+		$date_eng =  str_replace("Wednesday", "Mittwoch",$date_eng);
+		$date_eng =  str_replace("Thursday", "Donnerstag",$date_eng);
+		$date_eng =  str_replace("Friday", "Freitag",$date_eng);
+		$date_eng =  str_replace("Saturday", "Samstag",$date_eng);
+		$date_eng =  str_replace("Sunday", "Sonntag",$date_eng);
+		$date_eng =  str_replace("January", "Januar",$date_eng);
+		$date_eng =  str_replace("February", "Februar",$date_eng);
+		$date_eng =  str_replace("March", "M&auml;rz",$date_eng);
+		$date_eng =  str_replace("May", "Mai",$date_eng);
+		$date_eng =  str_replace("June", "Juni",$date_eng);
+		$date_eng =  str_replace("July", "Juli",$date_eng);
+		$date_eng =  str_replace("October", "Oktober",$date_eng);
+		$date_eng =  str_replace("December", "Dezember",$date_eng);  		
+  		return $date_eng;
   	}
    
    
