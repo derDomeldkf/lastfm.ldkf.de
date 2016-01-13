@@ -242,7 +242,7 @@
 			$user = $namecheck[0];
 			if(isset($user) and $user!="") {
 				$content='<li><a href="./lastfm.php?method=4">Gruppe</a></li>
-					<li><a href="http://explr.fm/?username='.$user_in.'">Explr.fm</a></li>';
+					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>';
         	}
         	$content .= '</ul>
    				<ul class="nav navbar-nav navbar-right">
@@ -413,7 +413,9 @@
  					<div class="modal-dialog" role="document">
     					<div class="modal-content">
       					<div class="modal-header" style="padding-top:5px; padding-bottom:20px; padding-right:10px;">
-      						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      							<span aria-hidden="true">&times;</span>
+      						</button>
       					</div>
       					<div class="modal-body" id="modal_text">
       						<div style="heihgt:70px;">
@@ -448,6 +450,8 @@
  	  	 ';
  	  	 return $content;
    }
+      
+   
 	function lyrics_text($ly, $link) {   
   		$content='
   	 		<div class="modal-content">
@@ -462,6 +466,8 @@
      ';
 		return $content;
   	}
+  	
+  	
   	function month_rename($date_eng) {
 		$date_eng =  str_replace("Monday", "Montag",$date_eng);
 		$date_eng =  str_replace("Tuesday", "Dienstag",$date_eng);
