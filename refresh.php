@@ -12,7 +12,6 @@
 	$d=0;
 	foreach($users as $user_in){
 		$methode="'method=user.getTopArtists&user='".$user_in."'&period=7day'";
-//exec("python get.py 'method=user.getTopArtists&user=cerdun&period=7day'", $out);
 		exec("python /var/www/projekte/last_fm/get.py $methode", $out);
 		if(isset($out[0])) {
 			$decode=json_decode($out[0]);
@@ -87,10 +86,5 @@
 	while($id_db = mysql_fetch_row($getid)){
 		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db[0].'&text='.$output; 
 		$result = file_get_contents($url);	
-	}
-	
-	
-	
-	
-	   				
+	}	   				
 ?>

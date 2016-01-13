@@ -1,67 +1,4 @@
 <?php
-/*array(1) {
-	["user"]=> object(stdClass)#125 (12) { 
-		["name"]=> string(15) "microsofthater2" 
-		["image"]=> array(4) { 
-			[0]=> object(stdClass)#126 (2) { 
-				["#text"]=> string(66) "http://img2-ak.lst.fm/i/u/34s/4dea988a408f4db7cdb418360807f892.png" 
-				["size"]=> string(5) "small" } [1]=> object(stdClass)#127 (2) { 
-				["#text"]=> string(66) "http://img2-ak.lst.fm/i/u/64s/4dea988a408f4db7cdb418360807f892.png" 
-				
-
-
-<!--string(890)
-"{
-  "recenttracks":{
-    "track":[
-      {
-	"artist":{
-	  "#text":"Breaking Benjamin",*
-	  "mbid":"854a1807-025b-42a8-ba8c-2a39717f1d25"
-	 }, number to fetch. Defaults to first page.
-api_key (Required) : A Last.fm API key.
-Auth
-	 "name":"Polyamorous",*
-	 "streamable":"0",
-	 "mbid":"9dc017a9-5f78-408b-a4cc-17dbc3ce9196",
-	 "album":{
-	    "#text":"Saturate",*
-	    "mbid":"91d85c0e-319f-45c4-a863-026ef06774fd"
-	 },
-	  "url":"http://www.last.fm/music/Breaking+Benjamin/_/Polyamorous",*
-	  "image":[
-	    {
-	      "#text":"http://img2-ak.lst.fm/i/u/34s/4c36b492f3244ce1cc4d527e4286d812.png",
-	      "size":"small"
-	    },
-	    {
-	      "#text":"http://img2-ak.lst.fm/i/u/64s/4c36b492f3244ce1cc4d527e4286d812.png",*
-	      "size":"medium"
-	    },
-	    {
-	      "#text":"http://img2-ak.lst.fm/i/u/174s/4c36b492f3244ce1cc4d527e4286d812.png",
-	      "size":"large"
-	    },
-	    {
-	      "#text":"http://img2-ak.lst.fm/i/u/300x300/4c36b492f3244ce1cc4d527e4286d812.png",
-	      "size":"extralarge"
-	    }
-	  ],
-	  "date":{
-	    "uts":"1444467555",*
-	    "#text":"10 Oct 2015, 08:59"*
-	  }
-      }
-    ],
-    "@attr":{
-      "user":"microsofthater2",*
-      "page":"100",*
-      "perPage":"1",*
-      "totalPages":"8809",*
-      "total":"8809"
-    }
-  }
-}" */
 	$user_in="";
 	$page="";
 	$totalPages="";
@@ -99,12 +36,6 @@ Auth
 			exec("python get.py $methode", $out);
 			$decode=json_decode($out[0]);
 			$info_array = get_object_vars($decode);
-		// var_dump($info_array);
-		//	$keyy=$info_array['session']->key;
-		//	$methode="'method=track.love&track=Deify&artist=Disturbed&api_sig='".$sig."'&sk='".$keyy;
-		//	exec("python get.py $methode", $outa);
-	  	// var_dump($outa[0]);
-			
 			if(isset($info_array['error'])) {
 				$error=1; //fehler bei übermittlung
 			}
