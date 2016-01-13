@@ -433,7 +433,8 @@
    
    function lyric($artist_name, $track_name) {
    	$content="";
-   	$lyric_band = strtolower(preg_replace ( '/[^a-z0-9]/i', '', $artist_name )); 
+   	$lyric_band=str_replace(" ", "_", $artist_name);
+   	$lyric_band = preg_replace ( '/[^a-z0-9A-Z]_/i', '',  $lyric_band); 
 		$lyric_name =	explode("(", $track_name)[0];
 		$lyric_name = strtolower(preg_replace ( '/[^a-z0-9]/i', '', $lyric_name)); 
 		$url="include/prox.php?artist=".$lyric_band."&song=".$lyric_name;	
@@ -450,4 +451,23 @@
  	  	 ';
  	  	 return $content;
    }
+	function lyrics_text($ly, $link) {   
+  		$content='
+  	 		<div class="modal-content">
+  	 			<div class="modal-header" style="padding-top:5px; padding-bottom:20px; padding-right:10px;">
+   				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      		</div>
+      		<div class="modal-body">'.$ly.'<br/><br/>
+      			Lyrics provided by '.$link.'
+       			<button type="button" class="btn btn-default" data-dismiss="modal">Schlie&szlig;en</button>
+      		</div>
+      	</div>
+     ';
+     return $content;
+  	}
+   
+   
+   
+   
+   
  ?>
