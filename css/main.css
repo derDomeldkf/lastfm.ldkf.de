@@ -3,7 +3,7 @@ html, body {
 }
 @font-face {
 	font-family: 'ubuntu-m';
-	src: url('fonts/Ubuntu-R.ttf')
+	src: url('../fonts/Ubuntu-R.ttf')
 }
 .option {
 	padding-top:4px;
