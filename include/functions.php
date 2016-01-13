@@ -248,7 +248,7 @@
    				<ul class="nav navbar-nav navbar-right">
    					<li class="dropdown" style="width:200px;">
       					<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-      						<img style="border-radius: 18px;" width="36px" src="'.$image.'">'.$user_in.'<span class="caret"></span>
+      						<img style="border-radius: 18px;" width="36px" src="'.$image.'"> '.$user_in.'<span class="caret"></span>
 							</a>
          				<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
            					<li style="padding-left:15px;">';
