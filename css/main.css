@@ -12,13 +12,13 @@ html, body {
 .lyric{ 
 	height:24px; 
 	width: 24px;
-	background: url("pic/lyrics.png") ; 
+	background: url("../pic/lyrics.png") ; 
 	background-size: cover;
 }
 .lyric:hover { 
 	height:24px; 
 	width: 24px;
-	background: url("pic/lyrics_over.png") ; 
+	background: url("../pic/lyrics_over.png") ; 
 	background-size: cover; 
 }
 .member{
