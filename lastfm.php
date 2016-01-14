@@ -33,8 +33,8 @@
 			$token=$_GET['token'];
  			$sig = md5("api_key830d6e2d4d737d56aa1f94f717a477dfmethodauth.getSessiontoken".$token."1a05eab1f6dba7de78d59a6c94267464");
 			$methode="'method=auth.getSession&token='".$token."'&api_sig='".$sig; 
-			exec("python get.py $methode", $out);
-			$decode=json_decode($out[0]);
+         $out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+			$decode=json_decode($out);
 			$info_array = get_object_vars($decode);
 			if(isset($info_array['error'])) {
 				$error=1; //fehler bei übermittlung
@@ -86,10 +86,10 @@
 		$limit_in=20;
 	}
 	if(isset($user_in) and $user_in!="") {
-		$methode="'method=user.getInfo&user='".$user_in;
-		exec("python get.py $methode", $out_user);
-		if($out_user[0]!='{"error":6,"message":"User not found","links":[]}') {
-			$decode_Info_User=json_decode($out_user[0]);
+		$methode="method=user.getInfo&user=".$user_in;
+		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+		if($out_user!='{"error":6,"message":"User not found","links":[]}') {
+			$decode_Info_User=json_decode($out_user);
 			$user_info_forimage_array = get_object_vars($decode_Info_User)['user'];
 			$user_name_info = get_object_vars($decode_Info_User)['user']->name;
 			$totalTracks = get_object_vars($decode_Info_User)['user']->playcount;
@@ -118,9 +118,9 @@
 				if(!isset($_COOKIE['login']) and isset($_POST['start']) and $_POST['start']==1) {
 					setcookie("login", $user_in, time()+(3600*24*365));  
 				}  
-				$methode="'method=user.getRecentTracks&user='".$user_in."'&page='".$page_in."'&limit='".$limit_in."'&extended=1&nowplaying=true'";
-				exec("python /var/www/projekte/last_fm/get.py $methode", $out);
-				$decode=json_decode($out[0]);
+				$methode="method=user.getRecentTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+				$decode=json_decode($out);
 				$user_info_array = get_object_vars($decode->recenttracks);
 				$user_decode= $user_info_array['@attr'];
 				$username = $user_decode->user;
@@ -131,10 +131,10 @@
 				$totaltracks=$totalTracks;
 			}
 			if($method_in==5) {
-				$methode="'method=user.getLovedTracks&user='".$user_in."'&page='".$page_in."'&limit='".$limit_in."'&extended=1&nowplaying=true'";
-				exec("python /var/www/projekte/last_fm/get.py $methode", $out);
-				if(isset($out[0])) {
-					$decode=json_decode($out[0]);
+				$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+				if(isset($out)) {
+					$decode=json_decode($out);
 					$user_info_array_love = get_object_vars($decode->lovedtracks);
 					$user=$user_info_array_love['@attr'];
 					$tracks= $user_info_array_love['track'];
@@ -146,10 +146,10 @@
 				}
 			}
 			if($method_in==6) {
-				$methode="'method=user.getTopArtists&user='".$user_in."'&page='".$page_in."'&limit='".$limit_in."'&extended=1&nowplaying=true'";
-				exec("python /var/www/projekte/last_fm/get.py $methode", $out);
-				if(isset($out[0])) {
-					$decode=json_decode($out[0]);
+				$methode="method=user.getTopArtists&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+				if(isset($out)) {
+					$decode=json_decode($out);
 					$user_info_array_love = get_object_vars($decode->topartists);
 					$user=$user_info_array_love['@attr'];
 					$tracks= $user_info_array_love['artist'];
@@ -161,10 +161,10 @@
 				}
 			}
 			if($method_in==7) {
-				$methode="'method=user.getTopTracks&user='".$user_in."'&page='".$page_in."'&limit='".$limit_in."'&extended=1&nowplaying=true'";
-				exec("python /var/www/projekte/last_fm/get.py $methode", $out);
-				if(isset($out[0])) {
-					$decode=json_decode($out[0]);
+				$methode="method=user.getTopTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+				if(isset($out)) {
+					$decode=json_decode($out);
 					$user_info_array_love = get_object_vars($decode->toptracks);
 					$user=$user_info_array_love['@attr'];
 					$tracks= $user_info_array_love['track'];
