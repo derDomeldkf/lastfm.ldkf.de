@@ -19,11 +19,25 @@ if ($token === NULL) {
 } else {
     $method_in = 3;
 }
-if (isset($_POST['username'])) {
-    $user_in = $_POST['username'];
+$usr=  filter_input(INPUT_POST, "username");
+$usr2=  filter_input(INPUT_GET, "username");
+if($usr!=NULL && $usr) {
+    $user_in=$usr;
     if ($method_in == 3) {
         header('Location: http://www.last.fm/api/auth?api_key='.$api_key.'&cb=https://lastfm.ldkf.de/lastfm.php');
     }
+}
+elseif ($usr2!=NULL && $usr2) {
+    $user_in=$usr2;
+    if ($method_in == 3) {
+        header('Location: http://www.last.fm/api/auth?api_key='.$api_key.'&cb=https://lastfm.ldkf.de/lastfm.php');
+    }
+//}
+//if (isset($_POST['username'])) {
+//    $user_in = $_POST['username'];
+//    if ($method_in == 3) {
+//        header('Location: http://www.last.fm/api/auth?api_key='.$api_key.'&cb=https://lastfm.ldkf.de/lastfm.php');
+//    }
 } else {
     if (isset($_GET['token']) and $_GET['token'] != "") {
         $method_in = 3;

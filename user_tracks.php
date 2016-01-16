@@ -6,7 +6,6 @@ $page_n = $page + 1;
 $page_l = $page - 1;
 echo head();
 foreach ($tracks as $track) {
-    $album_name = "";
     $artist_decode = $track->artist;
     $love = $track->loved;
     $album_decode = $track->album;
