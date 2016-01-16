@@ -1,3 +1,5 @@
 *~
-include/db_connect.php
+include/config.php
 .directory
+/nbproject/**
+/covers/**
