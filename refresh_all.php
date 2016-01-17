@@ -1,6 +1,7 @@
  <?php
  	$bot_id = "56844913:AAG32PEmP3Uquw_m65fKI2Ec083A_ThkFs4";
  	include "include/db_connect.php";
+ //	include "config.php";
  	$delete =  "DELETE FROM last_fm_charts_all";
 	$kill_it_all = mysql_query($delete);
 	$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
