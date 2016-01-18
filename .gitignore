@@ -1,3 +1,5 @@
 *~
 include/db_connect.php
 .directory
+covers/**
+user_pics/**
