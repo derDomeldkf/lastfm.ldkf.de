@@ -12,9 +12,9 @@
    		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
-				if(isset($user_info_array[$para])) {
-					$user_info = get_object_vars($user_info_array[$para]);	
-					foreach($user_info[$para2] as $top) {
+				if(isset($user_info_array['toptracks'])) {
+					$user_info = get_object_vars($user_info_array['toptracks']);	
+					foreach($user_info['toptracks'] as $top) {
 						$info=get_object_vars($top);
 						$name=str_replace("'", " ", $info["name"]);
 						$playcount=$info["playcount"];
@@ -48,7 +48,9 @@
 			//sleep(1);
 		}  
 	}
-	function refresh2($db_name, $command, $para, $para2) {
+
+
+	function refresh2($db_name, $command) {
 		$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
 		while($getuser = mysql_fetch_row($getusers)){
 			$users[]=$getuser[0];
@@ -61,14 +63,69 @@
    		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
-				if(isset($user_info_array[$para])) {
-					$user_info = get_object_vars($user_info_array[$para]);	
-					foreach($user_info[$para2] as $top) {
+				if(isset($user_info_array['weeklytrackchart'])) {
+					$i=0;
+					$user_info = get_object_vars($user_info_array['weeklytrackchart']);	
+					foreach($user_info['track'] as $top) {
+						$info=get_object_vars($top);
+						$name=$info["name"];
+						$playcount=$info["playcount"];
+						$art_array=$info["artist"];
+						$art=get_object_vars($art_array);
+						$artist_name=$art['#text'];
+						$url=$info["url"];
+			
+						$image = get_object_vars($info["image"][0]);
+						$image_path=$image['#text'];
+						if(!isset($image_path) or $image_path=="") {
+							$image_path="pic/empty.png";
+						}
+						$getcount = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$name'"); 
+						$count =	mysql_fetch_row($getcount);
+						$counter=$count[0];
+						if(isset($counter) and $counter!="") {
+							$getuser_add = mysql_query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$name'"); 
+							$users_gotten =	mysql_fetch_row($getuser_add);
+							$user_db=$users_gotten[0];
+							
+							$counter_insert=$counter+$playcount;
+							$user_insert=$user_db."&&".$user_in;
+							$update = "UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where titel = '$name'";
+							$updaten = mysql_query($update);  
+						}
+						else {
+							$eintrag = "INSERT INTO ".$db_name." (playcount, artist, user, titel) VALUES ('$playcount', '$artist_name', '$user_in', '$name')"; 
+    						$eintragen = mysql_query($eintrag);
+						}
+					}
+				}
+				unset($out);
+			} 
+			$d++;
+			//sleep(1);
+		}  
+	}
+	function refresh3($db_name, $command) {
+		$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
+		while($getuser = mysql_fetch_row($getusers)){
+			$users[]=$getuser[0];
+		}
+		$delete =  "DELETE FROM ".$db_name;
+		$kill_it_all = mysql_query($delete);  
+		$d=0;
+		foreach($users as $user_in){
+			$methode="method=".$command."&user=".$user_in;
+   		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+			if(isset($out)) {
+				$user_info_array = get_object_vars(json_decode($out));
+				if(isset($user_info_array['weeklytrackchart'])) {
+					$user_info = get_object_vars($user_info_array['weeklytrackchart']);	
+					foreach($user_info['artist'] as $top) {
 						$info=get_object_vars($top);
 						$name=str_replace("'", " ", $info["name"]);
+						$name_art=$info['artist'];
 						$playcount=$info["playcount"];
 						$url=$info["url"];
-						$name_art=$info["artist"]->name;
 						$image = get_object_vars($info["image"][0]);
 						$image_path=$image['#text'];
 						if(!isset($image_path) or $image_path=="") {
@@ -98,7 +155,6 @@
 			//sleep(1);
 		}  
 	}
-	
 	
  	function group($db_name, $period) {
  		$content="";

@@ -46,21 +46,19 @@
 	$db_name="last_fm_charts_all";
 	$command="user.getTopArtists&limit=40&period=overall";
  	refresh($db_name, $command, $para, $para2);
- */	
+ 	*/
  
 ######################################
-	$para="toptracks";
-	$para2="track";
-	$db_name="last_fm_charts_track_all";
+	$db_name="last_fm_charts_track";
 	$command="user.getTopTracks&limit=40&period=overall";
- 	refresh2($db_name, $command, $para, $para2); 
+ 	refresh3($db_name, $command); 
  	
 ######################################	
- 	$para="toptracks";
-	$para2="track";
+	$time=	time();
+	$time2=$time-(3600*24*7);
 	$db_name="last_fm_charts_track";
-	$command="user.getTopTracks&period=7day"; 	
- 	refresh2($db_name, $command, $para, $para2); 	
+	$command="user.getWeeklyTrackChart&from=".$time2."&to=".$time; 	
+ 	refresh2($db_name, $command); 	
  	
  	
 ?>
