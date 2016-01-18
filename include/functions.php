@@ -137,9 +137,10 @@ function footer($method_in, $page, $totalPages, $user_in, $limit_in, $perPage) {
     $content = "";
     $page_n = $page + 1;
     $page_l = $page - 1;
+    $content.='<footer class="nav footer">';
     if ($method_in == 2 or $method_in == 5 or $method_in == 6 or $method_in == 7) {
-        $content = '
-			<div class="nav footer">
+        $content .= '
+			<div class="container">
 				<table>
 					<tr>
 						<td class="navfooter" style="color:white;">
@@ -252,10 +253,13 @@ function footer($method_in, $page, $totalPages, $user_in, $limit_in, $perPage) {
 							</form>
 						</td>
 					</tr>
-				</table>
-			</div>
+				</table></div>
 			';
+        
     }
+    $content.='<div class="container">
+          <p class="text-muted">Ein Projekt von <a href="mailto:dome@ldkf.de">Dominik Eichler</a> - <a href="https://sggs.ldkf.de/Impressum.html">Impressum</a> - <a href="https://ldkf.de/datenschutzerklaerung.html">Datenschutz</a></p>
+      </div></footer>';
     return $content;
 }
 

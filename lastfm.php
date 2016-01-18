@@ -186,8 +186,9 @@ if (isset($user_in) and $user_in != "") {
     <head>
         <meta charset="UTF-8">
         <link rel="icon" href="favicon.png">
-        <link href="https://msn.ldkf.de/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://msn.ldkf.de/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
         <link href="css/main.css" rel="stylesheet">
         <title><?php
             if ($method_in == 4 or $method_in == 8 or $method_in == 9) {
@@ -272,7 +273,7 @@ if (isset($user_in) and $user_in != "") {
                             break;
                     }
                     ?>
-                </section>
+                </section><br/><br/>
             </div>
             <?php
             echo footer($method_in, $page, $totalPages, $user_in, $limit_in, $perPage);
