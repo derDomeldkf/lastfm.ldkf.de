@@ -181,7 +181,6 @@ if (isset($user_in) and $user_in != "") {
     }
 }
 ?>
-<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8">

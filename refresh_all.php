@@ -1,6 +1,6 @@
  <?php
  	$bot_id = "56844913:AAG32PEmP3Uquw_m65fKI2Ec083A_ThkFs4";
- 	include "config.php";
+ 	include "include/db_connect.php";
  	$delete =  "DELETE FROM last_fm_charts_all";
 	$kill_it_all = mysql_query($delete);
 	$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
@@ -11,10 +11,10 @@
 	}
 	$d=0;
 	foreach($users as $user_in){
-		$methode="'method=user.getTopArtists&limit=40&user='".$user_in."'&period=overall'";
-		exec("python /var/www/projekte/last_fm/get.py $methode", $out);
-		if(isset($out[0])) {
-			$decode=json_decode($out[0]);
+		$methode="method=user.getTopArtists&limit=40&user=".$user_in."&period=overall";
+      $out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+		if(isset($out)) {
+			$decode=json_decode($out);
 			$user_info_array = get_object_vars($decode);
 			if(isset($user_info_array["topartists"])) {
 			$user_info = get_object_vars($user_info_array["topartists"]);	
