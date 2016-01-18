@@ -188,7 +188,7 @@
 		<link href="https://msn.ldkf.de/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://msn.ldkf.de/css/bootstrap-theme.min.css" rel="stylesheet">
 		<link href="css/main.css" rel="stylesheet">
-		<title><?php if($method_in==4 or $method_in==8 or $method_in==9){echo "LDKF-Gruppe";} elseif($method_in==2){echo "Musikprofil";} elseif(isset($user_in)) {echo $user_in;}?></title>
+		<title><?php if($method_in==4 or $method_in==8 or $method_in==9 or $method_in==10){echo "LDKF-Gruppe";} elseif($method_in==2){echo "Musikprofil";} elseif(isset($user_in)) {echo $user_in;}?></title>
 	</head>
 	<body style="font-family: ubuntu-m;">
 		<div id="content" class="main-content" role="main" style="">
