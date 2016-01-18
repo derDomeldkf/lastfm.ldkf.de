@@ -259,6 +259,16 @@
 									$period="Gehört von";
 									echo group($db_name, $period);		   
 									break;
+								case 9:
+									$db_name="last_fm_charts_track_all";
+									$period="Gehört von";
+									echo group2($db_name, $period);	   
+									break;
+								case 10:
+									$db_name="last_fm_charts_track";
+									$period="In der letzten Woche gehört von";
+									echo group2($db_name, $period);	   
+									break;
 								default:
 									break;
 							}					

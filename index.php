@@ -79,7 +79,7 @@
       								?>
       							</form><br>
       							<form class="form-signin" method="post" action="lastfm.php" style="padding-top:10px;">
-        								<button class="btn btn-lg btn-primary btn-block">LDKF-Bot zu Telegram hinzufügen</button>
+        								<button class="btn btn-lg btn-primary btn-block">LDKF-Bot zu Telegram hinzuf&uuml;gen</button>
         								<input type="hidden" name="method" value="1">
         							</form>
         							<form class="form-signin" method="post" action="lastfm.php" style="margin-top:10px;">

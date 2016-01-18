@@ -1,4 +1,105 @@
  <?php
+	function refresh($db_name, $command, $para, $para2) {
+		$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
+		while($getuser = mysql_fetch_row($getusers)){
+			$users[]=$getuser[0];
+		}
+		$delete =  "DELETE FROM ".$db_name;
+		$kill_it_all = mysql_query($delete);  
+		$d=0;
+		foreach($users as $user_in){
+			$methode="method=".$command."&user=".$user_in;
+   		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+			if(isset($out)) {
+				$user_info_array = get_object_vars(json_decode($out));
+				if(isset($user_info_array[$para])) {
+					$user_info = get_object_vars($user_info_array[$para]);	
+					foreach($user_info[$para2] as $top) {
+						$info=get_object_vars($top);
+						$name=str_replace("'", " ", $info["name"]);
+						$playcount=$info["playcount"];
+						$url=$info["url"];
+						$image = get_object_vars($info["image"][0]);
+						$image_path=$image['#text'];
+						if(!isset($image_path) or $image_path=="") {
+							$image_path="pic/empty.png";
+						}
+						$getcount = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$name'"); 
+						$count =	mysql_fetch_row($getcount);
+						$counter=$count[0];
+						if(isset($counter) and $counter!="") {
+							$getuser_add = mysql_query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$name'"); 
+							$users_gotten =	mysql_fetch_row($getuser_add);
+							$user_db=$users_gotten[0];
+							$counter_insert=$counter+$playcount;
+							$user_insert=$user_db."&&".$user_in;
+							$update = "UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'";
+							$updaten = mysql_query($update);  
+						}
+						else {
+							$eintrag = "INSERT INTO ".$db_name." (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')"; 
+    						$eintragen = mysql_query($eintrag);
+						}
+					}
+				}
+				unset($out);
+			} 
+			$d++;
+			//sleep(1);
+		}  
+	}
+	function refresh2($db_name, $command, $para, $para2) {
+		$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
+		while($getuser = mysql_fetch_row($getusers)){
+			$users[]=$getuser[0];
+		}
+		$delete =  "DELETE FROM ".$db_name;
+		$kill_it_all = mysql_query($delete);  
+		$d=0;
+		foreach($users as $user_in){
+			$methode="method=".$command."&user=".$user_in;
+   		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+			if(isset($out)) {
+				$user_info_array = get_object_vars(json_decode($out));
+				if(isset($user_info_array[$para])) {
+					$user_info = get_object_vars($user_info_array[$para]);	
+					foreach($user_info[$para2] as $top) {
+						$info=get_object_vars($top);
+						$name=str_replace("'", " ", $info["name"]);
+						$playcount=$info["playcount"];
+						$url=$info["url"];
+						$name_art=$info["artist"]->name;
+						$image = get_object_vars($info["image"][0]);
+						$image_path=$image['#text'];
+						if(!isset($image_path) or $image_path=="") {
+							$image_path="pic/empty.png";
+						}
+						$getcount = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$name'"); 
+						$count =	mysql_fetch_row($getcount);
+						$counter=$count[0];
+						if(isset($counter) and $counter!="") {
+							$getuser_add = mysql_query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$name'"); 
+							$users_gotten =	mysql_fetch_row($getuser_add);
+							$user_db=$users_gotten[0];
+							$counter_insert=$counter+$playcount;
+							$user_insert=$user_db."&&".$user_in;
+							$update = "UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where titel = '$name'";
+							$updaten = mysql_query($update);  
+						}
+						else {
+							$eintrag = "INSERT INTO ".$db_name." (playcount, artist, user, titel) VALUES ('$playcount', '$name_art', '$user_in', '$name')"; 
+    						$eintragen = mysql_query($eintrag);
+						}
+					}
+				}
+				unset($out);
+			} 
+			$d++;
+			//sleep(1);
+		}  
+	}
+	
+	
  	function group($db_name, $period) {
  		$content="";
 		$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
@@ -23,7 +124,7 @@
 		}
 		$content .='</div>
 		</div>
- 		<table lhs style="min-width:600px; border-top:2px solid; border-left:2px solid;">
+ 		<table style="border-top:2px solid; border-left:2px solid;">
  		<tbody>
  			<tr>
 				<td class="list table_head" style="padding-left:10px;">
@@ -89,23 +190,24 @@
  	        				<a href="http://www.last.fm/de/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
  	       				</span>
  		  	 			</span>	
-  	    	   </td>'; 
-  	    	   $m=0; 
-					$st=40*$count/$count_max;    				
- 	   				$content .='      	   
-  	    	   <td class="list" style="padding-right:8px; min-width:210px;"><div class="'; if($st>strlen($count)*2){ $content .='textunter';} $content .= '">
-  	  				'; 
- 	   					while($m<$st) {
- 	   						$content .= '<img style="'; if($m==0) {$content .= 'border-top-left-radius:3px; border-bottom-left-radius:3px; ';} 
- 	   						if($m+1>=$st) {$content .= 'border-top-right-radius:3px; border-bottom-right-radius:3px';} 
-  	  						
-  	  						
-  	  						$content .='" src="pic/count.png" height:15px;>'; 
-								$m++; 					
- 	   					}
-  	  					$content .= '<span'; if($st>strlen($count)*2){}else { $content .=' style="padding-left:5px;"';} $content .= '>'.$count.'</span></div>
- 	          </td>
- 	        	<td class="list" style="padding-right:3px;">
+  	    	   </td>
+  	  		'; 
+  	    	$m=0; 
+			$st=40*$count/$count_max;    				
+ 	   	$content .='      	   
+  	    		<td class="list" style="padding-right:8px; min-width:210px;"><div class="
+  	    	';
+  	    	if($st>strlen($count)*2){ $content .='textunter';} 
+  	    	$content .= '">'; 
+ 	   		while($m<$st) {
+ 	   			$content .= '<img style="'; if($m==0) {$content .= 'border-top-left-radius:3px; border-bottom-left-radius:3px; ';} 
+ 	   			if($m+1>=$st) {$content .= 'border-top-right-radius:3px; border-bottom-right-radius:3px';} 
+  	  				$content .='" src="pic/count.png" height:15px;>'; 
+					$m++; 					
+ 	   		}
+  	  			$content .= '<span'; if($st>strlen($count)*2){}else { $content .=' style="padding-left:5px;"';} $content .= '>'.$count.'</span></div>
+ 	         </td>
+ 	        	<td class="list" style="padding-right:3px; min-width:370px;">
  	   				<span>'.$user.'</span>
  	           </td>
 				</tr>';
@@ -120,6 +222,122 @@
 		';
 		return $content;
 	}
+	
+	
+	function group2($db_name, $period) {
+ 		$content="";
+		$getplace = mysql_query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
+		$p=0;
+		while($getplaces = mysql_fetch_row($getplace)){
+			$places[]=$getplaces[0];
+		}
+		$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
+		$l=0;
+		while($members = mysql_fetch_row($getmembers)){
+			$member[$l]=$members[0];
+			$l++;
+		}
+	 	$content= '<div class="member">
+	 	<p style="margin-bottom:7px;"><b>Mitglieder dieser Gruppe:</b></p><div style="padding-left:15px;">';
+		foreach($member as $member_name){
+			$content .= '<form class="form_member" method="post" action="lastfm.php">
+			<input type="hidden" name="username" value="'.$member_name.'">
+			<input type="hidden" name="method" value="2">
+			<button type="submit" class="userButton">'.$member_name.'</button></form>';
+		}
+		$content .='</div>
+		</div>
+ 		<table style="border-top:2px solid; border-left:2px solid;">
+ 		<tbody>
+ 			<tr>
+				<td class="list table_head" style="padding-left:10px;">
+					Platz
+				</td>
+				<td class="list table_head">
+					
+				</td> 
+				<td class="list table_head" style="padding-left:8px;">
+					K&uuml;nstler — Titel
+				</td>
+				<td class="list table_head">
+					'.$period.'				
+				</td> 	
+			</tr>';
+		$i=0;	 
+		$place=1;		
+		foreach($places as $artist_name){
+			$getartist = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
+			$artist =	mysql_fetch_row($getartist);
+			$count=$artist[0];
+			if($place==1) {$count_max=$count;}
+			$getuser = mysql_query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
+			$users= mysql_fetch_row($getuser);
+			$users_names=$users[0];
+			$getart= mysql_query("SELECT `artist` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
+			$art= mysql_fetch_row($getart);
+			$art_name=$art[0];
+			$user =  str_replace("&&", ", ",$users_names);
+			if(substr_count($user, ', ')>2){
+				$teile = explode(",", $user, 4);
+				$teil =  str_replace(", ", '</li><li style="padding-left:15px;">',$teile[3]);
+				$user='
+					<ul class="nav navbar-nav">
+        				<li class="dropdown">
+          				<a href="#" class="dropdown-toggle" style="padding:0px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          					'.$teile[0].', '.$teile[1].', '.$teile[2].' ...
+								<span class="caret"></span>
+							</a>
+         				<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; color:white;">
+           					<li style="padding-left:15px;">
+           						'.$teil.'
+           					</li>
+							</ul>
+							</li> 
+					</ul>
+				'; 			
+			}
+			if($count>1) {
+			$content .='
+				<tr class="" style="';
+				if($i==0) { 
+					$content .='background-color: #F2F2F2;';
+				}
+				$content .='">
+					<td class="list" style="padding-left:15px;">
+  	 	        		<span class="">
+  	    	   			<span class="chartlist-image">
+  	       					'.$place.'
+ 	       				</span>
+ 		  	 			</span>         		
+ 	     	  		</td>
+ 	     	  		<td class="list" style="padding-left:8px; ">
+  	  					<span>('.$count.')</span>
+ 	         	</td>     
+ 	   			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:460px;">
+   	   			<span class="chartlist-ellipsis-wrap">
+      	   			<span class="chartlist-artists">
+      	   				<a href="http://www.last.fm/music/'.$art_name.'" target="_blank">'.$art_name.'</a>
+         				</span>
+							<span class="artist-name-spacer"> — </span>
+    							<a href="http://www.last.fm/music/'.$art_name.'/_/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+ 	  	 				</span>
+					</td>
+  	  				<td class="list" style="padding-right:3px; min-width:360px;">
+ 	   				<span>'.$user.'</span>
+ 	           	</td>
+				</tr>';
+			if($i==0){$i++;}
+ 	     else {$i--;}
+ 	  	}	
+ 	     $place++;
+		}
+	 	$content .= '
+ 			</tbody>
+		</table>
+		';
+		return $content;
+	}
+	
 	
 	
 			
@@ -330,15 +548,20 @@
           				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
 						</a>
          			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
-        				   <li style="padding-left:15px;">Wochencharts</li>
+        				   <li style="padding-left:15px;"><b>Top K&uuml;nstler (Woche)</b></li>
        					 <li style="padding-left:15px;">
         						<div>
-									<a class="userButton" href="lastfm.php?method=8">Top Künstler</a>
+									<a class="userButton" href="lastfm.php?method=8">Top Künstler (Gesamt)</a>
 								</div>
 							</li>
          	  			<li style="padding-left:15px;">
-           					<div>
-									<a class="userButton" href="lastfm.php?method=8">test</a>
+      	     				<div>
+									<a class="userButton" href="lastfm.php?method=10">Top Titel (Woche)</a>
+								</div>
+           				</li>
+           				<li style="padding-left:15px;">
+      	     				<div>
+									<a class="userButton" href="lastfm.php?method=9">Top Titel (Gesamt)</a>
 								</div>
            				</li>
         				</ul>
@@ -357,13 +580,18 @@
          			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
            				<li style="padding-left:15px;">
            					<div>
-									<a class="userButton" href="lastfm.php?method=4">Wochencharts</a>
+									<a class="userButton" href="lastfm.php?method=4">Top K&uuml;nstler (Woche)</a>
 								</div>
            				</li>
- 	          			<li style="padding-left:15px;">Top Künstler</li>
+ 	          			<li style="padding-left:15px;"><b>Top Künstler (Gesamt)</b></li>
    	        			<li style="padding-left:15px;">
       	     				<div>
-									<a class="userButton" href="lastfm.php?method=8">test</a>
+									<a class="userButton" href="lastfm.php?method=10">Top Titel (Woche)</a>
+								</div>
+           				</li>
+           				<li style="padding-left:15px;">
+      	     				<div>
+									<a class="userButton" href="lastfm.php?method=9">Top Titel (Gesamt)</a>
 								</div>
            				</li>
         				</ul>
@@ -371,6 +599,69 @@
        		</ul>
        	';							
 		}	
+		if($method_in==9) {
+			$content ='
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+        			<li class="dropdown" style="width:200px;">
+          			<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
+						</a>
+         			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
+           				<li style="padding-left:15px;">
+           					<div>
+									<a class="userButton" href="lastfm.php?method=4">Top K&uuml;nstler (Woche)</a>
+								</div>
+           				</li>
+           				<li style="padding-left:15px;">
+      	     				<div>
+									<a class="userButton" href="lastfm.php?method=8">Top Künstler (Gesamt)</a>
+								</div>
+           				</li>
+   	        			<li style="padding-left:15px;">
+      	     				<div>
+									<a class="userButton" href="lastfm.php?method=10">Top Titel (Woche)</a>
+								</div>
+           				</li>
+           				<li style="padding-left:15px;"><b>Top Titel (Gesamt)</b></li>
+        				</ul>
+       			</li> 
+       		</ul>
+       	';							
+		}	
+	if($method_in==10) {
+			$content ='
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+        			<li class="dropdown" style="width:200px;">
+          			<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
+						</a>
+         			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
+           				<li style="padding-left:15px;">
+           					<div>
+									<a class="userButton" href="lastfm.php?method=4">Top K&uuml;nstler (Woche)</a>
+								</div>
+           				</li>
+           				<li style="padding-left:15px;">
+      	     				<div>
+									<a class="userButton" href="lastfm.php?method=8">Top Künstler (Gesamt)</a>
+								</div>
+           				</li>
+           				<li style="padding-left:15px;"><b>Top Titel (Woche)</b></li>
+   	        			<li style="padding-left:15px;">
+      	     				<div>
+									<a class="userButton" href="lastfm.php?method=9">Top Titel (Gesamt)</a>
+								</div>
+           				</li>
+        				</ul>
+       			</li> 
+       		</ul>
+       	';							
+		}			
+		
+		
+		
 		return $content;
 	}
 	

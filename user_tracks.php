@@ -106,15 +106,15 @@
          						<a href="https://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
         						</span>
 								<span class="artist-name-spacer"> — </span>
-									<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         
-    									'.$track_name.'
-  	  								</a>
- 	  	 						</span>
-							</td>
-						';
-						echo lyric($artist_name, $track_name);								
-      	  			echo'<td class="list" style="padding-right:2px;">';
-         			if($date_decode=="wird gerade gehört") {
+								<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         
+    								'.$track_name.'
+  	  							</a>
+ 	  	 					</span>
+						</td>
+					';
+					echo lyric($artist_name, $track_name);								
+      	  		echo'<td class="list" style="padding-right:2px;">';
+         		if($date_decode=="wird gerade gehört") {
          		//gif (playing now)
          				echo '
          	   			<figure style="float:left; padding-right:8px;">
