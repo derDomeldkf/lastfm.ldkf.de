@@ -214,7 +214,7 @@
 					<ul class="nav navbar-nav">
         				<li class="dropdown">
           				<a href="#" class="dropdown-toggle" style="padding:0px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          					'.$teile[0].', '.$teile[1].', '.$teile[2].' ...
+          					'.$teile[0].', '.$teile[1].', '.$teile[2].'...
 								<span class="caret"></span>
 							</a>
          				<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; color:white;">
