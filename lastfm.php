@@ -12,11 +12,14 @@
  	include "include/db_connect.php";
 	include "include/functions.php";
 	if(!isset($_GET['token'])) {
-		if(!isset($_GET['method'])) {
-			$method_in=$_POST['method'];
-		}
+		if (isset($_GET['login'])){}
 		else {
-			$method_in=$_GET['method'];
+			if(!isset($_GET['method'])) {
+				$method_in=$_POST['method'];
+			}
+			else {
+				$method_in=$_GET['method'];
+			}
 		}
 	}
 	else {
