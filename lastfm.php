@@ -16,6 +16,9 @@
 		if (isset($_GET['login'])){
 			$method_in=	11;
 		}
+		elseif (isset($_GET['logout'])){
+			$method_in=	3;
+		}
 		else {
 			if(!isset($_GET['method'])) {
 				$method_in=$_POST['method'];
@@ -265,20 +268,7 @@
 									include "user_tracks.php";	 
 									break;
 								case 3:
-									switch($error) {
-										case 1:
-											echo "Es gab einen Fehler, versuche es noch einmal.";        				
-											break;
-										case 2:
-											echo "Du wurdest erfolgreich zur Gruppe hinzugef&uuml;gt.";        				
-											break;
-										case 3:
-											echo "Du bist bereits Mitglied dieser Gruppe.";
-											break;
-										default:
-											echo "";
-											break;
-									}				
+									logout($user_in);
 									break;
 								case 4:
 									$db_name="last_fm_charts";
@@ -312,9 +302,7 @@
 								case 11:
 									$method=$_GET['methodlogin'];
 									header('Location: http://www.last.fm/api/auth?api_key=830d6e2d4d737d56aa1f94f717a477df&cb=https://lastfm.ldkf.de/lastfm.php?method_came='.$method.'');
-									break;
-
-									
+									break;	
 								default:
 									break;
 							}					

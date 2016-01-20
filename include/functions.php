@@ -3,7 +3,12 @@
 		$methode="method=track.love&track=Prostitution&artist=Alligatoah&api_sig".$sig."&sk=".$sk;
 		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
   	} 
- 
+  	
+  	
+ 	function logout($user_in) {
+ 		$update = mysql_query("UPDATE last_fm_users SET stat='0' where username = '$user_in'"); 
+		session_destroy();
+  	} 
  
  
 	function refresh($db_name, $command, $para, $para2) {
