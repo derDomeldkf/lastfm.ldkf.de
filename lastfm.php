@@ -16,11 +16,13 @@
 		if (isset($_GET['login'])){
 			$method_in=$_GET['methodlogin'];
 			login($method_in);
+			$uname_db=$_SESSION['user'];
 		}
 		elseif (isset($_GET['logout'])){
 			$user_in=$_GET['user'];
 			logout($user_in);
 			$method_in=$_GET['methodlogout'];
+			$uname_db=$user_in;
 		}
 		else {
 			if(!isset($_GET['method'])) {
