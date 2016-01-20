@@ -65,7 +65,7 @@
 	           	}
             }
             $uname_db=$username;
-         	$_SESSION['login']=$sk;
+         	$_SESSION[$uname_db]=$sk;
         	}
     	}
     	$method_in=$_GET['method_came'];

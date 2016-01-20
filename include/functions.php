@@ -1,4 +1,11 @@
  <?php
+	function love() {
+		$methode="method=track.love&track=Prostitution&artist=Alligatoah&api_sig".$sig."&sk=".$sk;
+		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+  	} 
+ 
+ 
+ 
 	function refresh($db_name, $command, $para, $para2) {
 		$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
 		while($getuser = mysql_fetch_row($getusers)){
@@ -261,7 +268,12 @@
   	  				$content .='" src="pic/count.png" height:15px;>'; 
 					$m++; 					
  	   		}
-  	  			$content .= '<span'; if($st>strlen($count)*2){}else { $content .=' style="padding-left:5px;"';} $content .= '>'.$count.'</span></div>
+  	  			$content .= '<span';
+  	  			if($st>strlen($count)*2){}
+  	  			else { 
+  	  				$content .=' style="padding-left:5px;"';
+  	  			}
+  	  			$content .= '>'.$count.'</span></div>
  	         </td>
  	        	<td class="list" style="padding-right:3px; min-width:370px;">
  	   				<span>'.$user.'</span>
@@ -518,7 +530,7 @@
 				$content='<li><a href="./lastfm.php?method=4">Gruppe</a></li>
 					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>
 				';
-				if(isset($_SESSION['login']) and $_SESSION['login']!="") {				
+				if(isset($_SESSION[$user_in]) and $_SESSION[$user_in]!="") {				
 					$content .='<li><a href="./lastfm.php?logout=1" >Logout</a></li>';
 				}
 				else {
