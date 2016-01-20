@@ -20,7 +20,7 @@
 		elseif (isset($_GET['logout'])){
 			$user_in=$_GET['user'];
 			logout($user_in);
-			$method_in=4;
+			$method_in=$_GET['methodlogout'];
 		}
 		else {
 			if(!isset($_GET['method'])) {
