@@ -48,7 +48,7 @@
             $getid = mysql_fetch_row(mysql_query("SELECT `id` FROM `last_fm_users` WHERE username LIKE '$username'")); 
 				$getid_user=$getid[0];
 				if(!isset($getid_user) or $getid_user=="") {
-					$eintrag = "INSERT INTO last_fm_users (username, session) VALUES ('$username', '$sk')"; 
+					$eintrag = "INSERT INTO last_fm_users (username, session, sig) VALUES ('$username', '$sk', '$sig')"; 
    				$eintragen = mysql_query($eintrag);
 					$error=2;
             }
@@ -56,7 +56,7 @@
             	$getsession = mysql_fetch_row(mysql_query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$username'")); 
 					$getsession_user=$getsession[0];
             	if(!isset($getsession_user) or $getsession_user!=$sk) {
-						$update = mysql_query("UPDATE last_fm_users SET session = '$sk',  where username = '$username'");  
+						$update = mysql_query("UPDATE last_fm_users SET session = '$sk', sig ='$sig' where username = '$username'");  
 						$error=2;
 	           	}
 	           	else {
@@ -64,11 +64,7 @@
 	           	
 	           	}
             }
-             /*	
-            $methode="method=track.love&track=Prostitution&artist=Alligatoah&api_sig".$sig."&sk=".$sk;
-				$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-         */
-         	$uname_db=$username;
+            $uname_db=$username;
          	$_SESSION['login']=$sk;
         	}
     	}
