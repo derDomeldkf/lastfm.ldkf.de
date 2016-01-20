@@ -301,7 +301,7 @@
 									break;
 								case 11:
 									$method=$_GET['methodlogin'];
-									header('Location: http://www.last.fm/api/auth?api_key=830d6e2d4d737d56aa1f94f717a477df&cb=https://lastfm.ldkf.de/lastfm.php?method_came='.$method.'');
+									login($method, $user_in);
 									break;	
 								default:
 									break;
