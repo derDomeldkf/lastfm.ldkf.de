@@ -84,10 +84,15 @@
 		else {
 			$user_in=$uname_db;
 		}
-		$getsession = mysql_fetch_row(mysql_query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
+		$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
 		$getsession_user=$getsession[0];
+		$getsig_user=$getsession[1];
 		if(isset($getsession_user) and $getsession_user!="") {
-			$_SESSION['login']=$getsession_user;
+			$_SESSION['user']=$user_in;
+			$_SESSION['sig']=$getsig_user;
+			$_SESSION['session']=$getsession_user;
+			echo $getsig_user;
+			echo $getsession_user;
 		}
 	}
 	else {

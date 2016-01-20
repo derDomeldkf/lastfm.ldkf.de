@@ -530,7 +530,7 @@
 				$content='<li><a href="./lastfm.php?method=4">Gruppe</a></li>
 					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>
 				';
-				if(isset($_SESSION[$user_in]) and $_SESSION[$user_in]!="") {				
+				if(isset($_SESSION['user']) and $_SESSION['user']==$user_in) {				
 					$content .='<li><a href="./lastfm.php?logout=1" >Logout</a></li>';
 				}
 				else {
