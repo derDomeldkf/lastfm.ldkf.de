@@ -83,12 +83,11 @@
 		}
 		$getsession = mysql_fetch_row(mysql_query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
 		$getsession_user=$getsession[0];
-		
-		if(isset($_GET['login']) and $_GET['login']==1) {
-			if(isset($getsession_user) and $getsession_user!="") {
-				$_SESSION['login']=$getsession_user;
-			}
-			else {
+		if(isset($getsession_user) and $getsession_user!="") {
+			$_SESSION['login']=$getsession_user;
+		}
+		else {
+			if(isset($_GET['login']) and $_GET['login']==1) {
 				$method_in=$_GET['methodlogin'];
 				header('Location: http://www.last.fm/api/auth?api_key=830d6e2d4d737d56aa1f94f717a477df&cb=https://lastfm.ldkf.de/lastfm.php?method_came='.$method_in.'');
 			}
