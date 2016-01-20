@@ -70,7 +70,9 @@
 	           	}
             }
             $uname_db=$username;
-         	$_SESSION[$uname_db]=$sk;
+         	$_SESSION['user']=$uname_db;
+         	$_SESSION['sk']=$sk;
+				$_SESSION['sig']=$sig;
         	}
     	}
     	$method_in=$_GET['method_came'];
