@@ -21,6 +21,7 @@
 		elseif (isset($_GET['logout'])){
 			$user_in=$_GET['user'];
 			logout($user_in);
+			session_destroy();
 			$method_in=$_GET['methodlogout'];
 			$uname_db=$user_in;
 		}

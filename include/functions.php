@@ -23,7 +23,6 @@
 
  	function logout($user_in) {
  		$update = mysql_query("UPDATE last_fm_users SET stat='0' where username = '$user_in'"); 
-		session_destroy();
   	} 
  
  
