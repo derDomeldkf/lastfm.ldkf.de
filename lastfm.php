@@ -14,14 +14,13 @@
 	include "include/functions.php";
 	if(!isset($_GET['token'])) {
 		if (isset($_GET['login'])){
-			$method=$_GET['methodlogin'];
-			login($method);
-			$method_in=4;
+			$method_in=$_GET['methodlogin'];
+			login($method_in);
 		}
 		elseif (isset($_GET['logout'])){
-			$user_in=$_GET['methodlogout'];
+			$user_in=$_GET['user'];
 			logout($user_in);
-			$method=4;
+			$method_in=4;
 		}
 		else {
 			if(!isset($_GET['method'])) {
