@@ -19,7 +19,9 @@
 			$method_in=4;
 		}
 		elseif (isset($_GET['logout'])){
-			$method_in=	3;
+			$user_in=$_GET['methodlogout'];
+			logout($user_in);
+			$method=4;
 		}
 		else {
 			if(!isset($_GET['method'])) {
@@ -270,7 +272,7 @@
 									include "user_tracks.php";	 
 									break;
 								case 3:
-									logout($user_in);
+									
 									break;
 								case 4:
 									$db_name="last_fm_charts";
