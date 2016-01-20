@@ -13,7 +13,7 @@
 	include "include/functions.php";
 	if(!isset($_GET['token'])) {
 		if (isset($_GET['login'])){
-			$method_in=	$_GET['methodlogin'];
+			$method_in=	11;
 		}
 		else {
 			if(!isset($_GET['method'])) {
@@ -86,12 +86,6 @@
 		$getsession_user=$getsession[0];
 		if(isset($getsession_user) and $getsession_user!="") {
 			$_SESSION['login']=$getsession_user;
-		}
-		else {
-			if(isset($_GET['login']) and $_GET['login']==1) {
-				$method_in=$_GET['methodlogin'];
-				header('Location: http://www.last.fm/api/auth?api_key=830d6e2d4d737d56aa1f94f717a477df&cb=https://lastfm.ldkf.de/lastfm.php?method_came='.$method_in.'');
-			}
 		}
 	}
 	else {
@@ -311,6 +305,12 @@
 									$period="In der letzten Woche gehört von";
 									echo group2($db_name, $period);	   
 									break;
+								case 11:
+									$method=$_GET['methodlogin'];
+									header('Location: http://www.last.fm/api/auth?api_key=830d6e2d4d737d56aa1f94f717a477df&cb=https://lastfm.ldkf.de/lastfm.php?method_came='.$method.'');
+									break;
+
+									
 								default:
 									break;
 							}					
