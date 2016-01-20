@@ -9,6 +9,7 @@
 	$image="";
 	$totaltracks="";
 	$starttime="";
+	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
 	if(!isset($_GET['token'])) {
@@ -25,8 +26,6 @@
 		}
 	}
 	else {
-		$api_key="830d6e2d4d737d56aa1f94f717a477df";
-		$secret="1a05eab1f6dba7de78d59a6c94267464";
    	if (preg_match("/(\w|\d)*/", $_GET['token'])) {
     		$token=$_GET['token'];
     	  	$presig = "api_key" . $api_key . "methodauth.getSessiontoken" . $token . $secret;
@@ -53,7 +52,7 @@
             $getid = mysql_fetch_row(mysql_query("SELECT `id` FROM `last_fm_users` WHERE username LIKE '$username'")); 
 				$getid_user=$getid[0];
 				if(!isset($getid_user) or $getid_user=="") {
-					$eintrag = "INSERT INTO last_fm_users (username, session, sig) VALUES ('$username', '$sk', '$sig')"; 
+					$eintrag = "INSERT INTO last_fm_users (username, session, sig, stat) VALUES ('$username', '$sk', '$sig', '1')"; 
    				$eintragen = mysql_query($eintrag);
 					$error=2;
             }
@@ -61,7 +60,7 @@
             	$getsession = mysql_fetch_row(mysql_query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$username'")); 
 					$getsession_user=$getsession[0];
             	if(!isset($getsession_user) or $getsession_user!=$sk) {
-						$update = mysql_query("UPDATE last_fm_users SET session = '$sk', sig ='$sig' where username = '$username'");  
+						$update = mysql_query("UPDATE last_fm_users SET session = '$sk', sig ='$sig', stat='1' where username = '$username'");  
 						$error=2;
 	           	}
 	           	else {
@@ -84,7 +83,7 @@
 		else {
 			$user_in=$uname_db;
 		}
-		$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
+		$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in' and stat =1")); 
 		$getsession_user=$getsession[0];
 		$getsig_user=$getsession[1];
 		if(isset($getsession_user) and $getsession_user!="") {
