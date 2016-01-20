@@ -4,7 +4,8 @@
 		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
   	} 
   	
-  	function login($method, $user_in) {
+  	function login($method) {
+  		$user_in=$_GET['user'];
   		$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
 		$getsession_user=$getsession[0];
 		$getsig_user=$getsession[1];
@@ -553,7 +554,7 @@
 					$content .='<li><a href="./lastfm.php?logout=1" >Logout</a></li>';
 				}
 				else {
-					$content .='<li><a href="./lastfm.php?login=1&methodlogin='.$method_in.'" >Login</a></li>';
+					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'" >Login</a></li>';
 				}
         	}
         	$content .= '</ul>
