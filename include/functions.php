@@ -16,7 +16,7 @@
 			$update = mysql_query("UPDATE last_fm_users SET stat='1' where username = '$user_in'");  
 		}
 		else {
-  			//header('Location: http://www.last.fm/api/auth?api_key=830d6e2d4d737d56aa1f94f717a477df&cb=https://lastfm.ldkf.de/lastfm.php?method_came='.$method.'');
+  			header('Location: http://www.last.fm/api/auth?api_key=830d6e2d4d737d56aa1f94f717a477df&cb=https://lastfm.ldkf.de/lastfm.php?method_came='.$method.'');
 		}
   	} 
   	
