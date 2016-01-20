@@ -91,8 +91,6 @@
 			$_SESSION['user']=$user_in;
 			$_SESSION['sig']=$getsig_user;
 			$_SESSION['session']=$getsession_user;
-			echo $getsig_user;
-			echo $getsession_user;
 		}
 	}
 	else {
