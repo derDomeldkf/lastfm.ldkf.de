@@ -516,7 +516,14 @@
 			$user = $namecheck[0];
 			if(isset($user) and $user!="") {
 				$content='<li><a href="./lastfm.php?method=4">Gruppe</a></li>
-					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>';
+					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>
+				';
+				if(isset($_SESSION['login']) and $_SESSION['login']!="") {				
+					$content .='<li><a href="./lastfm.php?logout=1" >Logout</a></li>';
+				}
+				else {
+					$content .='<li><a href="./lastfm.php?login=1&methodlogin='.$method_in.'" >Login</a></li>';
+				}
         	}
         	$content .= '</ul>
    				<ul class="nav navbar-nav navbar-right">

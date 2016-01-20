@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	$user_in="";
 	$page="";
 	$totalPages="";
@@ -19,50 +20,91 @@
 		}
 	}
 	else {
-		$method_in=3;	
+		$api_key="830d6e2d4d737d56aa1f94f717a477df";
+		$secret="1a05eab1f6dba7de78d59a6c94267464";
+   	if (preg_match("/(\w|\d)*/", $_GET['token'])) {
+    		$token=$_GET['token'];
+    	  	$presig = "api_key" . $api_key . "methodauth.getSessiontoken" . $token . $secret;
+        	$sig = md5($presig);
+        	$url = 'http://ws.audioscrobbler.com/2.0/';
+        	$data = array('api_key' => $api_key, 'method' => 'auth.getSession', 'token' => $token, 'api_sig' => $sig);
+        	$options = array(
+         	'http' => array(
+            	'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+               'method' => 'POST',
+               'content' => http_build_query($data),
+         	),
+        	);
+        	$context = stream_context_create($options);
+        	$result = @file_get_contents($url, false, $context);
+        	if ($result === FALSE) {
+				echo $error=1;
+        	}
+        	else {
+            $user = simplexml_load_string($result);
+           	$sk=$user->session->key; 
+           	//immer da, speichern mit username
+           	$username=$user->session->name;
+            $getid = mysql_fetch_row(mysql_query("SELECT `id` FROM `last_fm_users` WHERE username LIKE '$username'")); 
+				$getid_user=$getid[0];
+				if(!isset($getid_user) or $getid_user=="") {
+					$eintrag = "INSERT INTO last_fm_users (username, session) VALUES ('$username', '$sk')"; 
+   				$eintragen = mysql_query($eintrag);
+					$error=2;
+            }
+            else{
+            	$getsession = mysql_fetch_row(mysql_query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$username'")); 
+					$getsession_user=$getsession[0];
+            	if(!isset($getsession_user) or $getsession_user!=$sk) {
+						$update = mysql_query("UPDATE last_fm_users SET session = '$sk',  where username = '$username'");  
+						$error=2;
+	           	}
+	           	else {
+						$error=3;	           	
+	           	
+	           	}
+            }
+             /*	
+            $methode="method=track.love&track=Prostitution&artist=Alligatoah&api_sig".$sig."&sk=".$sk;
+				$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+         */
+         	$uname_db=$username;
+         	$_SESSION['login']=$sk;
+        	}
+    	}
+    	$method_in=$_GET['method_came'];
 	}
-	if(isset($_POST['username'])) {
-		$user_in = $_POST['username'];
-		if($method_in==3) {
-			header('Location: http://www.last.fm/api/auth?api_key=830d6e2d4d737d56aa1f94f717a477df&cb=https://lastfm.ldkf.de/lastfm.php');
+	if(isset($_POST['username']) or isset($uname_db) and $uname_db!="") {
+		if(isset($_POST['username'])) {
+			$user_in = $_POST['username'];
+		}
+		else {
+			$user_in=$uname_db;
+		}
+		$getsession = mysql_fetch_row(mysql_query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
+		$getsession_user=$getsession[0];
+		
+		if(isset($_GET['login']) and $_GET['login']==1) {
+			if(isset($getsession_user) and $getsession_user!="") {
+				$_SESSION['login']=$getsession_user;
+			}
+			else {
+				$method_in=$_GET['methodlogin'];
+				header('Location: http://www.last.fm/api/auth?api_key=830d6e2d4d737d56aa1f94f717a477df&cb=https://lastfm.ldkf.de/lastfm.php?method_came='.$method_in.'');
+			}
 		}
 	}
 	else {
-		if(isset($_GET['token']) and $_GET['token']!="") {
-			$method_in=3;
-			$token=$_GET['token'];
- 			$sig = md5("api_key830d6e2d4d737d56aa1f94f717a477dfmethodauth.getSessiontoken".$token."1a05eab1f6dba7de78d59a6c94267464");
-			$methode="'method=auth.getSession&token='".$token."'&api_sig='".$sig; 
-         $out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-			$decode=json_decode($out);
-			$info_array = get_object_vars($decode);
-			if(isset($info_array['error'])) {
-				$error=1; //fehler bei übermittlung
-			}
-			else {
-				$info = get_object_vars($info_array['session']);
-				$user_in=$info['name'];
-				$getname = mysql_query("SELECT `id` FROM `ldkf_lastfm` WHERE `username` LIKE '$user_in'"); 
-				$namecheck = mysql_fetch_row($getname);
-				$user = $namecheck[0];
-				if(!isset($user) or $user=="") {
-					$eintrag = "INSERT INTO ldkf_lastfm (username) VALUES ('$user_in')"; 
-    				$eintragen = mysql_query($eintrag);
-					$error=2; //ERFOLG
-				}
-				else {
-					$error=3; //Bereits Mitglied				
-				}
+		if(isset($_GET['method'])){
+			$method_in=$_GET['method'];
+		}
+		elseif($method_in==1 or $method_in==4 or $method_in==8) {
+			if($method_in==1){
+				header('Location: https://telegram.me/ldkf_bot');
 			}
 		}
 		else {
-			if(isset($_GET['method'])){
-				$method_in=$_GET['method'];
-			}
-			elseif($method_in==1 or $method_in==4 or $method_in==8) {
-				if($method_in==1){
-					header('Location: https://telegram.me/ldkf_bot');
-				}
+			if(isset($_GET['login'])) {
 			}
 			else {
 				header('Location: ./');
@@ -230,10 +272,10 @@
 											echo "Es gab einen Fehler, versuche es noch einmal.";        				
 											break;
 										case 2:
-											echo "Du wurdest erfolgreich zu dieser Gruppe hinzugef&uuml;gt.";        				
+											echo "Du wurdest erfolgreich zur Gruppe hinzugef&uuml;gt.";        				
 											break;
 										case 3:
-											echo "Du bist bereits Mitglied in dieser Gruppe.";
+											echo "Du bist bereits Mitglied dieser Gruppe.";
 											break;
 										default:
 											echo "";

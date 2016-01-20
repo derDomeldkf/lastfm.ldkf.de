@@ -68,7 +68,6 @@
         									<option value="5">Lieblingslieder anzeigen</option>
         									<option value="6">Top K&uuml;nstler anzeigen</option>
         									<option value="7">Top Titel anzeigen</option>
-											<option value="3">Mitglied der LDKF-last.fm-Gruppe werden</option>
 										</select>
 										<input type="hidden" name="start" value="1">
         								<button class="btn btn-lg btn-primary btn-block" type="submit">Los geht's!</button>
