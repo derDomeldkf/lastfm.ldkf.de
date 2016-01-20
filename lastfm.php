@@ -14,7 +14,9 @@
 	include "include/functions.php";
 	if(!isset($_GET['token'])) {
 		if (isset($_GET['login'])){
-			$method_in=	11;
+			$method=$_GET['methodlogin'];
+			login($method);
+			$method_in=4;
 		}
 		elseif (isset($_GET['logout'])){
 			$method_in=	3;
@@ -300,8 +302,7 @@
 									echo group2($db_name, $period);	   
 									break;
 								case 11:
-									$method=$_GET['methodlogin'];
-									echo login($method);
+									
 									break;	
 								default:
 									break;
