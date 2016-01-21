@@ -207,7 +207,7 @@
 					
 				</td> 
 				<td class="list table_head" style="padding-left:8px;">
-					K&uuml;nstler — Titel
+					K&uuml;nstler
 				</td>
 				<td class="list table_head">
 					'.$period.'				
