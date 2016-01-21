@@ -273,8 +273,7 @@
  	         	</td>     
  	   			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:460px;">
    	   			<span class="chartlist-ellipsis-wrap">
-							<span class="artist-name-spacer"> — </span>
-    							<a href="http://www.last.fm/music/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+  							<a href="http://www.last.fm/music/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
  	  	 				</span>
 					</td>
   	  				<td class="list" style="padding-right:3px; min-width:360px;">
