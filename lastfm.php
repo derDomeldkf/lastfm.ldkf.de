@@ -72,7 +72,10 @@
 						$error=2;
 	           	}
 	           	else {
-						$error=3;	           	
+						$getid = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$username'")); 
+						$sk=$getid [0];
+						$sig=$getid [1];
+						           	
 	           	}
             }
             $uname_db=$username;
