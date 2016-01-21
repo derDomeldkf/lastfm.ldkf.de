@@ -81,6 +81,7 @@
             $uname_db=$username;
          	$_SESSION['user']=$uname_db;
          	echo "session start";
+         	echo $_SESSION['user'];
          	$_SESSION['sk']=$sk;
 				$_SESSION['sig']=$sig;
 				if(!isset($_COOKIE['user'])) {
