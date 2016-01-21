@@ -214,6 +214,7 @@
  		<table style="">
  		<tbody>
  			<tr>
+ 				<td></td>
 				<td class="list table_head" style="padding-left:10px;">
 					Platz
 				</td>
@@ -263,7 +264,9 @@
 				if($i==0) { 
 					$content .='background-color: #F2F2F2;';
 				}
-				$content .='">
+				$content .='">';
+				echo image_artist($artist_name); 				
+				$content .='
 					<td class="list" style="padding-left:15px;">
   	 	        		<span class="">
   	    	   			<span class="chartlist-image">
@@ -326,6 +329,7 @@
  		<table style="">
  		<tbody>
  			<tr>
+ 				<td></td>
 				<td class="list table_head" style="padding-left:10px;">
 					Platz
 				</td>
@@ -378,7 +382,9 @@
 				if($i==0) { 
 					$content .='background-color: #F2F2F2;';
 				}
-				$content .='">
+				$content .='">';
+				echo image_artist($artist_name); 				
+				$content .='
 					<td class="list" style="padding-left:15px;">
   	 	        		<span class="">
   	    	   			<span class="chartlist-image">
@@ -749,7 +755,27 @@
 		
 		return $content;
 	}
-	
+	function image_artist($artist_name) {
+		$getimage = mysql_query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
+		$getimages = mysql_fetch_row($getimage);
+		if(isset($getimages[0]) and $getimages[0]!="") {							
+			$image="covers/".$getimages[0].".png"; 
+		}
+		else {
+			$image="pic/empty.png";
+		}
+		$content=
+			'<td class="list">
+   	  	    <span class="">
+          	 	<span class="chartlist-image">
+        				<img src="'.$image.'">
+      			</span>
+ 	  			</span>              		
+           </td>
+      ';
+      return $content;
+      	
+	}
 	
 	function image($images, $artist_name) {
 		$content="";
