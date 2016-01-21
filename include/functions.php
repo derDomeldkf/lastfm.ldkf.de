@@ -186,13 +186,9 @@
 		}  
 	}
 	
-	
-	
-	
-	
- 	function group($db_name, $period) {
-		$content="";
-		$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
+	function group($db_name, $period) {
+ 		$content="";
+		$getplace = mysql_query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
 		while($getplaces = mysql_fetch_row($getplace)){
 			$places[]=$getplaces[0];
 		}
@@ -231,13 +227,16 @@
 		$i=0;	 
 		$place=1;		
 		foreach($places as $artist_name){
-			$getartist = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
+			$getartist = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
 			$artist =	mysql_fetch_row($getartist);
 			$count=$artist[0];
 			if($place==1) {$count_max=$count;}
-			$getuser = mysql_query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
+			$getuser = mysql_query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
 			$users= mysql_fetch_row($getuser);
 			$users_names=$users[0];
+			$getart= mysql_query("SELECT `artist` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
+			$art= mysql_fetch_row($getart);
+			$art_name=$art[0];
 			$user =  str_replace("&&", ", ",$users_names);
 			if(substr_count($user, ', ')>2){
 				$teile = explode(",", $user, 4);
@@ -246,7 +245,7 @@
 					<ul class="nav navbar-nav">
         				<li class="dropdown">
           				<a href="#" class="dropdown-toggle" style="padding:0px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          					'.$teile[0].', '.$teile[1].', '.$teile[2].'...
+          					'.$teile[0].', '.$teile[1].', '.$teile[2].' ...
 								<span class="caret"></span>
 							</a>
          				<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; color:white;">
@@ -259,34 +258,12 @@
 				'; 			
 			}
 			if($count>1) {
-				$content="";
-				$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
-				while($getplaces = mysql_fetch_row($getplace)){
-					$places[]=$getplaces[0];
-				}
-				$content .='
+			$content .='
 				<tr class="" style="';
 				if($i==0) { 
 					$content .='background-color: #F2F2F2;';
 				}
 				$content .='">
-					<td class="list">
-				';
-				$getimage = mysql_query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
-				$getimages = mysql_fetch_row($getimage);
-				if(isset($getimages[0]) and $getimages[0]!="") {							
-					$image="covers/".$getimages[0].".png"; 
-				}
-				else {
-					$image="pic/empty.png";
-				}
-				$content .='
-						<span class="">
-          	   		<span class="chartlist-image">
-        						<img src="'.$image.'">
-      					</span>
- 	  					</span>  
-					</td>				
 					<td class="list" style="padding-left:15px;">
   	 	        		<span class="">
   	    	   			<span class="chartlist-image">
@@ -294,37 +271,21 @@
  	       				</span>
  		  	 			</span>         		
  	     	  		</td>
- 	   			<td class="list" style="padding-right:5px; padding-left:8px; min-width:265px;">
- 	  	        	<span class="chartlist-ellipsis-wrap">
- 	     	   		<span class="chartlist-artists">
- 	        				<a href="http://www.last.fm/de/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
- 	       				</span>
- 		  	 			</span>	
-  	    	   </td>
-  	  		'; 
-  	    	$m=0; 
-			$st=40*$count/$count_max;    				
- 	   	$content .='      	   
-  	    		<td class="list" style="padding-right:8px; min-width:210px;"><div class="
-  	    	';
-  	    	if($st>strlen($count)*2){ $content .='textunter';} 
-  	    	$content .= '">'; 
- 	   		while($m<$st) {
- 	   			$content .= '<img style="'; if($m==0) {$content .= 'border-top-left-radius:3px; border-bottom-left-radius:3px; ';} 
- 	   			if($m+1>=$st) {$content .= 'border-top-right-radius:3px; border-bottom-right-radius:3px';} 
-  	  				$content .='" src="pic/count.png" height:15px;>'; 
-					$m++; 					
- 	   		}
-  	  			$content .= '<span';
-  	  			if($st>strlen($count)*2){}
-  	  			else { 
-  	  				$content .=' style="padding-left:5px;"';
-  	  			}
-  	  			$content .= '>'.$count.'</span></div>
- 	         </td>
- 	        	<td class="list" style="padding-right:3px; min-width:370px;">
+ 	     	  		<td class="list" style="padding-left:8px; ">
+  	  					<span>('.$count.')</span>
+ 	         	</td>     
+ 	   			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:460px;">
+   	   			<span class="chartlist-ellipsis-wrap">
+      	   			<span class="chartlist-artists">
+      	   				<a href="http://www.last.fm/music/'.$art_name.'" target="_blank">'.$art_name.'</a>
+         				</span>
+							<span class="artist-name-spacer"> — </span>
+    							<a href="http://www.last.fm/music/'.$art_name.'/_/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+ 	  	 				</span>
+					</td>
+  	  				<td class="list" style="padding-right:3px; min-width:360px;">
  	   				<span>'.$user.'</span>
- 	           </td>
+ 	           	</td>
 				</tr>';
 			if($i==0){$i++;}
  	     else {$i--;}
@@ -338,6 +299,10 @@
 		return $content;
 	}
 	
+	
+	
+	
+ 
 	
 	function group2($db_name, $period) {
  		$content="";
