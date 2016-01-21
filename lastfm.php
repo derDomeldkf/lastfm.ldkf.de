@@ -52,7 +52,6 @@
         	$result = @file_get_contents($url, false, $context);
         	if ($result === FALSE) {
 				$error=1;
-				echo "error";
         	}
         	else {
             $user = simplexml_load_string($result);
@@ -75,13 +74,10 @@
 	           	}
 	           	else {
 						$error=3;	           	
-	           		echo "steht schon drin";
 	           	}
             }
             $uname_db=$username;
          	$_SESSION['user']=$uname_db;
-         	echo "session start";
-         	echo $_SESSION['user'];
          	$_SESSION['sk']=$sk;
 				$_SESSION['sig']=$sig;
 				if(!isset($_COOKIE['user'])) {
@@ -98,7 +94,7 @@
 		else {
 			$user_in=$uname_db;
 		}
-		if(isset($_COOKIE['user'])){
+		if(isset($_COOKIE['user']) and (!isset($_SESSION['user']) or $_SESSION['user']=="")){
 			$get_cookie=$_COOKIE['user'];
 			$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in' and stat = '1'")); 
 			$getsession_user=$getsession[0];
