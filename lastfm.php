@@ -80,7 +80,7 @@
          	$_SESSION['user']=$uname_db;
          	$_SESSION['sk']=$sk;
 				$_SESSION['sig']=$sig;
-				if(!isset($_COOKIE''.[$user_in.''])) {
+				if(!isset($_COOKIE[''.$user_in.''])) {
 					setcookie($user_in, $sig, time()+(3600*24*365));  
 				}  
         	}
