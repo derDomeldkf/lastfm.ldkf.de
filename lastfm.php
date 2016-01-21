@@ -101,7 +101,7 @@
 echo $get_cookie;
 echo "<br>".$getsig_user;
 
-			if(isset($getsession_user) and $getsession_user!="" and $getsession_user==$get_cookie) {
+			if(isset($getsession_user) and $getsession_user!="" and $getsig_user==$get_cookie) {
 				$_SESSION['user']=$user_in;
 				$_SESSION['sig']=$getsig_user;
 				$_SESSION['session']=$getsession_user;
