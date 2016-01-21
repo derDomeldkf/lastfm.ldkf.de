@@ -94,9 +94,8 @@
 			$user_in=$uname_db;
 		}
 		if(isset($_COOKIE['user']) and (!isset($_SESSION['user']) or $_SESSION['user']=="")){
-			echo "fffffffffffffffffffff";
 			$get_cookie=$_COOKIE['user'];
-			$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in' and stat = '1'")); 
+			$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE ".$user_in." and stat = '1'")); 
 			$getsession_user=$getsession[0];
 			$getsig_user=$getsession[1];
 			if(isset($getsession_user) and $getsession_user!="" and $getsession_user==$getsig_user) {
