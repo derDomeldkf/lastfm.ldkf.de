@@ -186,6 +186,10 @@
 		}  
 	}
 	
+	
+	
+	
+	
  	function group($db_name, $period) {
  		$content="";
 		$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
