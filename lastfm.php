@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	unlove(); 
 	$user_in="";
 	$page="";
 	$totalPages="";
@@ -13,6 +12,7 @@
 	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
+		unlove(); 
 	if(!isset($_GET['token'])) {
 		if (isset($_GET['login'])){
 			$method_in=$_GET['methodlogin'];
