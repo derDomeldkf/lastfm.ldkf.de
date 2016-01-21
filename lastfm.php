@@ -51,7 +51,8 @@
         	$context = stream_context_create($options);
         	$result = @file_get_contents($url, false, $context);
         	if ($result === FALSE) {
-				echo $error=1;
+				$error=1;
+				echo "error";
         	}
         	else {
             $user = simplexml_load_string($result);
@@ -74,7 +75,7 @@
 	           	}
 	           	else {
 						$error=3;	           	
-	           	
+	           		echo "steht schon drin";
 	           	}
             }
             $uname_db=$username;
