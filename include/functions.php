@@ -617,7 +617,7 @@
 		}
 		if($method_in==4 or $method_in==8 or $method_in==9 or $method_in==10) {
 			$content .='
-				<li class="dropdown" style="width:200px;">
+				<li class="dropdown" style="">
    				<a href="#" class="dropdown-toggle" style="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
    					Mitglieder<span class="caret"></span>
 					</a>
@@ -649,7 +649,7 @@
 		
 		
 		if($method_in==4) {
-			$content='
+			$content .='
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
       			<li class="dropdown" style="width:200px;">
@@ -679,7 +679,7 @@
        	';							
 		}
 		if($method_in==8) {
-			$content ='
+			$content .='
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
         			<li class="dropdown" style="width:200px;">
@@ -709,7 +709,7 @@
        	';							
 		}	
 		if($method_in==9) {
-			$content ='
+			$content .='
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
         			<li class="dropdown" style="width:200px;">
@@ -739,7 +739,7 @@
        	';							
 		}	
 	if($method_in==10) {
-			$content ='
+			$content .='
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
         			<li class="dropdown" style="width:200px;">
