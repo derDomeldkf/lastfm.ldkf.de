@@ -79,9 +79,9 @@
 	           	}
             }
             $uname_db=$username;
-         	$_SESSION['user']=$uname_db;
-         	$_SESSION['session']=$sk;
-				$_SESSION['sig']=$sig;
+         	$_COOKIE['user']=$uname_db;
+         	$_COOKIE['session']=$sk;
+				$_COOKIE['sig']=$sig;
 				if(!isset($_COOKIE['user'])) {
 					setcookie('user', $sig, time()+(3600*24*365));  
 				}  
@@ -102,9 +102,9 @@
 			$getsession_user=$getsession[0];
 			$getsig_user=$getsession[1];
 			if(isset($getsession_user) and $getsession_user!="" and $getsig_user==$get_cookie) {
-				$_SESSION['user']=$user_in;
-				$_SESSION['sig']=$getsig_user;
-				$_SESSION['session']=$getsession_user;
+				$_COOKIE['user']=$user_in;
+				$_COOKIE['sig']=$getsig_user;
+				$_COOKIE['session']=$getsession_user;
 			}
 		}
 		if(!isset($_COOKIE['login'])) {

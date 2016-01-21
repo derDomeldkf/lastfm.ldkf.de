@@ -1,7 +1,7 @@
 <?php
 	session_start();
-  	$sig=$_SESSION['sig'];
-	$sk=$_SESSION['session'];
+  	$sig=$_COOKIE['sig'];
+	$sk=$_COOKIE['session'];
   	if(isset($_GET['f']) and $_GET['f']=="love") {
   		$track=$_GET['track'];
   		$artist=$_GET['artist'];
