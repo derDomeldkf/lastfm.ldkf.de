@@ -264,7 +264,7 @@
 					$content .='background-color: #F2F2F2;';
 				}
 				$content .='">
-					<td>
+					<td class="list">
 				';
 				$getimage = mysql_query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
 				$getimages = mysql_fetch_row($getimage);
@@ -275,7 +275,7 @@
 					$image="pic/empty.png";
 				}
 				$content .='
-						<span class="list">
+						<span class="">
           	   		<span class="chartlist-image">
         						<img src="'.$image.'">
       					</span>
