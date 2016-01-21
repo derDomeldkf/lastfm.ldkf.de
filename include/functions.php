@@ -307,7 +307,7 @@
 		while($getplaces = mysql_fetch_row($getplace)){
 			$places[]=$getplaces[0];
 		}
-		$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
+		/*$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
 		$l=0;
 		while($members = mysql_fetch_row($getmembers)){
 			$member[$l]=$members[0];
@@ -320,10 +320,10 @@
 			<input type="hidden" name="username" value="'.$member_name.'">
 			<input type="hidden" name="method" value="2">
 			<button type="submit" class="userButton">'.$member_name.'</button></form>';
-		}
-		$content .='</div>
-		</div>
- 		<table style="border-top:2px solid; border-left:2px solid;">
+		}*/
+		$content .='
+		<div style="margin-left:30px;">
+ 		<table style="">
  		<tbody>
  			<tr>
 				<td class="list table_head" style="padding-left:10px;">
@@ -410,6 +410,7 @@
 	 	$content .= '
  			</tbody>
 		</table>
+		</div>
 		';
 		return $content;
 	}
