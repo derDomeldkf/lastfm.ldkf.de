@@ -211,25 +211,23 @@
 			<button type="submit" class="userButton">'.$member_name.'</button></form>';
 		}
 		$content .='</div>
-		</div> 		
- 		
+		</div>
  		<table style="border-top:2px solid; border-left:2px solid;">
  		<tbody>
  			<tr>
- 			<td></td>
 				<td class="list table_head" style="padding-left:10px;">
 					Platz
 				</td>
+				<td class="list table_head">
+					
+				</td> 
 				<td class="list table_head" style="padding-left:8px;">
-					K&uuml;nstler
-			</td>
-			<td class="list table_head">
-				Insgesamt geh&ouml;rt
-			</td> 
-			<td class="list table_head">
-				'.$period.'				
-			</td> 	
-		</tr>';
+					K&uuml;nstler — Titel
+				</td>
+				<td class="list table_head">
+					'.$period.'				
+				</td> 	
+			</tr>';
 		$i=0;	 
 		$place=1;		
 		foreach($places as $artist_name){
