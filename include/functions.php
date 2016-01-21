@@ -211,7 +211,7 @@
 		$content .='		
 		
 		
- 		<table style="border-top:2px solid; border-left:2px solid;">
+ 		<table style="">
  		<tbody>
  			<tr>
 				<td class="list table_head" style="padding-left:10px;">
