@@ -1,15 +1,4 @@
  <?php
-	function love($sig, $sk, $track, $artist) {
-		$methode="method=track.love&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
-		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-  	} 
-  	function unlove($sig, $sk, $track, $artist) {
-		$sig="b86a7b4762183d1bf9a3c8a3d4ca3b8b";
-		$sk="5f2da3461830257b8fe29f83047fd0da";
-		$methode="method=track.unlove&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
-		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-  	} 
-  	
   	function login($method) {
   		/*$user_in=$_GET['user'];
   		$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
