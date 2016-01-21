@@ -187,6 +187,10 @@
 	}
 	
  	function group($db_name, $period) {
+ 		$getplace = mysql_query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
+		while($getplaces = mysql_fetch_row($getplace)){
+			$places[]=$getplaces[0];
+		}
  		$content="";
 		$content='
  		<table style="border-top:2px solid; border-left:2px solid;">
