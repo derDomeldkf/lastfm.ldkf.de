@@ -193,21 +193,6 @@
 			$places[]=$getplaces[0];
 		}
 		
-	/*	
-		$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
-		$l=0;
-		while($members = mysql_fetch_row($getmembers)){
-			$member[$l]=$members[0];
-			$l++;
-		}
-	 	$content= '<div class="member">
-	 	<p style="margin-bottom:7px;"><b>Mitglieder dieser Gruppe:</b></p><div style="padding-left:15px;">';
-		foreach($member as $member_name){
-			$content .= '<form class="form_member" method="post" action="lastfm.php">
-			<input type="hidden" name="username" value="'.$member_name.'">
-			<input type="hidden" name="method" value="2">
-			<button type="submit" class="userButton">'.$member_name.'</button></form>';
-		}*/
 		$content .='		
 		
 		<div style="margin-left:30px;">
@@ -552,7 +537,7 @@
 					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'" >Login</a></li>';
 				}
         	}
-        	$content .= '</ul>
+       	$content .= '</ul>
    				<ul class="nav navbar-nav navbar-right">
    					<li class="dropdown" style="width:200px;">
       					<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -630,6 +615,39 @@
 				</ul>
 			'; 									
 		}
+		if($method_in==4 or $method_in==8 or $method_in==9 or $method_in==10) {
+			$content .='
+				<li class="dropdown" style="width:200px;">
+   				<a href="#" class="dropdown-toggle" style="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+   					Mitglieder<span class="caret"></span>
+					</a>
+      			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
+  				';
+				$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm` "); 
+				$l=0;
+				while($members = mysql_fetch_row($getmembers)){
+					$member[$l]=$members[0];
+					$l++;
+				}
+				foreach($member as $member_name){
+					$content .= '
+						<li style="padding-left:15px;">	
+							<form class="form_member" method="post" action="lastfm.php">
+								<input type="hidden" name="username" value="'.$member_name.'">
+								<input type="hidden" name="method" value="2">
+								<button type="submit" class="userButton">'.$member_name.'</button>
+							</form>
+						</li>
+					';
+				}  
+				$content .= '
+					</ul>
+				</li>
+			';     		
+        			
+		}
+		
+		
 		if($method_in==4) {
 			$content='
 				</ul>
