@@ -816,8 +816,16 @@
 			if(!isset($getimage_row) or $getimage_row=="") {
 				$pfad="covers/".$image_db.".png";
 				copy($images, $pfad);
-				$eintrag = "INSERT INTO last_fm_covers (name, artist) VALUES ('$image_db', '$artist_name')"; 
-    			$eintragen = mysql_query($eintrag);
+				if($artist_name!=0) {
+					$eintrag = "INSERT INTO last_fm_covers (name, artist) VALUES ('$image_db', '$artist_name')"; 
+    				$eintragen = mysql_query($eintrag);
+    			}
+    			else {
+    				$eintrag = "INSERT INTO last_fm_covers (name) VALUES ('$image_db')"; 
+    				$eintragen = mysql_query($eintrag);
+    			}
+    			
+    			
 			}
 			$image="covers/".$image_db.".png"; 
 		}	
