@@ -816,7 +816,7 @@
 			if(!isset($getimage_row) or $getimage_row=="") {
 				$pfad="covers/".$image_db.".png";
 				copy($images, $pfad);
-				$eintrag = "INSERT INTO last_fm_covers (name) VALUES ('$image_db')"; 
+				$eintrag = "INSERT INTO last_fm_covers (name, artist) VALUES ('$image_db', '$artist_name')"; 
     			$eintragen = mysql_query($eintrag);
 			}
 			$image="covers/".$image_db.".png"; 
