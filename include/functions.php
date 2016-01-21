@@ -234,9 +234,6 @@
 			$getuser = mysql_query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
 			$users= mysql_fetch_row($getuser);
 			$users_names=$users[0];
-			$getart= mysql_query("SELECT `artist` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
-			$art= mysql_fetch_row($getart);
-			$art_name=$art[0];
 			$user =  str_replace("&&", ", ",$users_names);
 			if(substr_count($user, ', ')>2){
 				$teile = explode(",", $user, 4);
@@ -276,11 +273,8 @@
  	         	</td>     
  	   			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:460px;">
    	   			<span class="chartlist-ellipsis-wrap">
-      	   			<span class="chartlist-artists">
-      	   				<a href="http://www.last.fm/music/'.$art_name.'" target="_blank">'.$art_name.'</a>
-         				</span>
 							<span class="artist-name-spacer"> — </span>
-    							<a href="http://www.last.fm/music/'.$art_name.'/_/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+    							<a href="http://www.last.fm/music/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
  	  	 				</span>
 					</td>
   	  				<td class="list" style="padding-right:3px; min-width:360px;">
