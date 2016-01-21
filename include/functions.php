@@ -24,6 +24,7 @@
  	function logout($user_in) {
  		$update = mysql_query("UPDATE last_fm_users SET stat='0' where username = '$user_in'"); 
  		$_SESSION['user']="";
+ 		setcookie("user","",time() - 3600);
 		session_destroy();
   	} 
  
