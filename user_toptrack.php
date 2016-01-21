@@ -43,13 +43,6 @@ object(stdClass)#10 (7) {
 				}
 				echo'
 					">
-						<td class="list">
-   	  	    			<span class="">
-           	     			<span class="chartlist-image">
-        							<img src="'.$image.'">
-      						</span>
- 	  						</span>              		
-             		</td>
 						<td class="list" style="padding-left:15px;">
    	        			<span class="">
       	   				<span class="chartlist-image">
@@ -57,6 +50,13 @@ object(stdClass)#10 (7) {
         						</span>
  	  	 					</span>         		
       	   		</td>
+      	   		<td class="list">
+   	  	    			<span class="">
+           	     			<span class="chartlist-image">
+        							<img src="'.$image.'">
+      						</span>
+ 	  						</span>              		
+             		</td>
     					<td class="list" style="padding-right:5px; padding-left:8px; min-width:400px;">
    	        			<span class="chartlist-ellipsis-wrap">
       	         	   <span class="chartlist-artists">
