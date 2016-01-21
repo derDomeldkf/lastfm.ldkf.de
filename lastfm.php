@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	echo $_SESSION['user'];
 	$user_in="";
 	$page="";
 	$totalPages="";
