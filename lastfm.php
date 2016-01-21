@@ -80,8 +80,8 @@
          	$_SESSION['user']=$uname_db;
          	$_SESSION['sk']=$sk;
 				$_SESSION['sig']=$sig;
-				if(!isset($_COOKIE[''.$user_in.''])) {
-					setcookie($user_in, $sig, time()+(3600*24*365));  
+				if(!isset($_COOKIE['user'])) {
+					setcookie('user', $sig, time()+(3600*24*365));  
 				}  
         	}
     	}
@@ -94,8 +94,8 @@
 		else {
 			$user_in=$uname_db;
 		}
-		if(isset($_COOKIE[''.$user_in.''])){
-			$get_cookie=$_COOKIE[$user_in];
+		if(isset($_COOKIE['user'])){
+			$get_cookie=$_COOKIE['user'];
 			$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in' and stat = '1'")); 
 			$getsession_user=$getsession[0];
 			$getsig_user=$getsession[1];
