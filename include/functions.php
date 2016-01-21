@@ -271,7 +271,7 @@
  	     	  		<td class="list" style="padding-left:8px; ">
   	  					<span>('.$count.')</span>
  	         	</td>     
- 	   			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:460px;">
+ 	   			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:260px;">
    	   			<span class="chartlist-ellipsis-wrap">
   							<a href="http://www.last.fm/music/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
  	  	 				</span>
