@@ -46,11 +46,9 @@
 		</div>
 		<div id="content" class="main-content" role="main" style="height:100%">
 				<div class="overlay-content">
-					<section class="tracklist-section">
-						<table class="chartlist chartlist--no-index chartlist--no-duration chartlist--no-countbar chartlist--no-image chartlist--no-download">
-    						<tbody>
+
 								<div class="container middle">
-								<div>
+
       							<form class="form-signin" method="post" action="lastfm.php">
         								<label for="input_username" class="sr-only">Username</label>
 		  								<input id="id_username" style="margin-bottom:5px;" autocomplete="on" type="text" name="username" class="form-control" placeholder="<?php
@@ -91,10 +89,8 @@
       								?>
       							</form>
       							</div>
-								</div>
-	         			</tbody>
-						</table>
-					</section>
+
+
 			  </div>
 		</div>      
 	</body>
