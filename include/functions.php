@@ -188,7 +188,7 @@
 	
 	function group($db_name, $period) {
  		$content="";
-		$getplace = mysql_query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
+		$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
 		while($getplaces = mysql_fetch_row($getplace)){
 			$places[]=$getplaces[0];
 		}
@@ -227,14 +227,14 @@
 		$i=0;	 
 		$place=1;		
 		foreach($places as $artist_name){
-			$getartist = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
+			$getartist = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
 			$artist =	mysql_fetch_row($getartist);
 			$count=$artist[0];
 			if($place==1) {$count_max=$count;}
-			$getuser = mysql_query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
+			$getuser = mysql_query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
 			$users= mysql_fetch_row($getuser);
 			$users_names=$users[0];
-			$getart= mysql_query("SELECT `artist` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
+			$getart= mysql_query("SELECT `artist` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
 			$art= mysql_fetch_row($getart);
 			$art_name=$art[0];
 			$user =  str_replace("&&", ", ",$users_names);
