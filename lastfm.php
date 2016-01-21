@@ -94,7 +94,7 @@
 		else {
 			$user_in=$uname_db;
 		}
-		if(isset($_COOKIE[$user_in])){
+		if(isset($_COOKIE[''.$user_in.''])){
 			$get_cookie=$_COOKIE[$user_in];
 			$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in' and stat = '1'")); 
 			$getsession_user=$getsession[0];
