@@ -89,14 +89,14 @@
       						'; 
          					if($love==1) {
 									echo '
-										<label href="'.$url.'" style="padding:1px; margin:0;" data-toggle="modal" data-target="#modaleins">
+										<label href="include/" style="padding:1px; margin:0;">
 											<img width="18px" height="18px;" src="pic/love.png">
 										</label>
 									';
          					}
          					else {
          						echo '
-										<label href="'.$url.'" style="padding:1px; margin:0;" data-toggle="modal" data-target="#modaleins">
+										<label href="'.$url.'" style="padding:1px; margin:0;">
 											<img width="18px" height="18px;" src="pic/nolove.png">
 										</label>
 									';
