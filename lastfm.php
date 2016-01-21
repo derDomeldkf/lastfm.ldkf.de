@@ -99,7 +99,7 @@
 			$getsession_user=$getsession[0];
 			$getsig_user=$getsession[1];
 echo "dddddddddddddddd";
-			if(isset($getsession_user) and $getsession_user!="" and $getsession_user==$getsig_user) {
+			if(isset($getsession_user) and $getsession_user!="" and $getsession_user==$get_cookie) {
 				$_SESSION['user']=$user_in;
 				$_SESSION['sig']=$getsig_user;
 				$_SESSION['session']=$getsession_user;
