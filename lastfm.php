@@ -80,6 +80,9 @@
          	$_SESSION['user']=$uname_db;
          	$_SESSION['sk']=$sk;
 				$_SESSION['sig']=$sig;
+				if(!isset($_COOKIE[$user_in]) and isset($_POST['start']) and $_POST['start']==1) {
+					setcookie($user_in, $sig, time()+(3600*24*365));  
+				}  
         	}
     	}
     	$method_in=$_GET['method_came'];
@@ -91,14 +94,20 @@
 		else {
 			$user_in=$uname_db;
 		}
-		$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in' and stat =1")); 
-		$getsession_user=$getsession[0];
-		$getsig_user=$getsession[1];
-		if(isset($getsession_user) and $getsession_user!="") {
-			$_SESSION['user']=$user_in;
-			$_SESSION['sig']=$getsig_user;
-			$_SESSION['session']=$getsession_user;
+		if(isset($_COOKIE[$user_in])){
+			$get_cookie=$_COOKIE[$user_in];
+			$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in' and stat = '1'")); 
+			$getsession_user=$getsession[0];
+			$getsig_user=$getsession[1];
+			if(isset($getsession_user) and $getsession_user!="" and $getsession_user==$getsig_user) {
+				$_SESSION['user']=$user_in;
+				$_SESSION['sig']=$getsig_user;
+				$_SESSION['session']=$getsession_user;
+			}
 		}
+		if(!isset($_COOKIE['login'])) {
+			setcookie('login', $user_in, time()+(3600*24*365));  
+		}   
 	}
 	else {
 		if(isset($_GET['method'])){
@@ -163,9 +172,6 @@
 				$image="user_pics/".$image_db.".png"; 
 			}
 			if($method_in==2) {
-				if(!isset($_COOKIE['login']) and isset($_POST['start']) and $_POST['start']==1) {
-					setcookie("login", $user_in, time()+(3600*24*365));  
-				}  
 				$methode="method=user.getRecentTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
 				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 				$decode=json_decode($out);
