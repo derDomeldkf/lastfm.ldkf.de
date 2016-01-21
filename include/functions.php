@@ -188,6 +188,16 @@
 	
  	function group($db_name, $period) {
  		$content="";
+		$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
+		while($getplaces = mysql_fetch_row($getplace)){
+			$places[]=$getplaces[0];
+		}
+		$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
+		$l=0;
+		while($members = mysql_fetch_row($getmembers)){
+			$member[$l]=$members[0];
+			$l++;
+		}
 		$content='
  		<table style="border-top:2px solid; border-left:2px solid;">
  		<tbody>
