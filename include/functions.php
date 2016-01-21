@@ -198,6 +198,7 @@
 			$places[$p]=$getplaces[0];
 			$p++;
 		}
+		var_dump($places);
 		$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
 		$l=0;
 		while($members = mysql_fetch_row($getmembers)){
