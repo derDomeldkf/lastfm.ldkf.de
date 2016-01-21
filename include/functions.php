@@ -188,28 +188,7 @@
 	
  	function group($db_name, $period) {
  		$content="";
-		$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
-		$p=0;
-		while($getplaces = mysql_fetch_row($getplace)){
-			$places[$p]=$getplaces[0];
-			$p++;
-		}
-		$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
-		$l=0;
-		while($members = mysql_fetch_row($getmembers)){
-			$member[$l]=$members[0];
-			$l++;
-		}
-	 	$content= '<div class="member">
-	 	<p style="margin-bottom:7px;"><b>Mitglieder dieser Gruppe:</b></p><div style="padding-left:15px;">';
-		foreach($member as $member_name){
-			$content .= '<form class="form_member" method="post" action="lastfm.php">
-			<input type="hidden" name="username" value="'.$member_name.'">
-			<input type="hidden" name="method" value="2">
-			<button type="submit" class="userButton">'.$member_name.'</button></form>';
-		}
-		$content .='</div>
-		</div>
+		$content='
  		<table style="border-top:2px solid; border-left:2px solid;">
  		<tbody>
  			<tr>
@@ -258,7 +237,12 @@
 				'; 			
 			}
 			if($count>1) {
-			$content .='
+				$content="";
+				$getplace = mysql_query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
+				while($getplaces = mysql_fetch_row($getplace)){
+					$places[]=$getplaces[0];
+				}
+				$content .='
 				<tr class="" style="';
 				if($i==0) { 
 					$content .='background-color: #F2F2F2;';
@@ -336,7 +320,6 @@
 	function group2($db_name, $period) {
  		$content="";
 		$getplace = mysql_query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
-		$p=0;
 		while($getplaces = mysql_fetch_row($getplace)){
 			$places[]=$getplaces[0];
 		}
@@ -589,9 +572,10 @@
 			if($method_in!=2) { 
 				$content .='
            		<form class="form_member" method="post" action="lastfm.php">
-						<input type="hidden" name="username" value="'.$user_in.'">
-							<input type="hidden" name="method" value="2">
-							<button type="submit" class="userButton">';
+					<input type="hidden" name="username" value="'.$user_in.'">
+					<input type="hidden" name="method" value="2">
+					<button type="submit" class="userButton">
+				';
 			}
 			$content .= 'Scrobbles: '.$totalTracks; 
 			if($method_in!=2) {
@@ -656,7 +640,8 @@
 			'; 									
 		}
 		if($method_in==4) {
-			$content='
+			$content=members();
+			$content .='	
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
       			<li class="dropdown" style="width:200px;">
@@ -686,7 +671,8 @@
        	';							
 		}
 		if($method_in==8) {
-			$content ='
+			$content=members();
+			$content .='
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
         			<li class="dropdown" style="width:200px;">
@@ -716,7 +702,8 @@
        	';							
 		}	
 		if($method_in==9) {
-			$content ='
+			$content=members();
+			$content .='
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
         			<li class="dropdown" style="width:200px;">
@@ -839,7 +826,30 @@
    				<tbody>';
    	return $content;
    }
+   function members() {
+		$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
+		while($members = mysql_fetch_row($getmembers)){
+			$member[]= $members[0];
+		}
+ 		$content= '
+			<li class="dropdown" style="width:200px;">
+	     		<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      			Mitglieder<span class="caret"></span>
+				</a>
+         	<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">	';		
+				foreach($member as $member_name){
+					$content .= '<li style="padding-left:15px;">
+						<form class="form_member" method="post" action="lastfm.php">
+						<input type="hidden" name="username" value="'.$member_name.'">
+						<input type="hidden" name="method" value="2">
+						<button type="submit" class="userButton">'.$member_name.'</button></form>';					
+				}
+				$content .='</li>
+				</ul>
+			</li>';   
+			return $content;
    
+   }
    
    function lyric($artist_name, $track_name) {
    	$content="";
