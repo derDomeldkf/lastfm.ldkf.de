@@ -101,9 +101,6 @@
 			$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in' and stat LIKE '1'")); 
 			$getsession_user=$getsession[0];
 			$getsig_user=$getsession[1];
-echo $get_cookie;
-echo "<br>".$getsig_user;
-
 			if(isset($getsession_user) and $getsession_user!="" and $getsig_user==$get_cookie) {
 				$_SESSION['user']=$user_in;
 				$_SESSION['sig']=$getsig_user;
