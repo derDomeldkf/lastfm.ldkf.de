@@ -275,7 +275,7 @@
 					$image="pic/empty.png";
 				}
 				$content .='
-						<span class="">
+						<span class="list">
           	   		<span class="chartlist-image">
         						<img src="'.$image.'">
       					</span>
