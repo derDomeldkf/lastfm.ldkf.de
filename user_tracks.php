@@ -83,20 +83,32 @@
         				<td class="list" style="padding-left:10px;">
    	  					<span class="">
            					<span class="chartlist-image">
-      							<img width="18px" height="18px;" src="
+           						
+           					
+      							
       						'; 
          					if($love==1) {
-									echo "pic/love.png";
+									echo '
+										<label href="'.$url.'" style="padding:1px; margin:0;" data-toggle="modal" data-target="#modaleins">
+											<img width="18px" height="18px;" src="pic/love.png">
+										</label>
+									';
          					}
          					else {
-         						echo "pic/nolove.png";
+         						echo '
+										<label href="'.$url.'" style="padding:1px; margin:0;" data-toggle="modal" data-target="#modaleins">
+											<img width="18px" height="18px;" src="pic/nolove.png">
+										</label>
+									';
          					}
+         					
+         					
          					if($date_decode=="wird gerade gehört") {
          						$gmdate=$date_decode;
          						$date_uts="now";
          					}
          					echo '
-         						">
+         						
         						</span>
  	  	 					</span>              		
       				</td>
