@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	echo $_SESSION['user'];
 	$user_in="";
 	$page="";
 	$totalPages="";
@@ -95,6 +94,7 @@
 			$user_in=$uname_db;
 		}
 		if(isset($_COOKIE['user']) and (!isset($_SESSION['user']) or $_SESSION['user']=="")){
+			echo "fffffffffffffffffffff";
 			$get_cookie=$_COOKIE['user'];
 			$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in' and stat = '1'")); 
 			$getsession_user=$getsession[0];
@@ -103,7 +103,6 @@
 				$_SESSION['user']=$user_in;
 				$_SESSION['sig']=$getsig_user;
 				$_SESSION['session']=$getsession_user;
-				echo "gggggggggggggggggg";
 			}
 		}
 		if(!isset($_COOKIE['login'])) {
