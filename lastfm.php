@@ -69,7 +69,7 @@
             else{
             	$getsession = mysql_fetch_row(mysql_query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$username'")); 
 					$getsession_user=$getsession[0];
-            	if(!isset($getsession_user) or $getsession_user!=$sk) {
+            	if(!isset($getsession_user)) {
 						$update = mysql_query("UPDATE last_fm_users SET session = '$sk', sig ='$sig', stat='1' where username = '$username'");  
 						$error=2;
 	           	}
