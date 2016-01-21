@@ -248,7 +248,7 @@
 			}
 			if($count>1) {
 				$content="";
-				$getplace = mysql_query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
+				$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
 				while($getplaces = mysql_fetch_row($getplace)){
 					$places[]=$getplaces[0];
 				}
