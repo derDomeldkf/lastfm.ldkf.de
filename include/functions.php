@@ -191,21 +191,28 @@
 	
 	
  	function group($db_name, $period) {
- 		$content="";
- 		$p=0;
+		$content="";
 		$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
 		while($getplaces = mysql_fetch_row($getplace)){
-			$places[$p]=$getplaces[0];
-			$p++;
+			$places[]=$getplaces[0];
 		}
-		var_dump($places);
 		$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
 		$l=0;
 		while($members = mysql_fetch_row($getmembers)){
 			$member[$l]=$members[0];
 			$l++;
 		}
-		$content='
+	 	$content= '<div class="member">
+	 	<p style="margin-bottom:7px;"><b>Mitglieder dieser Gruppe:</b></p><div style="padding-left:15px;">';
+		foreach($member as $member_name){
+			$content .= '<form class="form_member" method="post" action="lastfm.php">
+			<input type="hidden" name="username" value="'.$member_name.'">
+			<input type="hidden" name="method" value="2">
+			<button type="submit" class="userButton">'.$member_name.'</button></form>';
+		}
+		$content .='</div>
+		</div> 		
+ 		
  		<table style="border-top:2px solid; border-left:2px solid;">
  		<tbody>
  			<tr>
