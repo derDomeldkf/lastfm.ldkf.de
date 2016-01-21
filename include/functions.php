@@ -213,6 +213,7 @@
  		<table style="border-top:2px solid; border-left:2px solid;">
  		<tbody>
  			<tr>
+ 			<td></td>
 				<td class="list table_head" style="padding-left:10px;">
 					Platz
 				</td>
@@ -263,6 +264,23 @@
 					$content .='background-color: #F2F2F2;';
 				}
 				$content .='">
+					<td>
+				';
+				$getimage = mysql_query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
+				$getimages = mysql_fetch_row($getimage);
+				if(isset($getimages[0]) and $getimages[0]!="") {							
+					$image="covers/".$getimages[0].".png"; 
+				}
+				else {
+					$image="pic/empty.png";
+				}
+				$content .='
+						<span class="">
+          	   		<span class="chartlist-image">
+        						<img src="'.$image.'">
+      					</span>
+ 	  					</span>  
+					</td>				
 					<td class="list" style="padding-left:15px;">
   	 	        		<span class="">
   	    	   			<span class="chartlist-image">
