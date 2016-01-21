@@ -103,6 +103,7 @@
 				$_SESSION['user']=$user_in;
 				$_SESSION['sig']=$getsig_user;
 				$_SESSION['session']=$getsession_user;
+				echo "gggggggggggggggggg";
 			}
 		}
 		if(!isset($_COOKIE['login'])) {
