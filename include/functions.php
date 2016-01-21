@@ -210,7 +210,7 @@
 		}*/
 		$content .='		
 		
-		
+		<div style="margin-left:30px;">
  		<table style="">
  		<tbody>
  			<tr>
@@ -291,6 +291,7 @@
 	 	$content .= '
  			</tbody>
 		</table>
+		</div>
 		';
 		return $content;
 	}
