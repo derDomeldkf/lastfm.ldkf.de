@@ -265,7 +265,7 @@
 					$content .='background-color: #F2F2F2;';
 				}
 				$content .='">';
-				echo image_artist($artist_name); 				
+				$content .= image_artist($artist_name); 				
 				$content .='
 					<td class="list" style="padding-left:15px;">
   	 	        		<span class="">
