@@ -83,9 +83,6 @@
         				<td class="list" style="padding-left:10px;">
    	  					<span class="">
            					<span class="chartlist-image">
-           						
-           					
-      							
       						'; 
          					if($love==1) {
 									echo '

@@ -1,7 +1,5 @@
 <?php
 	session_start();
-  	$sig="b86a7b4762183d1bf9a3c8a3d4ca3b8b";
-	$sk="5f2da3461830257b8fe29f83047fd0da";
   	if(isset($_GET['f']) and $_GET['f']=="unlove") {
   		$track=$_GET['track'];
   		$artist=$_GET['artist'];
