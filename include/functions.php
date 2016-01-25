@@ -621,7 +621,7 @@
 					</a>
       			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
   				';
-				$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm` "); 
+				$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
 				$l=0;
 				while($members = mysql_fetch_row($getmembers)){
 					$member[$l]=$members[0];
