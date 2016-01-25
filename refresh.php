@@ -10,8 +10,10 @@
 	$command="user.getTopArtists&period=7day"; 	
  	refresh($db_name, $command, $para, $para2);
  	$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
+ 	$p=0;
 	while($getplaces = mysql_fetch_row($getplace)){
-		$places[]=$getplaces[0];
+		$places[$p]=$getplaces[0];
+		$p++;
 	}
 	$i=0;	 
 	$place=1;		
