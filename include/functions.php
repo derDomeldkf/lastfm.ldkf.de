@@ -37,9 +37,11 @@
    		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
-				if(isset($user_info_array['toptracks'])) {
-					$user_info = get_object_vars($user_info_array['toptracks']);	
-					foreach($user_info['toptracks'] as $top) {
+				if(isset($user_info_array['topartists'])) {
+					echo "yolo";
+					$user_info = get_object_vars($user_info_array['topartists']);	
+
+					foreach($user_info['artist'] as $top) {
 						$info=get_object_vars($top);
 						$name=str_replace("'", " ", $info["name"]);
 						$playcount=$info["playcount"];
@@ -62,6 +64,7 @@
 							$updaten = mysql_query($update);  
 						}
 						else {
+							echo "test";
 							$eintrag = "INSERT INTO ".$db_name." (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')"; 
     						$eintragen = mysql_query($eintrag);
 						}
