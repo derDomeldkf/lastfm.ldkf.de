@@ -23,8 +23,7 @@
 		session_destroy();
   	} 
  
- 
-	function refresh($db_name, $command, $para, $para2) {
+		
 		$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
 		while($getuser = mysql_fetch_row($getusers)){
 			$users[]=$getuser[0];

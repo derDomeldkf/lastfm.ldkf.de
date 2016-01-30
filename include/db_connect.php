@@ -1,6 +1,8 @@
 <?php
   	include("config.php");
-	$server="localhost";
-	$verbindung = mysql_connect($server, $username , $password) or die("Verbindung zur Datenbank konnte nicht hergestellt werden"); 
-	mysql_select_db($dbname) or die ("Datenbank konnte nicht ausgewählt werden"); 
+  	$mysqli = new mysqli($server, $username, $password, $dbname);
+	if ($mysqli->connect_errno) {
+   	echo "Verbindung zur Datenbank konnte nicht hergestellt werden: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+	}
 ?>
+
