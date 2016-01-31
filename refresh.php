@@ -10,10 +10,8 @@
 	$command="user.getTopArtists&period=7day"; 	
  	refresh($db_name, $command, $para, $para2);
 	$getplace = mysql_query("SELECT `artist` FROM `last_fm_charts` ORDER BY playcount DESC "); 
- 	$p=0;
 	while($getplaces = mysql_fetch_row($getplace)){
-		$places[$p]=$getplaces[0];
-		$p++;
+		$places[]=$getplaces[0];
 	}
 	$i=0;	 
 	$place=1;		
@@ -42,9 +40,10 @@
 	$getid = mysql_query("SELECT `telegram-id` FROM `last_fm`"); 
 	while($id_db = mysql_fetch_row($getid)){
 		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db[0].'&text='.$output; 
-	//	$result = file_get_contents($url);	
+		$result = file_get_contents($url);	
 	}		
 ######################################	
+
 	$db_name="last_fm_charts_all";
 	$command="user.getTopArtists&limit=40&period=overall";
  	refresh($db_name, $command, $para, $para2);

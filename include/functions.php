@@ -25,22 +25,20 @@
  
  
 	function refresh($db_name, $command, $para, $para2) {
-		$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
-		while($getuser = mysql_fetch_row($getusers)){
+		while($getuser = mysql_fetch_row(mysql_query("SELECT `username` FROM `ldkf_lastfm`"))){
 			$users[]=$getuser[0];
 		}
-		$delete =  "DELETE FROM ".$db_name;
-		$kill_it_all = mysql_query($delete);  
+		$delete = mysql_query("DELETE FROM ".$db_name);  
 		$d=0;
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
    		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
+				
+				
 				if(isset($user_info_array['topartists'])) {
-					echo "yolo";
 					$user_info = get_object_vars($user_info_array['topartists']);	
-
 					foreach($user_info['artist'] as $top) {
 						$info=get_object_vars($top);
 						$name=str_replace("'", " ", $info["name"]);
@@ -51,22 +49,17 @@
 						if(!isset($image_path) or $image_path=="") {
 							$image_path="pic/empty.png";
 						}
-						$getcount = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$name'"); 
-						$count =	mysql_fetch_row($getcount);
+						$count =	mysql_fetch_row(mysql_query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$name'"));
 						$counter=$count[0];
 						if(isset($counter) and $counter!="") {
-							$getuser_add = mysql_query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$name'"); 
-							$users_gotten =	mysql_fetch_row($getuser_add);
+							$users_gotten =	mysql_fetch_row(mysql_query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$name'"));
 							$user_db=$users_gotten[0];
 							$counter_insert=$counter+$playcount;
 							$user_insert=$user_db."&&".$user_in;
-							$update = "UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'";
-							$updaten = mysql_query($update);  
+							$updaten = mysql_query("UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'");  
 						}
 						else {
-							echo "test";
-							$eintrag = "INSERT INTO ".$db_name." (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')"; 
-    						$eintragen = mysql_query($eintrag);
+    						$eintragen = mysql_query("INSERT INTO ".$db_name." (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')");
 						}
 					}
 				}
@@ -77,22 +70,17 @@
 		}  
 	}
 
-
 	function refresh2($db_name, $command) {
-		$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
-		while($getuser = mysql_fetch_row($getusers)){
+		while($getuser = mysql_fetch_row(mysql_query("SELECT `username` FROM `ldkf_lastfm`"))){
 			$users[]=$getuser[0];
 		}
-		$delete =  "DELETE FROM ".$db_name;
-		$kill_it_all = mysql_query($delete);  
-		$d=0;
+		$delete = mysql_query("DELETE FROM ".$db_name);  
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
    		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
 				if(isset($user_info_array['weeklytrackchart'])) {
-					$i=0;
 					$user_info = get_object_vars($user_info_array['weeklytrackchart']);	
 					foreach($user_info['track'] as $top) {
 						$info=get_object_vars($top);
@@ -102,35 +90,27 @@
 						$art=get_object_vars($art_array);
 						$artist_name=$art['#text'];
 						$url=$info["url"];
-			
 						$image = get_object_vars($info["image"][0]);
 						$image_path=$image['#text'];
 						if(!isset($image_path) or $image_path=="") {
 							$image_path="pic/empty.png";
 						}
-						$getcount = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$name'"); 
-						$count =	mysql_fetch_row($getcount);
+						$count =	mysql_fetch_row(mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$name'"));
 						$counter=$count[0];
 						if(isset($counter) and $counter!="") {
-							$getuser_add = mysql_query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$name'"); 
-							$users_gotten =	mysql_fetch_row($getuser_add);
+							$users_gotten = mysql_fetch_row("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$name'");
 							$user_db=$users_gotten[0];
-							
 							$counter_insert=$counter+$playcount;
 							$user_insert=$user_db."&&".$user_in;
-							$update = "UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where titel = '$name'";
-							$updaten = mysql_query($update);  
+							$update = mysql_query("UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where titel = '$name'");  
 						}
 						else {
-							$eintrag = "INSERT INTO ".$db_name." (playcount, artist, user, titel) VALUES ('$playcount', '$artist_name', '$user_in', '$name')"; 
-    						$eintragen = mysql_query($eintrag);
+    						$insert = mysql_query("INSERT INTO ".$db_name." (playcount, artist, user, titel) VALUES ('$playcount', '$artist_name', '$user_in', '$name')");
 						}
 					}
 				}
 				unset($out);
 			} 
-			$d++;
-
 		}  
 	}
 	function refresh3($db_name, $command) {
@@ -192,12 +172,12 @@
 		}
 		
 		$content .='		
-		
 		<div style="margin-left:30px;">
  		<table style="">
  		<tbody>
  			<tr>
- 				<td></td>
+ 				<td class="list table_head">
+ 				</td>
 				<td class="list table_head" style="padding-left:10px;">
 					Platz
 				</td>
@@ -281,11 +261,7 @@
 		';
 		return $content;
 	}
-	
-	
-	
-	
- 
+	 
 	
 	function group2($db_name, $period) {
  		$content="";
@@ -293,26 +269,12 @@
 		while($getplaces = mysql_fetch_row($getplace)){
 			$places[]=$getplaces[0];
 		}
-		/*$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
-		$l=0;
-		while($members = mysql_fetch_row($getmembers)){
-			$member[$l]=$members[0];
-			$l++;
-		}
-	 	$content= '<div class="member">
-	 	<p style="margin-bottom:7px;"><b>Mitglieder dieser Gruppe:</b></p><div style="padding-left:15px;">';
-		foreach($member as $member_name){
-			$content .= '<form class="form_member" method="post" action="lastfm.php">
-			<input type="hidden" name="username" value="'.$member_name.'">
-			<input type="hidden" name="method" value="2">
-			<button type="submit" class="userButton">'.$member_name.'</button></form>';
-		}*/
+		$content .= head();
 		$content .='
-		<div style="margin-left:30px;">
- 		<table style="">
- 		<tbody>
+		
  			<tr>
- 				<td></td>
+ 				<td class="list table_head">
+ 				</td>
 				<td class="list table_head" style="padding-left:10px;">
 					Platz
 				</td>
@@ -323,22 +285,22 @@
 					K&uuml;nstler — Titel
 				</td>
 				<td class="list table_head">
+				</td>
+				<td class="list table_head">
 					'.$period.'				
 				</td> 	
 			</tr>';
 		$i=0;	 
 		$place=1;		
-		foreach($places as $artist_name){
-			$getartist = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
-			$artist =	mysql_fetch_row($getartist);
-			$count=$artist[0];
+		foreach($places as $track_name){
+			$counter = mysql_fetch_row(mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$track_name'"));
+			$count=$counter[0];
 			if($place==1) {$count_max=$count;}
-			$getuser = mysql_query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
+			$getuser = mysql_query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$track_name'"); 
 			$users= mysql_fetch_row($getuser);
 			$users_names=$users[0];
-			$getart= mysql_query("SELECT `artist` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
-			$art= mysql_fetch_row($getart);
-			$art_name=$art[0];
+			$art= mysql_fetch_row(mysql_query("SELECT `artist` FROM ".$db_name." WHERE titel LIKE '$track_name'"));
+			$artist_name=$art[0];
 			$user =  str_replace("&&", ", ",$users_names);
 			if(substr_count($user, ', ')>2){
 				$teile = explode(",", $user, 4);
@@ -366,7 +328,7 @@
 					$content .='background-color: #F2F2F2;';
 				}
 				$content .='">';
-				$content .= image_artist($art_name); 				
+				$content .= image_artist($artist_name); 				
 				$content .='
 					<td class="list" style="padding-left:15px;">
   	 	        		<span class="">
@@ -381,12 +343,15 @@
  	   			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:460px;">
    	   			<span class="chartlist-ellipsis-wrap">
       	   			<span class="chartlist-artists">
-      	   				<a href="http://www.last.fm/music/'.$art_name.'" target="_blank">'.$art_name.'</a>
+      	   				<a href="http://www.last.fm/music/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
          				</span>
 							<span class="artist-name-spacer"> — </span>
-    							<a href="http://www.last.fm/music/'.$art_name.'/_/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+    							<a href="http://www.last.fm/music/'.$artist_name.'/_/'.$track_name.'" target="_blank">'.$track_name.'</a>
  	  	 				</span>
-					</td>
+					</td>';
+					$content .= lyric($artist_name, $track_name);	
+						
+					$content .= '  	  				
   	  				<td class="list" style="padding-right:3px; min-width:360px;">
  	   				<span>'.$user.'</span>
  	           	</td>
@@ -765,12 +730,11 @@
        			</li> 
        		</ul>
        	';							
-		}			
-		
-		
-		
+		}				
 		return $content;
 	}
+	
+	
 	function image_artist($artist_name) {
 		$getimage = mysql_query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
 		$getimages = mysql_fetch_row($getimage);

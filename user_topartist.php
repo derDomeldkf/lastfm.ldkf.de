@@ -1,39 +1,4 @@
 <?php
-/*
-object(stdClass)#10 (7) { 
-	["name"]=> string(18) "Machinae Supremacy" 
-	["playcount"]=> string(3) "712" 
-	["mbid"]=> string(36) "22cbe400-9906-4c47-973c-b7122b23840a" 
-	["url"]=> string(43) "http://www.last.fm/music/Machinae+Supremacy" 
-	["streamable"]=> string(1) "0" 
-	["image"]=> array(5) { 
-		[0]=> object(stdClass)#11 (2) { 
-			["#text"]=> string(66) "http://img2-ak.lst.fm/i/u/34s/09cea4cfdbb044dfa98522fcd7fa9cc1.png" 
-			["size"]=> string(5) "small" 
-		} 
-		[1]=> object(stdClass)#12 (2) { 
-			["#text"]=> string(66) "http://img2-ak.lst.fm/i/u/64s/09cea4cfdbb044dfa98522fcd7fa9cc1.png" 
-			["size"]=> string(6) "medium" 
-		}
-		[2]=> object(stdClass)#13 (2) { 
-			["#text"]=> string(67) "http://img2-ak.lst.fm/i/u/174s/09cea4cfdbb044dfa98522fcd7fa9cc1.png" 
-			["size"]=> string(5) "large" 
-		}
-		[3]=> object(stdClass)#14 (2) { 
-			["#text"]=> string(70) "http://img2-ak.lst.fm/i/u/300x300/09cea4cfdbb044dfa98522fcd7fa9cc1.png" 
-			["size"]=> string(10) "extralarge" 
-		}
-		[4]=> object(stdClass)#15 (2) {
-			["#text"]=> string(62) "http://img2-ak.lst.fm/i/u/09cea4cfdbb044dfa98522fcd7fa9cc1.png"
-			["size"]=> string(4) "mega"
-		}
-		} 
-		["@attr"]=> object(stdClass)#16 (1) { 
-			["rank"]=> string(1) "1" 
-		}
-	} 
-
-*/
 	$i=0;
 	$page_n=$page+1;
 	$page_l=$page-1;

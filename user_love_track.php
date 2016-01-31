@@ -33,7 +33,7 @@
 				}
 				if($ch_m_in!=$ch_m or $show_date==1){
 					$date_eng=gmdate("l, j. F Y", $date_uts);
-					$date_eng=month_rename($date_eng);  //monate vom englischen ins deutsche umbenennen, weil php-funktion nicht läuft
+					$date_eng=month_rename($date_eng);
 					echo'
 						<tr>
 							<td colspan="4" style="'; if($show_date!=1){ echo' padding-top:18px;'; }echo' padding-bottom:7px; font-size:15pt;">

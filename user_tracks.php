@@ -124,13 +124,11 @@
 					echo lyric($artist_name, $track_name);								
       	  		echo'<td class="list" style="padding-right:2px;">';
          		if($date_decode=="wird gerade gehört") {
-         		//gif (playing now)
-         				echo '
-         	   			<figure style="float:left; padding-right:8px;">
-  									<img src="pic/test.gif" width="15px" height="20px">
-  								</figure>
-  							';
-  							//gif
+       				echo '
+       	   			<figure style="float:left; padding-right:8px;">
+								<img src="pic/test.gif" width="15px" height="20px">
+							</figure>
+						';
          			}
          			echo '
          				<span title="'.$date_uts.'" style="vertical-align:bottom; padding-right:3px;">
