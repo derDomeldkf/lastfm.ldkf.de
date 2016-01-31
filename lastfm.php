@@ -57,24 +57,23 @@
            	$sk=$user->session->key; 
            	//immer da, speichern mit username
            	$username=$user->session->name;
-            $getid = mysql_fetch_row(mysql_query("SELECT `id` FROM `last_fm_users` WHERE username LIKE '$username'")); 
-				$getid_user=$getid[0];
+            $getid = $db->query("SELECT `id` FROM `last_fm_users` WHERE username LIKE '$username'"); 
+				$getid_user=$getid->fetch_assoc();
 				if(!isset($getid_user) or $getid_user=="") {
-					$eintrag = "INSERT INTO last_fm_users (username, session, sig, stat) VALUES ('$username', '$sk', '$sig', '1')"; 
-   				$eintragen = mysql_query($eintrag);
+					$insert = $db->query("INSERT INTO last_fm_users (username, session, sig, stat) VALUES ('$username', '$sk', '$sig', '1')"); 
 					$error=2;
             }
             else{
-            	$getsession = mysql_fetch_row(mysql_query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$username'")); 
-					$getsession_user=$getsession[0];
+            	$getsession = $db->query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$username'"); 
+					$getsession_user=$getsession->fetch_assoc();
             	if(!isset($getsession_user)) {
-						$update = mysql_query("UPDATE last_fm_users SET session = '$sk', sig ='$sig', stat='1' where username = '$username'");  
+						$update = $db->query("UPDATE last_fm_users SET session = '$sk', sig ='$sig', stat='1' where username = '$username'");  
 						$error=2;
 	           	}
 	           	else {
-						$getid = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$username'")); 
-						$sk=$getid [0];
-						$sig=$getid [1];
+						$getid = $db->query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$username'"); 
+						$sk=$getid->fetch_assoc('session');
+						$sig=$getid->fetch_assoc('sig');
 						           	
 	           	}
             }
@@ -151,14 +150,12 @@
 			else {
 				$image_db =  str_replace(".png", "",$account_image);
 				$image_db =  str_replace("http://img2-ak.lst.fm/i/u/64s/", "",$image_db);
-				$getimage = mysql_query("SELECT `id` FROM `last_fm_user_pics` WHERE name LIKE '$image_db'"); 
-				$getimages = mysql_fetch_row($getimage);
-				$getimage_row=$getimages[0];
+				$getimage = $db->query("SELECT `id` FROM `last_fm_user_pics` WHERE name LIKE '$image_db'"); 
+				$getimage_row = $getimage->fetch_assoc();
 				if(!isset($getimage_row) or $getimage_row=="") {
 					$pfad="user_pics/".$image_db.".png";
 					copy($account_image, $pfad);
-					$eintrag = "INSERT INTO last_fm_user_pics (name) VALUES ('$image_db')"; 
-   				$eintragen = mysql_query($eintrag);
+   				$insert = $db->query("INSERT INTO last_fm_user_pics (name) VALUES ('$image_db')");
 				}
 				$image="user_pics/".$image_db.".png"; 
 			}
@@ -253,7 +250,7 @@
       				<ul class="nav navbar-nav">
         					<li><a href="./">Startseite<span class="sr-only">(current)</span></a></li>
         					<?php
-        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks);
+        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db);
 							?>					
 	  				</div>
   				</div>
@@ -275,7 +272,7 @@
 								case 4:
 									$db_name="last_fm_charts";
 									$period="In der letzten Woche gehört von";
-									echo group($db_name, $period);	   
+									echo group($db_name, $period, $db);	   
 									break;
 								case 5:
 									include "user_love_track.php";	        				
@@ -289,17 +286,17 @@
 								case 8:
 									$db_name="last_fm_charts_all";
 									$period="Gehört von";
-									echo group($db_name, $period);		   
+									echo group($db_name, $period, $db);		   
 									break;
 								case 9:
 									$db_name="last_fm_charts_track_all";
 									$period="Gehört von";
-									echo group2($db_name, $period);	   
+									echo group2($db_name, $period, $db);	   
 									break;
 								case 10:
 									$db_name="last_fm_charts_track";
 									$period="In der letzten Woche gehört von";
-									echo group2($db_name, $period);	   
+									echo group2($db_name, $period, $db);	   
 									break;
 								case 11:
 									

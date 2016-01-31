@@ -1,5 +1,6 @@
  <?php
  	$bot_id = "56844913:AAG32PEmP3Uquw_m65fKI2Ec083A_ThkFs4";
+ 	include "include/config.php";
  	include "include/db_connect.php";
  	include "include/functions.php";	
  	
@@ -8,22 +9,22 @@
 	$para2="artist";
  	$db_name="last_fm_charts";
 	$command="user.getTopArtists&period=7day"; 	
- 	refresh($db_name, $command, $para, $para2);
-	$getplace = mysql_query("SELECT `artist` FROM `last_fm_charts` ORDER BY playcount DESC "); 
-	while($getplaces = mysql_fetch_row($getplace)){
-		$places[]=$getplaces[0];
+ 	refresh($db_name, $command, $db);
+	$getplace = $db->query("SELECT `artist` FROM `last_fm_charts` ORDER BY playcount DESC "); 
+	while($getplaces = $getplace->fetch_assoc()){
+		$places[]=$getplaces['artist'];
 	}
 	$i=0;	 
 	$place=1;		
 	foreach($places as $artist_name){
 		if($i<60) {
-			$getartist = mysql_query("SELECT `playcount` FROM `last_fm_charts` WHERE artist LIKE '$artist_name'"); 
-			$artist =	mysql_fetch_row($getartist);
-			$count=$artist[0];
+			$getartist = $db->query("SELECT `playcount` FROM `last_fm_charts` WHERE artist LIKE '$artist_name'"); 
+			$artist = $getartist->fetch_assoc();
+			$count=$artist['playcount'];
 			if($place==1) {$count_max=$count;}
-			$getuser = mysql_query("SELECT `user` FROM `last_fm_charts` WHERE artist LIKE '$artist_name'"); 
-			$users= mysql_fetch_row($getuser);
-			$users_names=$users[0];
+			$getuser = $db->query("SELECT `user` FROM `last_fm_charts` WHERE artist LIKE '$artist_name' "); 
+			$users= $getuser->fetch_assoc();
+			$users_names=$users['user'];
 			$user =  str_replace("&&", ", ",$users_names);
 			$cont= $place.". ".$artist_name." (".$count.") Gehört von ".$user;
 			if($i>0) {
@@ -37,29 +38,28 @@
 		}
 	}
 	$output=urlencode($content[$i-1]);
-	$getid = mysql_query("SELECT `telegram-id` FROM `last_fm`"); 
-	while($id_db = mysql_fetch_row($getid)){
-		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db[0].'&text='.$output; 
-		$result = file_get_contents($url);	
+	$getid = $db->query("SELECT `telegram-id` FROM `last_fm`"); 
+	while($id_db = $getid->fetch_assoc()){
+		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&text='.$output; 
+		//$result = file_get_contents($url);	
 	}		
 ######################################	
 
 	$db_name="last_fm_charts_all";
 	$command="user.getTopArtists&limit=40&period=overall";
- 	refresh($db_name, $command, $para, $para2);
- 	
+ 	refresh($db_name, $command, $db);
  
 ######################################
 	$db_name="last_fm_charts_track";
 	$command="user.getTopTracks&limit=40&period=overall";
- 	refresh3($db_name, $command); 
+ 	refresh3($db_name, $command, $db); 
  	
 ######################################	
 	$time=	time();
 	$time2=$time-(3600*24*7);
 	$db_name="last_fm_charts_track";
 	$command="user.getWeeklyTrackChart&from=".$time2."&to=".$time; 	
- 	refresh2($db_name, $command); 	
+ 	refresh2($db_name, $command, $db); 	
  	
  	
 ?>

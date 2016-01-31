@@ -55,41 +55,42 @@
 							else{
 								echo 'LastFm Benutzername';											
 							}
-   						?>" required>
+      				?>" required>
       				<select name="method" class="form-control" style="margin-bottom:5px;">
-   						<option selected value="2">Gescrobbelte Lieder anzeigen</option>
-      					<option value="5">Lieblingslieder anzeigen</option>
-        					<option value="6">Top K&uuml;nstler anzeigen</option>
-        					<option value="7">Top Titel anzeigen</option>
+							<option selected value="2">Gescrobbelte Lieder anzeigen</option>
+							<option value="5">Lieblingslieder anzeigen</option>
+							<option value="6">Top K&uuml;nstler anzeigen</option>
+   						<option value="7">Top Titel anzeigen</option>
 						</select>
 						<input type="hidden" name="start" value="1">
-        				<button class="btn btn-lg btn-primary btn-block" type="submit">Los geht's!</button>
-        				<?php
-      	   			if(isset($error) and $error!="") {
-								echo '<h3 style="color:red">'.$error.'</h3>';      	
-      					}
-      				?>
-      			</form>
-      			<br>
-					<form class="form-signin" method="post" action="lastfm.php" style="padding-top:10px;">
-						<button class="btn btn-lg btn-primary btn-block">LDKF-Bot zu Telegram hinzuf&uuml;gen</button>
-						<input type="hidden" name="method" value="1">
-					</form>
-					<form class="form-signin" method="post" action="lastfm.php" style="margin-top:10px;">
-						<button class="btn btn-lg btn-primary btn-block">Gruppeninformationen anzeigen</button>
-						<input type="hidden" name="method" value="4">
+   					<button class="btn btn-lg btn-primary btn-block" type="submit">Los geht's!</button>
    					<?php
    						if(isset($error) and $error!="") {
 								echo '<h3 style="color:red">'.$error.'</h3>';      	
    						}
    					?>
-   				</form>
-   			</div>
+   					</form>
+   					<br>
+						<form class="form-signin" method="post" action="lastfm.php" style="padding-top:10px;">
+        					<button class="btn btn-lg btn-primary btn-block">LDKF-Bot zu Telegram hinzuf&uuml;gen</button>
+        					<input type="hidden" name="method" value="1">
+        				</form>
+        				<form class="form-signin" method="post" action="lastfm.php" style="margin-top:10px;">
+							<button class="btn btn-lg btn-primary btn-block">Gruppeninformationen anzeigen</button>
+							<input type="hidden" name="method" value="4">
+        					<?php
+      	     				if(isset($error) and $error!="") {
+									echo '<h3 style="color:red">'.$error.'</h3>';      	
+      						}
+      					?>
+      				</form>
+      			</div>
+					<script type="text/javascript">
+    					window.cookieconsent_options = {"message":"This website uses cookies to ensure you get the best experience on our website","dismiss":"Got it!","learnMore":"More info","link":null,"theme":"dark-bottom"};
+					</script>
+					<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
+			  </div>
 			</div>
-		</div> 
-		<script type="text/javascript">
-    		window.cookieconsent_options = {"message":"This website uses cookies to ensure you get the best experience on our website","dismiss":"Got it!","learnMore":"More info","link":null,"theme":"dark-bottom"};
-		</script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>     
+		</div>  
 	</body>
 </html> 

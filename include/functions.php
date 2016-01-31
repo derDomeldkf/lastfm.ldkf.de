@@ -1,5 +1,5 @@
  <?php
-  	function login($method) {
+  	function login($method, $db) {
   		/*$user_in=$_GET['user'];
   		$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
 		$getsession_user=$getsession[0];
@@ -16,19 +16,19 @@
   	} 
   	
 
- 	function logout($user_in) {
- 		$update = mysql_query("UPDATE last_fm_users SET stat='0' where username = '$user_in'"); 
+ 	function logout($user_in, $db) {
+ 		$update = $db->query("UPDATE last_fm_users SET stat='0' where username = '$user_in'");  
  		$_COOKIE['user']="";
  		setcookie("user","",time() - 3600);
 		session_destroy();
   	} 
- 
- 
-	function refresh($db_name, $command, $para, $para2) {
-		while($getuser = mysql_fetch_row(mysql_query("SELECT `username` FROM `ldkf_lastfm`"))){
-			$users[]=$getuser[0];
-		}
-		$delete = mysql_query("DELETE FROM ".$db_name);  
+
+ 	function refresh($db_name, $command, $db) {
+		$getusers = $db->query("SELECT `username` FROM `ldkf_lastfm`"); 
+ 		while ($getuser = $getusers->fetch_assoc()) {
+ 			$users[]=$getuser['username'];
+ 		}		
+		$delete = $db->query("DELETE FROM ".$db_name);  
 		$d=0;
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
@@ -49,32 +49,33 @@
 						if(!isset($image_path) or $image_path=="") {
 							$image_path="pic/empty.png";
 						}
-						$count =	mysql_fetch_row(mysql_query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$name'"));
-						$counter=$count[0];
+						$getcounter = $db->query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$name'"); 
+ 						$counter = $getcounter->fetch_assoc()['playcount'];
 						if(isset($counter) and $counter!="") {
-							$users_gotten =	mysql_fetch_row(mysql_query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$name'"));
-							$user_db=$users_gotten[0];
+							$getuser_add = $db->query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$name' "); 
+							$user_db = $getuser_add->fetch_assoc()['user'];
 							$counter_insert=$counter+$playcount;
 							$user_insert=$user_db."&&".$user_in;
-							$updaten = mysql_query("UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'");  
+							$update = $db->query("UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'");  
 						}
 						else {
-    						$eintragen = mysql_query("INSERT INTO ".$db_name." (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')");
+							$insert = $db->query("INSERT INTO ".$db_name." (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')"); 
 						}
 					}
 				}
 				unset($out);
 			} 
 			$d++;
-
 		}  
 	}
 
-	function refresh2($db_name, $command) {
-		while($getuser = mysql_fetch_row(mysql_query("SELECT `username` FROM `ldkf_lastfm`"))){
-			$users[]=$getuser[0];
-		}
-		$delete = mysql_query("DELETE FROM ".$db_name);  
+	function refresh2($db_name, $command, $db) {
+		$getusers = $db->query("SELECT `username` FROM `ldkf_lastfm`"); 
+ 		while ($getuser = $getusers->fetch_assoc()) {
+ 			$users[]=$getuser['username'];
+ 		}		
+		$delete = $db->query("DELETE FROM ".$db_name);
+		$d=0;
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
    		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
@@ -95,17 +96,19 @@
 						if(!isset($image_path) or $image_path=="") {
 							$image_path="pic/empty.png";
 						}
-						$count =	mysql_fetch_row(mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$name'"));
-						$counter=$count[0];
+						$getcount = $db->query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$name' "); 
+						if(isset($getcount->num_rows) and  $getcount->num_rows!= 0) {
+							$counter = $getcount->fetch_assoc()['playcount'];
+						}
 						if(isset($counter) and $counter!="") {
-							$users_gotten = mysql_fetch_row("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$name'");
-							$user_db=$users_gotten[0];
+							$getuser_add = $db->query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$name' "); 
+							$user_db = $getuser_add->fetch_assoc()['user'];
 							$counter_insert=$counter+$playcount;
 							$user_insert=$user_db."&&".$user_in;
-							$update = mysql_query("UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where titel = '$name'");  
+							$update = $db->query("UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where titel = '$name'");
 						}
 						else {
-    						$insert = mysql_query("INSERT INTO ".$db_name." (playcount, artist, user, titel) VALUES ('$playcount', '$artist_name', '$user_in', '$name')");
+							$insert = $db->query("INSERT INTO ".$db_name." (playcount, artist, user, titel) VALUES ('$playcount', '$artist_name', '$user_in', '$name')"); 
 						}
 					}
 				}
@@ -113,13 +116,12 @@
 			} 
 		}  
 	}
-	function refresh3($db_name, $command) {
-		$getusers = mysql_query("SELECT `username` FROM `ldkf_lastfm`"); 
-		while($getuser = mysql_fetch_row($getusers)){
-			$users[]=$getuser[0];
-		}
-		$delete =  "DELETE FROM ".$db_name;
-		$kill_it_all = mysql_query($delete);  
+	function refresh3($db_name, $command, $db) {
+		$getusers = $db->query("SELECT `username` FROM `ldkf_lastfm`"); 
+ 		while ($getuser = $getusers->fetch_assoc()) {
+ 			$users[]=$getuser['username'];
+ 		}		
+		$delete = $db->query("DELETE FROM ".$db_name); 
 		$d=0;
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
@@ -139,21 +141,17 @@
 						if(!isset($image_path) or $image_path=="") {
 							$image_path="pic/empty.png";
 						}
-						$getcount = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$name'"); 
-						$count =	mysql_fetch_row($getcount);
-						$counter=$count[0];
+						$getcount = $db->query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$name'"); 
+						$counter =	$getcount->fetch_assoc()['playcount'];
 						if(isset($counter) and $counter!="") {
-							$getuser_add = mysql_query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$name'"); 
-							$users_gotten =	mysql_fetch_row($getuser_add);
-							$user_db=$users_gotten[0];
+							$getuser_add = $db->query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$name' "); 
+							$user_db = $getuser_add->fetch_assoc()['user'];
 							$counter_insert=$counter+$playcount;
 							$user_insert=$user_db."&&".$user_in;
-							$update = "UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where titel = '$name'";
-							$updaten = mysql_query($update);  
+							$update = $db->query("UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where titel = '$name'");
 						}
 						else {
-							$eintrag = "INSERT INTO ".$db_name." (playcount, artist, user, titel) VALUES ('$playcount', '$name_art', '$user_in', '$name')"; 
-    						$eintragen = mysql_query($eintrag);
+							$insert = $db->query("INSERT INTO ".$db_name." (playcount, artist, user, titel) VALUES ('$playcount', '$name_art', '$user_in', '$name')"); 
 						}
 					}
 				}
@@ -164,13 +162,12 @@
 		}  
 	}
 	
-	function group($db_name, $period) {
+	function group($db_name, $period, $db) {
  		$content="";
-		$getplace = mysql_query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
-		while($getplaces = mysql_fetch_row($getplace)){
-			$places[]=$getplaces[0];
+		$getplace = $db->query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
+		while($getplaces = $getplace->fetch_assoc()){
+			$places[]=$getplaces['artist'];
 		}
-		
 		$content .='		
 		<div style="margin-left:30px;">
  		<table style="">
@@ -194,13 +191,12 @@
 		$i=0;	 
 		$place=1;		
 		foreach($places as $artist_name){
-			$getartist = mysql_query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
-			$artist =	mysql_fetch_row($getartist);
-			$count=$artist[0];
+			$getartist = $db->query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
+			$counter = $getartist->fetch_assoc();
+			$count=$counter['playcount'];
 			if($place==1) {$count_max=$count;}
-			$getuser = mysql_query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
-			$users= mysql_fetch_row($getuser);
-			$users_names=$users[0];
+			$getuser = $db->query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$artist_name' "); 
+			$users_names= $getuser->fetch_assoc()['user'];
 			$user =  str_replace("&&", ", ",$users_names);
 			if(substr_count($user, ', ')>2){
 				$teile = explode(",", $user, 4);
@@ -228,7 +224,7 @@
 					$content .='background-color: #F2F2F2;';
 				}
 				$content .='">';
-				$content .= image_artist($artist_name); 				
+				$content .= image_artist($artist_name, $db); 				
 				$content .='
 					<td class="list" style="padding-left:15px;">
   	 	        		<span class="">
@@ -261,15 +257,14 @@
 		';
 		return $content;
 	}
-	 
-	
-	function group2($db_name, $period) {
+
+
+	function group2($db_name, $period, $db) {
  		$content="";
-		$getplace = mysql_query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
-		while($getplaces = mysql_fetch_row($getplace)){
-			$places[]=$getplaces[0];
+		$getplace = $db->query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
+		while($getplaces = $getplace->fetch_assoc()){
+			$places[]=$getplaces['titel'];
 		}
-		$content .= head();
 		$content .='
 		
  			<tr>
@@ -292,15 +287,18 @@
 			</tr>';
 		$i=0;	 
 		$place=1;		
-		foreach($places as $track_name){
-			$counter = mysql_fetch_row(mysql_query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$track_name'"));
-			$count=$counter[0];
-			if($place==1) {$count_max=$count;}
-			$getuser = mysql_query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$track_name'"); 
-			$users= mysql_fetch_row($getuser);
-			$users_names=$users[0];
-			$art= mysql_fetch_row(mysql_query("SELECT `artist` FROM ".$db_name." WHERE titel LIKE '$track_name'"));
-			$artist_name=$art[0];
+
+
+		foreach($places as $artist_name){
+			$getartist = $db->query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
+			$count = $getartist->fetch_assoc()['playcount'];
+			if($place==1) {
+				$count_max=$count;
+			}
+			$getuser = $db->query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$artist_name' "); 
+			$users_names = $getuser->fetch_assoc()['user'];
+			$getart= $db->query("SELECT `artist` FROM ".$db_name." WHERE titel LIKE '$artist_name' "); 
+			$art_name= $getart->fetch_assoc()['artist'];
 			$user =  str_replace("&&", ", ",$users_names);
 			if(substr_count($user, ', ')>2){
 				$teile = explode(",", $user, 4);
@@ -328,7 +326,7 @@
 					$content .='background-color: #F2F2F2;';
 				}
 				$content .='">';
-				$content .= image_artist($artist_name); 				
+				$content .= image_artist($art_name, $db); 				
 				$content .='
 					<td class="list" style="padding-left:15px;">
   	 	        		<span class="">
@@ -483,12 +481,11 @@
 	}
 	
 	
-	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks) {
+	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db) {
 		$content="";
 		if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7) {
-   		$getname = mysql_query("SELECT `id` FROM `ldkf_lastfm` WHERE `username` LIKE '$user_in'"); 
-			$namecheck = mysql_fetch_row($getname);
-			$user = $namecheck[0];
+			$getname = $db->query("SELECT `id` FROM `ldkf_lastfm` WHERE `username` LIKE ('".$user_in."')");
+			$user = $getname->fetch_assoc();
 			if(isset($user) and $user!="") {
 				$content='<li><a href="./lastfm.php?method=4">Gruppe</a></li>
 					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>
@@ -586,11 +583,9 @@
 					</a>
       			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
   				';
-				$getmembers = mysql_query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
-				$l=0;
-				while($members = mysql_fetch_row($getmembers)){
-					$member[$l]=$members[0];
-					$l++;
+				$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
+				while($members = $getmembers->fetch_assoc()){
+					$member[]=$members['username'];
 				}
 				foreach($member as $member_name){
 					$content .= '
@@ -733,13 +728,11 @@
 		}				
 		return $content;
 	}
-	
-	
-	function image_artist($artist_name) {
-		$getimage = mysql_query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
-		$getimages = mysql_fetch_row($getimage);
-		if(isset($getimages[0]) and $getimages[0]!="") {							
-			$image="covers/".$getimages[0].".png"; 
+	function image_artist($artist_name, $db) {
+		$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
+		$getimages = $getimage->fetch_assoc()['name'];
+		if(isset($getimages) and $getimages!="") {							
+			$image="covers/".$getimages.".png"; 
 		}
 		else {
 			$image="pic/empty.png";
@@ -757,13 +750,13 @@
       	
 	}
 	
-	function image($images, $artist_name) {
+	function image($images, $artist_name, $db) {
 		$content="";
 		if(!isset($images) or $images=="") {
-			$getimage = mysql_query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
-			$getimages = mysql_fetch_row($getimage);
-			if(isset($getimages[0]) and $getimages[0]!="") {							
-				$image="covers/".$getimages[0].".png"; 
+			$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
+			$getimages = $getimage->fetch_assoc()['name'];
+			if(isset($getimages) and $getimages!="") {							
+				$image="covers/".$getimages.".png"; 
 			}
 			else {
 				$image="pic/empty.png";
@@ -772,14 +765,12 @@
 		else {
 			$image_db =  str_replace(".png", "",$images);
 			$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$image_db);
-			$getimage = mysql_query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
-			$getimages = mysql_fetch_row($getimage);
-			$getimage_row=$getimages[0];
+			$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db' "); 
+			$getimage_row = $getimage->fetch_assoc()['id'];
 			if(!isset($getimage_row) or $getimage_row=="") {
 				$pfad="covers/".$image_db.".png";
 				copy($images, $pfad);
-				$eintrag = "INSERT INTO last_fm_covers (name) VALUES ('$image_db')"; 
-    			$eintragen = mysql_query($eintrag);   			
+    			$insert = $db->query("INSERT INTO last_fm_covers (name) VALUES ('$image_db')");   			
 			}
 			$image="covers/".$image_db.".png"; 
 		}	

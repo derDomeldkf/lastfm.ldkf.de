@@ -22,14 +22,12 @@
 				else {
 					$image_db =  str_replace(".png", "",$images);
 					$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$image_db);
-					$getimage = mysql_query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
-					$getimages = mysql_fetch_row($getimage);
-					$getimage_row=$getimages[0];
+					$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
+					$getimage_row = $getimage->fetch_assoc();
 					if(!isset($getimage_row) or $getimage_row=="") {
 						$pfad="covers/".$image_db.".png";
 						copy($images, $pfad);
-						$eintrag = "INSERT INTO last_fm_covers (name, artist) VALUES ('$image_db', '$artist_name')"; 
-    					$eintragen = mysql_query($eintrag);
+						$insert = $db->query("INSERT INTO last_fm_covers (name, artist) VALUES ('$image_db', '$artist_name')"); 
 					}
 					$image="covers/".$image_db.".png"; 
 				}
