@@ -260,7 +260,8 @@
 
 
 	function group2($db_name, $period, $db) {
- 		$content="";
+		
+ 		$content=head();
 		$getplace = $db->query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
 		while($getplaces = $getplace->fetch_assoc()){
 			$places[]=$getplaces['titel'];
@@ -289,16 +290,16 @@
 		$place=1;		
 
 
-		foreach($places as $artist_name){
-			$getartist = $db->query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$artist_name'"); 
+		foreach($places as $track_name){
+			$getartist = $db->query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$track_name'"); 
 			$count = $getartist->fetch_assoc()['playcount'];
 			if($place==1) {
 				$count_max=$count;
 			}
-			$getuser = $db->query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$artist_name' "); 
+			$getuser = $db->query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$track_name' "); 
 			$users_names = $getuser->fetch_assoc()['user'];
-			$getart= $db->query("SELECT `artist` FROM ".$db_name." WHERE titel LIKE '$artist_name' "); 
-			$art_name= $getart->fetch_assoc()['artist'];
+			$getart= $db->query("SELECT `artist` FROM ".$db_name." WHERE titel LIKE '$track_name' "); 
+			$artist_name= $getart->fetch_assoc()['artist'];
 			$user =  str_replace("&&", ", ",$users_names);
 			if(substr_count($user, ', ')>2){
 				$teile = explode(",", $user, 4);
@@ -326,7 +327,7 @@
 					$content .='background-color: #F2F2F2;';
 				}
 				$content .='">';
-				$content .= image_artist($art_name, $db); 				
+				$content .= image_artist($artist_name, $db); 				
 				$content .='
 					<td class="list" style="padding-left:15px;">
   	 	        		<span class="">
