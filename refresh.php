@@ -42,13 +42,12 @@
 	$getid = mysql_query("SELECT `telegram-id` FROM `last_fm`"); 
 	while($id_db = mysql_fetch_row($getid)){
 		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db[0].'&text='.$output; 
-	//	$result = file_get_contents($url);	
+		$result = file_get_contents($url);	
 	}		
 ######################################	
 	$db_name="last_fm_charts_all";
 	$command="user.getTopArtists&limit=40&period=overall";
  	refresh($db_name, $command, $para, $para2);
- 	
  
 ######################################
 	$db_name="last_fm_charts_track";
