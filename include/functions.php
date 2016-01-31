@@ -374,11 +374,12 @@
 	 	$content="";
 		$page_n=$page+1;
 		$page_l=$page-1;
-		if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7) {
-			$content= '
-			<div class="nav footer">
+		$content= '
+		<div class="nav footer">
 				<table>
-					<tr>
+					<tr>';
+					if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7) {
+						$content .= '
 						<td class="navfooter" style="color:white;">
             			Seite '.$page.' von '.$totalPages.'
             		</td>
@@ -449,10 +450,11 @@
 							';
 							}
 							$content .='
-							</td>             			
+							</td>';          			
+							$content .='   	         		
    	         		<td class="navfooter">
    	         			<form action="?" style="margin:0; padding:0;" method="POST">
-   								<select class="" name="limitin" id="myselect" onchange="this.form.submit()" style="color:black">';
+   								<select class="form-control"  name="limitin" id="myselect" onchange="this.form.submit()" style="padding:3px; font-size:12pt">';
    								if($method_in==6 or $method_in==7) {
   	 							$content .='
   	      							<option class="option"'; if($perPage==20) {$content .= " selected";} $content .= ' value="20">20 Eintr&auml;ge Pro Seite</option>
@@ -471,12 +473,17 @@
  	  							<input type="hidden" name="method" value="'.$method_in.'">
  	  							<input type="hidden" name="pagein" value="'. $page .'">
 							</form>
+						</td>';
+					}
+					$content .='
+						<td>
+							<span class="text-muted" style="padding-left:30px;"> <a  href="impressum.html" target="_blank">Impressum</a> - <a target="_blank" href="datenschutzerklaerung.html" >Datenschutz</a></span>  
 						</td>
 					</tr>
 				</table>
 			</div>
 			';
-		}
+		
   		return $content;
 	}
 	
