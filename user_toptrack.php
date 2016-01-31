@@ -31,7 +31,7 @@ object(stdClass)#10 (7) {
 				$image_decode= $track->image;
 				$image_array = get_object_vars($image_decode[0]);
 				$images=$image_array['#text'];
-				$image=image($images, $artist_name);
+				$image=image($images, $artist_name, $db);
 				if($counter_cont==1) {
 					$count_max=$count;
 				}

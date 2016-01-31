@@ -20,7 +20,7 @@
 				}
 				$date_uts=$date_array['uts'];
 				$images=$image_array['#text'];
-				$image=image($images, $artist_name);
+				$image=image($images, $artist_name, $db);
 				$gmdate = gmdate("H:i", $date_uts);
 				$ch_m_in=gmdate("d", $date_uts);
 				$show_date=0;

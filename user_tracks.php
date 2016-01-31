@@ -31,7 +31,7 @@
 					$date_uts=$date_array['uts']+3600;  //lastfm fehler ausgleichen
 				}
 				$images=$image_array['#text'];
-				$image=image($images, $artist_name);
+				$image=image($images, $artist_name, $db);
 				if($date_decode!="wird gerade gehört") {
 					$gmdate = gmdate("H:i", $date_uts);
 					$ch_m_in=gmdate("d", $date_uts);
