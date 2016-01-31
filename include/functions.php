@@ -267,7 +267,6 @@
 			$places[]=$getplaces['titel'];
 		}
 		$content .='
-		
  			<tr>
  				<td class="list table_head">
  				</td>
