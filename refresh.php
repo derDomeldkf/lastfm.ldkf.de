@@ -11,7 +11,7 @@
 	$insert = $db->query("INSERT INTO tables (table_name) VALUES ('$db_name')"); 
 	$command="user.getTopArtists&period=7day"; 	
  	refresh($db_name, $command, $db);
-	$getplace = $db->query("SELECT `artist` FROM `last_fm_charts` ORDER BY playcount DESC "); 
+	$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC "); 
 	while($getplaces = $getplace->fetch_assoc()){
 		$places[]=$getplaces['artist'];
 	}
@@ -45,7 +45,7 @@
 		//$result = file_get_contents($url);	
 	}		
 ######################################	
-
+/*
 	$db_name="last_fm_charts_all";
 	$command="user.getTopArtists&limit=40&period=overall";
  	refresh($db_name, $command, $db);
@@ -62,5 +62,5 @@
 	$command="user.getWeeklyTrackChart&from=".$time2."&to=".$time; 	
  	refresh2($db_name, $command, $db); 	
  	
- 	
+ */	
 ?>

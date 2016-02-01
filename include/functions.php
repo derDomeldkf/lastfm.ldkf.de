@@ -27,7 +27,8 @@
 		$getusers = $db->query("SELECT `username` FROM `ldkf_lastfm`"); 
  		while ($getuser = $getusers->fetch_assoc()) {
  			$users[]=$getuser['username'];
- 		}		
+ 		}	
+ 		if($db_name!="last_fm_charts_all") {
  		$sql = "CREATE TABLE `".$db_name."` (
 			playcount INT(3) NOT NULL,
 			artist VARCHAR(40) NOT NULL COLLATE utf8_general_mysql500_ci,
@@ -40,6 +41,8 @@
 		else {
    	 	echo "Error creating table: " . $db->error;
 		}
+		}
+		
 		$d=0;
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
@@ -59,6 +62,7 @@
 							$image_path="pic/empty.png";
 						}
 						$getcounter = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$name'"); 
+						echo $getcounter->num_rows;
 						if(isset($getcounter->num_rows) and  $getcounter->num_rows!= 0) {
 							$counter = $getcounter->fetch_assoc()['playcount'];
 						}
@@ -68,9 +72,11 @@
 							$counter_insert=$counter+$playcount;
 							$user_insert=$user_db."&&".$user_in;
 							$update = $db->query("UPDATE `".$db_name."` SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'");  
+							echo $user_insert."<br>";
 						}
 						else {
 							$insert = $db->query("INSERT INTO `".$db_name."` (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')"); 
+							echo $name."<br>";
 						}
 					}
 				}
@@ -107,19 +113,19 @@
 						if(!isset($image_path) or $image_path=="") {
 							$image_path="pic/empty.png";
 						}
-						$getcount = $db->query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$name' "); 
+						$getcount = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE titel LIKE '$name' "); 
 						if(isset($getcount->num_rows) and  $getcount->num_rows!= 0) {
 							$counter = $getcount->fetch_assoc()['playcount'];
 						}
 						if(isset($counter) and $counter!="") {
-							$getuser_add = $db->query("SELECT `user` FROM ".$db_name." WHERE titel LIKE '$name' "); 
+							$getuser_add = $db->query("SELECT `user` FROM `".$db_name."` WHERE titel LIKE '$name' "); 
 							$user_db = $getuser_add->fetch_assoc()['user'];
 							$counter_insert=$counter+$playcount;
 							$user_insert=$user_db."&&".$user_in;
-							$update = $db->query("UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where titel = '$name'");
+							$update = $db->query("UPDATE `".$db_name."` SET user = '$user_insert', playcount ='$counter_insert'  where titel = '$name'");
 						}
 						else {
-							$insert = $db->query("INSERT INTO ".$db_name." (playcount, artist, user, titel) VALUES ('$playcount', '$artist_name', '$user_in', '$name')"); 
+							$insert = $db->query("INSERT INTO `".$db_name."` (playcount, artist, user, titel) VALUES ('$playcount', '$artist_name', '$user_in', '$name')"); 
 						}
 					}
 				}
