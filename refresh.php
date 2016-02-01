@@ -7,7 +7,8 @@
 ##########################
 	$para="topartists";
 	$para2="artist";
- 	$db_name="last_fm_charts";
+	$db_name = date('YW');
+	$insert = $db->query("INSERT INTO tables (table_name) VALUES ('$db_name')"); 
 	$command="user.getTopArtists&period=7day"; 	
  	refresh($db_name, $command, $db);
 	$getplace = $db->query("SELECT `artist` FROM `last_fm_charts` ORDER BY playcount DESC "); 
@@ -18,11 +19,11 @@
 	$place=1;		
 	foreach($places as $artist_name){
 		if($i<60) {
-			$getartist = $db->query("SELECT `playcount` FROM `last_fm_charts` WHERE artist LIKE '$artist_name'"); 
+			$getartist = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$artist_name'"); 
 			$artist = $getartist->fetch_assoc();
 			$count=$artist['playcount'];
 			if($place==1) {$count_max=$count;}
-			$getuser = $db->query("SELECT `user` FROM `last_fm_charts` WHERE artist LIKE '$artist_name' "); 
+			$getuser = $db->query("SELECT `user` FROM `".$db_name."` WHERE artist LIKE '$artist_name' "); 
 			$users= $getuser->fetch_assoc();
 			$users_names=$users['user'];
 			$user =  str_replace("&&", ", ",$users_names);
@@ -44,7 +45,7 @@
 		//$result = file_get_contents($url);	
 	}		
 ######################################	
-
+/*
 	$db_name="last_fm_charts_all";
 	$command="user.getTopArtists&limit=40&period=overall";
  	refresh($db_name, $command, $db);
@@ -61,5 +62,5 @@
 	$command="user.getWeeklyTrackChart&from=".$time2."&to=".$time; 	
  	refresh2($db_name, $command, $db); 	
  	
- 	
+ 	*/
 ?>

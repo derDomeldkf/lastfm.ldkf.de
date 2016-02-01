@@ -270,7 +270,12 @@
 									
 									break;
 								case 4:
-									$db_name="last_fm_charts";
+									$gethighest = $db->query("SELECT MAX(id) FROM `tables`"); 
+									$getplaces = $gethighest->fetch_assoc();
+									$id=$getplaces['MAX(id)'];
+									$getname = $db->query("SELECT `table_name` FROM `tables` WHERE id LIKE '$id' "); 
+									$name = $getname->fetch_assoc();
+									$db_name=$name['table_name'];
 									$period="In der letzten Woche gehört von";
 									echo group($db_name, $period, $db);	   
 									break;

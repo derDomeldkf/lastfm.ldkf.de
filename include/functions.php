@@ -28,15 +28,24 @@
  		while ($getuser = $getusers->fetch_assoc()) {
  			$users[]=$getuser['username'];
  		}		
-		$delete = $db->query("DELETE FROM ".$db_name);  
+ 		$sql = "CREATE TABLE `".$db_name."` (
+			playcount INT(3) NOT NULL,
+			artist VARCHAR(40) NOT NULL COLLATE utf8_general_mysql500_ci,
+			user TEXT NOT NULL COLLATE latin1_swedish_ci
+		)";
+
+		if ($db->query($sql) === TRUE) {
+  	 		echo "Table created successfully";
+		}
+		else {
+   	 	echo "Error creating table: " . $db->error;
+		}
 		$d=0;
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
    		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
-				
-				
 				if(isset($user_info_array['topartists'])) {
 					$user_info = get_object_vars($user_info_array['topartists']);	
 					foreach($user_info['artist'] as $top) {
@@ -49,17 +58,19 @@
 						if(!isset($image_path) or $image_path=="") {
 							$image_path="pic/empty.png";
 						}
-						$getcounter = $db->query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$name'"); 
- 						$counter = $getcounter->fetch_assoc()['playcount'];
+						$getcounter = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$name'"); 
+						if(isset($getcounter->num_rows) and  $getcounter->num_rows!= 0) {
+							$counter = $getcounter->fetch_assoc()['playcount'];
+						}
 						if(isset($counter) and $counter!="") {
-							$getuser_add = $db->query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$name' "); 
+							$getuser_add = $db->query("SELECT `user` FROM `".$db_name."` WHERE artist LIKE '$name' "); 
 							$user_db = $getuser_add->fetch_assoc()['user'];
 							$counter_insert=$counter+$playcount;
 							$user_insert=$user_db."&&".$user_in;
-							$update = $db->query("UPDATE ".$db_name." SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'");  
+							$update = $db->query("UPDATE `".$db_name."` SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'");  
 						}
 						else {
-							$insert = $db->query("INSERT INTO ".$db_name." (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')"); 
+							$insert = $db->query("INSERT INTO `".$db_name."` (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')"); 
 						}
 					}
 				}
@@ -164,12 +175,34 @@
 	
 	function group($db_name, $period, $db) {
  		$content="";
-		$getplace = $db->query("SELECT `artist` FROM ".$db_name." ORDER BY playcount DESC "); 
+ 		if(!isset($_POST['user1'])) {
+			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC"); 
+		}
+		elseif(isset($_POST['user1']) and isset($_POST['user2'])) {
+			$ua=$_POST['user1'];
+			$ub=$_POST['user2'];
+			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` WHERE user LIKE '%".$ua."%' and user LIKE '%".$ub."%' ORDER BY playcount DESC"); 
+		}
+		elseif(isset($_POST['user1']) and isset($_POST['user2']) and isset($_POST['user3'])) {
+			$ua=$_POST['user1'];
+			$ub=$_POST['user2'];
+			$uc=$_POST['user3'];
+			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` WHERE user LIKE '%".$ua."%' and user LIKE '%".$ub."%' and user LIKE '%".$uc."%' ORDER BY playcount DESC"); 
+		}
+		elseif(isset($_POST['user1']) and isset($_POST['user2']) and isset($_POST['user3']) and isset($_POST['user4'])) {
+			$ua=$_POST['user1'];
+			$ub=$_POST['user2'];
+			$uc=$_POST['user3'];
+			$ud=$_POST['user4'];
+			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` WHERE user LIKE '%".$ua."%' and user LIKE '%".$ub."%' and user LIKE '%".$uc."%' and user LIKE '%".$ud."%' ORDER BY playcount DESC"); 
+		}		
+		
 		while($getplaces = $getplace->fetch_assoc()){
 			$places[]=$getplaces['artist'];
 		}
 		$content .='		
-		<div style="margin-left:30px;">
+		<div class="row">
+		<div class="col-md-9" style="padding-left:50px;">
  		<table style="">
  		<tbody>
  			<tr>
@@ -191,11 +224,11 @@
 		$i=0;	 
 		$place=1;		
 		foreach($places as $artist_name){
-			$getartist = $db->query("SELECT `playcount` FROM ".$db_name." WHERE artist LIKE '$artist_name'"); 
+			$getartist = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$artist_name'"); 
 			$counter = $getartist->fetch_assoc();
 			$count=$counter['playcount'];
 			if($place==1) {$count_max=$count;}
-			$getuser = $db->query("SELECT `user` FROM ".$db_name." WHERE artist LIKE '$artist_name' "); 
+			$getuser = $db->query("SELECT `user` FROM `".$db_name."` WHERE artist LIKE '$artist_name' "); 
 			$users_names= $getuser->fetch_assoc()['user'];
 			$user =  str_replace("&&", ", ",$users_names);
 			if(substr_count($user, ', ')>2){
@@ -254,6 +287,44 @@
  			</tbody>
 		</table>
 		</div>
+		<div class="col-md-3" style="padding-right:40px; padding-top:20px;">
+		';
+		if($db_name=="last_fm_charts_all") {
+			$content .= '
+			<h4>Gemeinsame Künstler von:</h4>
+				<div style="width:220px; margin-top:30px;">
+					<form class="form-signin" method="post" action="lastfm.php?">
+   					<input type="hidden" name="method" value="8">
+   					<input type="text" class="form-control" name="user1" style="margin-bottom:5px;" placeholder="1. Benutzer" required>
+   					<input type="text" class="form-control" name="user2" style="margin-bottom:5px;" placeholder="2. Benutzer" required>
+   					<input type="text" class="form-control" name="user3" style="margin-bottom:5px;" placeholder="3. Benutzer">
+   					<input type="text" class="form-control" name="user4" placeholder="4. Benutzer">
+   					<br>
+						<button type="submit" class="btn btn-primary">
+							Suchen
+						</button>
+   				</form>';
+   				if(isset($ua) and $ua != "") {
+   					$content .= '
+   				<form class="form-signin" method="post" action="lastfm.php?">
+   					<input type="hidden" name="method" value="8">
+						<button type="submit" class="btn btn-primary">
+							Reset
+						</button>
+   				</form>';
+   				}
+   			$content .= '
+   			</div>		
+			';
+		}
+		else {
+			//include "stats.php";
+			//$content .= $stats_cont;
+		}	
+				
+		$content .= '
+		</div>
+		</div>
 		';
 		return $content;
 	}
@@ -287,8 +358,6 @@
 			</tr>';
 		$i=0;	 
 		$place=1;		
-
-
 		foreach($places as $track_name){
 			$getartist = $db->query("SELECT `playcount` FROM ".$db_name." WHERE titel LIKE '$track_name'"); 
 			$count = $getartist->fetch_assoc()['playcount'];
@@ -423,15 +492,15 @@
 						$content .='
             			<form action="?" style="margin:0; padding:0;" method="POST">
             				<input type="hidden" name="username" value='.$user_in.'>
-   								<input type="hidden" name="method" value="'.$method_in.'">
-   								<input type="hidden" name="limitin" value="'.$limit_in.'">
-   					   		<input type="hidden" name="pagein" value="'. $page_n .'">
-									<button type="submit" class="btn btn-primary">
-										>>
-									</button>
-								</form>
-							';
-						}
+   							<input type="hidden" name="method" value="'.$method_in.'">
+   							<input type="hidden" name="limitin" value="'.$limit_in.'">
+   					   	<input type="hidden" name="pagein" value="'. $page_n .'">
+								<button type="submit" class="btn btn-primary">
+									>>
+								</button>
+							</form>
+						';
+					}
 						$content .='
 							</td>   
 							<td class="navfooter">
@@ -788,7 +857,7 @@
 	function head() {
 		$content="";
 		$content= '
-			<div style="margin-left:30px;">
+			<div class="col-md-6" style="margin-left:20px; float:left">
 				<div class="modal fade" id="modaleins" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
  					<div class="modal-dialog" role="document">
     					<div class="modal-content">
