@@ -863,7 +863,7 @@
 	function head() {
 		$content="";
 		$content= '
-			<div class="col-md-6" style="margin-left:20px; float:left">
+			<div style="margin-left:20px;">
 				<div class="modal fade" id="modaleins" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
  					<div class="modal-dialog" role="document">
     					<div class="modal-content">
