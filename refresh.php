@@ -45,7 +45,7 @@
 		//$result = file_get_contents($url);	
 	}		
 ######################################	
-/*
+
 	$db_name="last_fm_charts_all";
 	$command="user.getTopArtists&limit=40&period=overall";
  	refresh($db_name, $command, $db);
@@ -62,5 +62,5 @@
 	$command="user.getWeeklyTrackChart&from=".$time2."&to=".$time; 	
  	refresh2($db_name, $command, $db); 	
  	
- 	*/
+ 	
 ?>
