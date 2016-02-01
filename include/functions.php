@@ -42,12 +42,16 @@
    	 	echo "Error creating table: " . $db->error;
 		}
 		}
-		
+		else {
+			$delete = $db->query("DELETE FROM ".$db_name);
+		}
 		$d=0;
 		foreach($users as $user_in){
+			echo $user_in;
 			$methode="method=".$command."&user=".$user_in;
    		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 			if(isset($out)) {
+				//var_dump($out);
 				$user_info_array = get_object_vars(json_decode($out));
 				if(isset($user_info_array['topartists'])) {
 					$user_info = get_object_vars($user_info_array['topartists']);	
@@ -62,7 +66,6 @@
 							$image_path="pic/empty.png";
 						}
 						$getcounter = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$name'"); 
-						echo $getcounter->num_rows;
 						if(isset($getcounter->num_rows) and  $getcounter->num_rows!= 0) {
 							$counter = $getcounter->fetch_assoc()['playcount'];
 						}
@@ -70,14 +73,13 @@
 							$getuser_add = $db->query("SELECT `user` FROM `".$db_name."` WHERE artist LIKE '$name' "); 
 							$user_db = $getuser_add->fetch_assoc()['user'];
 							$counter_insert=$counter+$playcount;
-							$user_insert=$user_db."&&".$user_in;
-							$update = $db->query("UPDATE `".$db_name."` SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'");  
-							echo $user_insert."<br>";
+							$userinsert=$user_db."&&".$user_in;
+							$update = $db->query("UPDATE `".$db_name."` SET user = '$userinsert', playcount = '$counter_insert' where artist = '$name'"); 
 						}
 						else {
 							$insert = $db->query("INSERT INTO `".$db_name."` (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')"); 
-							echo $name."<br>";
 						}
+						
 					}
 				}
 				unset($out);
