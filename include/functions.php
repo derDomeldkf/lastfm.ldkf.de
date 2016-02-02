@@ -46,9 +46,6 @@
    		 	$s=1;
 			}
 		}
-		else {
-			$delete = $db->query("DELETE FROM ".$db_name);
-		}
 		$d=0;
 		if($s==0) {
 			foreach($users as $user_in){
