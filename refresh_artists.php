@@ -46,6 +46,6 @@
 	}		
 
 	$db_name="last_fm_charts_all";
-	$command="user.getTopArtists&limit=40&period=overall";
+	$command="user.getTopArtists&limit=60&period=overall";
  	refresh($db_name, $command, $db);
 ?>

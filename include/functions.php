@@ -193,12 +193,12 @@
  		if(!isset($_POST['user1'])) {
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC"); 
 		}
-		elseif(isset($_POST['user1']) and isset($_POST['user2'])) {
+		elseif(isset($_POST['user1']) and isset($_POST['user2']) and !isset($_POST['user3']) and !isset($_POST['user4'])) {
 			$ua=$_POST['user1'];
 			$ub=$_POST['user2'];
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` WHERE user LIKE '%".$ua."%' and user LIKE '%".$ub."%' ORDER BY playcount DESC"); 
 		}
-		elseif(isset($_POST['user1']) and isset($_POST['user2']) and isset($_POST['user3'])) {
+		elseif(isset($_POST['user1']) and isset($_POST['user2']) and isset($_POST['user3']) and !isset($_POST['user4'])) {
 			$ua=$_POST['user1'];
 			$ub=$_POST['user2'];
 			$uc=$_POST['user3'];
@@ -310,10 +310,10 @@
 				<div style="width:220px; margin-top:30px;">
 					<form class="form-signin" method="post" action="lastfm.php?">
    					<input type="hidden" name="method" value="8">
-   					<input type="text" class="form-control" name="user1" style="margin-bottom:5px;" placeholder="1. Benutzer" required>
-   					<input type="text" class="form-control" name="user2" style="margin-bottom:5px;" placeholder="2. Benutzer" required>
-   					<input type="text" class="form-control" name="user3" style="margin-bottom:5px;" placeholder="3. Benutzer">
-   					<input type="text" class="form-control" name="user4" placeholder="4. Benutzer">
+   					<input type="text" class="form-control" name="user1" style="margin-bottom:5px;" placeholder="1. Benutzer" '; if(isset($ua) and $ua != ""){$content .='value="'.$ua.'" ';} $content .= 'required>
+   					<input type="text" class="form-control" name="user2" style="margin-bottom:5px;" placeholder="2. Benutzer" '; if(isset($ub) and $ub != ""){$content .='value="'.$ub.'" ';} $content .= 'required>
+   					<input type="text" class="form-control" name="user3" style="margin-bottom:5px;" placeholder="3. Benutzer" '; if(isset($uc) and $uc != ""){$content .='value="'.$uc.'" ';} $content .= '>
+   					<input type="text" class="form-control" name="user4" placeholder="4. Benutzer" '; if(isset($ud) and $ud != ""){$content .='value="'.$ud.'" ';} $content .= '>
    					<br>
 						<button type="submit" class="btn btn-primary">
 							Suchen
