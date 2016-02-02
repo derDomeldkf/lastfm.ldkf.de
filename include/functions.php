@@ -195,7 +195,7 @@
 		foreach($member as $member_name){
 			$content .= '
 				<option value="'.$member_name.'"'; 
-				if($member_name==$user_input[$counter_select]) {
+				if(isset($user_input[$counter_select]) and $member_name==$user_input[$counter_select]) {
 				$content .= 'selected';
 				
 				}
@@ -207,32 +207,38 @@
 		return $content;
 	}	
 	
+
+
+
+
+
+
+
+
+
+
 	function group($db_name, $period, $db) {
  		$content="";
- 		if(!isset($_POST['user1'])) {
+ 		if(!isset($_POST['userselc'][0])) {
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC"); 
-			$user_input= array("1" => "", "2" => "", "3" => "", "4" => "");
+			$user_input[]="0";
 		}
-		elseif(isset($_POST['user1']) and isset($_POST['user2']) and !isset($_POST['user3']) and !isset($_POST['user4'])) {
-			$ua=$_POST['user1'];
-			$ub=$_POST['user2'];
-			$user_input= array("1" => $ua, "2" => $ub, "3" => "", "4" => "");
-			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` WHERE user LIKE '%".$ua."%' and user LIKE '%".$ub."%' ORDER BY playcount DESC"); 
-		}
-		elseif(isset($_POST['user1']) and isset($_POST['user2']) and isset($_POST['user3']) and !isset($_POST['user4'])) {
-			$ua=$_POST['user1'];
-			$ub=$_POST['user2'];
-			$uc=$_POST['user3'];
-			$user_input= array("1" => $ua, "2" => $ub, "3" => $uc, "4" => "");
-			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` WHERE user LIKE '%".$ua."%' and user LIKE '%".$ub."%' and user LIKE '%".$uc."%' ORDER BY playcount DESC"); 
-		}
-		elseif(isset($_POST['user1']) and isset($_POST['user2']) and isset($_POST['user3']) and isset($_POST['user4'])) {
-			$ua=$_POST['user1'];
-			$ub=$_POST['user2'];
-			$uc=$_POST['user3'];
-			$ud=$_POST['user4'];
-			$user_input= array("1" => $ua, "2" => $ub, "3" => $uc, "4" => $ud);
-			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` WHERE user LIKE '%".$ua."%' and user LIKE '%".$ub."%' and user LIKE '%".$uc."%' and user LIKE '%".$ud."%' ORDER BY playcount DESC"); 
+		else {
+			$i=0;
+			$where="";
+			foreach($_POST['userselc'] as $user_sel) {
+				if($i==0) {
+					$where .="WHERE user LIKE '%".$user_sel."%'";
+					$user_input[]=$user_sel;
+				
+				}
+				else {
+					$where .="and user LIKE '%".$user_sel."%'";
+					$user_input[]=$user_sel;
+				}
+			$i++;
+			}
+			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ".$where." ORDER BY playcount DESC"); 
 		}		
 		
 		while($getplaces = $getplace->fetch_assoc()){
@@ -350,24 +356,24 @@
 				<div style="width:220px; margin-top:30px;">
 					<form class="form-signin" method="post" action="lastfm.php?">
    					<input type="hidden" name="method" value="8">
-   					<select name="user1" class="form-control" style="margin-bottom:5px;" required>';
+   					<select name="userselc[]" class="form-control" style="margin-bottom:5px;" required>';
+   					$content .= select($member, $user_input, "0");
+   					$content .= '
+   					<select name="userselc[]" class="form-control" style="margin-bottom:5px;" required>';
    					$content .= select($member, $user_input, "1");
    					$content .= '
-   					<select name="user2" class="form-control" style="margin-bottom:5px;" required>';
+   					<select name="userselc[]" class="form-control" style="margin-bottom:5px;">';
    					$content .= select($member, $user_input, "2");
    					$content .= '
-   					<select name="user3" class="form-control" style="margin-bottom:5px;">';
+						<select name="userselc[]" class="form-control" style="margin-bottom:5px;">';
    					$content .= select($member, $user_input, "3");
-   					$content .= '
-						<select name="user4" class="form-control" style="margin-bottom:5px;">';
-   					$content .= select($member, $user_input, "4");
  						$content .= '
    					<br>
 						<button type="submit" class="btn btn-primary">
 							Suchen
 						</button>
    				</form>';
-   				if(isset($ua) and $ua != "") {
+   				if(isset($_POST['userselc'][0]) and $_POST['userselc'][0] != "") {
    					$content .= '
    				<form class="form-signin" method="post" action="lastfm.php?">
    					<input type="hidden" name="method" value="8">
