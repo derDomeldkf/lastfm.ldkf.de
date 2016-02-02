@@ -86,7 +86,7 @@
 					unset($out);
 				} 
 				$d++;
-				sleep(1);
+			//	sleep(1);
 			}  
 		}
 	}
