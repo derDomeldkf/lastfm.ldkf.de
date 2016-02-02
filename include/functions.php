@@ -254,7 +254,7 @@
 		else {
 		$content .='		
 		<div class="row">
-		<div class="col-md-9" style="padding-left:50px;">
+		<div class="col-md-9" style="padding-left:35px;">
  		<table style="">
  		<tbody>
  			<tr>
@@ -344,7 +344,7 @@
 		}
 		$content .= '
 		</div>
-		<div class="col-md-3" style="padding-right:40px; padding-top:20px;">
+		<div class="col-md-3" style="padding-left:30px; padding-top:20px;">
 		';
 		if($db_name=="last_fm_charts_all") {
 			$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
