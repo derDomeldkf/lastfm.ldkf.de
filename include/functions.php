@@ -215,6 +215,14 @@
 		while($getplaces = $getplace->fetch_assoc()){
 			$places[]=$getplaces['artist'];
 		}
+		if(!isset($places) and isset($ua)) {
+			$content .='
+				<div class="row">
+					<div class="col-md-9" style="padding-left:50px;">
+						<h3>Diese Benutzer habe keinen gemeinsam gehörten Künstler.</h3>
+			';		
+		}
+		else {
 		$content .='		
 		<div class="row">
 		<div class="col-md-9" style="padding-left:50px;">
@@ -237,7 +245,8 @@
 				</td> 	
 			</tr>';
 		$i=0;	 
-		$place=1;		
+		$place=1;	
+		if(isset($places )) {
 		foreach($places as $artist_name){
 			$getartist = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$artist_name'"); 
 			$counter = $getartist->fetch_assoc();
@@ -297,10 +306,14 @@
  	     else {$i--;}
  	  	}	
  	     $place++;
+ 	    }
 		}
+		
 	 	$content .= '
  			</tbody>
-		</table>
+		</table>';
+		}
+		$content .= '
 		</div>
 		<div class="col-md-3" style="padding-right:40px; padding-top:20px;">
 		';
