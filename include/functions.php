@@ -187,21 +187,43 @@
 			sleep(1);
 		}  
 	}
+
+	function select($member, $user_input, $counter_select) {
+		$content ='
+			<option></option>   					
+   	';
+		foreach($member as $member_name){
+			$content .= '
+				<option value="'.$member_name.'"'; 
+				if($member_name==$user_input[$counter_select]) {
+				$content .= 'selected';
+				
+				}
+				$content .= '>'.$member_name.'</option>
+			';
+		}  
+		$content .= '</select>	';
+	
+		return $content;
+	}	
 	
 	function group($db_name, $period, $db) {
  		$content="";
  		if(!isset($_POST['user1'])) {
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC"); 
+			$user_input= array("1" => "", "2" => "", "3" => "", "4" => "");
 		}
 		elseif(isset($_POST['user1']) and isset($_POST['user2']) and !isset($_POST['user3']) and !isset($_POST['user4'])) {
 			$ua=$_POST['user1'];
 			$ub=$_POST['user2'];
+			$user_input= array("1" => $ua, "2" => $ub, "3" => "", "4" => "");
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` WHERE user LIKE '%".$ua."%' and user LIKE '%".$ub."%' ORDER BY playcount DESC"); 
 		}
 		elseif(isset($_POST['user1']) and isset($_POST['user2']) and isset($_POST['user3']) and !isset($_POST['user4'])) {
 			$ua=$_POST['user1'];
 			$ub=$_POST['user2'];
 			$uc=$_POST['user3'];
+			$user_input= array("1" => $ua, "2" => $ub, "3" => $uc, "4" => "");
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` WHERE user LIKE '%".$ua."%' and user LIKE '%".$ub."%' and user LIKE '%".$uc."%' ORDER BY playcount DESC"); 
 		}
 		elseif(isset($_POST['user1']) and isset($_POST['user2']) and isset($_POST['user3']) and isset($_POST['user4'])) {
@@ -209,6 +231,7 @@
 			$ub=$_POST['user2'];
 			$uc=$_POST['user3'];
 			$ud=$_POST['user4'];
+			$user_input= array("1" => $ua, "2" => $ub, "3" => $uc, "4" => $ud);
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` WHERE user LIKE '%".$ua."%' and user LIKE '%".$ub."%' and user LIKE '%".$uc."%' and user LIKE '%".$ud."%' ORDER BY playcount DESC"); 
 		}		
 		
@@ -219,7 +242,7 @@
 			$content .='
 				<div class="row">
 					<div class="col-md-9" style="padding-left:50px;">
-						<h3>Diese Benutzer habe keinen gemeinsam gehörten Künstler.</h3>
+						<h3>Diese Benutzer habe keine gemeinsam gehörten Künstler.</h3>
 			';		
 		}
 		else {
@@ -318,15 +341,27 @@
 		<div class="col-md-3" style="padding-right:40px; padding-top:20px;">
 		';
 		if($db_name=="last_fm_charts_all") {
+			$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
+				while($members = $getmembers->fetch_assoc()){
+					$member[]=$members['username'];
+				}
 			$content .= '
 			<h4>Gemeinsame Künstler von:</h4>
 				<div style="width:220px; margin-top:30px;">
 					<form class="form-signin" method="post" action="lastfm.php?">
    					<input type="hidden" name="method" value="8">
-   					<input type="text" class="form-control" name="user1" style="margin-bottom:5px;" placeholder="1. Benutzer" '; if(isset($ua) and $ua != ""){$content .='value="'.$ua.'" ';} $content .= 'required>
-   					<input type="text" class="form-control" name="user2" style="margin-bottom:5px;" placeholder="2. Benutzer" '; if(isset($ub) and $ub != ""){$content .='value="'.$ub.'" ';} $content .= 'required>
-   					<input type="text" class="form-control" name="user3" style="margin-bottom:5px;" placeholder="3. Benutzer" '; if(isset($uc) and $uc != ""){$content .='value="'.$uc.'" ';} $content .= '>
-   					<input type="text" class="form-control" name="user4" placeholder="4. Benutzer" '; if(isset($ud) and $ud != ""){$content .='value="'.$ud.'" ';} $content .= '>
+   					<select name="user1" class="form-control" style="margin-bottom:5px;" required>';
+   					$content .= select($member, $user_input, "1");
+   					$content .= '
+   					<select name="user2" class="form-control" style="margin-bottom:5px;" required>';
+   					$content .= select($member, $user_input, "2");
+   					$content .= '
+   					<select name="user3" class="form-control" style="margin-bottom:5px;">';
+   					$content .= select($member, $user_input, "3");
+   					$content .= '
+						<select name="user4" class="form-control" style="margin-bottom:5px;">';
+   					$content .= select($member, $user_input, "4");
+ 						$content .= '
    					<br>
 						<button type="submit" class="btn btn-primary">
 							Suchen
