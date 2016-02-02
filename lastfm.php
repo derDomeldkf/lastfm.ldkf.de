@@ -249,6 +249,7 @@
        			<div id="navbar" class="navbar-collapse collapse">
       				<ul class="nav navbar-nav">
         					<li><a href="./">Startseite<span class="sr-only">(current)</span></a></li>
+        					<li><a href="https://scrobbler.ldkf.de" target="_blank">Scrobbler</a></li>
         					<?php
         						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db);
 							?>					
