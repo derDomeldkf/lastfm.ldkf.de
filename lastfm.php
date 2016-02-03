@@ -64,7 +64,8 @@
            	$sk=$user->session->key; 
            	//immer da, speichern mit username
            	$user_n=$user->session;
-           	$username = md5(get_object_vars($user_n)['name']);
+           	$uncode_name=get_object_vars($user_n)['name']
+           	$username = md5($uncode_name);
             $getid = $db->query("SELECT `id` FROM `last_fm_users` WHERE username LIKE '$username'"); 
 				$getid_user=$getid->fetch_assoc()['id'];
 				if(!isset($getid_user) or $getid_user=="") {
@@ -86,7 +87,7 @@
 						           	
 	           	}
             }
-				$uname_db = $username;
+				$uname_db = $uncode_name;
         		$_SESSION['user']=$uname_db;
         		$_SESSION['session']=$sk;
 				$_SESSION['sig']=$sig;
