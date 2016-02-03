@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	echo $_SESSION['user'];
 	$user_in="";
 	$page="";
 	$totalPages="";
@@ -89,6 +88,7 @@
     	}
     	$method_in=$_GET['method_came'];
 	}
+		echo $_SESSION['user'];
 	if(isset($_POST['username']) or isset($uname_db) and $uname_db!="") {
 		if(isset($_POST['username'])) {
 			$user_in = $_POST['username'];
