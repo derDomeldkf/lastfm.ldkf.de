@@ -80,7 +80,7 @@
             }
             $uname_db=$username;
             if(!isset($_SESSION['user'])) {
-         		$_SESSION['user']=$uname_db;
+         		$_SESSION['user']=$uname_db->0;
          		$_SESSION['session']=$sk;
 					$_SESSION['sig']=$sig;
 				}
