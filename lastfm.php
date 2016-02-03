@@ -84,7 +84,7 @@
          		$_SESSION['session']=$sk;
 					$_SESSION['sig']=$sig;
 				}
-				echo $_SESSION['user'];
+				echo $_SESSION['user'][0];
 				echo $_SESSION['session'];
 			//	if(!isset($_COOKIE['user'])) {
 				//	setcookie('user', $sig, time()+(3600*24*365));  
