@@ -57,7 +57,7 @@
             $user = simplexml_load_string($result);
            	$sk=$user->session->key; 
            	//immer da, speichern mit username
-           	$user_n=$user->session
+           	$user_n=$user->session;
            	$username = get_object_vars($user_n)['name'];
            	echo $username;
             $getid = $db->query("SELECT `id` FROM `last_fm_users` WHERE username LIKE '$username'"); 
