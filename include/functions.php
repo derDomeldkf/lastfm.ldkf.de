@@ -278,14 +278,14 @@
 		if(!isset($places) and isset($ua)) {
 			$content .='
 				<div class="row">
-					<div class="col-md-9" style="padding-left:50px;">
+					<div class="col-md-9" style="padding-left:60px;">
 						<h3>Diese Benutzer habe keine gemeinsam gehörten Künstler.</h3>
 			';		
 		}
 		else {
 		$content .='		
 		<div class="row">
-		<div class="col-md-9" style="padding-left:35px;">
+		<div class="col-md-9" style="padding-left:55px;">
  		<table style="">
  		<tbody>
  			<tr>
@@ -969,7 +969,7 @@
 	function head() {
 		$content="";
 		$content= '
-			<div style="margin-left:20px;">
+			<div style="margin-left:40px;">
 				<div class="modal fade" id="modaleins" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
  					<div class="modal-dialog" role="document">
     					<div class="modal-content">

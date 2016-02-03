@@ -5,7 +5,7 @@
 	$place=(($page_in-1)*$limit_in)+1;
 	$counter_cont=1;
 	echo '
-		<div style="margin-left:30px;">
+		<div style="margin-left:40px;">
 			<table>
    			<tbody>
    		';

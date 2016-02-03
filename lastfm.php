@@ -110,7 +110,7 @@
 		}   
 	}
 	else {
-		if($method_in==1 or $method_in==4 or $method_in==8) {
+		if($method_in==1 or $method_in==4 or $method_in==8 or $method_in==9 or $method_in==10) {
 			if($method_in==1){
 				header('Location: https://telegram.me/ldkf_bot');
 			}
