@@ -73,10 +73,10 @@
 						$error=2;
 	           	}
 	           	else {
-						$getid = $db->query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$username'"); 
+						$getid = $db->query("SELECT session FROM `last_fm_users` WHERE username LIKE '$username'"); 
 						$sk=$getid->fetch_assoc()['session'];
+						$getid = $db->query("SELECT sig FROM `last_fm_users` WHERE username LIKE '$username'"); 
 						$sig=$getid->fetch_assoc()['sig'];
-						echo $sig;
 						           	
 	           	}
             }
