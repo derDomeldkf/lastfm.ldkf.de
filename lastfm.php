@@ -58,22 +58,22 @@
            	//immer da, speichern mit username
            	$username=$user->session->name;
             $getid = $db->query("SELECT `id` FROM `last_fm_users` WHERE username LIKE '$username'"); 
-				$getid_user=$getid->fetch_assoc();
+				$getid_user=$getid->fetch_assoc()['id'];
 				if(!isset($getid_user) or $getid_user=="") {
 					$insert = $db->query("INSERT INTO last_fm_users (username, session, sig, stat) VALUES ('$username', '$sk', '$sig', '1')"); 
 					$error=2;
             }
             else{
             	$getsession = $db->query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$username'"); 
-					$getsession_user=$getsession->fetch_assoc();
+					$getsession_user=$getsession->fetch_assoc()['session'];
             	if(!isset($getsession_user)) {
 						$update = $db->query("UPDATE last_fm_users SET session = '$sk', sig ='$sig', stat='1' where username = '$username'");  
 						$error=2;
 	           	}
 	           	else {
 						$getid = $db->query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$username'"); 
-						$sk=$getid->fetch_assoc('session');
-						$sig=$getid->fetch_assoc('sig');
+						$sk=$getid->fetch_assoc()['session'];
+						$sig=$getid->fetch_assoc()['sig'];
 						           	
 	           	}
             }
@@ -81,9 +81,9 @@
          	$_SESSION['user']=$uname_db;
          	$_SESSION['session']=$sk;
 				$_SESSION['sig']=$sig;
-				if(!isset($_COOKIE['user'])) {
-					setcookie('user', $sig, time()+(3600*24*365));  
-				}  
+			//	if(!isset($_COOKIE['user'])) {
+				//	setcookie('user', $sig, time()+(3600*24*365));  
+			//	}  
         	}
     	}
     	$method_in=$_GET['method_came'];

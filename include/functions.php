@@ -635,12 +635,12 @@
 				$content='<li><a href="./lastfm.php?method=4">Gruppe</a></li>
 					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>
 				';
-				/*if(isset($_COOKIE['user']) and $_COOKIE['user']==$user_in) {				
+				if(isset($_SESSION['user']) and $_SESSION['user']==$user_in) {				
 					$content .='<li><a href="./lastfm.php?logout=1&user='.$user_in.'&methodlogout='.$method_in.'" >Logout</a></li>';
 				}
 				else {
 					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'" >Login</a></li>';
-				}*/
+				}
         	}
        	$content .= '</ul>
    				<ul class="nav navbar-nav navbar-right">
