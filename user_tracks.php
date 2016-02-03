@@ -84,7 +84,7 @@
    	  					<span class="">
            					<span class="chartlist-image">
       						'; 
-         					echo love($love,$artist_name, $track_name, $method_in);
+         					echo love($love,$artist_name, $track_name, $method_in, $limit_in);
            					if($date_decode=="wird gerade gehört") {
          						$gmdate=$date_decode;
          						$date_uts="now";

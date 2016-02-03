@@ -132,6 +132,9 @@
 	if(isset($_POST['limitin'])) {
 		$limit_in=$_POST['limitin'];
 	}
+	elseif(isset($_GET['limitin'])) {
+		$limit_in=$_GET['limitin'];
+	}
 	elseif($method_in==2 or $method_in==5) {
 		$limit_in=15;
 	}
