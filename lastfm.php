@@ -88,7 +88,6 @@
     	}
     	$method_in=$_GET['method_came'];
 	}
-		echo $_SESSION['user'];
 	if(isset($_POST['username']) or isset($uname_db) and $uname_db!="") {
 		if(isset($_POST['username'])) {
 			$user_in = $_POST['username'];
@@ -266,6 +265,7 @@
 								case 1:
 									break;
 								case 2:
+		echo $_SESSION['user'];
 									include "user_tracks.php";	 
 									break;
 								case 3:
