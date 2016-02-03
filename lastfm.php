@@ -80,10 +80,9 @@
 	           	}
             }
 				$uname_db = $username;
-         		$_SESSION['user']=$uname_db;
-         		$_SESSION['session']=$sk;
-					$_SESSION['sig']=$sig;
-				echo $_SESSION['user'];
+        		$_SESSION['user']=$uname_db;
+        		$_SESSION['session']=$sk;
+				$_SESSION['sig']=$sig;
 			//	if(!isset($_COOKIE['user'])) {
 				//	setcookie('user', $sig, time()+(3600*24*365));  
 			//	}  
