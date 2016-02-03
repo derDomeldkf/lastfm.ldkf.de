@@ -9,7 +9,7 @@
 	$image="";
 	$totaltracks="";
 	$starttime="";
-	var_dump($_SESSION);
+
 	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
@@ -84,6 +84,7 @@
          		$_SESSION['session']=$sk;
 					$_SESSION['sig']=$sig;
 				}
+					var_dump($_SESSION);
 			//	if(!isset($_COOKIE['user'])) {
 				//	setcookie('user', $sig, time()+(3600*24*365));  
 			//	}  
