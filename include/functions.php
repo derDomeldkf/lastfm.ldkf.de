@@ -1,4 +1,23 @@
  <?php
+ 	function love($love,$artist_name, $track_name) {
+		if($love==1) {
+			$contet= '
+				<a href="include/do.php?f=unlove&artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
+					<img width="18px" height="18px;" src="pic/love.png">
+				</a>
+			';
+		}
+  		else {
+   		$content= '
+				<a href="include/do.php?f=love&artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
+					<img width="18px" height="18px;" src="pic/nolove.png">
+				</a>
+			';
+    	} 
+		return $content;
+  	}
+  	
+  	
   	function login($method, $db) {
   		/*$user_in=$_GET['user'];
   		$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
@@ -635,7 +654,7 @@
 					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>
 				';
 				if(isset($_SESSION['user']) and $_SESSION['user']==$user_in) {				
-					$content .='<li><a href="./lastfm.php?logout=1&user='.$user_in.'&methodlogout='.$method_in.'" >Logout</a></li>';
+					$content .='<li><a href="./lastfm.php?=1&user='.$user_in.'&methodlogout='.$method_in.'" >Logout</a></li>';
 				}
 				else {
 					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'" >Login</a></li>';

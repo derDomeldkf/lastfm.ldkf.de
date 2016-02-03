@@ -84,23 +84,8 @@
    	  					<span class="">
            					<span class="chartlist-image">
       						'; 
-         					if($love==1) {
-									echo '
-										<a href="include/do.php?f=unlove&artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
-											<img width="18px" height="18px;" src="pic/love.png">
-										</a>
-									';
-         					}
-         					else {
-         						echo '
-										<label href="'.$url.'" style="padding:1px; margin:0;">
-											<img width="18px" height="18px;" src="pic/nolove.png">
-										</label>
-									';
-         					}
-         					
-         					
-         					if($date_decode=="wird gerade gehört") {
+         					echo love($love,$artist_name, $track_name);
+           					if($date_decode=="wird gerade gehört") {
          						$gmdate=$date_decode;
          						$date_uts="now";
          					}
