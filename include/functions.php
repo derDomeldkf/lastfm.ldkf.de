@@ -18,8 +18,7 @@
 
  	function logout($user_in, $db) {
  		$update = $db->query("UPDATE last_fm_users SET stat='0' where username = '$user_in'");  
- 		$_COOKIE['user']="";
- 		setcookie("user","",time() - 3600);
+ 		unset($_SESSION['user']);
 		session_destroy();
   	} 
 
