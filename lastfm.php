@@ -9,7 +9,6 @@
 	$image="";
 	$totaltracks="";
 	$starttime="";
-	echo $_SESSION['user'];
 	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
