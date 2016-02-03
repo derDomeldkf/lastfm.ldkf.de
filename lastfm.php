@@ -79,8 +79,9 @@
 	           	}
             }
             $uname_db=$username;
+            var_dump( $uname_d);
             if(!isset($_SESSION['user'])) {
-         		$_SESSION['user']=$uname_db->0;
+         		$_SESSION['user']=$uname_db;
          		$_SESSION['session']=$sk;
 					$_SESSION['sig']=$sig;
 				}
