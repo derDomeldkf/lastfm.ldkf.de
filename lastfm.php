@@ -127,6 +127,9 @@
 	if(isset($_POST['pagein'])) {
 		$page_in=$_POST['pagein'];
 	}
+	elseif(isset($_GET['pagein'])) {
+		$page_in=$_GET['pagein'];
+	}
 	else {
 		$page_in=1;
 	}
