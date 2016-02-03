@@ -20,8 +20,8 @@
 			$uname_db=$_SESSION['user'];
 		}
 		elseif (isset($_GET['logout'])){
-			$user_in=$_GET['user'];
-			logout($user_in);
+			$user_in=$_SESSION['user'];
+			logout($user_in, $db);
 			$method_in=$_GET['methodlogout'];
 			$uname_db=$user_in;
 		}
