@@ -660,8 +660,10 @@
 	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db) {
 		$content="";
 		if(isset($_SESSION['user'])) {
-				$content .='<li><a href="./lastfm.php?method_get=2">Home</a></li>
-				<li><a href="https://scrobbler.ldkf.de" target="_blank">Scrobbler</a></li>';
+				$content .='
+					<li><a href="./lastfm.php?method_get=2">Home</a></li>
+					<li><a href="https://scrobbler.ldkf.de" target="_blank">Scrobbler</a></li>
+				';
 		}
 		if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7) {
 			$getname = $db->query("SELECT `id` FROM `ldkf_lastfm` WHERE `username` LIKE ('".$user_in."')");
@@ -690,13 +692,14 @@
            		<form class="form_member" method="post" action="lastfm.php">
 					<input type="hidden" name="username" value="'.$user_in.'">
 					<input type="hidden" name="method" value="2">
-					<button type="submit" class="userButton">
+					<button type="submit" class="userButton">				
+					Scrobbles: '.$totalTracks.'
+					</button>
+					</form>
 				';
 			}
-			$content .= 'Scrobbles: '.$totalTracks; 
-			if($method_in!=2) {
-				$content .= '</button>
-				</form>';
+			else {
+				$content .='<b>Scrobbles: '.$totalTracks.'</b>';
 			}
 			$content .= '
 	      	</li>
@@ -709,9 +712,11 @@
 						<button type="submit" class="userButton">
 				';
 			}
-			$content .= 'Lieblingslieder'; 
 			if($method_in==5) { 
-				$content .= ': '.$totaltracks;
+				$content .= '<b>Lieblingslieder: '.$totaltracks.'</b>';
+			}
+			else {
+				$content .= 'Lieblingslieder';
 			}
 			$content .='</button>
 				</form>
@@ -725,9 +730,12 @@
 						<button type="submit" class="userButton">
 				';
 			}
-			$content .= 'Top K&uuml;nstler'; 
+			$content .= ''; 
 			if($method_in==6) { 
-				$content .= ': '.$totaltracks;
+				$content .= '<b>Top K&uuml;nstler: '.$totaltracks.'</b>';
+			}
+			else {
+				$content .= 'Top K&uuml;nstler';			
 			}
 			$content .='</button>
 				</form>
@@ -742,9 +750,11 @@
 						<button type="submit" class="userButton">
 					';
 			}
-			$content .= 'Top Titel'; 
 			if($method_in==7) { 
-				$content .= ': '.$totaltracks;
+				$content .= '<b>Top Titel: '.$totaltracks.'</b>';
+			}
+			else {
+				$content .= 'Top Titel';
 			}
 			$content .='</button>
 				</form>
@@ -783,9 +793,7 @@
 				</li>
 			';     		
         			
-		}
-		
-		
+		}		
 		if($method_in==4) {
 			$content .='
 				</ul>
