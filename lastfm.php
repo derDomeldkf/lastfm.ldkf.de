@@ -9,6 +9,7 @@
 	$image="";
 	$totaltracks="";
 	$starttime="";
+	echo $_SESSION['user'];
 	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
@@ -78,7 +79,7 @@
 	           	}
             }
             $uname_db=$username;
-         	$_SESSION['user']=$uname_db;
+         	$_SESSION['user']=5;
          	$_SESSION['session']=$sk;
 				$_SESSION['sig']=$sig;
 			//	if(!isset($_COOKIE['user'])) {
@@ -100,10 +101,7 @@
 		}   
 	}
 	else {
-		if(isset($_GET['method'])){
-			$method_in=$_GET['method'];
-		}
-		elseif($method_in==1 or $method_in==4 or $method_in==8) {
+		if($method_in==1 or $method_in==4 or $method_in==8) {
 			if($method_in==1){
 				header('Location: https://telegram.me/ldkf_bot');
 			}
@@ -265,7 +263,7 @@
 								case 1:
 									break;
 								case 2:
-		echo $_SESSION['user'];
+								
 									include "user_tracks.php";	 
 									break;
 								case 3:
