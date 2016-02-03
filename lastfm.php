@@ -79,7 +79,7 @@
 	           	}
             }
             $uname_db=$username;
-         	$_SESSION['user']=5;
+         	$_SESSION['user']="microsofthater2";
          	$_SESSION['session']=$sk;
 				$_SESSION['sig']=$sig;
 			//	if(!isset($_COOKIE['user'])) {
