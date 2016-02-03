@@ -3,7 +3,7 @@
  		if(isset($_SESSION['user']) and $_SESSION['user']==$user_in) {
 			if($love==1) {
 				$content= '
-					<a href="include/do.php?f=unlove&meth='.$method_in.'&lim='.$limit_in.'artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
+					<a href="include/do.php?f=unlove&meth='.$method_in.'&lim='.$limit_in.'&artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
 						<img width="18px" height="18px;" src="pic/love.png">
 					</a>
 				';
