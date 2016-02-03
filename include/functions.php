@@ -17,10 +17,16 @@
     		} 
     	}
     	else {
-    		$content= '
-					<img width="18px" height="18px;" src="pic/love.png">
-			
-			';
+    		if($love==1) {
+				$content= '
+						<img width="18px" height="18px;" src="pic/love.png">
+				';
+			}
+  			else {
+   			$content= '
+						<img width="18px" height="18px;" src="pic/nolove.png">
+				';
+    		} 
     	
     	}
 		return $content;
