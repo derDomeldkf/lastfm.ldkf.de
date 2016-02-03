@@ -58,7 +58,7 @@
            	$sk=$user->session->key; 
            	//immer da, speichern mit username
            	$username=$user->session->name;
-           echo $username;
+           var_dump($user->session);
             $getid = $db->query("SELECT `id` FROM `last_fm_users` WHERE username LIKE '$username'"); 
 				$getid_user=$getid->fetch_assoc()['id'];
 				if(!isset($getid_user) or $getid_user=="") {
