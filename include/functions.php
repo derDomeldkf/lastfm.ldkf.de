@@ -664,7 +664,7 @@
 			$user = $getname->fetch_assoc();
 			$content="";
 			if(isset($_SESSION['user'])) {
-				$content .='<li><a href="./lastfm.php?method_get=2" target="_blank">Home</a></li>';
+				$content .='<li><a href="./lastfm.php?method_get=2">Home</a></li>';
 			}
 			$content .='<li><a href="https://scrobbler.ldkf.de" target="_blank">Scrobbler</a></li>';
 			if(isset($user) and $user!="") {
