@@ -1,8 +1,8 @@
 <?php
 	session_start();
   	if(isset($_GET['f']) and $_GET['f']=="unlove") {
-  		$track=$_GET['track'];
-  		$artist=$_GET['artist'];
+  		$track=urlencode($_GET['track']);
+  		$artist=urlencode($_GET['artist']);
       $sk=$_SESSION['session'];
 		$sig=$_SESSION['sig'];
 		$methode="method=track.unlove&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
