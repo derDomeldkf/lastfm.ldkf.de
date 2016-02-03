@@ -9,7 +9,7 @@
 	$image="";
 	$totaltracks="";
 	$starttime="";
-	var_dump($_SESSION);
+
 	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
@@ -91,6 +91,7 @@
     	}
     	$method_in=$_GET['method_came'];
 	}
+		var_dump($_SESSION);
 	if(isset($_POST['username']) or isset($uname_db) and $uname_db!="") {
 		if(isset($_POST['username'])) {
 			$user_in = $_POST['username'];
