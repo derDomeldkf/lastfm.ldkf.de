@@ -660,12 +660,12 @@
 	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db) {
 		$content="";
 		if(isset($_SESSION['user'])) {
-				$content .='<li><a href="./lastfm.php?method_get=2">Home</a></li>';
+				$content .='<li><a href="./lastfm.php?method_get=2">Home</a></li>
+				<li><a href="https://scrobbler.ldkf.de" target="_blank">Scrobbler</a></li>';
 		}
 		if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7) {
 			$getname = $db->query("SELECT `id` FROM `ldkf_lastfm` WHERE `username` LIKE ('".$user_in."')");
 			$user = $getname->fetch_assoc();
-			$content .='<li><a href="https://scrobbler.ldkf.de" target="_blank">Scrobbler</a></li>';
 			if(isset($user) and $user!="") {
 				$content .='<li><a href="./lastfm.php?method=4">Gruppe</a></li>
 					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>
