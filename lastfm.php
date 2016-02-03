@@ -9,7 +9,7 @@
 	$image="";
 	$totaltracks="";
 	$starttime="";
-
+	var_dump($_SESSION);
 	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
@@ -21,7 +21,7 @@
 		}
 		elseif (isset($_GET['logout'])){
 			$user_in=$_GET['user'];
-			//logout($user_in);
+			logout($user_in);
 			$method_in=$_GET['methodlogout'];
 			$uname_db=$user_in;
 		}
