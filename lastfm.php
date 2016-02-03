@@ -1,8 +1,5 @@
 <?php
 	session_start();
-	echo $_SESSION['user'];
-   echo      		$_SESSION['session'];
-	echo 			$_SESSION['sig'];
 	$user_in="";
 	$page="";
 	$totalPages="";
@@ -79,6 +76,7 @@
 						$getid = $db->query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$username'"); 
 						$sk=$getid->fetch_assoc()['session'];
 						$sig=$getid->fetch_assoc()['sig'];
+						echo $sig;
 						           	
 	           	}
             }
