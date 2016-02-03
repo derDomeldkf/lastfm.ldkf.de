@@ -78,8 +78,7 @@
 						           	
 	           	}
             }
-            $uname_db=$username;
-            var_dump( $uname_db);
+				$uname_db = get_object_vars($username);
             if(!isset($_SESSION['user'])) {
          		$_SESSION['user']=$uname_db;
          		$_SESSION['session']=$sk;
@@ -92,7 +91,6 @@
     	}
     	$method_in=$_GET['method_came'];
 	}
-		var_dump($_SESSION);
 	if(isset($_POST['username']) or isset($uname_db) and $uname_db!="") {
 		if(isset($_POST['username'])) {
 			$user_in = $_POST['username'];
