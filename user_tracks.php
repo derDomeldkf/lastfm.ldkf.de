@@ -84,9 +84,7 @@
    	  					<span class="">
            					<span class="chartlist-image">
       						'; 
-      						if(isset($_SESSION['user']) and $_SESSION['user']==$user_in) {
-         						echo love($love,$artist_name, $track_name, $method_in, $limit_in);
-         					}
+        						echo love($love,$artist_name, $track_name, $method_in, $limit_in, $user_in);
            					if($date_decode=="wird gerade gehört") {
          						$gmdate=$date_decode;
          						$date_uts="now";

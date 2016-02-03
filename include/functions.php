@@ -1,5 +1,5 @@
  <?php
- 	function love($love,$artist_name, $track_name, $method_in, $limit_in) {
+ 	function love($love,$artist_name, $track_name, $method_in, $limit_in, $user_in) {
  		if(isset($_SESSION['user']) and $_SESSION['user']==$user_in) {
 			if($love==1) {
 				$content= '
