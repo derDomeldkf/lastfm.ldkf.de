@@ -59,7 +59,6 @@
            	//immer da, speichern mit username
            	$user_n=$user->session;
            	$username = get_object_vars($user_n)['name'];
-           	var_dump($username);
             $getid = $db->query("SELECT `id` FROM `last_fm_users` WHERE username LIKE '$username'"); 
 				$getid_user=$getid->fetch_assoc()['id'];
 				if(!isset($getid_user) or $getid_user=="") {
@@ -81,12 +80,10 @@
 	           	}
             }
 				$uname_db = $username;
-            if(!isset($_SESSION['user'])) {
          		$_SESSION['user']=$uname_db;
          		$_SESSION['session']=$sk;
 					$_SESSION['sig']=$sig;
-				}
-				echo $_SESSION['session'];
+				echo $_SESSION['user'];
 			//	if(!isset($_COOKIE['user'])) {
 				//	setcookie('user', $sig, time()+(3600*24*365));  
 			//	}  
