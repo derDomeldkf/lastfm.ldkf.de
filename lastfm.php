@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	echo $_SESSION['user']=$uname_db;
-   echo      		$_SESSION['session']=$sk;
-	echo 			$_SESSION['sig']=$sig;
+	echo $_SESSION['user'];
+   echo      		$_SESSION['session'];
+	echo 			$_SESSION['sig'];
 	$user_in="";
 	$page="";
 	$totalPages="";
