@@ -84,7 +84,7 @@
          		$_SESSION['session']=$sk;
 					$_SESSION['sig']=$sig;
 				}
-					var_dump($_SESSION);
+					var_dump($uname_db);
 			//	if(!isset($_COOKIE['user'])) {
 				//	setcookie('user', $sig, time()+(3600*24*365));  
 			//	}  
