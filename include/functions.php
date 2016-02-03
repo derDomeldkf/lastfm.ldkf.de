@@ -27,8 +27,7 @@
 						<img width="18px" height="18px;" src="pic/nolove.png">
 				';
     		} 
-    	
-    	}
+     	}
 		return $content;
   	}
   	
@@ -52,7 +51,6 @@
 
  	function logout($user_in, $db) {
  		$update = $db->query("UPDATE last_fm_users SET stat='0' where username = '$user_in'");  
- 		unset($_SESSION['user']);
 		session_destroy();
   	} 
 
@@ -669,7 +667,7 @@
 					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>
 				';
 				if(isset($_SESSION['user']) and $_SESSION['user']==$user_in) {				
-					$content .='<li><a href="./lastfm.php?=1&user='.$user_in.'&methodlogout='.$method_in.'" >Logout</a></li>';
+					$content .='<li><a href="./lastfm.php?logout=1&user='.$user_in.'&methodlogout='.$method_in.'" >Logout</a></li>';
 				}
 				elseif(!isset($_SESSION['user'])) {
 					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'" >Login</a></li>';
