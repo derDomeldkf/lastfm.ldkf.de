@@ -27,7 +27,13 @@
 		}
 		else {
 			if(!isset($_GET['method'])) {
-				$method_in=$_POST['method'];
+				if(isset($_GET['method_love'])) {				
+					$uname_db=$_SESSION['user'];
+					$method_in=$_GET['method_love'];
+				}
+				else {
+					$method_in=$_POST['method'];
+				}
 			}
 			else {
 				$method_in=$_GET['method'];

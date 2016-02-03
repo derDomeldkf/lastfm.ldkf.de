@@ -1,15 +1,15 @@
  <?php
- 	function love($love,$artist_name, $track_name) {
+ 	function love($love,$artist_name, $track_name, $method_in) {
 		if($love==1) {
 			$contet= '
-				<a href="include/do.php?f=unlove&artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
+				<a href="include/do.php?f=unlove&meth='.$method_in.'artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
 					<img width="18px" height="18px;" src="pic/love.png">
 				</a>
 			';
 		}
   		else {
    		$content= '
-				<a href="include/do.php?f=love&artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
+				<a href="include/do.php?f=love&meth='.$method_in.'&artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
 					<img width="18px" height="18px;" src="pic/nolove.png">
 				</a>
 			';
