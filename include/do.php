@@ -8,7 +8,7 @@
 		$methode="method=track.unlove&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
 		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 		$meth=$_GET['meth'];
-		header('Location: ./lastfm.php?method_love='.$meth);
+		header('Location: ../lastfm.php?method_love='.$meth);
 	}
 	if(isset($_GET['f']) and $_GET['f']=="love") {
   		$track=urlencode($_GET['track']);
@@ -18,6 +18,6 @@
 		$methode="method=track.love&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
 		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 		$meth=$_GET['meth'];
-		header('Location: ./lastfm.php?method_love='.$meth);
+		header('Location: ../lastfm.php?method_love='.$meth);
 	}
 ?> 
