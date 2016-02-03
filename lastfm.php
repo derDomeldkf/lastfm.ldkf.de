@@ -21,7 +21,7 @@
 		}
 		elseif (isset($_GET['logout'])){
 			$user_in=$_GET['user'];
-			logout($user_in);
+			//logout($user_in);
 			$method_in=$_GET['methodlogout'];
 			$uname_db=$user_in;
 		}
@@ -84,7 +84,6 @@
          		$_SESSION['session']=$sk;
 					$_SESSION['sig']=$sig;
 				}
-					echo $uname_db;
 			//	if(!isset($_COOKIE['user'])) {
 				//	setcookie('user', $sig, time()+(3600*24*365));  
 			//	}  
