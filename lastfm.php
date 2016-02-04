@@ -159,14 +159,14 @@
 			else {
 				$image_db =  str_replace(".png", "",$account_image);
 				$image_db =  str_replace("http://img2-ak.lst.fm/i/u/64s/", "",$image_db);
-				$getimage = $db->query("SELECT `id` FROM `last_fm_user_pics` WHERE user LIKE '$user_in'"); 
-				$getimage_row = $getimage->fetch_assoc();
+				$getimage = $db->query("SELECT `name` FROM `last_fm_user_pics` WHERE user LIKE '$user_in'"); 
+				$getimage_row = $getimage->fetch_assoc()['name'];
 				if(!isset($getimage_row) or $getimage_row=="") {
 					$pfad="user_pics/".$image_db.".png";
-					copy($account_image, $pfad);
-   				$insert = $db->query("INSERT INTO last_fm_user_pics (name, user) VALUES ('$image_db', '$user_in')");
+					//copy($account_image, $pfad);
+   				//$insert = $db->query("INSERT INTO last_fm_user_pics (name, user) VALUES ('$image_db', '$user_in')");
 				}
-				$image="user_pics/".$image_db.".png"; 
+				$image="user_pics/".$getimage_row.".png"; 
 			}
 			if($method_in==2) {
 				$methode="method=user.getRecentTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
