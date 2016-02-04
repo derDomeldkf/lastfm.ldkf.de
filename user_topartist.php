@@ -15,7 +15,7 @@
 				$url= $track->url;
 				$image_decode= $track->image;
 				$image_array = get_object_vars($image_decode[0]);
-				$images=$image_array['#text'];
+				//$images=$image_array['#text'];
 				if(!isset($images) or $images=="") {
 					$image="pic/empty.png";
 				}

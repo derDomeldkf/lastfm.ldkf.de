@@ -19,7 +19,8 @@
 					$artist_name="Royal Republic"; //kann falsch getaggt track nicht löschen... das war die einzige lösung
 				}
 				$date_uts=$date_array['uts'];
-				$images=$image_array['#text'];
+				//$images=$image_array['#text'];
+				$images="";
 				$image=image($images, $artist_name, $db);
 				$gmdate = gmdate("H:i", $date_uts);
 				$ch_m_in=gmdate("d", $date_uts);

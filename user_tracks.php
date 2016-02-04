@@ -1,4 +1,47 @@
 <?php
+/*object(stdClass)#11 (9) { 
+	["artist"]=> object(stdClass)#12 (4) { 
+		["name"]=> string(9) "Nightwish" 
+		["mbid"]=> string(36) "00a9f935-ba93-4fc8-a33a-993abe9c936b" 
+		["url"]=> string(34) "http://www.last.fm/music/Nightwish" 
+		["image"]=> array(4) { 
+			[0]=> object(stdClass)#13 (1) { 
+				["size"]=> string(5) "small" 
+			} 
+			[1]=> object(stdClass)#14 (1) { 
+				["size"]=> string(6) "medium" 
+			}
+			[2]=> object(stdClass)#15 (1) { 
+				["size"]=> string(5) "large"
+			} 
+			[3]=> object(stdClass)#16 (1) { 
+				["size"]=> string(10) "extralarge" 
+			}
+		}
+	}
+	["loved"]=> string(1) "0" 
+	["name"]=> string(4) "Nemo" 
+	["streamable"]=> string(1) "0" 
+	["mbid"]=> string(36) "4246bace-0765-4715-84cb-fbb1e4247f2a" 
+	["album"]=> object(stdClass)#17 (2) { 
+		["#text"]=> string(4) "Once" 
+		["mbid"]=> string(36) "aeea3eaa-3041-4564-a3f1-78e0aeb71eba" 
+	}
+	["url"]=> string(41) "http://www.last.fm/music/Nightwish/_/Nemo" 
+	["image"]=> array(4) { [0]=> object(stdClass)#18 (1) { 
+		["size"]=> string(5) "small"
+	}
+	[1]=> object(stdClass)#19 (1) { ["size"]=> string(6) "medium" } [2]=> object(stdClass)#20 (1) { ["size"]=> string(5) "large" } [3]=> object(stdClass)#21 (1) { ["size"]=> string(10) "extralarge" } } ["date"]=> object(stdClass)#22 (2) { ["uts"]=> string(10) "1454524838" ["#text"]=> string(18) "03 Feb 2016, 18:40" } } 
+
+
+*/
+
+
+
+
+
+
+
 	$i=0;
 	$playing=0;
 	$page_n=$page+1;
@@ -30,7 +73,8 @@
 				if($date_decode!="wird gerade gehört") {
 					$date_uts=$date_array['uts']+3600;  //lastfm fehler ausgleichen
 				}
-				$images=$image_array['#text'];
+			//	$images=$image_array['#text'];
+				$images="";
 				$image=image($images, $artist_name, $db);
 				if($date_decode!="wird gerade gehört") {
 					$gmdate = gmdate("H:i", $date_uts);
