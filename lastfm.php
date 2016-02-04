@@ -116,7 +116,11 @@
 			}
 		}
 		else {
-			header('Location: ./');
+			if(isset($_GET['login'])) {
+			}
+			else{
+				header('Location: ./');
+			}
 		}
 	}
 	
