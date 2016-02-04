@@ -561,7 +561,7 @@
    							<input type="hidden" name="method" value="'.$method_in.'">
    							<input type="hidden" name="limitin" value="'.$limit_in.'">
    				   		<input type="hidden" name="pagein" value="1">
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
 									|<<
 								</button>
 							</form>
@@ -578,7 +578,7 @@
    						 	<input type="hidden" name="method" value="'.$method_in.'">
    							<input type="hidden" name="limitin" value="'.$limit_in.'">
    				   		<input type="hidden" name="pagein" value="'. $page_l .'">
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
 									<<
 								</button>
 							</form>
@@ -595,7 +595,7 @@
    							<input type="hidden" name="method" value="'.$method_in.'">
    							<input type="hidden" name="limitin" value="'.$limit_in.'">
    					   	<input type="hidden" name="pagein" value="'. $page_n .'">
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
 									>>
 								</button>
 							</form>
@@ -612,7 +612,7 @@
    								<input type="hidden" name="method" value="'.$method_in.'">
    								<input type="hidden" name="limitin" value="'.$limit_in.'">
    					   		<input type="hidden" name="pagein" value="'. $totalPages .'">
-									<button type="submit" class="btn btn-primary">
+									<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
 										>>|
 									</button>
 								</form>
@@ -623,7 +623,7 @@
 							$content .='   	         		
    	         		<td class="navfooter">
    	         			<form action="?" style="margin:0; padding:0;" method="POST">
-   								<select class="form-control"  name="limitin" id="myselect" onchange="this.form.submit()" style="padding:3px; font-size:12pt">';
+   								<select class="form-control"  name="limitin" id="myselect" onchange="this.form.submit()" style="padding:3px; font-size:12pt" style="padding-top:6px; padding-bottom:6px;">';
    								if($method_in==6 or $method_in==7) {
   	 							$content .='
   	      							<option class="option"'; if($perPage==20) {$content .= " selected";} $content .= ' value="20">20 Eintr&auml;ge Pro Seite</option>

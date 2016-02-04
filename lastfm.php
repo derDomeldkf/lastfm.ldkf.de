@@ -15,7 +15,7 @@
 	include "include/functions.php";
 	if(!isset($_GET['token'])) {
 		if (isset($_GET['login'])){
-			$method_in=$_GET['methodlogin'];
+			$method_in=$_GET['method_came'];
 			login($method_in);
 			$uname_db=$_SESSION['user'];
 		}
