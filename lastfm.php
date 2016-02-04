@@ -17,7 +17,7 @@
 		if (isset($_GET['login'])){
 			$method_in=$_GET['methodlogin'];
 			login($method_in, $db);
-			$uname_db=$_POST['username'];
+			//$uname_db=$_POST['username'];
 		}
 		elseif (isset($_GET['logout'])){
 			$user_in=$_GET['user'];
