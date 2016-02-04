@@ -159,12 +159,12 @@
 			else {
 				$image_db =  str_replace(".png", "",$account_image);
 				$image_db =  str_replace("http://img2-ak.lst.fm/i/u/64s/", "",$image_db);
-				$getimage = $db->query("SELECT `id` FROM `last_fm_user_pics` WHERE name LIKE '$image_db'"); 
+				$getimage = $db->query("SELECT `id` FROM `last_fm_user_pics` WHERE user LIKE '$user_in'"); 
 				$getimage_row = $getimage->fetch_assoc();
 				if(!isset($getimage_row) or $getimage_row=="") {
 					$pfad="user_pics/".$image_db.".png";
 					copy($account_image, $pfad);
-   				$insert = $db->query("INSERT INTO last_fm_user_pics (name) VALUES ('$image_db')");
+   				$insert = $db->query("INSERT INTO last_fm_user_pics (name, user) VALUES ('$image_db', '$user_in')");
 				}
 				$image="user_pics/".$image_db.".png"; 
 			}
