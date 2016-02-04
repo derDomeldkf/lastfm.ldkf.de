@@ -153,6 +153,7 @@
 			$user_info_forimage = get_object_vars($user_info_forimage_array)['image'];
 			$userimage = get_object_vars($user_info_forimage[1]);
 			$account_image=$userimage['#text'];
+			$image="no";
 			if(!isset($account_image) or $account_image=="") {
 				$image="pic/empty.png";
 			}
