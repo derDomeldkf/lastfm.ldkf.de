@@ -154,21 +154,21 @@
 			$userimage = get_object_vars($user_info_forimage[1]);
 			$account_image=$userimage['#text'];
 			$account_image="no";
-			if(!isset($account_image) or $account_image=="") {
+			$image_db =  str_replace(".png", "",$account_image);
+			$image_db =  str_replace("http://img2-ak.lst.fm/i/u/64s/", "",$image_db);
+			$getimage = $db->query("SELECT `name` FROM `last_fm_user_pics` WHERE user LIKE '$user_in'"); 
+			$getimage_row = $getimage->fetch_assoc()['name'];
+			if(!isset($getimage_row) or $getimage_row=="") {
+				$pfad="user_pics/".$image_db.".png";
+				//copy($account_image, $pfad);
+   			//$insert = $db->query("INSERT INTO last_fm_user_pics (name, user) VALUES ('$image_db', '$user_in')");
 				$image="pic/empty.png";
 			}
 			else {
-				$image_db =  str_replace(".png", "",$account_image);
-				$image_db =  str_replace("http://img2-ak.lst.fm/i/u/64s/", "",$image_db);
-				$getimage = $db->query("SELECT `name` FROM `last_fm_user_pics` WHERE user LIKE '$user_in'"); 
-				$getimage_row = $getimage->fetch_assoc()['name'];
-				if(!isset($getimage_row) or $getimage_row=="") {
-					$pfad="user_pics/".$image_db.".png";
-					//copy($account_image, $pfad);
-   				//$insert = $db->query("INSERT INTO last_fm_user_pics (name, user) VALUES ('$image_db', '$user_in')");
-				}
 				$image="user_pics/".$getimage_row.".png"; 
 			}
+			
+			
 			if($method_in==2) {
 				$methode="method=user.getRecentTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
 				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
