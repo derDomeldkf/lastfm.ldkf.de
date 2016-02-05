@@ -17,6 +17,8 @@
 	if(!isset($_GET['token'])) {
 		if (isset($_GET['login'])){
 			$method_in=$_GET['methodlogin'];
+			$page_in=$_GET['page'];
+			$limit_in=$_GET['limit'];
 			login($method_in, $db, $page_in, $limit_in);
 			//$uname_db=$_POST['username'];
 		}
@@ -266,7 +268,7 @@
       				<ul class="nav navbar-nav">
         					<li><a href="./">Startseite<span class="sr-only">(current)</span></a></li>
         					<?php
-        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db);
+        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit_in);
 							?>					
 	  				</div>
   				</div>
