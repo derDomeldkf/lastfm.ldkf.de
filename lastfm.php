@@ -129,26 +129,28 @@
 			}
 		}
 	}
+	if(!isset($_GET['mpl'])) {
 		if(isset($_POST['pagein'])) {
-		$page_in=$_POST['pagein'];
-	}
-	elseif(isset($_GET['pagein'])) {
-		$page_in=$_GET['pagein'];
-	}
-	else {
-		$page_in=1;
-	}
-	if(isset($_POST['limitin'])) {
-		$limit_in=$_POST['limitin'];
-	}
-	elseif(isset($_GET['limitin'])) {
-		$limit_in=$_GET['limitin'];
-	}
-	elseif($method_in==2 or $method_in==5) {
-		$limit_in=15;
-	}
-	else {
-		$limit_in=20;
+			$page_in=$_POST['pagein'];
+		}
+		elseif(isset($_GET['pagein'])) {
+			$page_in=$_GET['pagein'];
+		}
+		else {
+			$page_in=1;
+		}
+		if(isset($_POST['limitin'])) {
+			$limit_in=$_POST['limitin'];
+		}
+		elseif(isset($_GET['limitin'])) {
+			$limit_in=$_GET['limitin'];
+		}
+		elseif($method_in==2 or $method_in==5) {
+			$limit_in=15;
+		}
+		else {
+			$limit_in=20;
+		}
 	}
 	if(isset($user_in) and $user_in!="") {
 		$methode="method=user.getInfo&user=".$user_in;
