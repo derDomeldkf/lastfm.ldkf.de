@@ -99,9 +99,10 @@
 			//	}  
         	}
     	}
-    	$method_in=$_GET['method_came'];
-    	$page_in=$_GET['page'];
-    	$page_in=$_GET['limit'];
+    	$mpl=explode("_", $_GET['mpl']);
+    	$method_in=$mpl[0];
+    	$page_in=$mpl[1];
+    	$limit_in=$mpl[2];
 	}
 	if(isset($_POST['username']) or isset($uname_db) and $uname_db!="") {
 		if(isset($_POST['username'])) {
