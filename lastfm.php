@@ -26,6 +26,8 @@
 			$user_in=$_GET['user'];
 			logout($user_in, $db);
 			$method_in=$_GET['methodlogout'];
+			$page_in=$_GET['page'];
+			$limit_in=$_GET['limit'];
 			$uname_db=$user_in;
 		}
 		else {
@@ -129,7 +131,7 @@
 			}
 		}
 	}
-	if(!isset($_GET['mpl'])) {
+	if(!isset($_GET['mpl']) and !isset($_GET['logout'])) {
 		if(isset($_POST['pagein'])) {
 			$page_in=$_POST['pagein'];
 		}
