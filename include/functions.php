@@ -672,7 +672,7 @@
 				$content .='<li><a href="./lastfm.php?method=4">Gruppe</a></li>
 					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>
 				';
-				if((isset($_SESSION['user']) and $_SESSION['user']==$user_in) or isset($_GET['methodlogout'])) {				
+				if((isset($_SESSION['user']) and $_SESSION['user']==$user_in) and !isset($_GET['methodlogout'])) {				
 					$content .='<li><a href="./lastfm.php?logout=1&user='.$user_in.'&methodlogout='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Logout</a></li>';
 				}
 				elseif(!isset($_SESSION['user'])) {
