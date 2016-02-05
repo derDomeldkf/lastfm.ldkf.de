@@ -675,7 +675,7 @@
 				if((isset($_SESSION['user']) and $_SESSION['user']==$user_in) and !isset($_GET['methodlogout'])) {				
 					$content .='<li><a href="./lastfm.php?logout=1&user='.$user_in.'&methodlogout='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Logout</a></li>';
 				}
-				elseif(!isset($_SESSION['user'])) {
+				elseif(!isset($_SESSION['user']) or isset($_GET['methodlogout'])) {
 					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Login</a></li>';
 				}
         	}
