@@ -657,7 +657,7 @@
 	}
 	
 	
-	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db) {
+	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit) {
 		$content="";
 		if(isset($_SESSION['user'])) {
 				$content .='
@@ -676,7 +676,7 @@
 					$content .='<li><a href="./lastfm.php?logout=1&user='.$user_in.'&methodlogout='.$method_in.'" >Logout</a></li>';
 				}
 				elseif(!isset($_SESSION['user'])) {
-					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'" >Login</a></li>';
+					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Login</a></li>';
 				}
         	}
        	$content .= '</ul>
