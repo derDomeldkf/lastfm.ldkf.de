@@ -15,20 +15,17 @@
 	include "include/functions.php";
 
 	if(!isset($_GET['token'])) {
-		
-		else {
-			if(!isset($_GET['method'])) {
-				if(isset($_GET['method_get'])) {				
-					$uname_db=$_SESSION['user'];
-					$method_in=$_GET['method_get'];
-				}
-				else {
-					$method_in=$_POST['method'];
-				}
+		if(!isset($_GET['method'])) {
+			if(isset($_GET['method_get'])) {				
+				$uname_db=$_SESSION['user'];
+				$method_in=$_GET['method_get'];
 			}
 			else {
-				$method_in=$_GET['method'];
+				$method_in=$_POST['method'];
 			}
+		}
+		else {
+			$method_in=$_GET['method'];
 		}
 	}
 	else {
