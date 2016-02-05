@@ -13,13 +13,36 @@
 	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
-
+	if(isset($_POST['pagein'])) {
+		$page_in=$_POST['pagein'];
+	}
+	elseif(isset($_GET['pagein'])) {
+		$page_in=$_GET['pagein'];
+	}
+	else {
+		$page_in=1;
+	}
+	if(isset($_POST['limitin'])) {
+		$limit_in=$_POST['limitin'];
+	}
+	elseif(isset($_GET['limitin'])) {
+		$limit_in=$_GET['limitin'];
+	}
+	elseif($method_in==2 or $method_in==5) {
+		$limit_in=15;
+	}
+	else {
+		$limit_in=20;
+	}
 	if(!isset($_GET['token'])) {
 		if (isset($_GET['login'])){
 			$method_in=$_GET['methodlogin'];
+			login($method_in, $db, $page_in, $limit_in);
+			//$uname_db=$_POST['username'];
 		}
 		elseif (isset($_GET['logout'])){
 			$user_in=$_GET['user'];
+			logout($user_in, $db);
 			$method_in=$_GET['methodlogout'];
 			$uname_db=$user_in;
 		}
@@ -96,9 +119,8 @@
     	}
     	$method_in=$_GET['method_came'];
     	$page_in=$_GET['page'];
-    	$limit_in=$_GET['limit'];
+    	$page_in=$_GET['limit'];
 	}
-
 	if(isset($_POST['username']) or isset($uname_db) and $uname_db!="") {
 		if(isset($_POST['username'])) {
 			$user_in = $_POST['username'];
@@ -124,39 +146,7 @@
 			}
 		}
 	}
-		
-	if(isset($_POST['pagein'])) {
-		$page_in=$_POST['pagein'];
-	}
-	elseif(isset($_GET['pagein'])) {
-		$page_in=$_GET['pagein'];
-	}
-	else {
-		$page_in=1;
-	}
-	if(isset($_POST['limitin'])) {
-		$limit_in=$_POST['limitin'];
-	}
-	elseif(isset($_GET['limitin'])) {
-		$limit_in=$_GET['limitin'];
-	}
-	elseif($method_in==2 or $method_in==5) {
-		$limit_in=15;
-	}
-	else {
-		$limit_in=20;
-	}
-	if (isset($_GET['login'])){
-		$method_in=$_GET['methodlogin'];
-		login($method_in, $db, $page_in, $limit_in);
-		//$uname_db=$_POST['username'];
-	}
-	elseif (isset($_GET['logout'])){
-		$user_in=$_GET['user'];
-		logout($user_in, $db);
-		$method_in=$_GET['methodlogout'];
-		$uname_db=$user_in;
-	}
+	
 	if(isset($user_in) and $user_in!="") {
 		$methode="method=user.getInfo&user=".$user_in;
 		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
