@@ -942,9 +942,14 @@
 		$content="";
 		if(!isset($images) or $images=="") {
 			$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
-			$getimages = $getimage->fetch_assoc()['name'];
-			if(isset($getimages) and $getimages!="") {							
-				$image="covers/".$getimages.".png"; 
+			if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
+				$getimages = $getimage->fetch_assoc()['name'];
+				if(isset($getimages) and $getimages!="") {							
+					$image="covers/".$getimages.".png"; 
+				}
+				else {
+					$image="pic/empty.png";
+				}
 			}
 			else {
 				$image="pic/empty.png";
