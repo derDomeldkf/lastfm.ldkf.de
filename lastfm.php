@@ -98,17 +98,7 @@
     	$page_in=$_GET['page'];
     	$limit_in=$_GET['limit'];
 	}
-	if (isset($_GET['login'])){
-		$method_in=$_GET['methodlogin'];
-		login($method_in, $db, $page_in, $limit_in);
-		//$uname_db=$_POST['username'];
-	}
-	elseif (isset($_GET['logout'])){
-		$user_in=$_GET['user'];
-		logout($user_in, $db);
-		$method_in=$_GET['methodlogout'];
-		$uname_db=$user_in;
-	}
+
 	if(isset($_POST['username']) or isset($uname_db) and $uname_db!="") {
 		if(isset($_POST['username'])) {
 			$user_in = $_POST['username'];
@@ -155,6 +145,17 @@
 	}
 	else {
 		$limit_in=20;
+	}
+	if (isset($_GET['login'])){
+		$method_in=$_GET['methodlogin'];
+		login($method_in, $db, $page_in, $limit_in);
+		//$uname_db=$_POST['username'];
+	}
+	elseif (isset($_GET['logout'])){
+		$user_in=$_GET['user'];
+		logout($user_in, $db);
+		$method_in=$_GET['methodlogout'];
+		$uname_db=$user_in;
 	}
 	if(isset($user_in) and $user_in!="") {
 		$methode="method=user.getInfo&user=".$user_in;
