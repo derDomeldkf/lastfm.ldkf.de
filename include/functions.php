@@ -424,6 +424,7 @@
 				
 		$content .= '
 		</div>
+		</div>
 		';
 		return $content;
 	}
