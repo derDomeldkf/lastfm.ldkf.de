@@ -28,19 +28,18 @@
 						}
 					}
 					else {
-					$image_db =  str_replace(".png", "",$images);
-					$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$image_db);
-					$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
-					$getimage_row = $getimage->fetch_assoc();
-					if(!isset($getimage_row) or $getimage_row=="") {
-						$pfad="covers/".$image_db.".png";
-						copy($images, $pfad);
-						$insert = $db->query("INSERT INTO last_fm_covers (name, artist) VALUES ('$image_db', '$artist_name')"); 
+						$image_db =  str_replace(".png", "",$images);
+						$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$image_db);
+						$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
+						$getimage_row = $getimage->fetch_assoc();
+						if(!isset($getimage_row) or $getimage_row=="") {
+							$pfad="covers/".$image_db.".png";
+							copy($images, $pfad);
+							$insert = $db->query("INSERT INTO last_fm_covers (name, artist) VALUES ('$image_db', '$artist_name')"); 
+						}
+						$image="covers/".$image_db.".png"; 
 					}
-					$image="covers/".$image_db.".png"; 
 				}
-					}
-
 				if($counter_cont==1) {$count_max=$count;}
 				echo'
 					<tr class="" style="
