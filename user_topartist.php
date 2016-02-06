@@ -28,11 +28,6 @@
 						}
 					}
 					else {
-						$image="pic/empty.png";
-					}
-				}
-	
-				else {
 					$image_db =  str_replace(".png", "",$images);
 					$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$image_db);
 					$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
@@ -44,6 +39,8 @@
 					}
 					$image="covers/".$image_db.".png"; 
 				}
+					}
+
 				if($counter_cont==1) {$count_max=$count;}
 				echo'
 					<tr class="" style="
