@@ -17,8 +17,21 @@
 				$image_array = get_object_vars($image_decode[0]);
 				//$images=$image_array['#text'];
 				if(!isset($images) or $images=="") {
-					$image="pic/empty.png";
+					$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
+					if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
+						$getimages = $getimage->fetch_assoc()['name'];
+						if(isset($getimages) and $getimages!="") {							
+							$image="covers/".$getimages.".png"; 
+						}
+						else {
+							$image="pic/empty.png";
+						}
+					}
+					else {
+						$image="pic/empty.png";
+					}
 				}
+	
 				else {
 					$image_db =  str_replace(".png", "",$images);
 					$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$image_db);
