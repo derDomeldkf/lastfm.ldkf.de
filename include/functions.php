@@ -277,15 +277,15 @@
 		}
 		if(!isset($places) and isset($ua)) {
 			$content .='
-				<div class="row">
-					<div class="col-md-9" style="padding-left:60px;">
+				<div class="">
+					<div class="col-md-9" style="padding-left:40px;">
 						<h3>Diese Benutzer habe keine gemeinsam gehörten Künstler.</h3>
 			';		
 		}
 		else {
 		$content .='		
-		<div class="row">
-		<div class="col-md-9" style="padding-left:55px;">
+		<div class="">
+		<div class="col-md-9" style="padding-left:40px;">
  		<table style="">
  		<tbody>
  			<tr>
@@ -384,7 +384,7 @@
 				}
 			$content .= '
 			<h4>Gemeinsame Künstler von:</h4>
-				<div style="width:220px; margin-top:30px;">
+				<div style="max-width:220px; margin-top:30px;">
 					<form class="form-signin" method="post" action="lastfm.php?">
    					<input type="hidden" name="method" value="8">
    					<select name="userselc[]" class="form-control" style="margin-bottom:5px;" required>';
