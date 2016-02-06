@@ -277,14 +277,14 @@
 		}
 		if(!isset($places) and isset($ua)) {
 			$content .='
-				<div class="">
+				<div class="row" style="margin:0">
 					<div class="col-md-9" style="padding-left:40px;">
 						<h3>Diese Benutzer habe keine gemeinsam gehörten Künstler.</h3>
 			';		
 		}
 		else {
 		$content .='		
-		<div class="">
+		<div class="row" style="margin:0">
 		<div class="col-md-9" style="padding-left:40px;">
  		<table style="">
  		<tbody>
@@ -414,7 +414,7 @@
    				</form>';
    				}
    			$content .= '
-   			</div>		
+   			</div>	
 			';
 		}
 		else {
@@ -423,7 +423,6 @@
 		}	
 				
 		$content .= '
-		</div>
 		</div>
 		';
 		return $content;
