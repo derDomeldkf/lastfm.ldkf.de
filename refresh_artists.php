@@ -42,7 +42,7 @@
 	$getid = $db->query("SELECT `telegram-id` FROM `last_fm`"); 
 	while($id_db = $getid->fetch_assoc()){
 		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&text='.$output; 
-		//$result = file_get_contents($url);	
+		$result = file_get_contents($url);	
 	}		
 
 	$db_name="last_fm_charts_all";
