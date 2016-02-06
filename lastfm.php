@@ -20,7 +20,6 @@
 			$page_in=$_GET['page'];
 			$limit_in=$_GET['limit'];
 			login($method_in, $db, $page_in, $limit_in);
-			//$uname_db=$_POST['username'];
 		}
 		elseif (isset($_GET['logout'])){
 			$user_in=$_GET['user'];
