@@ -169,7 +169,7 @@
 				unset($out);
 			}
 			$d++;
-			sleep(1);	 
+			//sleep(1);	 
 		}  
 	}
 	function refresh3($db_name, $command, $db) {
@@ -215,7 +215,7 @@
 				unset($out);
 			} 
 			$d++;
-			sleep(1);
+			//sleep(1);
 		}  
 	}
 
