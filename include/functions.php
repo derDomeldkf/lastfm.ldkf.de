@@ -685,8 +685,8 @@
       					<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
       						<img style="border-radius: 18px;" width="36px" src="'.$image.'"> '.$user_in.'<span class="caret"></span>
 							</a>
-         				<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; padding-top:7px; color:white;">
-           					<li style="padding-left:15px;">';
+         				<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
+           					<li>';
 			if($method_in!=2) { 
 				$content .='
            		<form class="form_member" method="post" action="lastfm.php">
@@ -703,7 +703,7 @@
 			}
 			$content .= '
 	      	</li>
-   	   	<li style="padding-left:15px;">';
+   	   	<li>';
       	if($method_in!=5) { 
       		$content .='
       			<form class="form_member" method="post" action="lastfm.php">
@@ -721,7 +721,7 @@
 			$content .='</button>
 				</form>
 				</li>
-				<li style="padding-left:15px;">';
+				<li>';
 	      if($method_in!=6) { 
 	      	$content .='
    	      	<form class="form_member" method="post" action="lastfm.php">
@@ -740,7 +740,7 @@
 			$content .='</button>
 				</form>
 				</li>
-				<li style="padding-left:15px;">
+				<li>
 			';
 			if($method_in!=7) { 
 				$content .='
@@ -759,7 +759,7 @@
 			$content .='</button>
 				</form>
 				</li>
-				<li style="padding-left:15px;">Scrobbelt seit: '. gmdate("d.m.Y", $starttime).'</li>
+				<li>Scrobbelt seit: '. gmdate("d.m.Y", $starttime).'</li>
 				</ul>
 				</li> 
 				</ul>
@@ -771,7 +771,7 @@
    				<a href="#" class="dropdown-toggle" style="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
    					Mitglieder<span class="caret"></span>
 					</a>
-      			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
+         	<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
   				';
 				$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
 				while($members = $getmembers->fetch_assoc()){
@@ -779,7 +779,7 @@
 				}
 				foreach($member as $member_name){
 					$content .= '
-						<li style="padding-left:15px;">	
+						<li>	
 							<form class="form_member" method="post" action="lastfm.php">
 								<input type="hidden" name="username" value="'.$member_name.'">
 								<input type="hidden" name="method" value="2">
@@ -802,19 +802,19 @@
       				<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
           				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
 						</a>
-         			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; padding-top:7px; color:white;">
-        				   <li style="padding-left:15px;"><b>Top K&uuml;nstler (Woche)</b></li>
-       					 <li style="padding-left:15px;">
+						<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
+        				   <li><b>Top K&uuml;nstler (Woche)</b></li>
+       					 <li>
         						<div>
 									<a class="userButton" href="lastfm.php?method=8">Top Künstler (Gesamt)</a>
 								</div>
 							</li>
-         	  			<li style="padding-left:15px;">
+         	  			<li>
       	     				<div>
 									<a class="userButton" href="lastfm.php?method=10">Top Titel (Woche)</a>
 								</div>
            				</li>
-           				<li style="padding-left:15px;">
+           				<li>
       	     				<div>
 									<a class="userButton" href="lastfm.php?method=9">Top Titel (Gesamt)</a>
 								</div>
@@ -827,24 +827,24 @@
 		if($method_in==8) {
 			$content .='
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
         			<li class="dropdown" style="width:200px;">
           			<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
           				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
 						</a>
-         			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
-           				<li style="padding-left:15px;">
+						<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
+           				<li>
            					<div>
 									<a class="userButton" href="lastfm.php?method=4">Top K&uuml;nstler (Woche)</a>
 								</div>
            				</li>
- 	          			<li style="padding-left:15px;"><b>Top Künstler (Gesamt)</b></li>
-   	        			<li style="padding-left:15px;">
+ 	          			<li><b>Top Künstler (Gesamt)</b></li>
+   	        			<li>
       	     				<div>
 									<a class="userButton" href="lastfm.php?method=10">Top Titel (Woche)</a>
 								</div>
            				</li>
-           				<li style="padding-left:15px;">
+           				<li>
       	     				<div>
 									<a class="userButton" href="lastfm.php?method=9">Top Titel (Gesamt)</a>
 								</div>
@@ -857,28 +857,28 @@
 		if($method_in==9) {
 			$content .='
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
         			<li class="dropdown" style="width:200px;">
           			<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
           				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
 						</a>
-         			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
-           				<li style="padding-left:15px;">
+						<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
+           				<li>
            					<div>
 									<a class="userButton" href="lastfm.php?method=4">Top K&uuml;nstler (Woche)</a>
 								</div>
            				</li>
-           				<li style="padding-left:15px;">
+           				<li>
       	     				<div>
 									<a class="userButton" href="lastfm.php?method=8">Top Künstler (Gesamt)</a>
 								</div>
            				</li>
-   	        			<li style="padding-left:15px;">
+   	        			<li>
       	     				<div>
 									<a class="userButton" href="lastfm.php?method=10">Top Titel (Woche)</a>
 								</div>
            				</li>
-           				<li style="padding-left:15px;"><b>Top Titel (Gesamt)</b></li>
+           				<li><b>Top Titel (Gesamt)</b></li>
         				</ul>
        			</li> 
        		</ul>
@@ -887,24 +887,24 @@
 	if($method_in==10) {
 			$content .='
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
         			<li class="dropdown" style="width:200px;">
           			<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
           				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
 						</a>
-         			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; padding-bottom:8px; color:white;">
-           				<li style="padding-left:15px;">
+						<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
+           				<li>
            					<div>
 									<a class="userButton" href="lastfm.php?method=4">Top K&uuml;nstler (Woche)</a>
 								</div>
            				</li>
-           				<li style="padding-left:15px;">
+           				<li>
       	     				<div>
 									<a class="userButton" href="lastfm.php?method=8">Top Künstler (Gesamt)</a>
 								</div>
            				</li>
-           				<li style="padding-left:15px;"><b>Top Titel (Woche)</b></li>
-   	        			<li style="padding-left:15px;">
+           				<li><b>Top Titel (Woche)</b></li>
+   	        			<li>
       	     				<div>
 									<a class="userButton" href="lastfm.php?method=9">Top Titel (Gesamt)</a>
 								</div>
