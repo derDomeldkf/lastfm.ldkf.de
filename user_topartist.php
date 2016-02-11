@@ -15,7 +15,7 @@
 				$url= $track->url;
 				$image_decode= $track->image;
 				$image_array = get_object_vars($image_decode[0]);
-				//$images=$image_array['#text'];
+				$images=$image_array['#text'];
 				if(!isset($images) or $images=="") {
 					$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
 					if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
