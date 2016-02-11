@@ -27,7 +27,7 @@
 			$users= $getuser->fetch_assoc();
 			$users_names=$users['user'];
 			$user =  str_replace("&&", ", ",$users_names);
-			$cont= $place.". ".$artist_name." (".$count.") Gehört von ".$user;
+			$cont= $place.". ".$artist_name." (".$user.")";
 			if($i>0) {
 				$content[$i]=$content[$i-1].''.PHP_EOL.''.$cont;
 			}	
