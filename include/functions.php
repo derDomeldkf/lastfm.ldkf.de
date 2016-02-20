@@ -248,7 +248,7 @@
 
 
 
-	function group($db_name, $period, $db, $post) {
+	function group($db_name, $period, $db, $post, $date) {
  		$content="";
  		if(!isset($_POST['userselc'][0])) {
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC"); 
@@ -422,7 +422,7 @@
 			while($getplaces = $getid->fetch_assoc()){
 				$ids[]=$getplaces['id']; 
 			}
-			$content .= '
+			$content .= '<h4>'.$date.'</h4>
 				<div style="max-width:220px; margin-top:30px;">
 			';
 			foreach($ids as $id){

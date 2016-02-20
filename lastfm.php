@@ -308,11 +308,15 @@
 										$id=$_POST['tableselect'];
 										$post="";
 									}
+									$gethighest = $db->query("SELECT time FROM `tables` where id LIKE '$id'"); 
+									$getplaces = $gethighest->fetch_assoc();
+									$time=$getplaces['time'];
+									$date=date('d.m.Y',strtotime($time));
 									$getname = $db->query("SELECT `table_name` FROM `tables` WHERE id LIKE '$id' "); 
 									$name = $getname->fetch_assoc();
 									$db_name=$name['table_name'];
 									$period="In der letzten Woche gehört von";
-									echo group($db_name, $period, $db, $post);	   
+									echo group($db_name, $period, $db, $post, $date);	   
 									break;
 								case 5:
 									include "user_love_track.php";	        				
