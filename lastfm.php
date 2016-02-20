@@ -306,7 +306,7 @@
 									}
 									else {
 										$id=$_POST['tableselect'];
-										$post=1;
+										$post="";
 									}
 									$getname = $db->query("SELECT `table_name` FROM `tables` WHERE id LIKE '$id' "); 
 									$name = $getname->fetch_assoc();
