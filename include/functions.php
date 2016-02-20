@@ -418,8 +418,26 @@
 			';
 		}
 		else {
-			//include "stats.php";
-			//$content .= $stats_cont;
+			$getid = $db->query("SELECT id FROM `tables`"); 
+			while($getplaces = $getid->fetch_assoc()){
+				$ids[]=$getplaces['id']; 
+			}
+			$content .= '
+				<div style="max-width:220px; margin-top:30px;">
+			';
+			foreach($ids as $id){
+				$content .= '
+					<form class="form-signin" method="post" action="lastfm.php?">
+				  	 <input type="hidden" name="tableselect" value="'.$id.'">
+   					<button type="submit" class="btn btn-primary">
+							Seite '.$id.'
+						</button>
+   				</form>
+   			';
+			}
+			$content .= '
+   			</div>	
+			';
 		}	
 				
 		$content .= '

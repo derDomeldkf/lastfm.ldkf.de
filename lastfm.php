@@ -298,9 +298,14 @@
 									
 									break;
 								case 4:
-									$gethighest = $db->query("SELECT MAX(id) FROM `tables`"); 
-									$getplaces = $gethighest->fetch_assoc();
-									$id=$getplaces['MAX(id)'];
+									if(!isset($_POST['tableselect'])) {
+										$gethighest = $db->query("SELECT MAX(id) FROM `tables`"); 
+										$getplaces = $gethighest->fetch_assoc();
+										$id=$getplaces['MAX(id)'];
+									}
+									else {
+										$id=$_POST['tableselect'];
+									}
 									$getname = $db->query("SELECT `table_name` FROM `tables` WHERE id LIKE '$id' "); 
 									$name = $getname->fetch_assoc();
 									$db_name=$name['table_name'];
