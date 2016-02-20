@@ -248,7 +248,7 @@
 
 
 
-	function group($db_name, $period, $db) {
+	function group($db_name, $period, $db, $post) {
  		$content="";
  		if(!isset($_POST['userselc'][0])) {
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC"); 
@@ -430,7 +430,7 @@
 					<form class="form-signin" method="post" action="lastfm.php?">
 				  		<input type="hidden" name="tableselect" value="'.$id.'">
 				  		<input type="hidden" name="method" value="4">
-   					<button type="submit" class="btn btn-primary">
+   					<button type="submit" class="btn btn-primary"'; if((isset($_POST['tableselect']) and $id==$_POST['tableselect']) or ($post==$id)) {  $content .= " disabled";} $content .= '>
 							Seite '.$id.'
 						</button>
    				</form>
