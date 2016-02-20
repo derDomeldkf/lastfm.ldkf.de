@@ -428,7 +428,8 @@
 			foreach($ids as $id){
 				$content .= '
 					<form class="form-signin" method="post" action="lastfm.php?">
-				  	 <input type="hidden" name="tableselect" value="'.$id.'">
+				  		<input type="hidden" name="tableselect" value="'.$id.'">
+				  		<input type="hidden" name="method" value="4">
    					<button type="submit" class="btn btn-primary">
 							Seite '.$id.'
 						</button>
