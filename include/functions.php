@@ -418,7 +418,7 @@
 			';
 		}
 		else {
-			$getid = $db->query("SELECT id FROM `tables`"); 
+			$getid = $db->query("SELECT id FROM `tables` desc"); 
 			while($getplaces = $getid->fetch_assoc()){
 				$ids[]=$getplaces['id']; 
 			}
