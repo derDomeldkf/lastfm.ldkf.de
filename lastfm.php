@@ -45,8 +45,11 @@
 					$uname_db=$_SESSION['user'];
 					$method_in=$_GET['method_get'];
 				}
-				else {
+				elseif(isset($_POST['method_get'])) {
 					$method_in=$_POST['method'];
+				}
+				else {
+					$method_in=2;
 				}
 			}
 			else {
