@@ -15,6 +15,17 @@
 	include "include/functions.php";
 
 	if(!isset($_GET['token'])) {
+		if(isset($_COOKIE['user']) and $_COOKIE['user']!="") {	
+			$uname_db = $_COOKIE['user'];
+			$username=md5($uname_db);
+			$getid = $db->query("SELECT session FROM `last_fm_users` WHERE username LIKE '$username'"); 
+			$sk=$getid->fetch_assoc()['session'];
+			$getid = $db->query("SELECT sig FROM `last_fm_users` WHERE username LIKE '$username'"); 
+			$sig=$getid->fetch_assoc()['sig'];
+        	$_SESSION['user']=$uname_db;
+        	$_SESSION['session']=$sk;	
+			$_SESSION['sig']=$sig;
+		}
 		if (isset($_GET['login'])){
 			$method_in=$_GET['methodlogin'];
 			$page_in=$_GET['page'];
@@ -66,7 +77,6 @@
         	else {
             $user = simplexml_load_string($result);
            	$sk=$user->session->key; 
-           	//immer da, speichern mit username
            	$user_n=$user->session;
            	$uncode_name=get_object_vars($user_n)['name'];
            	$username = md5($uncode_name);
@@ -95,10 +105,8 @@
         		$_SESSION['user']=$uname_db;
         		$_SESSION['session']=$sk;
 				$_SESSION['sig']=$sig;
-			//	if(!isset($_COOKIE['user'])) {
-				//	setcookie('user', $sig, time()+(3600*24*365));  
-			//	}  
-        	}
+				setcookie('user', $uname_db, time()+(3600*24*365));  
+			}
     	}
     	$mpl=explode("_", $_GET['mpl']);
     	$method_in=$mpl[0];
