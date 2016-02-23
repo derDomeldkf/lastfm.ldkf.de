@@ -90,17 +90,14 @@ echo $_SESSION['sig'];
             else{
             	$getsession = $db->query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$username'"); 
 					$getsession_user=$getsession->fetch_assoc()['session'];
-            	if(!isset($getsession_user)) {
+            	//if(!isset($getsession_user)) {
 						$update = $db->query("UPDATE last_fm_users SET session = '$sk', sig ='$sig', stat='1' where username = '$username'");  
 						$error=2;
-	           	}
-	           	else {
-						$getid = $db->query("SELECT session FROM `last_fm_users` WHERE username LIKE '$username'"); 
-						$sk=$getid->fetch_assoc()['session'];
-						$getid = $db->query("SELECT sig FROM `last_fm_users` WHERE username LIKE '$username'"); 
-						$sig=$getid->fetch_assoc()['sig'];
-						           	
-	           	}
+	          // 	}
+					$getid = $db->query("SELECT session FROM `last_fm_users` WHERE username LIKE '$username'"); 
+					$sk=$getid->fetch_assoc()['session'];
+					$getid = $db->query("SELECT sig FROM `last_fm_users` WHERE username LIKE '$username'"); 
+					$sig=$getid->fetch_assoc()['sig'];
             }
 				$uname_db = $uncode_name;
         		$_SESSION['user']=$uname_db;
