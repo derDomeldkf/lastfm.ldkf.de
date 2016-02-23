@@ -52,13 +52,16 @@
    							</span>
  							</span>              		
       	      	</td>
-      	      	<td class="list" style="padding-left:10px;>
-           	   		<span class="">
-            	     		<span class="chartlist-image">
-     	   						<img width="18px" height="18px;" src="pic/love.png">
-   							</span>
- 							</span>              		
-      	      	</td>  	   	       			
+      	      	<td class="list" style="padding-left:10px;">
+   	  					<span class="">
+           					<span class="chartlist-image">
+      						'; 
+        						echo love(1,$artist_name, $track_name, $method_in, $limit_in, $user_in, $page_in);
+           					echo '
+         						
+        						</span>
+ 	  	 					</span>              		
+      				</td>       			
  	  	   			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; min-width:600px;">
            	   		<span class="chartlist-ellipsis-wrap">
             	  			<span class="chartlist-artists">
