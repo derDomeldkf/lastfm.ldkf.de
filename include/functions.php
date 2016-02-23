@@ -422,16 +422,18 @@
 			$content .= '<h4>'.$date.'</h4>
 				<div style="max-width:220px; margin-top:30px;">
 			';
+			$i=1;
 			foreach($ids as $id){
 				$content .= '
 					<form class="form-signin" method="post" action="lastfm.php?">
 				  		<input type="hidden" name="tableselect" value="'.$id.'">
 				  		<input type="hidden" name="method" value="4">
    					<button type="submit" class="btn btn-primary"'; if((isset($_POST['tableselect']) and $id==$_POST['tableselect']) or ($post==$id)) {  $content .= " disabled";} $content .= '>
-							Seite '.$id.'
+							Seite '.$i.'
 						</button>
    				</form>
    			';
+   			$i++;
 			}
 			$content .= '
    			</div>	
