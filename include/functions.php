@@ -31,7 +31,7 @@
 		return $content;
   	}
   	
-  	
+############################################################################################################################################ 	
   	function login($method, $db, $page, $limit) {
   		/*$user_in=$_GET['user'];
   		$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
@@ -48,13 +48,14 @@
 		//}
   	} 
   	
-
+##############################################################################################################################################
  	function logout($user_in, $db) {
  		$update = $db->query("UPDATE last_fm_users SET stat='0' where username = '$user_in'"); 
  		setcookie("user","",time() - 3600); 
 		session_destroy();
   	} 
 
+###############################################################################################################################################
  	function refresh($db_name, $command, $db) {
 		$getusers = $db->query("SELECT `username` FROM `ldkf_lastfm`"); 
  		while ($getuser = $getusers->fetch_assoc()) {
@@ -123,6 +124,7 @@
 		}
 	}
 
+#############################################################################################################################
 	function refresh2($db_name, $command, $db) {
 		$getusers = $db->query("SELECT `username` FROM `ldkf_lastfm`"); 
  		while ($getuser = $getusers->fetch_assoc()) {
@@ -173,6 +175,8 @@
 			//sleep(1);	 
 		}  
 	}
+	
+######################################################################################################################################################
 	function refresh3($db_name, $command, $db) {
 		$getusers = $db->query("SELECT `username` FROM `ldkf_lastfm`"); 
  		while ($getuser = $getusers->fetch_assoc()) {
@@ -220,6 +224,7 @@
 		}  
 	}
 
+###################################################################################################################################
 	function select($member, $user_input, $counter_select) {
 		$content ='
 			<option></option>   					
@@ -239,16 +244,7 @@
 		return $content;
 	}	
 	
-
-
-
-
-
-
-
-
-
-
+#################################################################################################################################
 	function group($db_name, $period, $db, $post, $date) {
  		$content="";
  		if(!isset($_POST['userselc'][0])) {
@@ -419,7 +415,7 @@
 			';
 		}
 		else {
-			$getid = $db->query("SELECT id FROM `tables`"); 
+			$getid = $db->query("SELECT id FROM `tables` desc"); 
 			while($getplaces = $getid->fetch_assoc()){
 				$ids[]=$getplaces['id']; 
 			}
@@ -449,7 +445,7 @@
 		return $content;
 	}
 
-
+##################################################################################################################################
 	function group2($db_name, $period, $db) {
 		
  		$content=head();
@@ -555,10 +551,8 @@
 		';
 		return $content;
 	}
-	
-	
-	
-			
+
+###########################################################################################################################################	
 	function footer($method_in, $page, $totalPages, $user_in, $limit_in, $perPage) {	
 	 	$content="";
 		$page_n=$page+1;
@@ -676,7 +670,7 @@
   		return $content;
 	}
 	
-	
+########################################################################################################################################
 	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit) {
 		$content="";
 		if(isset($_SESSION['user']) and !isset($_GET['methodlogout'])) {
