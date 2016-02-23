@@ -13,7 +13,8 @@
 	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
-
+echo $_SESSION['session'];
+echo $_SESSION['sig'];
 	if(!isset($_GET['token'])) {
 		if(isset($_COOKIE['user']) and $_COOKIE['user']!="") {	
 			$uname_db = $_COOKIE['user'];
