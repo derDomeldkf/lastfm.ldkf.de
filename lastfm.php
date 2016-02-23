@@ -335,7 +335,7 @@
 								case 8:
 									$db_name="last_fm_charts_all";
 									$period="Gehört von";
-									echo group($db_name, $period, $db);		   
+									echo group($db_name, $period, $db, 0);		   
 									break;
 								case 9:
 									$db_name="last_fm_charts_track_all";
