@@ -13,8 +13,6 @@
 	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
-echo $_SESSION['session'];
-echo $_SESSION['sig'];
 	if(!isset($_GET['token'])) {
 		if(isset($_COOKIE['user']) and $_COOKIE['user']!="") {	
 			$uname_db = $_COOKIE['user'];
@@ -90,10 +88,8 @@ echo $_SESSION['sig'];
             else{
             	$getsession = $db->query("SELECT `session` FROM `last_fm_users` WHERE username LIKE '$username'"); 
 					$getsession_user=$getsession->fetch_assoc()['session'];
-            	//if(!isset($getsession_user)) {
-						$update = $db->query("UPDATE last_fm_users SET session = '$sk', sig ='$sig', stat='1' where username = '$username'");  
-						$error=2;
-	          // 	}
+					$update = $db->query("UPDATE last_fm_users SET session = '$sk', sig ='$sig', stat='1' where username = '$username'");  
+					$error=2;
 					$getid = $db->query("SELECT session FROM `last_fm_users` WHERE username LIKE '$username'"); 
 					$sk=$getid->fetch_assoc()['session'];
 					$getid = $db->query("SELECT sig FROM `last_fm_users` WHERE username LIKE '$username'"); 
