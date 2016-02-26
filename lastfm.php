@@ -262,7 +262,7 @@
 		<link href="https://msn.ldkf.de/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://msn.ldkf.de/css/bootstrap-theme.min.css" rel="stylesheet">
 		<link href="css/main.css" rel="stylesheet">
-		<title><?php if($method_in==4 or $method_in==8 or $method_in==9 or $method_in==10){echo "LDKF-Gruppe";} elseif(isset($user_in)) {echo $user_in;} else { echo "lastfm.ldkf.de"}?></title>
+		<title><?php if($method_in==4 or $method_in==8 or $method_in==9 or $method_in==10){echo "LDKF-Gruppe";} elseif(isset($user_in)) {echo $user_in;} else { echo "lastfm.ldkf.de";}?></title>
 	</head>
 	<body style="font-family: ubuntu-m;">
 		<div id="content" class="main-content" role="main" style="">
