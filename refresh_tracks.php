@@ -7,7 +7,7 @@
 #####################################
 	$db_name="last_fm_charts_track";
 	$command="user.getTopTracks&limit=40&period=overall";
- 	refresh3($db_name, $command, $db); 
+ 	//refresh3($db_name, $command, $db); 
  	
 ######################################	
 	$db_t = date('YW');
@@ -17,7 +17,6 @@
 	$time2=$time-(3600*24*7);
 	$command="user.getWeeklyTrackChart&from=".$time2."&to=".$time; 	
  	refresh2($db_name, $command, $db); 	
- 	
  	
  
  

@@ -133,7 +133,8 @@
  		$sql = "CREATE TABLE `".$db_name."` (
 			playcount INT(3) NOT NULL,
 			artist VARCHAR(40) NOT NULL COLLATE utf8_general_mysql500_ci,
-			user TEXT NOT NULL COLLATE latin1_swedish_ci
+			user TEXT NOT NULL COLLATE latin1_swedish_ci,
+			titel VARCHAR(40) NOT NULL COLLATE utf8_general_mysql500_ci
 		)";
 		if ($db->query($sql) === TRUE) {
 			$s=0;
@@ -142,7 +143,6 @@
    	 	echo "Error creating table: " . $db->error;
    	 	$s=1;
 		}	
-		$delete = $db->query("DELETE FROM ".$db_name);
 		$d=0;
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
@@ -195,6 +195,7 @@
  			$users[]=$getuser['username'];
  		}	
 		$d=0;
+		$delete = $db->query("DELETE FROM ".$db_name);
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
    		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
