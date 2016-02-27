@@ -7,7 +7,7 @@
 #####################################
 	$db_name="last_fm_charts_track";
 	$command="user.getTopTracks&limit=40&period=overall";
- 	//refresh3($db_name, $command, $db); 
+ 	refresh3($db_name, $command, $db); 
  	
 ######################################	
 	$db_t = date('YW');
