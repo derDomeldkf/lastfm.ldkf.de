@@ -181,8 +181,19 @@
 		$getusers = $db->query("SELECT `username` FROM `ldkf_lastfm`"); 
  		while ($getuser = $getusers->fetch_assoc()) {
  			$users[]=$getuser['username'];
- 		}		
-		$delete = $db->query("DELETE FROM ".$db_name); 
+ 		}	
+ 		$sql = "CREATE TABLE `".$db_name."` (
+			playcount INT(3) NOT NULL,
+			artist VARCHAR(40) NOT NULL COLLATE utf8_general_mysql500_ci,
+			user TEXT NOT NULL COLLATE latin1_swedish_ci
+		)";
+		if ($db->query($sql) === TRUE) {
+			$s=0;
+		}
+		else {
+   	 	echo "Error creating table: " . $db->error;
+   	 	$s=1;
+		}	
 		$d=0;
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;

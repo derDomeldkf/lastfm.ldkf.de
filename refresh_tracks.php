@@ -5,7 +5,10 @@
  	include "include/functions.php";	
  	
 #####################################
-	$db_name="last_fm_charts_track";
+	$db_t = date('YW');
+	$db_name=$db_t."_titel";
+	$insert = $db->query("INSERT INTO tables (table_name) VALUES ('$db_name')"); 
+	$command="user.getTopArtists&period=7day"; 	
 	$command="user.getTopTracks&limit=40&period=overall";
  	refresh3($db_name, $command, $db); 
  	
