@@ -968,7 +968,7 @@
 	
 	function image($images, $artist_name, $db, $album) {
 		$content="";
-		if((!isset($images) or $images=="") or $album=="") {
+		if((!isset($images) or $images=="" or $album=="")) {
 			$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
 			if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
 				$getimages = $getimage->fetch_assoc()['name'];
@@ -977,6 +977,17 @@
 			else {
 				$image="pic/empty.png";
 			}
+		}
+		elseif($album!="") {
+			$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE album LIKE '$album'"); 
+			if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
+				$getimages = $getimage->fetch_assoc()['name'];
+				$image="covers/".$getimages.".png"; 
+			}
+			else {
+				$image="pic/empty.png";
+			}
+		
 		}
 		else {
 			$image_db =  str_replace(".png", "",$images);
