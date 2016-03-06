@@ -168,12 +168,17 @@
 						$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name'"); 
 						if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 							$tid = $gettrack->fetch_assoc()['id'];
-							echo '
+							$getartist = $db->query("SELECT `id` FROM `artists` WHERE name LIKE '$artist_name'"); 
+							if(isset($getartist->num_rows) and  $getartist->num_rows!= 0) {
+								$aid = $getartist->fetch_assoc()['id'];
+								echo '
 								<td class="list" style="padding:0; padding-left:6px;">
-									<a href="lastfm.php?p='. $tid .'"><img src="pic/play.png" width="24px" height="24px"></a>
+									<a href="lastfm.php?p=1&track='.$tid.'"><img src="pic/play.png" width="24px" height="24px"></a>
 								</td>
 							';
 						
+							}
+							
 						}			
 					}	
 					echo '</tr>
