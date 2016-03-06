@@ -164,18 +164,18 @@
          				'.$gmdate.'
          			</span>
 					</td>';
+					if(isset($_SESSION['user'])) {
+						$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name'"); 
+						if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
+							$tid = $gettrack->fetch_assoc()['id'];
+							echo '
+								<td class="list" style="padding:0; padding-left:6px;">
+									<a href="lastfm.php?p='. $tid .'"><img src="pic/play.png" width="24px" height="24px"></a>
+								</td>
+							';
 						
-					$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name'"); 
-					if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
-						$tid = $gettrack->fetch_assoc()['id'];
-						echo '
-							<td class="list" style="padding:0; padding-left:6px;">
-								<a href="lastfm.php?p='. $tid .'"><img src="pic/play.png" width="24px" height="24px"></a>
-							</td>
-						';
-						
-					}			
-						
+						}			
+					}	
 					echo '</tr>
    			';
       		if($i==0){$i++;}
