@@ -985,11 +985,7 @@
 						$image="pic/empty.png";
 					}
 				}
-		
-			}			
-			
-			
-			
+			}						
 		}
 		
 		else {

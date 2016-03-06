@@ -169,7 +169,7 @@
 					if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 						$tid = $gettrack->fetch_assoc()['id'];
 						echo '
-							<td class="list" style="padding:0, padding-left:6px;">
+							<td class="list" style="padding:0, padding-left:10px;">
 								<img src="pic/play.png" width="24px" height="24px">
 							</td>
 						';
