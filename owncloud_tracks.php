@@ -2,7 +2,6 @@
 <?php
 	include "include/config.php";
  	include "include/db_connect.php";
-	//echo '<td><audio src="'. $expl[1] .'" controls onloadstart="this.volume=0.02" preload="none"></audio></td>';
 	require_once('getid/getid3/getid3.php');
 	
 	function insert_info($path, $artist, $album, $track, $time, $db) {

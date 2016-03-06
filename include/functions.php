@@ -686,6 +686,7 @@
 	
 ########################################################################################################################################
 	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit) {
+
 		$content="";
 		if(isset($_SESSION['user']) and !isset($_GET['methodlogout'])) {
 				$content .='
@@ -706,6 +707,15 @@
 				elseif(!isset($_SESSION['user']) or isset($_GET['methodlogout'])) {
 					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Login</a></li>';
 				}
+  			}	
+			if(isset($_GET['p']) and $_GET['p']!="") {
+				$tid=$_GET['p'];
+ 				$getpath = $db->query("SELECT `path` FROM `track` WHERE id LIKE '$tid'"); 
+				if(isset($getpath->num_rows) and  $getpath->num_rows!= 0) {
+					$path = $getpath->fetch_assoc()['path'];
+					$content .='<li><audio src="'. $path .'" controls onloadstart="this.volume=0.02" preload="none"></audio></li>';
+				}	
+		
         	}
        	$content .= '</ul>
    				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
