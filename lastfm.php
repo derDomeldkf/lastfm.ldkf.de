@@ -169,13 +169,13 @@
 			$starttime = get_object_vars($decode_Info_User)['user']->registered->unixtime;
 			$user_info_forimage = get_object_vars($user_info_forimage_array)['image'];
 			$userimage = get_object_vars($user_info_forimage[1]);
-			$account_image=$userimage['#text'];
-			if(!isset($account_image) or $account_image=="") {
-				$image="pic/empty.png";
-			}
-			else {
-				$image_lf =  str_replace(".png", "",$account_image);
-				$image_lf =  str_replace("http://img2-ak.lst.fm/i/u/64s/", "",$image_lf);
+			//$account_image=$userimage['#text'];
+			//if(!isset($account_image) or $account_image=="") {
+			//	$image="pic/empty.png";
+			//}
+			//else {
+				//$image_lf =  str_replace(".png", "",$account_image);
+			//	$image_lf =  str_replace("http://img2-ak.lst.fm/i/u/64s/", "",$image_lf);
 				$getimage = $db->query("SELECT `name` FROM `last_fm_user_pics` WHERE user LIKE '$user_in'"); 
 				$getimage_row = $getimage->fetch_assoc()['name'];
 				if($getimage_row==$image_lf) {
@@ -188,7 +188,7 @@
 					$insert = $db->query("INSERT INTO last_fm_user_pics (name, user) VALUES ('$image_lf', '$user_in')");
 					$update = $db->query("UPDATE last_fm_user_pics SET user='$u_old' where name = '$getimage_row'");  
 				}
-			}
+			//}
 			
 			
 			if($method_in==2) {
