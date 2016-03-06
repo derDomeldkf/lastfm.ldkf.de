@@ -713,7 +713,7 @@
  				$getpath = $db->query("SELECT `path` FROM `track` WHERE id LIKE '$tid'"); 
 				if(isset($getpath->num_rows) and  $getpath->num_rows!= 0) {
 					$path = $getpath->fetch_assoc()['path'];
-					$content .='<li style="padding-left:10px; padding-top:5px;"><audio src="'. $path .'" controls onloadstart="this.volume=0.02" preload="none"></audio></li>';
+					$content .='<li style="padding-left:10px; padding-top:15px;"><audio src="'. $path .'" controls onloadstart="this.volume=0.02" preload="none"></audio></li>';
 				}	
 		
         	}
