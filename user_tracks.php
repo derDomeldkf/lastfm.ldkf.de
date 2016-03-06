@@ -170,7 +170,7 @@
 						$tid = $gettrack->fetch_assoc()['id'];
 						echo '
 							<td class="list">
-								<img src="pic/play.png" width="20px" height="20px">
+								<img src="pic/play.png" width="22px" height="22px">
 							</td>
 						';
 						
