@@ -170,7 +170,7 @@
 						$tid = $gettrack->fetch_assoc()['id'];
 						echo '
 							<td class="list" style="padding:0; padding-left:6px;">
-								<a herf="lastfm.php?p='. $tid .'"><img src="pic/play.png" width="24px" height="24px"></a>
+								<a href="lastfm.php?p='. $tid .'"><img src="pic/play.png" width="24px" height="24px"></a>
 							</td>
 						';
 						
