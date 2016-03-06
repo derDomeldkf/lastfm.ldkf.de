@@ -151,16 +151,6 @@
 						</td>
 					';
 					echo lyric($artist_name, $track_name);		
-					$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name'"); 
-					if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
-						$tid = $gettrack->fetch_assoc()['id'];
-						echo '
-							<td class="list">
-								<img width="18px" height="18px;" src="pic/play.png">
-							</td>
-						';
-						
-					}						
       	  		echo'<td class="list" style="padding-right:2px;">';
          		if($date_decode=="wird gerade gehört") {
        				echo '
@@ -168,13 +158,25 @@
 								<img src="pic/test.gif" width="15px" height="20px">
 							</figure>
 						';
-         			}
-         			echo '
-         				<span title="'.$date_uts.'" style="vertical-align:bottom; padding-right:3px;">
-         					'.$gmdate.'
-         				</span>
-						</td>
-					</tr>
+         		}
+         		echo '
+         			<span title="'.$date_uts.'" style="vertical-align:bottom; padding-right:3px;">
+         				'.$gmdate.'
+         			</span>
+					</td>'
+						
+					$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name'"); 
+					if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
+						$tid = $gettrack->fetch_assoc()['id'];
+						echo '
+							<td class="list">
+								<img src="pic/play.png">
+							</td>
+						';
+						
+					}			
+						
+					echo '</tr>
    			';
       		if($i==0){$i++;}
       		else {$i--;}
