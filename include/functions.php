@@ -991,9 +991,6 @@
 						$getimages = $getimage->fetch_assoc()['name'];
 						$image="covers/".$getimages.".png"; 
 					}
-					else {
-						$image="pic/empty.png";
-					}
 				}
 			}						
 		}
@@ -1017,7 +1014,9 @@
 			}
 			$image="covers/".$image_db.".png"; 
 		}
-	
+		if(!isset($image) or $image=="") {
+			$image="pic/empty.png";		
+		}
 		return $image;
 	}
 	
