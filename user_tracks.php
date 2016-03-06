@@ -150,6 +150,7 @@
  	  	 					</span>
 						</td>
 					';
+					echo lyric($artist_name, $track_name);		
 					$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name'"); 
 					if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 						$tid = $gettrack->fetch_assoc()['id'];
@@ -159,8 +160,7 @@
 							</td>
 						';
 						
-					}
-					echo lyric($artist_name, $track_name);								
+					}						
       	  		echo'<td class="list" style="padding-right:2px;">';
          		if($date_decode=="wird gerade gehört") {
        				echo '
