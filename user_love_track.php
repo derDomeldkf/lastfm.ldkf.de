@@ -48,7 +48,7 @@
 						<td class="list">
            	   		<span class="">
             	  			<span class="chartlist-image">
-     	   						<a href="https://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'/'. urlencode($album_name).'" title="'.$artist_name.' - '.$album_name.'" target="_blank"><img src="'.$image.'"></a>
+     	   						<a href="https://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank"><img src="'.$image.'"></a>
    							</span>
  							</span>              		
       	      	</td>
