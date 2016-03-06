@@ -178,9 +178,9 @@
 			//	$image_lf =  str_replace("http://img2-ak.lst.fm/i/u/64s/", "",$image_lf);
 				$getimage = $db->query("SELECT `name` FROM `last_fm_user_pics` WHERE user LIKE '$user_in'"); 
 				$getimage_row = $getimage->fetch_assoc()['name'];
-				if(!isset($image_lf) or $getimage_row==$image_lf) {
+				//if(!isset($image_lf) or $getimage_row==$image_lf) {
 					$image="user_pics/".$getimage_row.".png";
-				}
+			/*	}
 				else {
 					$pfad="user_pics/".$image_lf.".png";
 					copy($account_image, $pfad);
@@ -188,7 +188,7 @@
 					$insert = $db->query("INSERT INTO last_fm_user_pics (name, user) VALUES ('$image_lf', '$user_in')");
 					$update = $db->query("UPDATE last_fm_user_pics SET user='$u_old' where name = '$getimage_row'");  
 				}
-			//}
+			//}*/
 			
 			
 			if($method_in==2) {
