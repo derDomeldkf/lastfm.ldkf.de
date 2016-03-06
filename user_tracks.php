@@ -163,7 +163,7 @@
          			<span title="'.$date_uts.'" style="vertical-align:bottom; padding-right:3px;">
          				'.$gmdate.'
          			</span>
-					</td>'
+					</td>';
 						
 					$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name'"); 
 					if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
