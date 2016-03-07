@@ -726,9 +726,9 @@
 					$album = $getinfo->fetch_assoc()['name'];
 					$sk=$_SESSION['session'];
 					$sig=$_SESSION['sig'];
-					$methode="method=track.scrobble&track=".$track."&timestamp=". time() ."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
+					$methode="method=track.scrobble&track=". urlencode($track) ."&timestamp=". time() ."&artist=". urlencode($artist) ."&api_sig".$sig."&sk=".$sk;
 					if(isset($album) and $album!="") {
-						$methode .="&album=".$album;
+						$methode .="&album=". urlencode($album);
 					}
 					echo 	$methode;				
 					//$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
