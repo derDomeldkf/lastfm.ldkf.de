@@ -1,5 +1,6 @@
 <html>
 <?php
+   header('Content-Type: text/html; charset=utf-8');
 	include "include/config.php";
  	include "include/db_connect.php";
 	require_once('getid/getid3/getid3.php');
@@ -19,7 +20,7 @@
 			$alid = $getalbum->fetch_assoc()['id'];
 		}
 		else {
-			$insert = $db->query("INSERT INTO `album` (name, artist) VALUES (' $album', '$aid')"); 	
+			$insert = $db->query("INSERT INTO `album` (name, artist) VALUES ('$album', '$aid')"); 	
 			$getalbum = $db->query("SELECT `id` FROM `album` WHERE name LIKE '$album'"); 
 			if(isset($getalbum->num_rows) and  $getalbum->num_rows!= 0) {
 				$alid = $getalbum->fetch_assoc()['id'];
@@ -49,9 +50,9 @@
 						$ThisFileInfo = $getID3->analyze($path."/".$file);
 						getid3_lib::CopyTagsToComments($ThisFileInfo);
 						$path_in = $path."/".$file;
-						$artist= utf8_encode(!empty($ThisFileInfo['comments_html']['artist']) ? $ThisFileInfo['comments_html']['artist'][0] : "");
-						$album= utf8_encode(!empty($ThisFileInfo['comments_html']['album']) ? $ThisFileInfo['comments_html']['album'][0] : "");
-						$track= utf8_encode(!empty($ThisFileInfo['comments_html']['title']) ? $ThisFileInfo['comments_html']['title'][0] : "");
+						$artist= !empty($ThisFileInfo['comments_html']['artist']) ? $ThisFileInfo['comments_html']['artist'][0] : "";
+						$album= !empty($ThisFileInfo['comments_html']['album']) ? $ThisFileInfo['comments_html']['album'][0] : "";
+						$track= !empty($ThisFileInfo['comments_html']['title']) ? $ThisFileInfo['comments_html']['title'][0] : "";
 						$time= !empty($ThisFileInfo['playtime_string']) ? $ThisFileInfo['playtime_string'] : "";
 						if($track!="") {
 							insert_info($path_in, $artist, $album, $track, $time, $db);
