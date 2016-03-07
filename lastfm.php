@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	header('Content-Type: charset=utf-8');
 	$user_in="";
 	$page="";
 	$totalPages="";
