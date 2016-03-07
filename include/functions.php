@@ -714,7 +714,7 @@
  				$getpath = $db->query("SELECT `path` FROM `track` WHERE id LIKE '$tid'"); 
 				if(isset($getpath->num_rows) and  $getpath->num_rows!= 0) {
 					$path = $getpath->fetch_assoc()['path'];
-					$getinfo = $db->query("SELECT `artist`, `album`, `name` FROM `track` WHERE id LIKE '$tid'"); 
+					$getinfo = $db->query("SELECT artist, album, name FROM `track` WHERE id LIKE '$tid'"); 
 					while($info = $getinfo->fetch_assoc()){
 						$artist_id=$info['artist'];
 						$album_id=$info['album'];
