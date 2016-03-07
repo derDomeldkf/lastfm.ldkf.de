@@ -716,10 +716,14 @@
 					$path = $getpath->fetch_assoc()['path'];
 					$getinfo = $db->query("SELECT `artist`, `album`, `name` FROM `track` WHERE id LIKE '$tid'"); 
 					while($info = $getinfo->fetch_assoc()){
-						$artist=$info['artist'];
-						$album=$info['album'];
+						$artist_id=$info['artist'];
+						$album_id=$info['album'];
 						$track=$info['name'];
 					}
+					$getinfo = $db->query("SELECT `name` FROM `artist` WHERE id LIKE '$artist_id'"); 
+					$artist = $getpath->fetch_assoc()['artist'];
+					$getinfo = $db->query("SELECT `name` FROM `album` WHERE id LIKE '$album_id'"); 
+					$album = $getpath->fetch_assoc()['album'];
 					$sk=$_SESSION['session'];
 					$sig=$_SESSION['sig'];
 					$methode="method=track.scrobble&track=".$track."&timestamp=". time() ."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
