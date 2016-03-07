@@ -715,10 +715,10 @@
 				if(isset($getpath->num_rows) and  $getpath->num_rows!= 0) {
 					$path = $getpath->fetch_assoc()['path'];
 					$getinfo = $db->query("SELECT `artist`, `album`, `name` FROM `track` WHERE id LIKE '$tid'"); 
-					while($getinfo = $getinfo->fetch_assoc()){
-						$artist=$getinfo['artist'];
-						$album=$getinfo['album'];
-						$track=$getinfo['name'];
+					while($info = $getinfo->fetch_assoc()){
+						$artist=$info['artist'];
+						$album=$info['album'];
+						$track=$info['name'];
 					}
 					$sk=$_SESSION['session'];
 					$sig=$_SESSION['sig'];
