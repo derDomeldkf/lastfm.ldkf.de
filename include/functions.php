@@ -721,11 +721,11 @@
 						$track=$info['name'];
 					}
 					$getinfo = $db->query("SELECT `name` FROM `artists` WHERE id LIKE '$artist_id'"); 
-					$artist = $getpath->fetch_assoc()['artist'];
+					$artist = $getpath->fetch_assoc()['name'];
 					echo $artist;
 					echo $track;
 					$getinfo = $db->query("SELECT `name` FROM `album` WHERE id LIKE '$album_id'"); 
-					$album = $getpath->fetch_assoc()['album'];
+					$album = $getpath->fetch_assoc()['name'];
 					echo $album;
 					$sk=$_SESSION['session'];
 					$sig=$_SESSION['sig'];
