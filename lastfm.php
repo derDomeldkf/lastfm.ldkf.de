@@ -160,7 +160,7 @@
 	}
 	if(isset($user_in) and $user_in!="") {
 		$methode="method=user.getInfo&user=".$user_in;
-		$out_user = file_get_contents("http://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 		if($out_user!='{"error":6,"message":"User not found","links":[]}') {
 			$decode_Info_User=json_decode($out_user);
 			$user_info_forimage_array = get_object_vars($decode_Info_User)['user'];
@@ -193,7 +193,7 @@
 			
 			if($method_in==2) {
 				$methode="method=user.getRecentTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-				$out = file_get_contents("http://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 				$decode=json_decode($out);
 				$user_info_array = get_object_vars($decode->recenttracks);
 				$user_decode= $user_info_array['@attr'];
@@ -206,7 +206,7 @@
 			}
 			if($method_in==5) {
 				$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-				$out = file_get_contents("http://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 				if(isset($out)) {
 					$decode=json_decode($out);
 					$user_info_array_love = get_object_vars($decode->lovedtracks);
@@ -221,7 +221,7 @@
 			}
 			if($method_in==6) {
 				$methode="method=user.getTopArtists&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-				$out = file_get_contents("http://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 				if(isset($out)) {
 					$decode=json_decode($out);
 					$user_info_array_love = get_object_vars($decode->topartists);
@@ -236,7 +236,7 @@
 			}
 			if($method_in==7) {
 				$methode="method=user.getTopTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-				$out = file_get_contents("http://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 				if(isset($out)) {
 					$decode=json_decode($out);
 					$user_info_array_love = get_object_vars($decode->toptracks);
