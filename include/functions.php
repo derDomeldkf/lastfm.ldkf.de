@@ -717,15 +717,15 @@
 					$getinfo = $db->query("SELECT artist, album, name FROM `track` WHERE id LIKE '$tid'"); 
 					while($info = $getinfo->fetch_assoc()){
 						$artist_id=$info['artist'];
-						$album_id=$info['album'];
 						$track=$info['name'];
+						$album_id=$info['album'];
 					}
 					$getinfo = $db->query("SELECT `name` FROM `artists` WHERE id LIKE '$artist_id'"); 
-					$artist = $getpath->fetch_assoc()['name'];
+					$artist = $getinfo->fetch_assoc()['name'];
+					$getinfo = $db->query("SELECT `name` FROM `album` WHERE id LIKE '$album_id'"); 
+					$album = $getinfo->fetch_assoc()['name'];
 					echo $artist;
 					echo $track;
-					$getinfo = $db->query("SELECT `name` FROM `album` WHERE id LIKE '$album_id'"); 
-					$album = $getpath->fetch_assoc()['name'];
 					echo $album;
 					$sk=$_SESSION['session'];
 					$sig=$_SESSION['sig'];
