@@ -720,7 +720,7 @@
 						$album_id=$info['album'];
 						$track=$info['name'];
 					}
-					$getinfo = $db->query("SELECT `name` FROM `artist` WHERE id LIKE '$artist_id'"); 
+					$getinfo = $db->query("SELECT `name` FROM `artists` WHERE id LIKE '$artist_id'"); 
 					$artist = $getpath->fetch_assoc()['artist'];
 					echo $artist;
 					echo $track;
