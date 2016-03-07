@@ -720,6 +720,7 @@
 						$album_id=$info['album'];
 						$track=$info['name'];
 					}
+					echo $artist_id;
 					$getinfo = $db->query("SELECT `name` FROM `artist` WHERE id LIKE '$artist_id'"); 
 					$artist = $getpath->fetch_assoc()['artist'];
 					$getinfo = $db->query("SELECT `name` FROM `album` WHERE id LIKE '$album_id'"); 
@@ -730,7 +731,6 @@
 					if(isset($album) and $album!="") {
 						$methode .="&album=".$album;
 					}
-					echo $methode;
 					//$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 					$content .='<li style="padding-left:10px; padding-top:11px;"><audio src="'. $path .'" controls onloadstart="this.volume=0.05" autoplay></audio></li>';
 				}		
