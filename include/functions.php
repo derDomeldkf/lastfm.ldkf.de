@@ -719,13 +719,14 @@
 						$artist_id=$info['artist'];
 						$album_id=$info['album'];
 						$track=$info['name'];
-						echo "test";
 					}
-					echo $artist_id;
 					$getinfo = $db->query("SELECT `name` FROM `artist` WHERE id LIKE '$artist_id'"); 
 					$artist = $getpath->fetch_assoc()['artist'];
+					echo $artist;
+					echo $track;
 					$getinfo = $db->query("SELECT `name` FROM `album` WHERE id LIKE '$album_id'"); 
 					$album = $getpath->fetch_assoc()['album'];
+					echo $album;
 					$sk=$_SESSION['session'];
 					$sig=$_SESSION['sig'];
 					$methode="method=track.scrobble&track=".$track."&timestamp=". time() ."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
