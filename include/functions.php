@@ -727,7 +727,7 @@
 					$sk=$_SESSION['session'];
 					//$sig=$_SESSION['sig'];
 					$psig="album". $album ."api_key830d6e2d4d737d56aa1f94f717a477dfartist". $artist ."methodtrack.scrobblesk".$sk."timestamp". time() ."track". $track ."".$secret;
-echo $psig;				$sig=md5($psig);	
+$content .= $psig;				$sig=md5($psig);	
 					$methode="method=track.scrobble&track=".$track."&artist=".$artist."&api_sig=".$sig."&sk=".$sk."&timestamp=" . time() ;
 					if(isset($album) and $album!="") {
 						$methode .="&album=". $album;
