@@ -726,13 +726,11 @@
 					$album = $getinfo->fetch_assoc()['name'];
 					$sk=$_SESSION['session'];
 					$sig=$_SESSION['sig'];
-					//. urlencode($track) ."&timestamp=". time() ."&artist=". urlencode($artist) ."&api_sig=".$sig."&sk=".$sk
-					//$methode="method=track.scrobble&track=";
-					$methode="";
+					$methode="method=track.scrobble&track=". urlencode($track) ."&timestamp=". time() ."&artist=". urlencode($artist) ."&api_sig=".$sig."&sk=".$sk;
 					if(isset($album) and $album!="") {
-					//	$methode .="&album=". urlencode($album);
+						$methode .="&album=". urlencode($album);
 					}
-					$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?api_key=830d6e2d4d737d56aa1f94f717a477df" . $methode ."");
+					$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 					$content .='<li style="padding-left:10px; padding-top:11px;"><audio src="'. $path .'" controls onloadstart="this.volume=0.05" autoplay></audio></li>';
 				}		
         	}
