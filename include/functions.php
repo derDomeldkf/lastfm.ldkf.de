@@ -685,7 +685,7 @@
 	}
 	
 ########################################################################################################################################
-	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit) {
+	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit, $secret) {
 
 		$content="";
 		if(isset($_SESSION['user']) and !isset($_GET['methodlogout'])) {
@@ -726,10 +726,11 @@
 					$album = $getinfo->fetch_assoc()['name'];
 					$sk=$_SESSION['session'];
 					$sig=$_SESSION['sig'];
-					$methode="method=track.scrobble&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk."&timestamp=" . time() ;
-					//$methode="method=track.love&track=".$track."&artist=".$artist."&api_sig=".$sig."&sk=".$sk;
+					$sig=md5("album".$album."api_key830d6e2d4d737d56aa1f94f717a477dfartist".$artist."methodtrack.scrobbletimestamp". time() ."track".$track."".$secret);
+					$methode="method=track.scrobble&track=".$track."&artist=".$artist."&api_sig=".$sig."&sk=".$sk."&timestamp=" . time() ;
 					if(isset($album) and $album!="") {
-						//$methode .="&album=". urlencode($album);
+						$methode .="&album=". urlencode($album);
+						
 					}
 					$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 					var_dump($out_user );
