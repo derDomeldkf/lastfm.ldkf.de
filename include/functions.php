@@ -726,7 +726,8 @@
 					$album = $getinfo->fetch_assoc()['name'];
 					$sk=$_SESSION['session'];
 					$sig=$_SESSION['sig'];
-					$methode="method=track.scrobble&track=". urlencode($track) ."&timestamp=". time() ."&artist=". urlencode($artist) ."&api_sig=".$sig."&sk=".$sk;
+					//"&timestamp=". time() .
+					$methode="method=track.updateNowPlaying&track=". urlencode($track) ."&artist=". urlencode($artist) ."&api_sig=".$sig."&sk=".$sk;
 					if(isset($album) and $album!="") {
 						$methode .="&album=". urlencode($album);
 					}
