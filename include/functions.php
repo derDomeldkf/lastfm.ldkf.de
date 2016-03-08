@@ -727,7 +727,7 @@
 					$sk=$_SESSION['session'];
 					$sig=$_SESSION['sig'];
 					//"&timestamp=". time() .
-					$methode="method=track.updateNowPlaying&track=". urlencode($track) ."&artist=". urlencode($artist) ."&api_sig=".$sig."&sk=".$sk;
+					$methode="method=track.love&track=". urlencode($track) ."&artist=". urlencode($artist) ."&api_sig=".$sig."&sk=".$sk;
 					if(isset($album) and $album!="") {
 						$methode .="&album=". urlencode($album);
 					}
