@@ -726,7 +726,7 @@
 					$album = $getinfo->fetch_assoc()['name'];
 					$sk=$_SESSION['session'];
 					//$sig=$_SESSION['sig'];
-					$sig=md5("album".$album."api_key830d6e2d4d737d56aa1f94f717a477dfartist".$artist."methodtrack.scrobblesk".$sk."timestamp". time() ."track".$track."".$secret);
+					$sig=md5("album". urlencode($album) ."api_key830d6e2d4d737d56aa1f94f717a477dfartist". urlencode($artist) ."methodtrack.scrobblesk".$sk."timestamp". time() ."track". urlencode($track) ."".$secret);
 					$methode="method=track.scrobble&track=".$track."&artist=".$artist."&api_sig=".$sig."&sk=".$sk."&timestamp=" . time() ;
 					if(isset($album) and $album!="") {
 						$methode .="&album=". urlencode($album);
