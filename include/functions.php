@@ -727,14 +727,13 @@
 					$sk=$_SESSION['session'];
 					//$sig=$_SESSION['sig'];
 					$psig="album". $album ."api_key830d6e2d4d737d56aa1f94f717a477dfartist". $artist ."methodtrack.scrobblesk".$sk."timestamp". time() ."track". $track ."".$secret;
-$content .= $psig;				$sig=md5($psig);	
+					$sig=md5($psig);	
 					$methode="method=track.scrobble&track=".$track."&artist=".$artist."&api_sig=".$sig."&sk=".$sk."&timestamp=" . time() ;
 					if(isset($album) and $album!="") {
 						$methode .="&album=". $album;
 						
 					}
 					$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-					var_dump($out_user );
 					$content .='<li style="padding-left:10px; padding-top:11px;"><audio src="'. $path .'" controls onloadstart="this.volume=0.05" autoplay></audio></li>';
 				}		
         	}
