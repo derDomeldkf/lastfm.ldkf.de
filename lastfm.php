@@ -180,6 +180,67 @@
 			}
 		}
 	}
+	switch($method_in) {
+		case 2:
+			$methode="method=user.getRecentTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+			$out = post($methode, $api_key);
+			$decode=json_decode($out);
+			$user_info_array = get_object_vars($decode->recenttracks);
+			$user_decode= $user_info_array['@attr'];
+			$username = $user_decode->user;
+			$page = $user_decode->page;
+			$perPage = $user_decode->perPage;
+			$totalPages = $user_decode->totalPages;
+			$tracks= $decode->recenttracks->track;
+			$totaltracks=$totalTracks;
+			break;
+		case 5:
+			$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+			$out = post($methode, $api_key);
+			if(isset($out)) {
+				$decode=json_decode($out);
+				$user_info_array_love = get_object_vars($decode->lovedtracks);
+				$user=$user_info_array_love['@attr'];
+				$tracks= $user_info_array_love['track'];
+				$username = $user->user;
+				$page = $user->page;
+				$perPage = $user->perPage;
+				$totalPages = $user->totalPages;
+				$totaltracks=$user->total;
+			}
+			break;
+		case 6:
+			$methode="method=user.getTopArtists&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+			$out = post($methode, $api_key);
+			if(isset($out)) {
+				$decode=json_decode($out);
+				$user_info_array_love = get_object_vars($decode->topartists);
+				$user=$user_info_array_love['@attr'];
+				$tracks= $user_info_array_love['artist'];
+				$username = $user->user;
+				$page = $user->page;
+				$perPage = $user->perPage;
+				$totalPages = $user->totalPages;
+				$totaltracks=$user->total;
+			}
+			break;
+		case 7:
+			$methode="method=user.getTopTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+			$out = post($methode, $api_key);
+			if(isset($out)) {
+				$decode=json_decode($out);
+				$user_info_array_love = get_object_vars($decode->toptracks);
+				$user=$user_info_array_love['@attr'];
+				$tracks= $user_info_array_love['track'];
+				$username = $user->user;
+				$page = $user->page;
+				$perPage = $user->perPage;
+				$totalPages = $user->totalPages;
+				$totaltracks=$user->total;
+			}	
+			break;
+
+
 
 ?>
 <html>
@@ -223,17 +284,7 @@
 								case 1:
 									break;
 								case 2:
-									$methode="method=user.getRecentTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-									$out = post($methode, $api_key);
-									$decode=json_decode($out);
-									$user_info_array = get_object_vars($decode->recenttracks);
-									$user_decode= $user_info_array['@attr'];
-									$username = $user_decode->user;
-									$page = $user_decode->page;
-									$perPage = $user_decode->perPage;
-									$totalPages = $user_decode->totalPages;
-									$tracks= $decode->recenttracks->track;
-									$totaltracks=$totalTracks;
+									
 									include "user_tracks.php";	 
 									break;
 								case 3:
@@ -261,51 +312,12 @@
 									echo group($db_name, $period, $db, $post, $date, $td);	   
 									break;
 								case 5:
-									$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-									$out = post($methode, $api_key);
-									if(isset($out)) {
-										$decode=json_decode($out);
-										$user_info_array_love = get_object_vars($decode->lovedtracks);
-										$user=$user_info_array_love['@attr'];
-										$tracks= $user_info_array_love['track'];
-										$username = $user->user;
-										$page = $user->page;
-										$perPage = $user->perPage;
-										$totalPages = $user->totalPages;
-										$totaltracks=$user->total;
-									}
 									include "user_love_track.php";	        				
 									break;
 								case 6:
-									$methode="method=user.getTopArtists&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-									$out = post($methode, $api_key);
-									if(isset($out)) {
-										$decode=json_decode($out);
-										$user_info_array_love = get_object_vars($decode->topartists);
-										$user=$user_info_array_love['@attr'];
-										$tracks= $user_info_array_love['artist'];
-										$username = $user->user;
-										$page = $user->page;
-										$perPage = $user->perPage;
-										$totalPages = $user->totalPages;
-										$totaltracks=$user->total;
-									}
 									include "user_topartist.php";	        				
 									break;
 								case 7:
-									$methode="method=user.getTopTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-									$out = post($methode, $api_key);
-									if(isset($out)) {
-										$decode=json_decode($out);
-										$user_info_array_love = get_object_vars($decode->toptracks);
-										$user=$user_info_array_love['@attr'];
-										$tracks= $user_info_array_love['track'];
-										$username = $user->user;
-										$page = $user->page;
-										$perPage = $user->perPage;
-										$totalPages = $user->totalPages;
-										$totaltracks=$user->total;
-									}	
 									include "user_toptrack.php";	        				
 									break;
 								case 8:
