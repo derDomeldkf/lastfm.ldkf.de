@@ -183,7 +183,13 @@
 				$getimage = $db->query("SELECT `name` FROM `last_fm_user_pics` WHERE user LIKE '$user_in'"); 
 				$getimage_row = $getimage->fetch_assoc()['name'];
 				//if(!isset($image_lf) or $getimage_row==$image_lf) {
-					$image="user_pics/".$getimage_row.".png";
+					if(isset($getimage_row)and $getimage_row!="") {
+						$image="user_pics/".$getimage_row.".png";
+					}
+					else {
+						$image="pic/empty.png";
+					}
+					
 			/*	}
 				else {
 					$pfad="user_pics/".$image_lf.".png";
