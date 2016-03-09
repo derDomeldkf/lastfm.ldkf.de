@@ -1021,7 +1021,7 @@
 		return $content;
 	}
 	function image_artist($artist_name, $db) {
-		$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
+		$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name' and album LIKE 'NULL'"); 
 		$getimages = $getimage->fetch_assoc()['name'];
 		if(isset($getimages) and $getimages!="") {							
 			$image="covers/".$getimages; 
