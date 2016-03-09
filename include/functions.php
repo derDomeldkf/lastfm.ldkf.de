@@ -1024,7 +1024,7 @@
 		$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
 		$getimages = $getimage->fetch_assoc()['name'];
 		if(isset($getimages) and $getimages!="") {							
-			$image="covers/".$getimages.".png"; 
+			$image="covers/".$getimages; 
 		}
 		else {
 			$image="pic/empty.png";
