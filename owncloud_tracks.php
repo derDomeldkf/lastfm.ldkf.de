@@ -40,6 +40,7 @@
 		$data =  str_replace("&#246;", "ö",$data);
 		$data =  str_replace("&#228;", "ä",$data);
 		$data =  str_replace("&amp;", "&",$data);
+		$data =  str_replace("'", "",$data);
 		return $data;
 	
 	}
