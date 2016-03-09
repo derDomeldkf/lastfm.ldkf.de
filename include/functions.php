@@ -2,7 +2,6 @@
 	function play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in){
 		$content="";
 		if(isset($_SESSION['user'])) {
-			
 			$track_name_get=mysql_escape_string( utf8_decode($track_name));
 			$artist_name_get=mysql_escape_string( utf8_decode($artist_name));
 			$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name_get'"); 
@@ -14,6 +13,12 @@
 					$content = '
 						<td class="list" style="padding:0; padding-left:6px;">
 							<a href="lastfm.php?p='.$tid.'&method_get='.$method_in.'&limitin='.$limit_in.'&pagein='.$page_in.'"><img src="pic/play.png" width="24px" height="24px"></a>
+						</td>
+					';
+				}
+				else {
+					$content = '
+						<td class="list" style="padding:0; padding-left:6px;">
 						</td>
 					';
 				}
