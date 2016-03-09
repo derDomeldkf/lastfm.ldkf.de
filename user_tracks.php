@@ -165,7 +165,7 @@
          			</span>
 					</td>';
 					if(isset($_SESSION['user'])) {
-						$track_name_get= htmlspecialchars($track_name);
+						$track_name_get= htmlspecialchars_decode($track_name);
 						echo $track_name_get;
 						$artist_name_get=utf8_decode($artist_name);
 						$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name_get'"); 
