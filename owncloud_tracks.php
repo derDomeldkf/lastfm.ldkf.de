@@ -1,6 +1,5 @@
 <html>
 <?php
-   header('Content-Type: text/html; charset=utf-8');
 	include "include/config.php";
  	include "include/db_connect.php";
 	require_once('getid/getid3/getid3.php');
