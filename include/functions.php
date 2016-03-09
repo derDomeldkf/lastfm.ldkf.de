@@ -1,4 +1,40 @@
  <?php
+ 
+ 	
+		function audioplayer($db, $secret)  {			
+  			$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` WHERE `username` LIKE '$user_in'"); 
+			if(isset($_GET['p']) and $_GET['p']!="" and isset($getmembers->num_rows) and  $getmembers->num_rows!= 0) {
+				$tid=$_GET['p'];
+ 				$getpath = $db->query("SELECT `path` FROM `track` WHERE id LIKE '$tid'"); 
+				if(isset($getpath->num_rows) and  $getpath->num_rows!= 0) {
+					$path = $getpath->fetch_assoc()['path'];
+					$getinfo = $db->query("SELECT artist, album, name FROM `track` WHERE id LIKE '$tid'"); 
+					while($info = $getinfo->fetch_assoc()){
+						$artist_id=$info['artist'];
+						$track=$info['name'];
+						$album_id=$info['album'];
+					}
+					$getinfo = $db->query("SELECT `name` FROM `artists` WHERE id LIKE '$artist_id'"); 
+					$artist = $getinfo->fetch_assoc()['name'];
+					$getinfo = $db->query("SELECT `name` FROM `album` WHERE id LIKE '$album_id'"); 
+					$album = $getinfo->fetch_assoc()['name'];
+					$sk=$_SESSION['session'];
+					//$sig=$_SESSION['sig'];
+					$psig="album". $album ."api_key830d6e2d4d737d56aa1f94f717a477dfartist". $artist ."methodtrack.scrobblesk".$sk."timestamp". time() ."track". $track ."".$secret;
+					$sig=md5($psig);	
+					$methode="method=track.scrobble&track=".$track."&artist=".$artist."&api_sig=".$sig."&sk=".$sk."&timestamp=" . time() ;
+					if(isset($album) and $album!="") {
+						$methode .="&album=". $album;
+						
+					}
+					//$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+					$content .='<li style="padding-left:10px; padding-top:11px;"><audio src="'. $path .'" controls onloadstart="this.volume=0.3" autoplay></audio></li>';
+				}		
+        	}
+        	return $content;
+        }
+ 
+ 
 	function play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in){
 		$content="";
 		if(isset($_SESSION['user'])) {
@@ -745,35 +781,8 @@
 					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Login</a></li>';
 				}
   			}	
-  			$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` WHERE `username` LIKE '$user_in'"); 
-			if(isset($_GET['p']) and $_GET['p']!="" and isset($getmembers->num_rows) and  $getmembers->num_rows!= 0) {
-				$tid=$_GET['p'];
- 				$getpath = $db->query("SELECT `path` FROM `track` WHERE id LIKE '$tid'"); 
-				if(isset($getpath->num_rows) and  $getpath->num_rows!= 0) {
-					$path = $getpath->fetch_assoc()['path'];
-					$getinfo = $db->query("SELECT artist, album, name FROM `track` WHERE id LIKE '$tid'"); 
-					while($info = $getinfo->fetch_assoc()){
-						$artist_id=$info['artist'];
-						$track=$info['name'];
-						$album_id=$info['album'];
-					}
-					$getinfo = $db->query("SELECT `name` FROM `artists` WHERE id LIKE '$artist_id'"); 
-					$artist = $getinfo->fetch_assoc()['name'];
-					$getinfo = $db->query("SELECT `name` FROM `album` WHERE id LIKE '$album_id'"); 
-					$album = $getinfo->fetch_assoc()['name'];
-					$sk=$_SESSION['session'];
-					//$sig=$_SESSION['sig'];
-					$psig="album". $album ."api_key830d6e2d4d737d56aa1f94f717a477dfartist". $artist ."methodtrack.scrobblesk".$sk."timestamp". time() ."track". $track ."".$secret;
-					$sig=md5($psig);	
-					$methode="method=track.scrobble&track=".$track."&artist=".$artist."&api_sig=".$sig."&sk=".$sk."&timestamp=" . time() ;
-					if(isset($album) and $album!="") {
-						$methode .="&album=". $album;
-						
-					}
-					//$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-					$content .='<li style="padding-left:10px; padding-top:11px;"><audio src="'. $path .'" controls onloadstart="this.volume=0.3" autoplay></audio></li>';
-				}		
-        	}
+			$content .= audioplayer($db, $secret);
+  		
        	$content .= '</ul>
    				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
    					<li class="dropdown" style="width:200px;">
@@ -886,9 +895,11 @@
 				$content .= '
 					</ul>
 				</li>
-			';     		
+			';  
+			$content .= audioplayer($db, $secret);   		
         			
 		}		
+
 		if($method_in==4) {
 			$content .='
 				</ul>
