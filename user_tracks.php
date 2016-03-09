@@ -120,7 +120,7 @@
 						<td class="list">
    	  					<span class="">
            					<span class="chartlist-image">
-           						<a href="www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'/'. urlencode($album_name).'" title="'.$artist_name; if (isset($album_name) and $album_name!="") {echo ' - '.$album_name; }echo '" target="_blank"><img src="'.$image.'"></a>
+           						<a href="http://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'/'. urlencode($album_name).'" title="'.$artist_name; if (isset($album_name) and $album_name!="") {echo ' - '.$album_name; }echo '" target="_blank"><img src="'.$image.'"></a>
       						</span>
  	  						</span>              		
        				</td>
@@ -141,7 +141,7 @@
  	      			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:600px;">
    	   				<span class="chartlist-ellipsis-wrap">
       	   				<span class="chartlist-artists">
-         						<a href="www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+         						<a href="http://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
         						</span>
 								<span class="artist-name-spacer"> — </span>
 								<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         

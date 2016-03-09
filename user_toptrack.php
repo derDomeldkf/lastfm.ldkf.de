@@ -61,7 +61,7 @@ object(stdClass)#10 (7) {
     					<td class="list" style="padding-right:5px; padding-left:8px; min-width:400px;">
    	        			<span class="chartlist-ellipsis-wrap">
       	         	   <span class="chartlist-artists">
-         	   				<a href="www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+         	   				<a href="http://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
         						</span>
 								<span class="artist-name-spacer"> — </span>
 									<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         
