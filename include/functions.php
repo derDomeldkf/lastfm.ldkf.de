@@ -1,5 +1,5 @@
  <?php
- 	function audioplayer($db, $secret)  {	
+ 	function audioplayer($db, $secret, $user_in)  {	
  		$content="";		
  		$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` WHERE `username` LIKE '$user_in'"); 
 		if(isset($_GET['p']) and $_GET['p']!="" and isset($getmembers->num_rows) and  $getmembers->num_rows!= 0) {
@@ -779,7 +779,7 @@
 					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Login</a></li>';
 				}
   			}	
-			$content .= audioplayer($db, $secret);
+			$content .= audioplayer($db, $secret, $user_in);
   		
        	$content .= '</ul>
    				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
@@ -894,7 +894,7 @@
 					</ul>
 				</li>
 			';  
-			$content .= audioplayer($db, $secret);   		
+			$content .= audioplayer($db, $secret, $user_in);   		
         			
 		}		
 
