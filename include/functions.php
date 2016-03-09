@@ -16,6 +16,12 @@
 						</td>
 					';
 				}
+				else {
+					$content = '
+						<td class="list" style="padding:0; padding-left:6px;">
+						</td>
+					';
+				}	
 			}	
 			else {
 					$content = '
