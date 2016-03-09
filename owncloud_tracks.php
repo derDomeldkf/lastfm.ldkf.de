@@ -32,7 +32,7 @@
 			if(!isset($alid)) {
 				$alid="";			
 			}
-			$insert = $db->query("INSERT INTO `track` (name, artist, album, time, path) VALUES (". mysql_real_escape_string($track) .", '$aid', '$alid', '$time', '$path')"); 							
+			$insert = $db->query("INSERT INTO `track` (name, artist, album, time, path) VALUES ('". mysql_real_escape_string($track) ."', '$aid', '$alid', '$time', '$path')"); 							
 		}
 	}
 	function rep($data){
