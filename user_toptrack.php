@@ -70,7 +70,8 @@ object(stdClass)#10 (7) {
  	  	 						</span>
       	   			</td>
       	   		'; 
-      	   		echo lyric($artist_name, $track_name);								
+      	   		echo lyric($artist_name, $track_name);	
+      	   		echo play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in);							
       	  			$m=0; 
 						$st=(60/$page_in)*$count/$count_max;    				
     					echo'      	   
