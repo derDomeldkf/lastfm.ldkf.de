@@ -62,7 +62,7 @@
 						if($track!="") {
 							$track=utf8_decode(rep($track));
  							$artist=utf8_decode(rep($artist));
-							$album=utf8_decode(rep($album));					
+							$album=utf8_decode(rep($album));	
 							insert_info($path_in, $artist, $album, $track, $time, $db);
 						}
 					}
