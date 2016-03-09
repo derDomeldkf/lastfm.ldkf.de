@@ -518,6 +518,8 @@
 				<td class="list table_head">
 				</td>
 				<td class="list table_head">
+				</td>
+				<td class="list table_head">
 					'.$period.'				
 				</td> 	
 			</tr>';
