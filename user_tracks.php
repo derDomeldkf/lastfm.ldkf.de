@@ -166,9 +166,9 @@
 					</td>';
 					if(isset($_SESSION['user'])) {
 
+$track_name_get=utf8_decode($track);
 
-
-						$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name'"); 
+						$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name_get'"); 
 						if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 							$tid = $gettrack->fetch_assoc()['id'];
 							$getartist = $db->query("SELECT `id` FROM `artists` WHERE name LIKE '$artist_name'"); 
