@@ -33,7 +33,7 @@
 	}
  
  
-	function play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in){
+	function play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in, $user_in){
 		$content="";
 		if(isset($_SESSION['user'])) {
 			$track_name_get=mysql_escape_string( utf8_decode($track_name));
@@ -46,7 +46,7 @@
 					$aid = $getartist->fetch_assoc()['id'];
 					$content = '
 						<td class="list" style="padding:0; padding-left:1px; padding-right:9px;">
-							<a href="lastfm.php?p='.$tid.'&method_get='.$method_in.'&limitin='.$limit_in.'&pagein='.$page_in.'"><img src="pic/play.png" width="24px" height="24px"></a>
+							<a href="lastfm.php?p='.$tid.'&user='.$user_in.'&method_get='.$method_in.'&limitin='.$limit_in.'&pagein='.$page_in.'"><img src="pic/play.png" width="24px" height="24px"></a>
 						</td>
 					';
 				}
@@ -618,7 +618,7 @@
  	  	 				</span>
 					</td>';
 					$content .= lyric($artist_name, $track_name);			
-					$content .= play($track_name, $artist_name, $db, $method_in, "", "");
+					$content .= play($track_name, $artist_name, $db, $method_in, "", "", "");
 					$content .= '  	  				
   	  				<td class="list" style="padding-right:3px; min-width:360px;">
  	   				<span>'.$user.'</span>

@@ -164,7 +164,7 @@
          				'.$gmdate.'
          			</span>
 					</td>';
-					echo play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in);
+					echo play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in, $user_in);
 					echo '</tr>
    			';
       		if($i==0){$i++;}

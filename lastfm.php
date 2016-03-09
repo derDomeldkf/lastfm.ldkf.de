@@ -25,6 +25,10 @@
         	$_SESSION['session']=$sk;	
 			$_SESSION['sig']=$sig;
 		}
+		if(isset($_GET['user']) and $_GET['user']!="") {
+			$uname_db = $_GET['user'];
+		}
+		
 		if (isset($_GET['login'])){
 			$method_in=$_GET['methodlogin'];
 			$page_in=$_GET['page'];
