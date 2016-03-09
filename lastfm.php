@@ -271,7 +271,7 @@
       				<ul class="nav navbar-nav">
         					<li><a href="./">Startseite<span class="sr-only">(current)</span></a></li>
         					<?php
-        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit_in, $secret);
+        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit_in, $secret, $api_key);
 							?>					
 	  				</div>
   				</div>
