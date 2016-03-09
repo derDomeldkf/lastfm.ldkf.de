@@ -24,7 +24,7 @@
 				$alid = $getalbum->fetch_assoc()['id'];
 			}
 		}
-		$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '". mysql_real_escape_string($track)."'"); 
+		$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track"); 
 		if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 			$tid = $gettrack->fetch_assoc()['id'];
 		}
@@ -32,7 +32,7 @@
 			if(!isset($alid)) {
 				$alid="";			
 			}
-			$insert = $db->query("INSERT INTO `track` (name, artist, album, time, path) VALUES ('". mysql_real_escape_string($track) ."', '$aid', '$alid', '$time', '$path')"); 							
+			$insert = $db->query("INSERT INTO `track` (name, artist, album, time, path) VALUES ('$track', '$aid', '$alid', '$time', '$path')"); 							
 		}
 	}
 	function rep($data){
@@ -60,10 +60,11 @@
 						$track= !empty($ThisFileInfo['comments_html']['title']) ? $ThisFileInfo['comments_html']['title'][0] : "";
 						$time= !empty($ThisFileInfo['playtime_string']) ? $ThisFileInfo['playtime_string'] : "";
 						if($track!="") {
-							$track=utf8_decode(rep($track));
+							$track=mysql_escape_string( utf8_decode(rep($track))  );
+							
 							echo $track;
- 							$artist=utf8_decode(rep($artist));
-							$album=utf8_decode(rep($album));	
+ 							$artist=mysql_escape_string(utf8_decode(rep($artist)));
+							$album=mysql_escape_string(utf8_decode(rep($album)));	
 							insert_info($path_in, $artist, $album, $track, $time, $db);
 						}
 					}
