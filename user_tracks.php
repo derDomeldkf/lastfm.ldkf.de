@@ -166,7 +166,7 @@
 					</td>';
 					if(isset($_SESSION['user'])) {
 
-$track_name_get=utf8_decode($track);
+$track_name_get=utf8_decode($track_name);
 
 						$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name_get'"); 
 						if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
