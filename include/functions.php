@@ -1044,24 +1044,21 @@
 	
 	function image($images, $artist_name, $db, $album) {
 		$content="";
-		if((!isset($images) or $images=="")) {
-			if($album!="") {
-				$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE album LIKE '$album'"); 
+		if($album!="") {
+			$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE album LIKE '$album'"); 
+			if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
+				$getimages = $getimage->fetch_assoc()['name'];
+				$image="covers/".$getimages.".png"; 
+			}
+			else {
+				$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
 				if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
 					$getimages = $getimage->fetch_assoc()['name'];
 					$image="covers/".$getimages.".png"; 
 				}
-				else {
-					$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
-					if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
-						$getimages = $getimage->fetch_assoc()['name'];
-						$image="covers/".$getimages.".png"; 
-					}
-				}
-			}						
-		}
-		
-		else {
+			}
+		}		
+		if((isset($images) and $images!="")) {				
 			$image_db =  str_replace(".png", "",$images);
 			$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$image_db);
 			$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
