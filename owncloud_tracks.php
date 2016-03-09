@@ -50,9 +50,9 @@
 		$dir=scandir($path);
 		foreach ($dir as $file) {
 			if($file!="." and $file!="..") {
-				echo $file;
 				if(strpos($file,".jpg")===false and strpos($file,".png")===false and strpos($file,".jpeg")===false) {
 					if(strpos($file,".")!==false) {
+						echo $file;
 						$getID3 = new getID3;
 						$ThisFileInfo = $getID3->analyze($path."/".$file);
 						getid3_lib::CopyTagsToComments($ThisFileInfo);
