@@ -1,4 +1,3 @@
-<html>
 <?php
 	include "include/config.php";
  	include "include/db_connect.php";
@@ -61,7 +60,8 @@
 						$time= !empty($ThisFileInfo['playtime_string']) ? $ThisFileInfo['playtime_string'] : "";
 						if($track!="") {
 							
- 							$track=rep($track);
+ 							$track=utf8_encode(rep($track));
+ 							echo $track;
  							$artist=rep($artist);
 							$album=rep($album);
 							
@@ -81,6 +81,3 @@
 
 
 ?>
-
-
-</html>
