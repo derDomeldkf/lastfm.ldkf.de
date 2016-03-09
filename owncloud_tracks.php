@@ -60,7 +60,7 @@
 						$time= !empty($ThisFileInfo['playtime_string']) ? $ThisFileInfo['playtime_string'] : "";
 						if($track!="") {
 							
- 							$track=utf8_encode(rep($track));
+ 							$track=utf8_decode(rep($track));
  							echo $track;
  							$artist=rep($artist);
 							$album=rep($album);
