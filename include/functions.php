@@ -16,13 +16,13 @@
 						</td>
 					';
 				}
-				else {
+			}	
+			else {
 					$content = '
 						<td class="list" style="padding:0; padding-left:6px;">
 						</td>
 					';
-				}
-			}			
+				}		
 		} 
 		return $content;
  	}
