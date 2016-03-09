@@ -341,7 +341,7 @@
 								case 9:
 									$db_name="last_fm_charts_track_all";
 									$period="Gehört von";
-									echo group2($db_name, $period, $db);	   
+									echo group2($db_name, $period, $db, $method_in);	   
 									break;
 								case 10:
 									if(!isset($_POST['tableselect'])) {
@@ -362,7 +362,7 @@
 									$name = $getname->fetch_assoc();
 									$db_name=$name['table_name'];
 									$period="In der letzten Woche gehört von";
-									echo group2($db_name, $period, $db);	   
+									echo group2($db_name, $period, $db, $method_in);	   
 									break;
 								case 11:
 									

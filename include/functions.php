@@ -484,7 +484,7 @@
 	}
 
 ##################################################################################################################################
-	function group2($db_name, $period, $db) {
+	function group2($db_name, $period, $db, $method_in) {
 		
  		$content=head();
 		$getplace = $db->query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
