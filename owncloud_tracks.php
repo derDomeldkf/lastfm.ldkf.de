@@ -59,13 +59,9 @@
 						$track= !empty($ThisFileInfo['comments_html']['title']) ? $ThisFileInfo['comments_html']['title'][0] : "";
 						$time= !empty($ThisFileInfo['playtime_string']) ? $ThisFileInfo['playtime_string'] : "";
 						if($track!="") {
-							
- 							$track=utf8_decode(rep($track));
- 							echo $track;
- 							$artist=rep($artist);
-							$album=rep($album);
-							
-							
+							$track=utf8_decode(rep($track));
+ 							$artist=utf8_decode(rep($artist));
+							$album=utf8_decode(rep($album));					
 							insert_info($path_in, $artist, $album, $track, $time, $db);
 						}
 					}
