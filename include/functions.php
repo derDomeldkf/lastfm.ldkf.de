@@ -1048,17 +1048,15 @@
 			$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE album LIKE '$album'"); 
 			if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
 				$getimages = $getimage->fetch_assoc()['name'];
-				$image="covers/".$getimages.".png"; 
+				$image="covers/".$getimages; 
 			}
 			else {
 				if(isset($images) and $images!="") {				
-					$image_db =  str_replace(".png", "",$images);
-					$image_db =  str_replace(".jpg", "",$image_db);
-					$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$image_db);
+					$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$images);
 					$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
 					$getimage_row = $getimage->fetch_assoc();
 					if(!isset($getimage_row) or $getimage_row=="") {
-						$pfad="covers/".$image_db.".png";
+						$pfad="covers/".$image_db;
 						copy($images, $pfad);
 						$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album) VALUES ('$image_db', '$artist_name', '$album')"); 
 					}
@@ -1069,7 +1067,7 @@
 							$update = $db->query("UPDATE last_fm_users SET album='$album' where name LIKE '$image_db'");  
 						}
 					}
-					$image="covers/".$image_db.".png"; 
+					$image="covers/".$image_db; 
 				}
 			}
 		}
@@ -1077,7 +1075,7 @@
 			$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name' and album = NULL"); 
 			if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
 				$getimages = $getimage->fetch_assoc()['name'];
-				$image="covers/".$getimages.".png"; 
+				$image="covers/".$getimages; 
 			}
 		}
 		if(!isset($image) or $image=="") {
