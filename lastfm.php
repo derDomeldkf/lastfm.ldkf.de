@@ -46,7 +46,7 @@
 		else {
 			if(!isset($_GET['method'])) {
 				if(isset($_GET['method_get'])) {				
-					$uname_db=$_SESSION['user'];
+					//$uname_db=$_SESSION['user'];
 					$method_in=$_GET['method_get'];
 				}
 				elseif(isset($_POST['method'])) {
