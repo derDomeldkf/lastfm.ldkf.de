@@ -1053,7 +1053,7 @@
 			else {
 				if(isset($images) and $images!="") {				
 					$image_db =  str_replace(".png", "",$images);
-					$image_db =  str_replace(".jpg", "",$images);
+					$image_db =  str_replace(".jpg", "",$image_db);
 					$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$image_db);
 					$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
 					$getimage_row = $getimage->fetch_assoc();
