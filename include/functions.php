@@ -62,7 +62,7 @@
 	} 
  
 ###############################################################
- 	function audioplayer($db, $secret, $user_in)  {	
+ 	function audioplayer($db, $secret, $user_in, $api_key)  {	
  		$content="";		
  		$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` WHERE `username` LIKE '$user_in'"); 
 		if(isset($_GET['p']) and $_GET['p']!="" and isset($getmembers->num_rows) and  $getmembers->num_rows!= 0) {
@@ -759,7 +759,7 @@
 	}
 	
 ########################################################################################################################################
-	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit, $secret) {
+	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit, $secret, $api_key) {
 
 		$content="";
 		if(isset($_SESSION['user']) and !isset($_GET['methodlogout'])) {
@@ -782,15 +782,17 @@
 					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Login</a></li>';
 				}
   			}	
-			$content .= audioplayer($db, $secret, $user_in);
-        	$content .= '</ul>
+			$content .= audioplayer($db, $secret, $user_in, $api_key);
+        	$content .= '
+        		</ul>
    				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
    					<li class="dropdown" style="width:200px;">
       					<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
       						<img style="border-radius: 18px;" width="36px" src="'.$image.'"> '.$user_in.'<span class="caret"></span>
 							</a>
          				<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
-           					<li>';
+           					<li>
+           				';
 			if($method_in!=2) { 
 				$content .='
            		<form class="form_member" method="post" action="lastfm.php">
@@ -826,7 +828,7 @@
 				</form>
 				</li>
 				<li>';
-	      if($method_in!=6) { 
+	      if($method_in!=6) { //also zu 6 gelangen
 	      	$content .='
    	      	<form class="form_member" method="post" action="lastfm.php">
 						<input type="hidden" name="username" value="'.$user_in.'">
@@ -835,7 +837,7 @@
 				';
 			}
 			if($method_in==6) { 
-				$content .= '<b>Top K&uuml;nstler: '.$totaltracks.'</b>';
+				$content .= '<b>Top K&uuml;nstler: '.$totaltracks.'</b>'; //6, also ausgewählt
 			}
 			else {
 				$content .= 'Top K&uuml;nstler';			
@@ -845,7 +847,7 @@
 				</li>
 				<li>
 			';
-			if($method_in!=7) { 
+			if($method_in!=7) { //gelange zu 7
 				$content .='
   					<form class="form_member" method="post" action="lastfm.php">
 						<input type="hidden" name="username" value="'.$user_in.'">
