@@ -570,8 +570,8 @@
     							<a href="http://www.last.fm/music/'.$artist_name.'/_/'.$track_name.'" target="_blank">'.$track_name.'</a>
  	  	 				</span>
 					</td>';
-					$content .= lyric($artist_name, $track_name);	
-						
+					$content .= lyric($artist_name, $track_name);			
+					$content .= play($track_name, $artist_name, $db, $method_in, "", ""){
 					$content .= '  	  				
   	  				<td class="list" style="padding-right:3px; min-width:360px;">
  	   				<span>'.$user.'</span>
