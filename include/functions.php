@@ -1,5 +1,6 @@
  <?php
 	function play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in){
+		$content="";
 		if(isset($_SESSION['user'])) {
 			$track_name_get=utf8_decode($track_name);
 			$artist_name_get=utf8_decode($artist_name);
