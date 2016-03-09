@@ -50,6 +50,7 @@
 		$dir=scandir($path);
 		foreach ($dir as $file) {
 			if($file!="." and $file!="..") {
+				echo $file;
 				if(strpos($file,".jpg")===false and strpos($file,".png")===false and strpos($file,".jpeg")===false) {
 					if(strpos($file,".")!==false) {
 						$getID3 = new getID3;
