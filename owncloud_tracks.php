@@ -18,12 +18,10 @@
 			$alid = $getalbum->fetch_assoc()['id'];
 		}
 		else {
-			if(isset($album) and $album!="") {
-				$insert = $db->query("INSERT INTO `album` (name, artist) VALUES ('$album', '$aid')"); 	
-				$getalbum = $db->query("SELECT `id` FROM `album` WHERE name LIKE '$album'"); 
-				if(isset($getalbum->num_rows) and  $getalbum->num_rows!= 0) {
-					$alid = $getalbum->fetch_assoc()['id'];
-				}
+			$insert = $db->query("INSERT INTO `album` (name, artist) VALUES ('$album', '$aid')"); 	
+			$getalbum = $db->query("SELECT `id` FROM `album` WHERE name LIKE '$album'"); 
+			if(isset($getalbum->num_rows) and  $getalbum->num_rows!= 0) {
+				$alid = $getalbum->fetch_assoc()['id'];
 			}
 		}
 		$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track'"); 
