@@ -39,6 +39,7 @@
 		$data =  str_replace("&#252;", "ü",$data);
 		$data =  str_replace("&#246;", "ö",$data);
 		$data =  str_replace("&#228;", "ä",$data);
+		$data =  str_replace("&#180;", "'",$data);
 		return $data;
 	
 	}
