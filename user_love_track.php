@@ -75,6 +75,7 @@
 						</td>
 					';
 					echo lyric($artist_name, $track_name);
+					echo play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in, $user_in);
 					echo'
 						<td class="list" style="padding-right:2px;">
      	   	     		<span title="'.$date_uts.'">'.$gmdate.'</span>
