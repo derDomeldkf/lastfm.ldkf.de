@@ -1,4 +1,67 @@
- <?php
+<?php
+	function footer_limit($perPage){
+		$content=' value="'.$perPage.'">'.$perPage.' Eintr&auml;ge Pro Seite</option>';
+		return $content;
+   }	     							
+
+
+	function nav_group_right(){
+		$content ='
+			</ul>
+			<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
+      		<li class="dropdown" style="width:200px;">
+      			<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
+					</a>
+					<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
+				'; 
+		return $content;
+	}
+ 
+################################################################# 
+	function nav_footer($user_in, $method_in, $limit_in){
+ 		$content='
+			<form action="?" style="margin:0; padding:0;" method="POST">
+         <input type="hidden" name="username" value='.$user_in.'>
+   		<input type="hidden" name="method" value="'.$method_in.'">
+   		<input type="hidden" name="limitin" value="'.$limit_in.'">
+   	';
+		return $content;
+	}
+ 
+##################################################################
+	function listeners_dropdown($users_names){
+		$user =  str_replace("&&", ", ",$users_names);
+		if(substr_count($user, ', ')>2){
+			$teile = explode(",", $user, 4);
+			$teil =  str_replace(", ", '</li><li style="padding-left:15px;">',$teile[3]);
+			$user='
+				<ul class="nav navbar-nav">
+      			<li class="dropdown">
+         			<a href="#" class="dropdown-toggle" style="padding:0px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+         				'.$teile[0].', '.$teile[1].', '.$teile[2].' ...
+							<span class="caret"></span>
+						</a>
+         			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; color:white;">
+           				<li style="padding-left:15px;">
+           					'.$teil.'
+           				</li>
+						</ul>
+						</li> 
+				</ul>
+			'; 			
+		}
+		return $user;
+	}
+			
+ 
+################################################################ 
+	function post($methode, $api_key){
+		$content=file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=".$api_key."&" . $methode);	
+		return $content;
+	} 
+ 
+###############################################################
  	function audioplayer($db, $secret, $user_in)  {	
  		$content="";		
  		$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` WHERE `username` LIKE '$user_in'"); 
@@ -19,7 +82,7 @@
 				$album = $getinfo->fetch_assoc()['name'];
 				$sk=$_SESSION['session'];
 				//$sig=$_SESSION['sig'];
-				$psig="album". $album ."api_key830d6e2d4d737d56aa1f94f717a477dfartist". $artist ."methodtrack.scrobblesk".$sk."timestamp". time() ."track". $track ."".$secret;
+				$psig="album". $album ."api_key".$api_key."artist". $artist ."methodtrack.scrobblesk".$sk."timestamp". time() ."track". $track ."".$secret;
 				$sig=md5($psig);	
 				$methode="method=track.scrobble&track=".$track."&artist=".$artist."&api_sig=".$sig."&sk=".$sk."&timestamp=" . time() ;
 				if(isset($album) and $album!="") {
@@ -32,7 +95,7 @@
      	return $content;
 	}
  
- 
+########################################################################################### 
 	function play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in, $user_in){
 		$content="";
 		if(isset($_SESSION['user'])) {
@@ -46,7 +109,9 @@
 					$aid = $getartist->fetch_assoc()['id'];
 					$content = '
 						<td class="list" style="padding:0; padding-left:1px; padding-right:9px;">
-							<a href="lastfm.php?p='.$tid.'&user='.$user_in.'&method_get='.$method_in.'&limitin='.$limit_in.'&pagein='.$page_in.'"><img src="pic/play.png" width="24px" height="24px"></a>
+							<a href="lastfm.php?p='.$tid.'&user='.$user_in.'&method_get='.$method_in.'&limitin='.$limit_in.'&pagein='.$page_in.'">
+								<img src="pic/play.png" width="24px" height="24px">
+							</a>
 						</td>
 					';
 				}
@@ -62,8 +127,14 @@
 						<td class="list" style="padding:0;">
 						</td>
 					';
-				}		
+			}		
 		} 
+		else {
+			$content = '
+				<td class="list" style="padding:0;">
+				</td>
+			';
+			}	
 		return $content;
  	}
  
@@ -100,23 +171,7 @@
 		return $content;
   	}
   	
-############################################################################################################################################ 	
-  	function login($method, $db, $page, $limit) {
-  		/*$user_in=$_GET['user'];
-  		$getsession = mysql_fetch_row(mysql_query("SELECT session, sig FROM `last_fm_users` WHERE username LIKE '$user_in'")); 
-		$getsession_user=$getsession[0];
-		$getsig_user=$getsession[1];
-		if(isset($getsession_user) and $getsession_user!="") {
-			$_SESSION['user']=$user_in;
-			$_SESSION['sig']=$getsig_user;
-			$_SESSION['session']=$getsession_user;
-			$update = mysql_query("UPDATE last_fm_users SET stat='1' where username = '$user_in'");  
-		}
-		else {*/
-  			header('Location: http://www.last.fm/api/auth?api_key=830d6e2d4d737d56aa1f94f717a477df&cb=https://lastfm.ldkf.de/lastfm.php?mpl='.$method.'_'.$page.'_'.$limit.'');
-		//}
-  	} 
-  	
+	
 ##############################################################################################################################################
  	function logout($user_in, $db) {
  		$update = $db->query("UPDATE last_fm_users SET stat='0' where username = '$user_in'"); 
@@ -152,7 +207,7 @@
 		if($s==0) {
 			foreach($users as $user_in){
 				$methode="method=".$command."&user=".$user_in;
-   			$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+				$out = post($methode, $api_key);
 				if(isset($out)) {
 					$user_info_array = get_object_vars(json_decode($out));
 					if(isset($user_info_array['topartists'])) {
@@ -188,7 +243,6 @@
 					unset($out);
 				} 
 				$d++;
-			//	sleep(1);
 			}  
 		}
 	}
@@ -215,7 +269,7 @@
 		$d=0;
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
-   		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+			$out = post($methode, $api_key);
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
 				if(isset($user_info_array['weeklytrackchart'])) {
@@ -253,7 +307,6 @@
 				unset($out);
 			}
 			$d++;
-			//sleep(1);	 
 		}  
 	}
 	
@@ -267,7 +320,7 @@
 		$delete = $db->query("DELETE FROM ".$db_name);
 		foreach($users as $user_in){
 			$methode="method=".$command."&user=".$user_in;
-   		$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+			$out = post($methode, $api_key);
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
 				if(isset($user_info_array['weeklytrackchart'])) {
@@ -301,7 +354,6 @@
 				unset($out);
 			} 
 			$d++;
-			//sleep(1);
 		}  
 	}
 
@@ -320,13 +372,13 @@
 				$content .= '>'.$member_name.'</option>
 			';
 		}  
-		$content .= '</select>	';
+		$content .= '</select>';
 	
 		return $content;
 	}	
 	
 #################################################################################################################################
-	function group($db_name, $period, $db, $post, $date) {
+	function group($db_name, $period, $db, $post, $date, $td) {
  		$content="";
  		if(!isset($_POST['userselc'][0])) {
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC"); 
@@ -367,18 +419,17 @@
  		<table style="">
  		<tbody>
  			<tr>
- 				<td class="list table_head">
+ 				'.$td.'>
  				</td>
-				<td class="list table_head" style="padding-left:10px;">
+				'.$td.' style="padding-left:10px;">
 					Platz
 				</td>
-				<td class="list table_head">
-					
+				'.$td.'>		
 				</td> 
-				<td class="list table_head" style="padding-left:8px;">
+				'.$td.' style="padding-left:8px;">
 					K&uuml;nstler
 				</td>
-				<td class="list table_head">
+				'.$td.'>
 					'.$period.'				
 				</td> 	
 			</tr>';
@@ -389,29 +440,12 @@
 			$getartist = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$artist_name'"); 
 			$counter = $getartist->fetch_assoc();
 			$count=$counter['playcount'];
-			if($place==1) {$count_max=$count;}
+			if($place==1) {
+				$count_max=$count;
+			}
 			$getuser = $db->query("SELECT `user` FROM `".$db_name."` WHERE artist LIKE '$artist_name' "); 
 			$users_names= $getuser->fetch_assoc()['user'];
-			$user =  str_replace("&&", ", ",$users_names);
-			if(substr_count($user, ', ')>2){
-				$teile = explode(",", $user, 4);
-				$teil =  str_replace(", ", '</li><li style="padding-left:15px;">',$teile[3]);
-				$user='
-					<ul class="nav navbar-nav">
-        				<li class="dropdown">
-          				<a href="#" class="dropdown-toggle" style="padding:0px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          					'.$teile[0].', '.$teile[1].', '.$teile[2].' ...
-								<span class="caret"></span>
-							</a>
-         				<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; color:white;">
-           					<li style="padding-left:15px;">
-           						'.$teil.'
-           					</li>
-							</ul>
-							</li> 
-					</ul>
-				'; 			
-			}
+			$user=listeners_dropdown($users_names);
 			if($count>1) {
 			$content .='
 				<tr class="" style="';
@@ -529,7 +563,7 @@
 	}
 
 ##################################################################################################################################
-	function group2($db_name, $period, $db, $method_in) {
+	function group2($db_name, $period, $db, $method_in, $td) {
 		
  		$content=head();
 		$getplace = $db->query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
@@ -538,22 +572,21 @@
 		}
 		$content .='
  			<tr>
- 				<td class="list table_head">
+ 				'.$td.'>
  				</td>
-				<td class="list table_head" style="padding-left:10px;">
+				'.$td.' style="padding-left:10px;">
 					Platz
 				</td>
-				<td class="list table_head">
-					
+				'.$td.'>				
 				</td> 
-				<td class="list table_head" style="padding-left:8px;">
+				'.$td.' style="padding-left:8px;">
 					K&uuml;nstler — Titel
 				</td>
-				<td class="list table_head">
+				'.$td.'>
 				</td>
-				<td class="list table_head">
+				'.$td.'>
 				</td>
-				<td class="list table_head">
+				'.$td.'>
 					'.$period.'				
 				</td> 	
 			</tr>';
@@ -569,26 +602,7 @@
 			$users_names = $getuser->fetch_assoc()['user'];
 			$getart= $db->query("SELECT `artist` FROM ".$db_name." WHERE titel LIKE '$track_name' "); 
 			$artist_name= $getart->fetch_assoc()['artist'];
-			$user =  str_replace("&&", ", ",$users_names);
-			if(substr_count($user, ', ')>2){
-				$teile = explode(",", $user, 4);
-				$teil =  str_replace(", ", '</li><li style="padding-left:15px;">',$teile[3]);
-				$user='
-					<ul class="nav navbar-nav">
-        				<li class="dropdown">
-          				<a href="#" class="dropdown-toggle" style="padding:0px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          					'.$teile[0].', '.$teile[1].', '.$teile[2].' ...
-								<span class="caret"></span>
-							</a>
-         				<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; color:white;">
-           					<li style="padding-left:15px;">
-           						'.$teil.'
-           					</li>
-							</ul>
-							</li> 
-					</ul>
-				'; 			
-			}
+			$user=listeners_dropdown($users_names);
 			if($count>1) {
 			$content .='
 				<tr class="" style="';
@@ -654,11 +668,8 @@
 						<td class="navfooter">
 					';
 					if($page>2) {
-						$content .= '
-							<form action="?" style="margin:0; padding:0;" method="POST">
-            				<input type="hidden" name="username" value='.$user_in.'>
-   							<input type="hidden" name="method" value="'.$method_in.'">
-   							<input type="hidden" name="limitin" value="'.$limit_in.'">
+						$content .= nav_footer($user_in, $method_in, $limit_in);
+						$content .= '  							
    				   		<input type="hidden" name="pagein" value="1">
 								<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
 									|<<
@@ -671,12 +682,9 @@
 						<td class="navfooter">
 					';
 					if($page!=1) {
+						$content .= nav_footer($user_in, $method_in, $limit_in);
 						$content .= '
-							<form action="?" style="margin:0; padding:0;" method="POST">
-            				<input type="hidden" name="username" value='.$user_in.'>
-   						 	<input type="hidden" name="method" value="'.$method_in.'">
-   							<input type="hidden" name="limitin" value="'.$limit_in.'">
-   				   		<input type="hidden" name="pagein" value="'. $page_l .'">
+						 		<input type="hidden" name="pagein" value="'. $page_l .'">
 								<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
 									<<
 								</button>
@@ -688,11 +696,8 @@
 						<td class="navfooter">
 					';
 					if($page<$totalPages) {
-						$content .='
-            			<form action="?" style="margin:0; padding:0;" method="POST">
-            				<input type="hidden" name="username" value='.$user_in.'>
-   							<input type="hidden" name="method" value="'.$method_in.'">
-   							<input type="hidden" name="limitin" value="'.$limit_in.'">
+						$content .= nav_footer($user_in, $method_in, $limit_in);
+						$content .= '
    					   	<input type="hidden" name="pagein" value="'. $page_n .'">
 								<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
 									>>
@@ -705,11 +710,8 @@
 							<td class="navfooter">
 						';
 						if($page+1<$totalPages) {
-							$content .='
-      	      			<form action="?" style="margin:0; padding:0;" method="POST">
-     	       				<input type="hidden" name="username" value='.$user_in.'>
-   								<input type="hidden" name="method" value="'.$method_in.'">
-   								<input type="hidden" name="limitin" value="'.$limit_in.'">
+							$content .= nav_footer($user_in, $method_in, $limit_in);
+							$content .= '
    					   		<input type="hidden" name="pagein" value="'. $totalPages .'">
 									<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
 										>>|
@@ -724,17 +726,18 @@
    	         			<form action="?" style="margin:0; padding:0;" method="POST">
    								<select class="form-control"  name="limitin" id="myselect" onchange="this.form.submit()" style="padding:3px; font-size:12pt" style="padding-top:6px; padding-bottom:6px;">';
    								if($method_in==6 or $method_in==7) {
-  	 							$content .='
-  	      							<option class="option"'; if($perPage==20) {$content .= " selected";} $content .= ' value="20">20 Eintr&auml;ge Pro Seite</option>
-   	     							<option class="option"'; if($perPage==40) {$content .= " selected";} $content .= ' value="40">40 Eintr&auml;ge Pro Seite</option>
-   	     							<option class="option"'; if($perPage==60) {$content .= " selected";} $content .= ' value="60">60 Eintr&auml;ge Pro Seite</option>';
+   									for($i=20; $i<=60; $i=$i+20){
+  	 										$content .='<option class="option"'; 
+  	 										($perPage==$i) ? $content .= " selected" : "";
+   	     								$content .= footer_limit($i);
+   	     							}
    	     						}
    	     						else {
-  	      						$content .='
-  	      							<option class="option"'; if($perPage==15) {$content .=" selected";} $content .= ' value="15">15 Eintr&auml;ge Pro Seite</option>
- 	       							<option class="option"'; if($perPage==25) {$content .=" selected";} $content .= ' value="25">25 Eintr&auml;ge Pro Seite</option>
-  	      							<option class="option"'; if($perPage==35) {$content .=" selected";} $content .= ' value="35">35 Eintr&auml;ge Pro Seite</option>';
- 	       						
+  	      							for($i=15; $i<=35; $i=$i+10){
+  	 										$content .='<option class="option"'; 
+  	 										($perPage==$i) ? $content .= " selected" : "";
+   	     								$content .= footer_limit($i);
+   	     							}    						
   	      						}
  	  							$content .='</select>
   	 							<input type="hidden" name="username" value='.$user_in.'>
@@ -760,9 +763,9 @@
 
 		$content="";
 		if(isset($_SESSION['user']) and !isset($_GET['methodlogout'])) {
-				$content .='
-					<li><a href="./lastfm.php?method_get=2">Home</a></li>
-				';
+			$content .='
+				<li><a href="./lastfm.php?method_get=2">Home</a></li>
+			';
 		}
 		$content .='<li><a href="https://scrobbler.ldkf.de" target="_blank">Scrobbler</a></li>';
 		if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7) {
@@ -780,8 +783,7 @@
 				}
   			}	
 			$content .= audioplayer($db, $secret, $user_in);
-  		
-       	$content .= '</ul>
+        	$content .= '</ul>
    				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
    					<li class="dropdown" style="width:200px;">
       					<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -832,7 +834,6 @@
 						<button type="submit" class="userButton">
 				';
 			}
-			$content .= ''; 
 			if($method_in==6) { 
 				$content .= '<b>Top K&uuml;nstler: '.$totaltracks.'</b>';
 			}
@@ -867,6 +868,11 @@
 				</ul>
 			'; 									
 		}
+		
+		
+###################################Gruppe####################################		
+		
+		
 		if($method_in==4 or $method_in==8 or $method_in==9 or $method_in==10) {
 			$content .='
 				<li class="dropdown" style="">
@@ -897,18 +903,12 @@
 			$content .= audioplayer($db, $secret, $user_in);   		
         			
 		}		
-
-		if($method_in==4) {
-			$content .='
-				</ul>
-				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
-      			<li class="dropdown" style="width:200px;">
-      				<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
-						</a>
-						<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
-        				   <li><b>Top K&uuml;nstler (Woche)</b></li>
-       					 <li>
+		switch($method_in) {
+			case 4:
+				$content .=nav_group_right();
+        		$content .='  
+        				 	<li><b>Top K&uuml;nstler (Woche)</b></li>
+       					<li>
         						<div>
 									<a class="userButton" href="lastfm.php?method=8">Top Künstler (Gesamt)</a>
 								</div>
@@ -926,17 +926,11 @@
         				</ul>
        			</li> 
        		</ul>
-       	';							
-		}
-		if($method_in==8) {
-			$content .='
-				</ul>
-				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
-        			<li class="dropdown" style="width:200px;">
-          			<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
-						</a>
-						<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
+       	';	
+				break;
+			case 8:
+				$content .=nav_group_right();
+				$content .='		
            				<li>
            					<div>
 									<a class="userButton" href="lastfm.php?method=4">Top K&uuml;nstler (Woche)</a>
@@ -956,18 +950,12 @@
         				</ul>
        			</li> 
        		</ul>
-       	';							
-		}	
-		if($method_in==9) {
-			$content .='
-				</ul>
-				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
-        			<li class="dropdown" style="width:200px;">
-          			<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
-						</a>
-						<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
-           				<li>
+       	';						
+				break;
+			case 9:
+				$content .=nav_group_right();
+				$content .='
+							<li>
            					<div>
 									<a class="userButton" href="lastfm.php?method=4">Top K&uuml;nstler (Woche)</a>
 								</div>
@@ -986,18 +974,12 @@
         				</ul>
        			</li> 
        		</ul>
-       	';							
-		}	
-	if($method_in==10) {
-			$content .='
-				</ul>
-				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
-        			<li class="dropdown" style="width:200px;">
-          			<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          				<img style="border-radius: 18px;" width="36px" src="pic/ldkf.png"> last.fm Gruppe<span class="caret"></span>
-						</a>
-						<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
-           				<li>
+       	';					
+				break;
+			case 10:
+				$content .=nav_group_right();
+				$content .='
+							<li>
            					<div>
 									<a class="userButton" href="lastfm.php?method=4">Top K&uuml;nstler (Woche)</a>
 								</div>
@@ -1016,8 +998,9 @@
         				</ul>
        			</li> 
        		</ul>
-       	';							
-		}				
+       	';											
+				break;
+		}
 		return $content;
 	}
 	function image_artist($artist_name, $db) {

@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	$td='<td class="list table_head"';
 	$user_in="";
 	$page="";
 	$totalPages="";
@@ -9,7 +10,6 @@
 	$image="";
 	$totaltracks="";
 	$starttime="";
-
 	include "include/config.php";
  	include "include/db_connect.php";
 	include "include/functions.php";
@@ -33,7 +33,7 @@
 			$method_in=$_GET['methodlogin'];
 			$page_in=$_GET['page'];
 			$limit_in=$_GET['limit'];
-			login($method_in, $db, $page_in, $limit_in);
+  			header('Location: http://www.last.fm/api/auth?api_key='.$api_key.'&cb=https://lastfm.ldkf.de/lastfm.php?mpl='.$method.'_'.$page.'_'.$limit.'');
 		}
 		elseif (isset($_GET['logout'])){
 			$user_in=$_GET['user'];
@@ -46,7 +46,6 @@
 		else {
 			if(!isset($_GET['method'])) {
 				if(isset($_GET['method_get'])) {				
-					//$uname_db=$_SESSION['user'];
 					$method_in=$_GET['method_get'];
 				}
 				elseif(isset($_POST['method'])) {
@@ -132,9 +131,7 @@
 			}
 		}
 		else {
-			if(isset($_GET['login'])) {
-			}
-			else{
+			if(!isset($_GET['login'])) {
 				header('Location: ./');
 			}
 		}
@@ -164,7 +161,7 @@
 	}
 	if(isset($user_in) and $user_in!="") {
 		$methode="method=user.getInfo&user=".$user_in;
-		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+		$out_user = post($methode, $api_key);
 		if($out_user!='{"error":6,"message":"User not found","links":[]}') {
 			$decode_Info_User=json_decode($out_user);
 			$user_info_forimage_array = get_object_vars($decode_Info_User)['user'];
@@ -173,95 +170,14 @@
 			$starttime = get_object_vars($decode_Info_User)['user']->registered->unixtime;
 			$user_info_forimage = get_object_vars($user_info_forimage_array)['image'];
 			$userimage = get_object_vars($user_info_forimage[1]);
-			//$account_image=$userimage['#text'];
-			//if(!isset($account_image) or $account_image=="") {
-			//	$image="pic/empty.png";
-			//}
-			//else {
-				//$image_lf =  str_replace(".png", "",$account_image);
-			//	$image_lf =  str_replace("http://img2-ak.lst.fm/i/u/64s/", "",$image_lf);
-				$getimage = $db->query("SELECT `name` FROM `last_fm_user_pics` WHERE user LIKE '$user_in'"); 
-				$getimage_row = $getimage->fetch_assoc()['name'];
-				//if(!isset($image_lf) or $getimage_row==$image_lf) {
-					if(isset($getimage_row)and $getimage_row!="") {
-						$image="user_pics/".$getimage_row.".png";
-					}
-					else {
-						$image="pic/empty.png";
-					}
-					
-			/*	}
-				else {
-					$pfad="user_pics/".$image_lf.".png";
-					copy($account_image, $pfad);
-					$u_old=$user_in.".old";
-					$insert = $db->query("INSERT INTO last_fm_user_pics (name, user) VALUES ('$image_lf', '$user_in')");
-					$update = $db->query("UPDATE last_fm_user_pics SET user='$u_old' where name = '$getimage_row'");  
-				}
-			//}*/
-			
-			
-			if($method_in==2) {
-				$methode="method=user.getRecentTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-				$decode=json_decode($out);
-				$user_info_array = get_object_vars($decode->recenttracks);
-				$user_decode= $user_info_array['@attr'];
-				$username = $user_decode->user;
-				$page = $user_decode->page;
-				$perPage = $user_decode->perPage;
-				$totalPages = $user_decode->totalPages;
-				$tracks= $decode->recenttracks->track;
-				$totaltracks=$totalTracks;
+			$getimage = $db->query("SELECT `name` FROM `last_fm_user_pics` WHERE user LIKE '$user_in'"); 
+			$getimage_row = $getimage->fetch_assoc()['name'];
+			if(isset($getimage_row)and $getimage_row!="") {
+				$image="user_pics/".$getimage_row.".png";
 			}
-			if($method_in==5) {
-				$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-				if(isset($out)) {
-					$decode=json_decode($out);
-					$user_info_array_love = get_object_vars($decode->lovedtracks);
-					$user=$user_info_array_love['@attr'];
-					$tracks= $user_info_array_love['track'];
-					$username = $user->user;
-					$page = $user->page;
-					$perPage = $user->perPage;
-					$totalPages = $user->totalPages;
-					$totaltracks=$user->total;
-				}
+			else {
+				$image="pic/empty.png";
 			}
-			if($method_in==6) {
-				$methode="method=user.getTopArtists&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-				if(isset($out)) {
-					$decode=json_decode($out);
-					$user_info_array_love = get_object_vars($decode->topartists);
-					$user=$user_info_array_love['@attr'];
-					$tracks= $user_info_array_love['artist'];
-					$username = $user->user;
-					$page = $user->page;
-					$perPage = $user->perPage;
-					$totalPages = $user->totalPages;
-					$totaltracks=$user->total;
-				}
-			}
-			if($method_in==7) {
-				$methode="method=user.getTopTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-				$out = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-				if(isset($out)) {
-					$decode=json_decode($out);
-					$user_info_array_love = get_object_vars($decode->toptracks);
-					$user=$user_info_array_love['@attr'];
-					$tracks= $user_info_array_love['track'];
-					$username = $user->user;
-					$page = $user->page;
-					$perPage = $user->perPage;
-					$totalPages = $user->totalPages;
-					$totaltracks=$user->total;
-				}	
-			}
-		}
-		else {
-			$method_in=0;
 		}
 	}
 
@@ -303,11 +219,21 @@
 						<?php 
 							switch($method_in) {
 								case 0:
-									echo '<div style="margin:40px;"><h3>Benutzer "'.$user_in.'" existiert nicht.</h3></div>';
+
 								case 1:
 									break;
 								case 2:
-								
+									$methode="method=user.getRecentTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+									$out = post($methode, $api_key);
+									$decode=json_decode($out);
+									$user_info_array = get_object_vars($decode->recenttracks);
+									$user_decode= $user_info_array['@attr'];
+									$username = $user_decode->user;
+									$page = $user_decode->page;
+									$perPage = $user_decode->perPage;
+									$totalPages = $user_decode->totalPages;
+									$tracks= $decode->recenttracks->track;
+									$totaltracks=$totalTracks;
 									include "user_tracks.php";	 
 									break;
 								case 3:
@@ -332,26 +258,65 @@
 									$name = $getname->fetch_assoc();
 									$db_name=$name['table_name'];
 									$period="In der letzten Woche gehört von";
-									echo group($db_name, $period, $db, $post, $date);	   
+									echo group($db_name, $period, $db, $post, $date, $td);	   
 									break;
 								case 5:
+									$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+									$out = post($methode, $api_key);
+									if(isset($out)) {
+										$decode=json_decode($out);
+										$user_info_array_love = get_object_vars($decode->lovedtracks);
+										$user=$user_info_array_love['@attr'];
+										$tracks= $user_info_array_love['track'];
+										$username = $user->user;
+										$page = $user->page;
+										$perPage = $user->perPage;
+										$totalPages = $user->totalPages;
+										$totaltracks=$user->total;
+									}
 									include "user_love_track.php";	        				
 									break;
 								case 6:
+									$methode="method=user.getTopArtists&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+									$out = post($methode, $api_key);
+									if(isset($out)) {
+										$decode=json_decode($out);
+										$user_info_array_love = get_object_vars($decode->topartists);
+										$user=$user_info_array_love['@attr'];
+										$tracks= $user_info_array_love['artist'];
+										$username = $user->user;
+										$page = $user->page;
+										$perPage = $user->perPage;
+										$totalPages = $user->totalPages;
+										$totaltracks=$user->total;
+									}
 									include "user_topartist.php";	        				
 									break;
 								case 7:
+									$methode="method=user.getTopTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+									$out = post($methode, $api_key);
+									if(isset($out)) {
+										$decode=json_decode($out);
+										$user_info_array_love = get_object_vars($decode->toptracks);
+										$user=$user_info_array_love['@attr'];
+										$tracks= $user_info_array_love['track'];
+										$username = $user->user;
+										$page = $user->page;
+										$perPage = $user->perPage;
+										$totalPages = $user->totalPages;
+										$totaltracks=$user->total;
+									}	
 									include "user_toptrack.php";	        				
 									break;
 								case 8:
 									$db_name="last_fm_charts_all";
 									$period="Gehört von";
-									echo group($db_name, $period, $db, 0, 0);		   
+									echo group($db_name, $period, $db, 0, 0, $td);		   
 									break;
 								case 9:
 									$db_name="last_fm_charts_track_all";
 									$period="Gehört von";
-									echo group2($db_name, $period, $db, $method_in);	   
+									echo group2($db_name, $period, $db, $method_in, $td);	   
 									break;
 								case 10:
 									if(!isset($_POST['tableselect'])) {
@@ -372,12 +337,13 @@
 									$name = $getname->fetch_assoc();
 									$db_name=$name['table_name'];
 									$period="In der letzten Woche gehört von";
-									echo group2($db_name, $period, $db, $method_in);	   
+									echo group2($db_name, $period, $db, $method_in, $td);	   
 									break;
 								case 11:
 									
 									break;	
 								default:
+									echo '<div style="margin:40px;"><h3>Benutzer "'.$user_in.'" existiert nicht.</h3></div>';
 									break;
 							}					
 						?>
