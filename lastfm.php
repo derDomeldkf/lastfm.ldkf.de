@@ -33,7 +33,7 @@
 			$method_in=$_GET['methodlogin'];
 			$page_in=$_GET['page'];
 			$limit_in=$_GET['limit'];
-  			header('Location: http://www.last.fm/api/auth?api_key='.$api_key.'&cb=https://lastfm.ldkf.de/lastfm.php?mpl='.$method.'_'.$page.'_'.$limit.'');
+  			header('Location: http://www.last.fm/api/auth?api_key='.$api_key.'&cb=https://lastfm.ldkf.de/lastfm.php?mpl='.$method_in.'_'.$page_in.'_'.$limit_in.'');
 		}
 		elseif (isset($_GET['logout'])){
 			$user_in=$_GET['user'];
