@@ -3,7 +3,9 @@
 		$content="";
 		if(isset($_SESSION['user'])) {
 			$track_name_get=utf8_decode($track_name);
+			echo $track_name_get;
 			$track_name_get =  str_replace("'", "&#180;", $track_name_get);
+			echo $track_name_get;
 			$artist_name_get=utf8_decode($artist_name);
 			$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name_get'"); 
 			if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
