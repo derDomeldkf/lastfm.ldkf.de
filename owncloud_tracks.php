@@ -24,7 +24,7 @@
 				$alid = $getalbum->fetch_assoc()['id'];
 			}
 		}
-		$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE ". mysql_real_escape_string($track).""); 
+		$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '". mysql_real_escape_string($track)."'"); 
 		if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 			$tid = $gettrack->fetch_assoc()['id'];
 		}
