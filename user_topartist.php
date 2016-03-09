@@ -17,7 +17,7 @@
 				$image_array = get_object_vars($image_decode[0]);
 				$images=$image_array['#text'];
 				if(isset($images) and $images!="") {
-					$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name'"); 
+					$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name' and album LIKE 'NULL'"); 
 					if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
 						$getimages = $getimage->fetch_assoc()['name'];
 						$image="covers/".$getimages; 
