@@ -52,7 +52,6 @@
 			if($file!="." and $file!="..") {
 				if(strpos($file,".jpg")===false and strpos($file,".png")===false and strpos($file,".jpeg")===false) {
 					if(strpos($file,".")!==false) {
-						echo $file;
 						$getID3 = new getID3;
 						$ThisFileInfo = $getID3->analyze($path."/".$file);
 						getid3_lib::CopyTagsToComments($ThisFileInfo);
@@ -62,6 +61,7 @@
 						$track= !empty($ThisFileInfo['comments_html']['title']) ? $ThisFileInfo['comments_html']['title'][0] : "";
 						$time= !empty($ThisFileInfo['playtime_string']) ? $ThisFileInfo['playtime_string'] : "";
 						if($track!="") {
+							echo $track."<br>";
 							$track=utf8_decode(rep($track));
  							$artist=utf8_decode(rep($artist));
 							$album=utf8_decode(rep($album));	
