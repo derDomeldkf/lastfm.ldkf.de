@@ -36,7 +36,13 @@
 			$insert = $db->query("INSERT INTO `track` (name, artist, album, time, path) VALUES ('$track', '$aid', '$alid', '$time', '$path')"); 							
 		}
 	}
-
+	function rep($data){
+		$data =  str_replace("&#252;", "ü",$data);
+		$data =  str_replace("&#246;", "ö",$data);
+		$data =  str_replace("&#228;", "ä",$data);
+		return $data;
+	
+	}
 	$path="Musik";
 	$data[]="";
 	function read_dir($path, $data, $db) {
@@ -52,9 +58,14 @@
 						$artist= !empty($ThisFileInfo['comments_html']['artist']) ? $ThisFileInfo['comments_html']['artist'][0] : "";
 						$album= !empty($ThisFileInfo['comments_html']['album']) ? $ThisFileInfo['comments_html']['album'][0] : "";
 						$track= !empty($ThisFileInfo['comments_html']['title']) ? $ThisFileInfo['comments_html']['title'][0] : "";
-						echo $track."<br>";
 						$time= !empty($ThisFileInfo['playtime_string']) ? $ThisFileInfo['playtime_string'] : "";
 						if($track!="") {
+							
+ 							$track=rep($track);
+ 							$artist=rep($artist);
+							$album=rep($album);
+							
+							
 							insert_info($path_in, $artist, $album, $track, $time, $db);
 						}
 					}
