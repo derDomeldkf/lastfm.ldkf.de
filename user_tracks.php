@@ -165,13 +165,13 @@
          			</span>
 					</td>';
 					if(isset($_SESSION['user'])) {
-						$track_name_get= htmlspecialchars_decode($track_name);
-						echo $track_name;
-						$artist_name_get=utf8_encode($artist_name);
-						$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name_get'"); 
+
+
+
+						$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name'"); 
 						if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 							$tid = $gettrack->fetch_assoc()['id'];
-							$getartist = $db->query("SELECT `id` FROM `artists` WHERE name LIKE '$artist_name_get'"); 
+							$getartist = $db->query("SELECT `id` FROM `artists` WHERE name LIKE '$artist_name'"); 
 							if(isset($getartist->num_rows) and  $getartist->num_rows!= 0) {
 								$aid = $getartist->fetch_assoc()['id'];
 								echo '
