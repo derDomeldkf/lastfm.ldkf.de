@@ -11,21 +11,21 @@
 				if(isset($getartist->num_rows) and  $getartist->num_rows!= 0) {
 					$aid = $getartist->fetch_assoc()['id'];
 					$content = '
-						<td class="list" style="padding:0; padding-left:6px;">
+						<td class="list" style="padding:0; padding-left:4px; padding-right:4px;">
 							<a href="lastfm.php?p='.$tid.'&method_get='.$method_in.'&limitin='.$limit_in.'&pagein='.$page_in.'"><img src="pic/play.png" width="24px" height="24px"></a>
 						</td>
 					';
 				}
 				else {
 					$content = '
-						<td class="list" style="padding:0; padding-left:6px;">
+						<td class="list" style="padding:0;">
 						</td>
 					';
 				}	
 			}	
 			else {
 					$content = '
-						<td class="list" style="padding:0; padding-left:6px;">
+						<td class="list" style="padding:0;">
 						</td>
 					';
 				}		
