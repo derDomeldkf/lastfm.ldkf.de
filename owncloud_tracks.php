@@ -60,11 +60,11 @@
 						$track= !empty($ThisFileInfo['comments_html']['title']) ? $ThisFileInfo['comments_html']['title'][0] : "";
 						$time= !empty($ThisFileInfo['playtime_string']) ? $ThisFileInfo['playtime_string'] : "";
 						if($track!="") {
-							$track=mysql_escape_string(utf8_encode(($track)) );
+							$track=mysql_escape_string(utf8_encode(rep($track)) );
 							
 							echo $track;
- 							$artist=mysql_escape_string(utf8_encode(($artist)));
-							$album=mysql_escape_string(utf8_encode(($album)));	
+ 							$artist=mysql_escape_string(utf8_encode(rep($artist)));
+							$album=mysql_escape_string(utf8_encode(rep($album)));	
 							insert_info($path_in, $artist, $album, $track, $time, $db);
 						}
 					}
