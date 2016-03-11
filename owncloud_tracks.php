@@ -65,7 +65,8 @@
 							
 							echo $track;
  							$artist=rep($artist);
-							$album=rep($album);	
+							$path_in=rep($path_in);	
+														$album=rep($album);	
 							insert_info($path_in, $artist, $album, $track, $time, $db);
 						}
 					}
