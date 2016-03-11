@@ -60,7 +60,7 @@
 						$track= !empty($ThisFileInfo['comments_html']['title']) ? $ThisFileInfo['comments_html']['title'][0] : "";
 						$time= !empty($ThisFileInfo['playtime_string']) ? $ThisFileInfo['playtime_string'] : "";
 						if($track!="") {
-							$track=mysql_escape_string(rep($track)  );
+							$track=mysql_escape_string(utf8_encode(rep($track))  );
 							
 							echo $track;
  							$artist=mysql_escape_string(utf8_encode(rep($artist)));
