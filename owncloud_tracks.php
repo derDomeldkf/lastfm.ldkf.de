@@ -1,6 +1,7 @@
 <?php
 	include "include/config.php";
  	include "include/db_connect.php";
+ 	include "include/functions.php";
 	require_once('getid/getid3/getid3.php');
 	
 	function insert_info($path, $artist, $album, $track, $time, $db) {
@@ -35,16 +36,7 @@
 			$insert = $db->query("INSERT INTO `track` (name, artist, album, time, path) VALUES ('$track', '$aid', '$alid', '$time', '$path')"); 							
 		}
 	}
-	function rep($data){
-		$data =  str_replace("&#252;", "ü",$data);
-		$data =  str_replace("&#246;", "ö",$data);
-		$data =  str_replace("&#228;", "ä",$data);
-		$data =  str_replace("&amp;", "&",$data);
-		$data =  str_replace("´", "'",$data);
-		$data=htmlentities($data, ENT_QUOTES);
-		return $data;
-	
-	}
+
 	$path="Musik";
 	$data[]="";
 	function read_dir($path, $data, $db) {
