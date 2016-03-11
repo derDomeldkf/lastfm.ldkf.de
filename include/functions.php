@@ -903,7 +903,7 @@
 					</ul>
 				</li>
 			';  
-			$content .= audioplayer($db, $secret, $user_in);   		
+			$content .= audioplayer($db, $secret, $user_in, $api_key);   		
         			
 		}		
 		switch($method_in) {
