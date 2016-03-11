@@ -95,13 +95,23 @@
      	return $content;
 	}
  
+ 
+ 	function rep($data){
+		$data =  str_replace("&#252;", "ü",$data);
+		$data =  str_replace("&#246;", "ö",$data);
+		$data =  str_replace("&#228;", "ä",$data);
+		$data =  str_replace("&amp;", "&",$data);
+		$data =  str_replace("'", "&#180;",$data);
+		return $data;
+	
+	}
 ########################################################################################### 
 	function play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in, $user_in){
 		$content="";
 		if(isset($_SESSION['user'])) {
-			$track_name_get=mysql_escape_string( utf8_encode($track_name));
+			$track_name_get=mysql_escape_string( utf8_encode(rep($track_name)));
 			echo $track_name_get;
-			$artist_name_get=mysql_escape_string( utf8_encode($artist_name));
+			$artist_name_get=mysql_escape_string( utf8_encode(rep($artist_name)));
 			$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name_get'"); 
 			if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 				$tid = $gettrack->fetch_assoc()['id'];
