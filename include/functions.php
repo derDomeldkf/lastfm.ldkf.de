@@ -222,7 +222,7 @@
 				if(isset($out)) {
 					$user_info_array = get_object_vars(json_decode($out));
 					if(isset($user_info_array['topartists'])) {
-						$user_info = get_object_vars($user_info_array['topartists']);	
+						$user_info = rep(get_object_vars($user_info_array['topartists']));	
 						foreach($user_info['artist'] as $top) {
 							$info=get_object_vars($top);
 							$name=str_replace(" ", " ", $info["name"]);
@@ -284,7 +284,7 @@
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
 				if(isset($user_info_array['weeklytrackchart'])) {
-					$user_info = get_object_vars($user_info_array['weeklytrackchart']);	
+					$user_info = rep(get_object_vars($user_info_array['weeklytrackchart']));	
 					foreach($user_info['track'] as $top) {
 						$info=get_object_vars($top);
 						$name=$info["name"];
@@ -335,7 +335,7 @@
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
 				if(isset($user_info_array['weeklytrackchart'])) {
-					$user_info = get_object_vars($user_info_array['weeklytrackchart']);	
+					$user_info = rep(get_object_vars($user_info_array['weeklytrackchart']));	
 					foreach($user_info['artist'] as $top) {
 						$info=get_object_vars($top);
 						$name=str_replace(" ", " ", $info["name"]);
