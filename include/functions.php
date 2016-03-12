@@ -1,5 +1,5 @@
 <?php
-	function get_info($method){
+	function get_info($method, $user_in, $page_in, $limit_in, $api_key){
 		$methode="method=user.get".$method."&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
 		$out = post($methode, $api_key);
 		$decode=json_decode($out);
