@@ -93,14 +93,14 @@
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
 				if(isset($user_info_array['weeklytrackchart'])) {
-					$user_info = rep(get_object_vars($user_info_array['weeklytrackchart']));	
+					$user_info = get_object_vars($user_info_array['weeklytrackchart']);	
 					foreach($user_info['track'] as $top) {
 						$info=get_object_vars($top);
-						$name=$info["name"];
+						$name=rep($info["name"]);
 						$playcount=$info["playcount"];
 						$art_array=$info["artist"];
 						$art=get_object_vars($art_array);
-						$artist_name=$art['#text'];
+						$artist_name=rep($art['#text']);
 						$url=$info["url"];
 						$image = get_object_vars($info["image"][0]);
 						$image_path=$image['#text'];
@@ -144,11 +144,11 @@
 			if(isset($out)) {
 				$user_info_array = get_object_vars(json_decode($out));
 				if(isset($user_info_array['weeklytrackchart'])) {
-					$user_info = rep(get_object_vars($user_info_array['weeklytrackchart']));	
+					$user_info = get_object_vars($user_info_array['weeklytrackchart']);	
 					foreach($user_info['artist'] as $top) {
 						$info=get_object_vars($top);
-						$name=str_replace(" ", " ", $info["name"]);
-						$name_art=$info['artist'];
+						$name=rep( $info["name"]);
+						$name_art=rep($info['artist']);
 						$playcount=$info["playcount"];
 						$url=$info["url"];
 						$image = get_object_vars($info["image"][0]);
