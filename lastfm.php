@@ -193,6 +193,9 @@
 		case 7:
 			$user=get_info("TopTracks", $user_in, $page_in, $limit_in, $api_key);
 			break;
+		default:
+		$user = array("", "","", "", "", "");
+			break;
 	}
 ?>
 <html>
@@ -222,7 +225,7 @@
       				<ul class="nav navbar-nav">
         					<li><a href="./">Startseite<span class="sr-only">(current)</span></a></li>
         					<?php
-        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $username, $db, $page_in, $limit_in, $secret, $api_key);
+        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $user[5], $db, $page_in, $limit_in, $secret, $api_key);
 							?>					
 	  				</div>
   				</div>
@@ -316,14 +319,85 @@
 				echo footer($method_in, $user[2], $user[4], $user_in, $limit_in, $user[3]);
 			?>
 		</div>
+
       <script type="text/javascript" src="https://msn.ldkf.de/js/jquery-1.11.2.min.js"></script>
    	<script type="text/javascript" src="https://msn.ldkf.de/js/bootstrap.min.js"></script>
- 			<script type="text/javascript">
-            $(document).ready(function(){
-                $('body').on('hidden.bs.modal', '.modal', function () {
-                    $(this).removeData('bs.modal');
-                });   
-            });
-         </script>
+ 		<script type="text/javascript">
+           $(document).ready(function(){
+               $('body').on('hidden.bs.modal', '.modal', function () {
+                   $(this).removeData('bs.modal');
+               });   
+          });
+      </script>
+      <?php if($method_in==4 or $method_in==6 or $method_in==7 or$method_in==8 or $method_in==9 or $method_in==10): ?>
+      <script>
+			$(document).ready(function(){
+				var back_to_top_button = ['<button class="back-to-top"></button>'].join("");
+				$("body").append(back_to_top_button)
+				// Der Button wird ausgeblendet
+				$(".back-to-top").hide();
+
+				// Funktion für das Scroll-Verhalten
+				$(function () {
+					$(window).scroll(function () {
+						if ($(this).scrollTop() > 100) { // Wenn 100 Pixel gescrolled wurde
+							$('.back-to-top').fadeIn();
+						} else {
+							$('.back-to-top').fadeOut();
+						}
+					});
+
+					$('.back-to-top').click(function () { // Klick auf den Button
+							$(window).scrollTop(0);
+
+						return false;
+					});
+				});
+
+			});
+
+		</script>
+		<script>
+			$(document).ready(function(){
+				$(".back-to-bottom").hide();
+				// Der Button wird mit JavaScript erzeugt und vor dem Ende des body eingebunden.
+				var back_to_top_button = ['<button class="back-to-bottom"></button>'].join("");
+				$("body").append(back_to_top_button)
+
+				// Der Button wird ausgeblendet
+			//	$(".back-to-bottom").hide();
+
+				// Funktion für das Scroll-Verhalten
+				$(function () {
+					$('.back-to-bottom').fadeIn();
+				});
+				$('.back-to-bottom').click(function () { // Klick auf den Button
+								
+				$.fn.scrollBottom = function(scroll){
+	 
+  					if(typeof scroll === 'number'){
+    					window.scrollTo(0,$(document).height() - $(window).height() - scroll);
+    					return $(document).height() - $(window).height() - scroll;
+  					} 
+  					else {
+    					return $(document).height() - $(window).height() - $(window).scrollTop();
+  					}
+				}
+				$(window).scroll(function () {
+					if ($(this).scrollBottom() > 100) { // Wenn 100 Pixel gescrolled wurde
+							$('.back-to-bottom').fadeIn();
+					} else {
+							$('.back-to-bottom').fadeOut();
+					}
+				});
+				$(window).scrollBottom(0);
+				$('.back-to-bottom').fadeOut();
+				});
+			});
+
+		
+		</script>
+		<?php endif; ?>
+		
 	</body>
 </html> 
