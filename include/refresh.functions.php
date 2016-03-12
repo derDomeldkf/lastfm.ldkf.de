@@ -31,10 +31,10 @@
 				if(isset($out)) {
 					$user_info_array = get_object_vars(json_decode($out));
 					if(isset($user_info_array['topartists'])) {
-						$user_info = rep(get_object_vars($user_info_array['topartists']));	
+						$user_info = get_object_vars($user_info_array['topartists']);	
 						foreach($user_info['artist'] as $top) {
 							$info=get_object_vars($top);
-							$name=str_replace(" ", " ", $info["name"]);
+							$name=rep($info["name"]);
 							$playcount=$info["playcount"];
 							$url=$info["url"];
 							$image = get_object_vars($info["image"][0]);
