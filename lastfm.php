@@ -182,17 +182,12 @@
 	}
 	switch($method_in) {
 		case 2:
-			$methode="method=user.getRecentTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-			$out = post($methode, $api_key);
-			$decode=json_decode($out);
-			$user_info_array = get_object_vars($decode->recenttracks);
-			$user_decode= $user_info_array['@attr'];
-			$tracks= $user_info_array['track'];
-			$username = $user_decode->user;
-			$page = $user_decode->page;
-			$perPage = $user_decode->perPage;
-			$totalPages = $user_decode->totalPages;
-			$totaltracks=$user_decode->total;
+			$user=get_info("RecentTracks");
+			$username = $user[0];
+			$page = $user[1];
+			$perPage = $user[2];
+			$totalPages = $user[3];
+			$totaltracks=$user[4];
 			break;
 		case 5:
 			$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
