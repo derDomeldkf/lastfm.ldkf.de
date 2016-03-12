@@ -182,7 +182,7 @@
 	}
 	switch($method_in) {
 		case 2:
-			$user=get_info("RecentTracks", $user_in, $page_in, $limit_in, $api_key)
+			$user=get_info("RecentTracks", $user_in, $page_in, $limit_in, $api_key);
 			$username = $user[0];
 			$page = $user[1];
 			$perPage = $user[2];
