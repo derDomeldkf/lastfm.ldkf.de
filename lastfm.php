@@ -183,11 +183,12 @@
 	switch($method_in) {
 		case 2:
 			$user=get_info("RecentTracks", $user_in, $page_in, $limit_in, $api_key);
-			$username = $user[0];
-			$page = $user[1];
-			$perPage = $user[2];
-			$totalPages = $user[3];
-			$totaltracks=$user[4];
+			$tracks= $user[0]
+			$username = $user[1];
+			$page = $user[2];
+			$perPage = $user[3];
+			$totalPages = $user[4];
+			$totaltracks=$user[5];
 			break;
 		case 5:
 			$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
