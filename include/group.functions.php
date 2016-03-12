@@ -110,7 +110,7 @@
 		$content .= '
 		</div>
 		<div class="col-md-3" style="padding-left:30px; padding-top:20px;">
-			<div style="position:fixed; margin-top:50px;">
+
 		';
 		if($db_name=="last_fm_charts_all") {
 			$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
@@ -118,6 +118,7 @@
 					$member[]=$members['username'];
 				}
 			$content .= '
+				<div style="position:fixed; margin-top:50px;">
 			<h4>Gemeinsame Künstler von:</h4>
 				<div style="max-width:220px; margin-top:30px;">
 					<form class="form-signin" method="post" action="lastfm.php?">
