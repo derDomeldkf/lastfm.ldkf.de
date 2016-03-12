@@ -187,12 +187,12 @@
 			$decode=json_decode($out);
 			$user_info_array = get_object_vars($decode->recenttracks);
 			$user_decode= $user_info_array['@attr'];
+			$tracks= $user_info_array['track'];
 			$username = $user_decode->user;
 			$page = $user_decode->page;
 			$perPage = $user_decode->perPage;
 			$totalPages = $user_decode->totalPages;
-			$tracks= $decode->recenttracks->track;
-			$totaltracks=$totalTracks;
+			$totaltracks=$user->total;
 			break;
 		case 5:
 			$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
