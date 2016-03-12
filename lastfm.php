@@ -263,7 +263,8 @@
 									$name = $getname->fetch_assoc();
 									$db_name=$name['table_name'];
 									$period="In der letzten Woche gehört von";
-									echo group($db_name, $period, $db, $post, $date, $td);	   
+									$out = group($db_name, $period, $db, $post, $date, $td);	   
+									echo 	$out[0]; 
 									break;
 								case 5:
 									include "user_love_track.php";	        				
@@ -277,7 +278,8 @@
 								case 8:
 									$db_name="last_fm_charts_all";
 									$period="Gehört von";
-									echo group($db_name, $period, $db, 0, 0, $td);		   
+									$out = group($db_name, $period, $db, 0, 0, $td);	
+									echo 	$out[0];   
 									break;
 								case 9:
 									$db_name="last_fm_charts_track_all";
@@ -329,7 +331,7 @@
                });   
           });
       </script>
-      <?php if($method_in==4 or ($method_in==6 and $limit_in>20) or ($method_in==7 and $limit_in>20) or ($method_in==8 and $place >30 ) or $method_in==9 or $method_in==10): ?>
+      <?php if($method_in==4 or ($method_in==6 and $limit_in>20) or ($method_in==7 and $limit_in>20) or ($method_in==8 and $out[1]>30) or $method_in==9 or $method_in==10): ?>
       
       
       <script>
