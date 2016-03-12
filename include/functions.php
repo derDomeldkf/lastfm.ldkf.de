@@ -7,12 +7,12 @@
 		$user_info_array = get_object_vars($decode->$get_decode);
 		$user_decode= $user_info_array['@attr'];
 		strpos($get_decode,"artist")!==false ?	$get_array="artist" : $get_array="track";
-		$tracks= $user_info_array[$get_array];
-		$user[0] = $user_decode->user;
-		$user[1] = $user_decode->page;
-		$user[2] = $user_decode->perPage;
-		$user[3] = $user_decode->totalPages;
-		$user[4] = $user_decode->total;
+		$user[0] = $user_info_array[$get_array];
+		$user[1] = $user_decode->user;
+		$user[2] = $user_decode->page;
+		$user[3] = $user_decode->perPage;
+		$user[4] = $user_decode->totalPages;
+		$user[5] = $user_decode->total;
 		return $user;
 	}
 
