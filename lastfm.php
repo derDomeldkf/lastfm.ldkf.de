@@ -192,7 +192,7 @@
 			$page = $user_decode->page;
 			$perPage = $user_decode->perPage;
 			$totalPages = $user_decode->totalPages;
-			$totaltracks=$user->total;
+			$totaltracks=$user_decode->total;
 			break;
 		case 5:
 			$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
