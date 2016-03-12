@@ -329,7 +329,7 @@
                });   
           });
       </script>
-      <?php if($method_in==4 or ($method_in==6 and $limit_in>20) or ($method_in==7 and $limit_in>20) or$method_in==8 or $method_in==9 or $method_in==10): ?>
+      <?php if($method_in==4 or ($method_in==6 and $limit_in>20) or ($method_in==7 and $limit_in>20) or ($method_in==8 and $place >30 ) or $method_in==9 or $method_in==10): ?>
       
       
       <script>
