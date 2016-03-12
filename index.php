@@ -1,3 +1,14 @@
+<?php
+	session_start();
+	
+	if(isset($_COOKIE('user') and $_COOKIE('user')!=""){
+		header('Location: lastfm.php');
+	}
+
+
+?>
+
+
 <html>
 	<head>
 		<link rel="icon" href="favicon.png">
