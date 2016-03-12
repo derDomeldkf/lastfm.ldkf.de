@@ -1,5 +1,5 @@
 <?php
-
+	include "functions.php";
 	function group($db_name, $period, $db, $post, $date, $td) {
  		$content="";
  		if(!isset($_POST['userselc'][0])) {

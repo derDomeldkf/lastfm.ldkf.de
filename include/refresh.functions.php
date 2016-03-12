@@ -1,6 +1,6 @@
 <?php
- 
- 	function refresh($db_name, $command, $db) {
+
+ 	function refresh($db_name, $command, $db, $api_key) {
 		$getusers = $db->query("SELECT `username` FROM `ldkf_lastfm`"); 
  		while ($getuser = $getusers->fetch_assoc()) {
  			$users[]=$getuser['username'];

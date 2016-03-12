@@ -10,7 +10,7 @@
 	$db_name = date('YW');
 	$insert = $db->query("INSERT INTO tables (table_name) VALUES ('$db_name')"); 
 	$command="user.getTopArtists&period=7day"; 	
- 	refresh($db_name, $command, $db);
+ 	refresh($db_name, $command, $db, $api_key);
 	$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC "); 
 	while($getplaces = $getplace->fetch_assoc()){
 		$places[]=$getplaces['artist'];
