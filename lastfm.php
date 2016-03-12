@@ -194,9 +194,6 @@
 			$user=get_info("TopTracks", $user_in, $page_in, $limit_in, $api_key);
 			break;
 	}
-
-
-
 ?>
 <html>
 	<head>
@@ -205,7 +202,7 @@
 		<link href="https://msn.ldkf.de/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://msn.ldkf.de/css/bootstrap-theme.min.css" rel="stylesheet">
 		<link href="css/main.css" rel="stylesheet">
-		<title><?php if($method_in==4 or $method_in==8 or $method_in==9 or $method_in==10){echo "LDKF-Gruppe";} elseif(isset($user_in)) {echo $user_in;} else { echo "lastfm.ldkf.de";}?></title>
+		<title><?php echo ($method_in==4 or $method_in==8 or $method_in==9 or $method_in==10) ? "LDKF-Gruppe" : ((isset($user_in)) ? $user_in : "lastfm.ldkf.de"); ?></title>
 	</head>
 	<body style="font-family: ubuntu-m;">
 		<div id="content" class="main-content" role="main" style="">
@@ -225,7 +222,7 @@
       				<ul class="nav navbar-nav">
         					<li><a href="./">Startseite<span class="sr-only">(current)</span></a></li>
         					<?php
-        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $user[5], $db, $page_in, $limit_in, $secret, $api_key);
+        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $username, $db, $page_in, $limit_in, $secret, $api_key);
 							?>					
 	  				</div>
   				</div>
