@@ -230,7 +230,7 @@
 	  				</div>
   				</div>
 			</nav>
-				<div class="main" <?php echo 'style="margin-left:0; padding-bottom:70px; '; echo (isset($_GET['p']) and $_GET['p']!='') ? ' margin-top:50px;' : ''; ?> ">
+				<div class="main" <?php echo 'style="margin-left:0; padding-bottom:70px; '; echo (isset($_GET['p']) and $_GET['p']!='') ? ' margin-top:70px;' : ''; ?> ">
 					<section class="tracklist-section">
 						<?php 
 							switch($method_in) {
