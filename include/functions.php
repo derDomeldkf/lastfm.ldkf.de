@@ -1,10 +1,28 @@
 <?php
+	function get_info($method){
+		$methode="method=user.get".$method."&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+		$out = post($methode, $api_key);
+		$decode=json_decode($out);
+		$get_decode=strtolower($method);
+		$user_info_array = get_object_vars($decode->$get_decode);
+		$user_decode= $user_info_array['@attr'];
+		strpos($get_decode,"artist")!==false ?	$get_array="artist" : $get_array="track";
+		$tracks= $user_info_array[$get_decode];
+		$user[0] = $user_decode->user;
+		$user[1] = $user_decode->page;
+		$user[2] = $user_decode->perPage;
+		$user[3] = $user_decode->totalPages;
+		$user[4] = $user_decode->total;
+		return $user;
+	}
+
+#################################################################################
 	function footer_limit($perPage){
 		$content=' value="'.$perPage.'">'.$perPage.' Eintr&auml;ge Pro Seite</option>';
 		return $content;
    }	     							
 
-
+###############################################################################
 	function nav_group_right(){
 		$content ='
 			</ul>
