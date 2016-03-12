@@ -330,7 +330,10 @@
           });
       </script>
       <?php if($method_in==4 or ($method_in==6 and $limit_in>20) or ($method_in==7 and $limit_in>20) or$method_in==8 or $method_in==9 or $method_in==10): ?>
+      
+      
       <script>
+      	$(window).scrollTop(0);
 			$(document).ready(function(){
 				var back_to_top_button = ['<button class="back-to-top"></button>'].join("");
 				$("body").append(back_to_top_button)
