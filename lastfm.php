@@ -209,7 +209,7 @@
 	</head>
 	<body style="font-family: ubuntu-m;">
 		<div id="content" class="main-content" role="main" style="">
-			<nav <?php echo 'class="navbar navbar-inverse'; echo (isset($_GET['p']) and $_GET['p']!='') ? ' navbar-fixed-top" style="margin-bottom:70px;' : ' navbar-static-top'; ?> ">
+			<nav <?php echo 'class="navbar navbar-inverse'; echo (isset($_GET['p']) and $_GET['p']!='') ? ' navbar-fixed-top' : ' navbar-static-top'; ?> ">
 	  			<div class="container-fluid" id="navigation" style="display:block;">
     			<!-- Brand and toggle get grouped for better mobile display -->
     				<div class="navbar-header">
@@ -230,7 +230,7 @@
 	  				</div>
   				</div>
 			</nav>
-				<div class="main" style="margin-left:0; padding-bottom:70px;">
+				<div class="main" <?php echo 'style="margin-left:0; padding-bottom:70px; '; echo (isset($_GET['p']) and $_GET['p']!='') ? ' margin-top:50px;' : ''; ?> ">
 					<section class="tracklist-section">
 						<?php 
 							switch($method_in) {
