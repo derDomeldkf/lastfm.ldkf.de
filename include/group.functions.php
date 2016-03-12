@@ -110,6 +110,7 @@
 		$content .= '
 		</div>
 		<div class="col-md-3" style="padding-left:30px; padding-top:20px;">
+			<div style="position:fixed; margin-top:50px;">
 		';
 		if($db_name=="last_fm_charts_all") {
 			$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
@@ -149,6 +150,7 @@
    				}
    			$content .= '
    			</div>	
+   			</div>
 			';
 		}
 		else {
