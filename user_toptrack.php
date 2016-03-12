@@ -1,11 +1,11 @@
 <?php
 	$i=0;
-	$page_n=$page+1;
-	$page_l=$page-1;
+	$page_n=$user[2]+1;
+	$page_l=$user[2]-1;
 	$place=(($page_in-1)*$limit_in)+1;
 	$counter_cont=1;
 	echo head();
-			foreach($tracks as $track){
+			foreach($user[0] as $track){
 				$track_name= $track->name;
 				$count= $track->playcount;
 				$artist_name= $track->artist->name;
@@ -43,7 +43,7 @@
     					<td class="list" style="padding-right:5px; padding-left:8px; min-width:400px;">
    	        			<span class="chartlist-ellipsis-wrap">
       	         	   <span class="chartlist-artists">
-         	   				<a href="http://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+         	   				<a href="http://www.last.fm/de/user/'.$user[1].'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
         						</span>
 								<span class="artist-name-spacer"> — </span>
 									<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         

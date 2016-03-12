@@ -44,10 +44,10 @@
 
 	$i=0;
 	$playing=0;
-	$page_n=$page+1;
-	$page_l=$page-1;
+	$page_n=$user[2]+1;
+	$page_l=$user[2]-1;
 	echo head();
-			foreach($tracks as $track){
+			foreach($user[0] as $track){
 				$album_name="";
 				$artist_decode= $track->artist;
 				$love= $track->loved;
@@ -120,7 +120,7 @@
 						<td class="list">
    	  					<span class="">
            					<span class="chartlist-image">
-           						<a href="http://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'/'. urlencode($album_name).'" title="'.$artist_name; if (isset($album_name) and $album_name!="") {echo ' - '.$album_name; }echo '" target="_blank"><img src="'.$image.'"></a>
+           						<a href="http://www.last.fm/de/user/'.$user[1].'/library/music/'. urlencode($artist_name).'/'. urlencode($album_name).'" title="'.$artist_name; if (isset($album_name) and $album_name!="") {echo ' - '.$album_name; }echo '" target="_blank"><img src="'.$image.'"></a>
       						</span>
  	  						</span>              		
        				</td>
@@ -141,7 +141,7 @@
  	      			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:600px;">
    	   				<span class="chartlist-ellipsis-wrap">
       	   				<span class="chartlist-artists">
-         						<a href="http://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+         						<a href="http://www.last.fm/de/user/'.$user[1].'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
         						</span>
 								<span class="artist-name-spacer"> — </span>
 								<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         

@@ -1,7 +1,7 @@
 <?php
 	$i=0;
-	$page_n=$page+1;
-	$page_l=$page-1;
+	$page_n=$user[2]+1;
+	$page_l=$user[2]-1;
 	$place=(($page_in-1)*$limit_in)+1;
 	$counter_cont=1;
 	echo '
@@ -9,7 +9,7 @@
 			<table>
    			<tbody>
    		';
-			foreach($tracks as $track){
+			foreach($user[0] as $track){
 				$artist_name= $track->name;
 				$count= $track->playcount;
 				$url= $track->url;

@@ -183,59 +183,17 @@
 	switch($method_in) {
 		case 2:
 			$user=get_info("RecentTracks", $user_in, $page_in, $limit_in, $api_key);
-			$tracks= $user[0];
-			$username = $user[1];
-			$page = $user[2];
-			$perPage = $user[3];
-			$totalPages = $user[4];
-			$totaltracks=$user[5];
 			break;
 		case 5:
-			$methode="method=user.getLovedTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-			$out = post($methode, $api_key);
-			if(isset($out)) {
-				$decode=json_decode($out);
-				$user_info_array_love = get_object_vars($decode->lovedtracks);
-				$user=$user_info_array_love['@attr'];
-				$tracks= $user_info_array_love['track'];
-				$username = $user->user;
-				$page = $user->page;
-				$perPage = $user->perPage;
-				$totalPages = $user->totalPages;
-				$totaltracks=$user->total;
-			}
+			$user=get_info("LovedTracks", $user_in, $page_in, $limit_in, $api_key);
 			break;
 		case 6:
-			$methode="method=user.getTopArtists&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-			$out = post($methode, $api_key);
-			if(isset($out)) {
-				$decode=json_decode($out);
-				$user_info_array_love = get_object_vars($decode->topartists);
-				$user=$user_info_array_love['@attr'];
-				$tracks= $user_info_array_love['artist'];
-				$username = $user->user;
-				$page = $user->page;
-				$perPage = $user->perPage;
-				$totalPages = $user->totalPages;
-				$totaltracks=$user->total;
-			}
+			$user=get_info("TopArtists", $user_in, $page_in, $limit_in, $api_key);
 			break;
 		case 7:
-			$methode="method=user.getTopTracks&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
-			$out = post($methode, $api_key);
-			if(isset($out)) {
-				$decode=json_decode($out);
-				$user_info_array_love = get_object_vars($decode->toptracks);
-				$user=$user_info_array_love['@attr'];
-				$tracks= $user_info_array_love['track'];
-				$username = $user->user;
-				$page = $user->page;
-				$perPage = $user->perPage;
-				$totalPages = $user->totalPages;
-				$totaltracks=$user->total;
-			}	
+			$user=get_info("TopTracks", $user_in, $page_in, $limit_in, $api_key);
 			break;
-		}
+	}
 
 
 
@@ -267,7 +225,7 @@
       				<ul class="nav navbar-nav">
         					<li><a href="./">Startseite<span class="sr-only">(current)</span></a></li>
         					<?php
-        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit_in, $secret, $api_key);
+        						echo nav($method_in, $user_in, $image, $totalTracks, $starttime, $user[5], $db, $page_in, $limit_in, $secret, $api_key);
 							?>					
 	  				</div>
   				</div>
@@ -281,7 +239,6 @@
 								case 1:
 									break;
 								case 2:
-									
 									include "user_tracks.php";	 
 									break;
 								case 3:
@@ -359,7 +316,7 @@
 					</section>
 				</div>
 			<?php 
-				echo footer($method_in, $page, $totalPages, $user_in, $limit_in, $perPage);
+				echo footer($method_in, $user[2], $user[4], $user_in, $limit_in, $user[3]);
 			?>
 		</div>
       <script type="text/javascript" src="https://msn.ldkf.de/js/jquery-1.11.2.min.js"></script>

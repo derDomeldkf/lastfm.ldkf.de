@@ -1,10 +1,10 @@
 <?php
 	$i=0;
 	$playing=0;
-	$page_n=$page+1;
-	$page_l=$page-1;
+	$page_n=$user[2]+1;
+	$page_l=$user[2]-1;
 	echo head();
-			foreach($tracks as $track){
+			foreach($user[0] as $track){
 				$album_name="";
 				$artist_decode= $track->artist;
 				$track_name= $track->name;
@@ -48,7 +48,7 @@
 						<td class="list">
            	   		<span class="">
             	  			<span class="chartlist-image">
-     	   						<a href="https://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank"><img src="'.$image.'"></a>
+     	   						<a href="https://www.last.fm/de/user/'.$user[1].'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank"><img src="'.$image.'"></a>
    							</span>
  							</span>              		
       	      	</td>
@@ -65,7 +65,7 @@
  	  	   			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; min-width:600px;">
            	   		<span class="chartlist-ellipsis-wrap">
             	  			<span class="chartlist-artists">
-     	   						<a href="https://www.last.fm/de/user/'.$username.'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+     	   						<a href="https://www.last.fm/de/user/'.$user[1].'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
    							</span>
 								<span class="artist-name-spacer"> — </span>
 								<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         
