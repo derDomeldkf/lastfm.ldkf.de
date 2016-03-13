@@ -3,7 +3,7 @@
  	include "include/db_connect.php";
  	include "include/functions.php";
 	require_once('getid/getid3/getid3.php');
-	
+	$delete = $db->query("DELETE FROM `track`");	
 	function insert_info($path, $artist, $album, $track, $time, $db) {
 		$getartist = $db->query("SELECT `id` FROM `artists` WHERE name LIKE '$artist'"); 
 		if(isset($getartist->num_rows) and  $getartist->num_rows!= 0) {
