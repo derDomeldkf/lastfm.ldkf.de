@@ -2,7 +2,7 @@
 	include "functions.php";
 	$artist=str_replace("_", " ", $_GET["artist"]);
 
-	if(strpos($artist, "the")==0){
+	if(strpos($artist, "the")===0){
 		$artist=str_replace("the ", "", $artist); //get name for later replacement
 	}
 	$url="http://www.azlyrics.com/lyrics/". strtolower(preg_replace ( '/[^a-z0-9]/i', '', $_GET["artist"]))."/".  strtolower(preg_replace ( '/[^a-z0-9]/i', '', $_GET["song"]).".html");
