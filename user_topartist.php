@@ -10,14 +10,15 @@
    			<tbody>
    		';
 			foreach($user[0] as $track){
-				$artist_name= rep($track->name);
+				$artist_name= $track->name;
+				$artist_name_db=rep($artist_name);
 				$count= $track->playcount;
 				$url= $track->url;
 				$image_decode= $track->image;
 				$image_array = get_object_vars($image_decode[0]);
 				$images=$image_array['#text'];
 				if(isset($images) and $images!="") {
-					$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name' and album LIKE 'NULL'"); 
+					$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name_db' and album LIKE 'NULL'"); 
 					if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
 						$getimages = $getimage->fetch_assoc()['name'];
 						$image="covers/".$getimages; 
@@ -29,7 +30,7 @@
 						if(!isset($getimage_row) or $getimage_row=="") {
 							$pfad="covers/".$image_db;
 							copy($images, $pfad);
-							$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album) VALUES ('$image_db', '$artist_name', 'NULL')"); 
+							$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album) VALUES ('$image_db', '$artist_name_db', 'NULL')"); 
 						}
 						$image="covers/".$image_db; 
 					}
