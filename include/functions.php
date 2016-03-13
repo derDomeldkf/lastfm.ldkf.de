@@ -633,7 +633,9 @@
 	
 #################################################################################################################################################################	
 	
-	function image($images, $artist_name, $db, $album) {
+	function image($images, $artist_name_get, $db, $album_get) {
+		$artist_name=rep($artist_name_get);
+		$album=rep($album_get);		
 		$content="";
 		if($album!="") {
 			$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE album LIKE '$album'"); 
