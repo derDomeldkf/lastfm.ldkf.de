@@ -10,7 +10,7 @@
    			<tbody>
    		';
 			foreach($user[0] as $track){
-				$artist_name= $track->name;
+				$artist_name= rep($track->name);
 				$count= $track->playcount;
 				$url= $track->url;
 				$image_decode= $track->image;
