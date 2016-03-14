@@ -35,77 +35,77 @@
 			';		
 		}
 		else {
-		$content .='		
-		<div class="row" style="margin:0">
-		<div class="col-md-9" style="padding-left:40px;">
- 		<table style="">
- 		<tbody>
- 			<tr>
- 				'.$td.'>
- 				</td>
-				'.$td.' style="padding-left:10px;">
-					Platz
-				</td>
-				'.$td.'>		
-				</td> 
-				'.$td.' style="padding-left:8px;">
-					K&uuml;nstler
-				</td>
-				'.$td.'>
-					'.$period.'				
-				</td> 	
-			</tr>';
-		$i=0;	 
-		$place=1;	
-		if(isset($places )) {
-		foreach($places as $artist_name){
-			$getartist = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$artist_name'"); 
-			$counter = $getartist->fetch_assoc();
-			$count=$counter['playcount'];
-			if($place==1) {
-				$count_max=$count;
-			}
-			$getuser = $db->query("SELECT `user` FROM `".$db_name."` WHERE artist LIKE '$artist_name' "); 
-			$users_names= $getuser->fetch_assoc()['user'];
-			$user=listeners_dropdown($users_names);
-			if($count>1) {
-			$content .='
-				<tr class="" style="';
-				if($i==0) { 
-					$content .='background-color: #F2F2F2;';
-				}
-				$content .='">';
-				$content .= image_artist($artist_name, $db); 				
-				$content .='
-					<td class="list" style="padding-left:15px;">
-  	 	        		<span class="">
-  	    	   			<span class="chartlist-image">
-  	       					'.$place.'
- 	       				</span>
- 		  	 			</span>         		
- 	     	  		</td>
- 	     	  		<td class="list" style="padding-left:8px; ">
-  	  					<span>('.$count.')</span>
- 	         	</td>     
- 	   			<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:260px;">
-   	   			<span class="chartlist-ellipsis-wrap">
-  							<a href="http://www.last.fm/music/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
- 	  	 				</span>
-					</td>
-  	  				<td class="list" style="padding-right:3px; min-width:360px;">
- 	   				<span>'.$user.'</span>
- 	           	</td>
-				</tr>';
-			if($i==0){$i++;}
- 	     else {$i--;}
- 	  	}	
- 	     $place++;
- 	    }
-		}
+			$content .='		
+				<div class="row" style="margin:0">
+					<div class="col-md-9" style="padding-left:40px;">
+ 						<table style="">
+ 							<tbody>
+ 								<tr>
+ 									'.$td.'>
+ 									</td>
+									'.$td.' style="padding-left:10px;">
+										Platz
+									</td>
+									'.$td.'>		
+									</td> 
+									'.$td.' style="padding-left:8px;">
+										K&uuml;nstler
+									</td>
+									'.$td.'>
+										'.$period.'				
+									</td> 	
+									</tr>';
+								$i=0;	 
+								$place=1;	
+								if(isset($places )) {
+									foreach($places as $artist_name){
+										$getartist = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$artist_name'"); 
+										$counter = $getartist->fetch_assoc();
+										$count=$counter['playcount'];
+										if($place==1) {
+											$count_max=$count;
+										}
+										$getuser = $db->query("SELECT `user` FROM `".$db_name."` WHERE artist LIKE '$artist_name' "); 
+										$users_names= $getuser->fetch_assoc()['user'];
+										$user=listeners_dropdown($users_names);
+										if($count>1) {
+											$content .='
+												<tr class="" style="';
+											if($i==0) { 
+												$content .='background-color: #F2F2F2;';
+											}
+											$content .='">';
+											$content .= image_artist($artist_name, $db); 				
+											$content .='
+												<td class="list" style="padding-left:15px;">
+  	 	        									<span class="">
+  	    	   										<span class="chartlist-image">
+  	       												'.$place.'
+ 	       											</span>
+ 		  	 										</span>         		
+ 	     	  									</td>
+ 	     	  									<td class="list" style="padding-left:8px; ">
+  	  												<span>('.$count.')</span>
+ 	         								</td>     
+ 	   										<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:260px;">
+   	   										<span class="chartlist-ellipsis-wrap">
+  														<a href="http://www.last.fm/music/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
+ 	  	 											</span>
+												</td>
+  	  										<td class="list" style="padding-right:3px; min-width:360px;">
+ 	   										<span>'.$user.'</span>
+ 	           							</td>
+										</tr>';
+									if($i==0){$i++;}
+ 	     							else {$i--;}
+ 	  							}	
+ 	     						$place++;
+ 	    					}
+						}
 		
-	 	$content .= '
- 			</tbody>
-		</table>';
+	 					$content .= '
+ 							</tbody>
+						</table>';
 		}
 		$content .= '
 		</div>

@@ -610,7 +610,7 @@
 #################################################################################################################################################################	
 	
 	function image_artist($artist_name, $db) {
-		$artist_name_db=rep($artist_name);
+		$artist_name_db=$artist_name;
 		$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name_db' and album LIKE 'NULL'"); 
 		$getimages = $getimage->fetch_assoc()['name'];
 		if(isset($getimages) and $getimages!="") {							
