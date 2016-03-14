@@ -126,7 +126,7 @@
    					<select name="userselc[]" class="form-control" style="margin-bottom:5px;" required>';
    					$content .= select($member, $user_input, "0");
    					$content .= '
-   					<select name="userselc[]" class="form-control" style="margin-bottom:5px;" required>';
+   					<select name="userselc[]" class="form-control" style="margin-bottom:5px;">';
    					$content .= select($member, $user_input, "1");
    					$content .= '
    					<select name="userselc[]" class="form-control" style="margin-bottom:5px;">';
