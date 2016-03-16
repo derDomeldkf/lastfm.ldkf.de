@@ -404,7 +404,7 @@
 					<input type="hidden" name="username" value="'.$user_in.'">
 					<input type="hidden" name="method" value="2">
 					<button type="submit" class="userButton">				
-					Scrobbles: '.$totalTracks.'
+						Scrobbles: '.$totalTracks.'
 					</button>
 					</form>
 				';
