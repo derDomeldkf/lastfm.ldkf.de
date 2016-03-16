@@ -364,7 +364,7 @@
 	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit, $secret, $api_key) {
 
 		$content="";
-		if(isset($_SESSION['user']) and !isset($_GET['methodlogout'])) {
+		if((isset($_SESSION['user']) and !isset($_GET['methodlogout'])) and !isset($_GET['methodlogout']) ) {
 			$content .='
 				<li><a href="./lastfm.php?method_get=2">Home</a></li>
 			';
