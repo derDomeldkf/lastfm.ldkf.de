@@ -384,6 +384,9 @@
 					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Login</a></li>';
 				}
   			}	
+  			else {
+  				$content .='<li><a href="./">Startseite<span class="sr-only">(current)</span></a></li>';
+  			}
 			$content .= audioplayer($db, $secret, $user_in, $api_key);
         	$content .= '
         		</ul>
