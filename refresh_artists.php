@@ -38,7 +38,7 @@
 			$i++;
 		}
 	}
-	$output=urlencode($content[$i-1]);
+	$output=urlencode(html_entity_decode ($content[$i-1]));
 	$getid = $db->query("SELECT `telegram-id` FROM `last_fm`"); 
 	while($id_db = $getid->fetch_assoc()){
 		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&text='.$output; 
