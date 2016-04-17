@@ -55,7 +55,7 @@
 	}
 	else {//$error= "no";
 	}	
-	if(isset($time_check) and $time_check == $ddd) {
+	if(isset($time_check) and isset($ddd) and $time_check == $ddd) {
 		$error= "no";
 		}
 		if(!isset($error) or $error!="no") {
