@@ -335,7 +335,8 @@
 		 							$.post("include/refresh.php",{
         								0: "<?php echo $user_in; ?>",
         								1: "<?php echo $limit_in; ?>",
-        								2: $("#last").attr("title") 
+        								2: $("#last").attr("title") ,
+        								3: "<?php echo $page_in; ?>",
     								},
    								function (data) {
 										if (data.indexOf("div") != -1) {

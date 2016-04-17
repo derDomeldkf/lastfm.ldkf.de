@@ -58,6 +58,9 @@
 	if(isset($time_check) and isset($ddd) and $time_check == $ddd) {
 		$error= "no";
 		}
+		if($user[3] <= 1 and $page_in>1) {
+			$error= "no";
+		}
 		if(!isset($error) or $error!="no") {
 			foreach($user[0] as $track){
 				$album_name="";
