@@ -40,13 +40,25 @@
 
 
 
-
-
+	$skript=0;
+	$m=0;
 	$i=0;
 	$playing=0;
 	$page_n=$user[2]+1;
 	$page_l=$user[2]-1;
-	echo head();
+	if($user[3] > 1) {
+		echo head();
+	}
+	if(isset($user[0][1])) {
+		$dd=$user[0][1]->date;
+		$dd = get_object_vars($dd); 
+		$ddd=$dd['uts']+3600+3600;	
+	}
+	else {$error= "no";}	
+	if(isset($time_check) and $time_check == $ddd) {
+		$error= "no";
+		}
+		if(!isset($error) or $error!="no") {
 			foreach($user[0] as $track){
 				$album_name="";
 				$artist_decode= $track->artist;
@@ -73,6 +85,7 @@
 				if($date_decode!="wird gerade gehört") {
 					$date_uts=$date_array['uts']+3600+3600;  //lastfm fehler ausgleichen
 				}
+				
 				$images=$image_array['#text'];
 				//$images="";
 				$image=image($images, $artist_name, $db, $album_name);
@@ -91,7 +104,7 @@
 						$date_eng=gmdate("l, j. F Y", $date_uts);
 						$date_eng=month_rename($date_eng);  //monate vom englischen ins deutsche umbenennen, weil php-funktion nicht läuft
 						echo'
-							<tr>
+							<tr class="del">
 								<td colspan="5" style="';
 								if($show_date!=1 or $playing==1){ 
 									echo'padding-top:18px;';
@@ -104,7 +117,14 @@
 					}
 				}
 				echo'
-					<tr frame="hsides" class="" style="
+					<tr frame="hsides" class="';
+					
+					if($date_decode=="wird gerade gehört") { 
+					echo'repl';
+				}
+				elseif($m==0) {echo 'del';}
+					
+					echo '" style="
 				';
 				if($date_decode=="wird gerade gehört") { 
 					echo'background-color: #F2F5A9;';
@@ -160,12 +180,13 @@
 						';
          		}
          		echo '
-         			<span title="'.$date_uts.'" style="vertical-align:bottom; padding-right:3px;">
+         			<span title="'.$date_uts;    if($m==1){echo '" id="last'; }    echo'" style="vertical-align:bottom; padding-right:3px;">
          				'.$gmdate.'
          			</span>
 					</td>';
 					echo play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in, $user_in);
 					echo '</tr>
+					
    			';
       		if($i==0){$i++;}
       		else {$i--;}
@@ -176,10 +197,55 @@
      		 	else {
 					$playing=1;           			
       		}
+     			if($skript==1) { 		
+  					echo '
+					  	<script>
+							function getdata(){
+		 						setTimeout(function(){
+		 							$.post("include/refresh.php",{
+        								0: "'.$user_in.'",
+        								1: "'.$limit_in.'",
+        								2: $("#last").attr("title") 
+    								},
+   								function (data) {
+										if (data.match("tr")) {
+											$("#last").attr("id", "");
+											$( "tr.del" ).replaceWith( "" );
+											$( "tr.repl" ).replaceWith( data );
+										}
+									}
+   							);		 		
+		 						getdata();
+		   				}, 20000);
+							}
+							$(document).ready(
+     							function(){
+           						setTimeout(function(){  
+    									getdata();
+          						}, 4000);
+						   	}
+							); 
+						</script>   		
+					';
+				$skript=0;
+			}   	
+   	
+   	
+   	
+   	
+  			if($date_decode=="wird gerade gehört" and $page_in==1 and $user[3] > 1) {
+				$skript=1;  
+  			}
+			$m++;
 			} 
-			echo '
-  				</tbody>
-  			</table>
-  		</div>
-  	'; //close head()
+			if($user[3] > 1) {
+				echo '
+  					</tbody>
+  				</table>
+  			</div>
+  		'; 
+  	}
+  	}
+  	else { print (1);}//close head()
+
 ?>

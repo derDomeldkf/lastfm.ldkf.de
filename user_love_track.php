@@ -87,7 +87,7 @@
          	$check_date=$date_uts;
 			} 
 			echo '
-           	</tbody>
+</tbody>
 			</table>
 		</div>
 	';

@@ -706,8 +706,9 @@
       				</div>
   					</div>
 				</div>           
-				<table>
-   				<tbody>';
+				<table id="t1">
+				<tbody>
+   			';
    	return $content;
    }
    

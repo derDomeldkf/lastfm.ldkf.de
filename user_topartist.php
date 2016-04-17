@@ -111,7 +111,7 @@
         		$counter_cont++;
 			} 
 			echo '
-           	</tbody>
+</tbody>
 			</table>
 		</div>
 	';

@@ -205,6 +205,8 @@
 		<link href="https://msn.ldkf.de/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://msn.ldkf.de/css/bootstrap-theme.min.css" rel="stylesheet">
 		<link href="css/main.css" rel="stylesheet">
+		 <script type="text/javascript" src="https://msn.ldkf.de/js/jquery-1.11.2.min.js"></script>
+   	<script type="text/javascript" src="https://msn.ldkf.de/js/bootstrap.min.js"></script>
 		<title><?php echo ($method_in==4 or $method_in==8 or $method_in==9 or $method_in==10) ? "LDKF-Gruppe" : ((isset($user_in)) ? $user_in : "lastfm.ldkf.de"); ?></title>
 	</head>
 	<body style="font-family: ubuntu-m;">
@@ -321,8 +323,7 @@
 			?>
 		</div>
 
-      <script type="text/javascript" src="https://msn.ldkf.de/js/jquery-1.11.2.min.js"></script>
-   	<script type="text/javascript" src="https://msn.ldkf.de/js/bootstrap.min.js"></script>
+     
  		<script type="text/javascript">
            $(document).ready(function(){
                $('body').on('hidden.bs.modal', '.modal', function () {
