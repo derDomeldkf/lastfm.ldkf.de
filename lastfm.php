@@ -338,7 +338,6 @@
         								2: $("#last").attr("title") 
     								},
    								function (data) {
-   									alert(data);
 										if (data.indexOf("div") != -1) {
 											$("#last").attr("id", "");
 											$( "tr.del" ).replaceWith( "" );
