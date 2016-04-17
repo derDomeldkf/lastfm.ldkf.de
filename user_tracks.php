@@ -53,8 +53,9 @@
 		$dd = get_object_vars($dd); 
 		$ddd=$dd['uts']+3600+3600;	
 	}
-	else {$error= "no";}	
-	if(isset($time_check) and isset($ddd) and $time_check == $ddd) {
+	else {//$error= "no";
+	}	
+	if(isset($time_check) and $time_check == $ddd) {
 		$error= "no";
 		}
 		if(!isset($error) or $error!="no") {
@@ -103,7 +104,15 @@
 						$date_eng=gmdate("l, j. F Y", $date_uts);
 						$date_eng=month_rename($date_eng);  //monate vom englischen ins deutsche umbenennen, weil php-funktion nicht läuft
 						echo'
-							<tr class="del">
+							<tr class="';
+							if($m==0 and $date_decode!="wird gerade gehört") {							
+								echo 'repl';
+							}
+							else {
+								echo 'del';
+							} 
+							
+							echo'">
 								<td colspan="5" style="';
 								if($show_date!=1 or $playing==1){ 
 									echo'padding-top:18px;';
@@ -199,31 +208,7 @@
      			if($skript==1) { 		
   					echo '
 					  	<script>
-							function getdata(){
-		 						setTimeout(function(){
-		 							$.post("include/refresh.php",{
-        								0: "'.$user_in.'",
-        								1: "'.$limit_in.'",
-        								2: $("#last").attr("title") 
-    								},
-   								function (data) {
-										if (data.match("tr")) {
-											$("#last").attr("id", "");
-											$( "tr.del" ).replaceWith( "" );
-											$( "tr.repl" ).replaceWith( data );
-										}
-									}
-   							);		 		
-		 						getdata();
-		   				}, 20000);
-							}
-							$(document).ready(
-     							function(){
-           						setTimeout(function(){  
-    									getdata();
-          						}, 4000);
-						   	}
-							); 
+							
 						</script>   		
 					';
 				$skript=0;
