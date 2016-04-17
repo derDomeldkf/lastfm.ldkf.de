@@ -36,10 +36,6 @@
 
 */
 
-
-
-
-	$skript=0;
 	$m=0;
 	$i=0;
 	$playing=0;
@@ -196,45 +192,7 @@
      		 	else {
 					$playing=1;           			
       		}
-     			if($skript==1) { 		
-  					echo '
-					  	<script>
-							function getdata(){
-		 						setTimeout(function(){
-		 							$.post("include/refresh.php",{
-        								0: "'.$user_in.'",
-        								1: "'.$limit_in.'",
-        								2: $("#last").attr("title") 
-    								},
-   								function (data) {
-										if (data.match("tr")) {
-											$("#last").attr("id", "");
-											$( "tr.del" ).replaceWith( "" );
-											$( "tr.repl" ).replaceWith( data );
-										}
-									}
-   							);		 		
-		 						getdata();
-		   				}, 20000);
-							}
-							$(document).ready(
-     							function(){
-           						setTimeout(function(){  
-    									getdata();
-          						}, 4000);
-						   	}
-							); 
-						</script>   		
-					';
-				$skript=0;
-			}   	
-   	
-   	
-   	
-   	
-  			if($date_decode=="wird gerade gehört" and $page_in==1 and $user[3] > 1) {
-				$skript=1;  
-  			}
+     		  
 			$m++;
 			} 
 			if($user[3] > 1) {
