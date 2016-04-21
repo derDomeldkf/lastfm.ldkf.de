@@ -220,7 +220,7 @@
    	
    	
    	
-  			if($date_decode=="wird gerade gehört" and $page_in==1 and $user[3] > 1) {
+  			if($page_in==1 and $user[3] > 1) {
 				echo'					
 					<script>  				
   						function getdata(){
