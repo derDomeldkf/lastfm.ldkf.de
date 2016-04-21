@@ -38,7 +38,7 @@
 
 
 
-
+	$noplay=1;
 	$skript=0;
 	$m=0;
 	$i=0;
@@ -75,6 +75,7 @@
 				}
 				else {
 					$date_decode="wird gerade gehört";
+					$noplay=0;
 				}
 				$artist_array = get_object_vars($artist_decode);
 				$album_array = get_object_vars($album_decode);
@@ -191,7 +192,7 @@
 						';
          		}
          		echo '
-         			<span title="'.$date_uts;    if($m==1){echo '" id="last'; }    echo'" style="vertical-align:bottom; padding-right:3px;">
+         			<span title="'.$date_uts;    if($m==1 or ($noplay==1) and $m==0){echo '" id="last'; }    echo'" style="vertical-align:bottom; padding-right:3px;">
          				'.$gmdate.'
          			</span>
 					</td>';
