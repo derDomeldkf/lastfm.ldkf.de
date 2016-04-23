@@ -109,13 +109,14 @@
 						$date_eng=month_rename($date_eng);  //monate vom englischen ins deutsche umbenennen, weil php-funktion nicht läuft
 						echo'
 							<tr class="';
+							if($noplay==0) {
 							if($m==0 and $date_decode!="wird gerade gehört") {							
 								echo 'repl';
 							}
 							else {
 								echo 'del';
 							} 
-							
+							}
 							echo'">
 								<td colspan="5" style="';
 								if($show_date!=1 or $playing==1){ 
