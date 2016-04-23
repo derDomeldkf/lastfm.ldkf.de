@@ -229,10 +229,10 @@
 										$( "tr.del" ).replaceWith( "" );
 										$( "tr.repl" ).replaceWith( data );
 									}
-									setTimeout(getdata, 20000);
 
 								}
-   						);		 		
+   						);	
+   						setTimeout(getdata, 20000);	 		
 		   			}
 		   		</script>  
  					<script type="text/javascript">
