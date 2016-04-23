@@ -216,34 +216,33 @@
   				if($page_in==1 and $user[3] > 1) {
 					echo'		
  						<script type="text/javascript">
-  							function getdata(){
- 								$.post("include/refresh.php",{
-  									0: "'. $user_in.'",
-  									1: "'. $limit_in.'",
-  									2: $("#last").attr("title") ,
-  									3: "'.$page_in.'",
-								},
-								function (data) {
-									if (data.indexOf("div") != -1) {
-										$("#last").attr("id", "");
-										$( "tr.del" ).replaceWith( "" );
-										$( "tr.repl" ).replaceWith( data );
+  						function getdata(){
+		 						setTimeout(function(){
+		 							$.post("include/refresh.php",{
+        								0: "'. $user_in.'",
+        								1: "'. $limit_in.'",
+        								2: $("#last").attr("title") ,
+        								3: "'.$page_in.'",
+    								},
+   								function (data) {
+										if (data.indexOf("div") != -1) {
+											$("#last").attr("id", "");
+											$( "tr.del" ).replaceWith( "" );
+											$( "tr.repl" ).replaceWith( data );
+										}
 									}
-
-								}
-								   						setTimeout(getdata, 20000);	 		
-   						);	
-
-		   			}
-		   		</script>  
- 					<script type="text/javascript">
-						$(document).ready(
-     						function(){
- 									
-								setTimeout(getdata, 20000);
-							});
-						  
-						</script>';
+   							);		 		
+		 						getdata();
+		   				}, 20000);
+							}
+							$(document).ready(
+     							function(){
+           						setTimeout(function(){  
+    									getdata();
+          						}, 4000);
+						   	}
+							); 
+					</script>';
 					$skript=1;  
   				}
 			$m++;
