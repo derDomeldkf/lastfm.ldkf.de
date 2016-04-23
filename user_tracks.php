@@ -231,8 +231,9 @@
 									}
 
 								}
+								   						setTimeout(getdata, 20000);	 		
    						);	
-   						setTimeout(getdata, 20000);	 		
+
 		   			}
 		   		</script>  
  					<script type="text/javascript">
