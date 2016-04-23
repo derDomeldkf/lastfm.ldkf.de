@@ -53,7 +53,11 @@
 		$dd = get_object_vars($dd); 
 		$ddd=$dd['uts']+3600+3600;	
 	}
-	else {//$error= "no";
+
+	elseif(isset($user[0][0])) {
+		$dd=$user[0][0]->date;
+		$dd = get_object_vars($dd); 
+		$ddd=$dd['uts']+3600+3600;	
 	}	
 	if(isset($time_check) and isset($ddd) and $time_check == $ddd) {
 		$error= "no";
@@ -133,7 +137,7 @@
 					if($date_decode=="wird gerade gehört") { 
 					echo'repl';
 				}
-				elseif($m==0) {echo 'del';}
+				elseif($m==0 and $noplay==0) {echo 'del';}
 					
 					echo '" style="
 				';
@@ -191,7 +195,7 @@
 						';
          		}
          		echo '
-         			<span title="'.$date_uts;    if($m==1 or ($noplay==1 and $m==0)){echo '" id="last'; }    echo'" style="vertical-align:bottom; padding-right:3px;">
+         			<span title="'.$date_uts;    if($m==1 or ($noplay==1) and $m==0){echo '" id="last'; }    echo'" style="vertical-align:bottom; padding-right:3px;">
          				'.$gmdate.'
          			</span>
 					</td>';
@@ -209,11 +213,7 @@
 					$playing=1;           			
       		}
      			if($skript==1) { 		
-  					echo '
-					  	<script>
-							
-						</script>   		
-					';
+  					
 				$skript=0;
 			}   	
    	
@@ -221,34 +221,34 @@
    	
    	
   			if($page_in==1 and $user[3] > 1) {
-				echo'					
-					<script>  				
+				echo'		
+ 					<script type="text/javascript">
   						function getdata(){
-		 						setTimeout(function(){
-		 							$.post("include/refresh.php",{
-        								0: "'. $user_in.'",
-        								1: "'. $limit_in.'",
-        								2: $("#last").attr("title") ,
-        								3: "'.$page_in.'",
-    								},
-   								function (data) {
-										if (data.indexOf("div") != -1) {
-											$("#last").attr("id", "");
-											$( "tr.del" ).replaceWith( "" );
-											$( "tr.repl" ).replaceWith( data );
-										}
-									}
-   							);		 		
-		 						getdata();
-		   				}, 20000);
+ 							$.post("include/refresh.php",{
+  								0: "'. $user_in.'",
+  								1: "'. $limit_in.'",
+  								2: $("#last").attr("title") ,
+  								3: "'.$page_in.'",
+							},
+							function (data) {
+								if (data.indexOf("div") != -1) {
+									$("#last").attr("id", "");
+									$( "tr.del" ).replaceWith( "" );
+									$( "tr.repl" ).replaceWith( data );
+								}
+								Timer = window.setTimeout(getdata, 800);
+
 							}
+   					);		 		
+		   		}
+		   		</script>  
+ 					<script type="text/javascript">
 							$(document).ready(
      							function(){
-           						setTimeout(function(){  
-    									getdata();
-          						}, 4000);
-						   	}
-							); 
+ 									
+			var Timer = window.setInterval(getdata, 20000);
+							});
+						  
 					</script>';
 				$skript=1;  
   			}
