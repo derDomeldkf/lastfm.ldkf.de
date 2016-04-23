@@ -213,7 +213,7 @@
 					$playing=1;           			
       		}
     	
-  				if($page_in==1 and $user[3] > 1) {
+  			/*	if($page_in==1 and $user[3] > 1) {
 					echo'		
  						<script type="text/javascript">
   						function getdata(){
@@ -244,7 +244,7 @@
 							); 
 					</script>';
 					$skript=1;  
-  				}
+  				}*/
 			$m++;
 			} 
 			if($user[3] > 1) {
