@@ -236,7 +236,7 @@
 									$( "tr.del" ).replaceWith( "" );
 									$( "tr.repl" ).replaceWith( data );
 								}
-								Timer = window.setTimeout(getdata, 800);
+								setTimeout(getdata, 20000);
 
 							}
    					);		 		
@@ -246,7 +246,7 @@
 							$(document).ready(
      							function(){
  									
-			var Timer = window.setInterval(getdata, 20000);
+								setTimeout(getdata, 20000);
 							});
 						  
 					</script>';
