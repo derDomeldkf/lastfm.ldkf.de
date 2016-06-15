@@ -159,7 +159,7 @@
       						</span>
  	  						</span>              		
        				</td>
-        				<td class="list" style="padding-left:10px; min-width:30px;">
+        				<td class="list" style="padding-left:10px; min-width:20px;">
    	  					<span class="">
            					<span class="chartlist-image">
       						'; 
