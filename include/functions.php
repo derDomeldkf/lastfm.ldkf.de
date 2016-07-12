@@ -650,6 +650,9 @@
 			else {
 				if(isset($images) and $images!="") {				
 					$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$images);
+					$images =  str_replace("https://secure-img2.last.fm/i/u/34s/", "",$images);
+					
+					
 					$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
 					$getimage_row = $getimage->fetch_assoc();
 					if(!isset($getimage_row) or $getimage_row=="") {
