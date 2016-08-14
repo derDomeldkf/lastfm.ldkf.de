@@ -24,7 +24,8 @@
 						$image="covers/".$getimages; 
 					}
 					else {
-						$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$images);
+						//$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$images);
+						$image_db =	explode("i/u/34s/", $images)[1];
 						$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
 						$getimage_row = $getimage->fetch_assoc();
 						if(!isset($getimage_row) or $getimage_row=="") {
