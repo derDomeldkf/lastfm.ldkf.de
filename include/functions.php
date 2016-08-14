@@ -649,9 +649,10 @@
 			}
 			else {
 				if(isset($images) and $images!="") {				
-					$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$images);
-					$image_db =  str_replace("https://secure-img2.last.fm/i/u/34s/", "",$image_db);
-					$image_db =  str_replace("https://lastfm-img2.akamaized.net/i/u/34s/", "",$image_db);
+					//$image_db =  str_replace("http://img2-ak.lst.fm/i/u/34s/", "",$images);
+					//$image_db =  str_replace("https://secure-img2.last.fm/i/u/34s/", "",$image_db);
+					//$image_db =  str_replace("https://lastfm-img2.akamaized.net/i/u/34s/", "",$image_db);
+							$image_db =	explode("i/u/34s/", $images)[1];
 					
 					
 					$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
