@@ -51,13 +51,13 @@
 	if(isset($user[0][1])) {
 		$dd=$user[0][1]->date;
 		$dd = get_object_vars($dd); 
-		$ddd=$dd['uts']+3600+3600;	
+		$ddd=$dd['uts']+3600;	
 	}
 
 	elseif(isset($user[0][0])) {
 		$dd=$user[0][0]->date;
 		$dd = get_object_vars($dd); 
-		$ddd=$dd['uts']+3600+3600;	
+		$ddd=$dd['uts']+3600;	
 	}	
 	if(isset($time_check) and isset($ddd) and $time_check == $ddd) {
 		$error= "no";
