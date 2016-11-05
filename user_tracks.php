@@ -91,7 +91,7 @@
 				$artist_name=$artist_array['name'];
 				$album_name=$album_array['#text'];
 				if($date_decode!="wird gerade gehört") {
-					$date_uts=$date_array['uts']+3600+3600;  //lastfm fehler ausgleichen
+					$date_uts=$date_array['uts']+3600  //lastfm fehler ausgleichen
 				}
 				
 				$images=$image_array['#text'];
