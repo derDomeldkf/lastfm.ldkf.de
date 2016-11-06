@@ -55,7 +55,7 @@
       	   		echo lyric($artist_name, $track_name);	
       	   		echo play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in, $user_in);							
       	  			$m=0; 
-						$st=(60/$page_in)*$count/$count_max;    				
+						$st=30+(60/$page_in)*$count/$count_max;    				
     					echo'      	   
       	   			<td class="list" style="padding-right:8px; min-width:200px;">
       	   				<div class="'; 

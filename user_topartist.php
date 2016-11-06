@@ -73,7 +73,7 @@
       				</td>
       			'; 
       			$m=0; 
-					$st=(80/$page_in)*$count/$count_max;    				
+					$st=30+((80/$page_in)*$count/$count_max);    				
     				echo'      	   
       				<td class="list" style="padding-right:8px; min-width:200px;">
       						<div class="
