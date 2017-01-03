@@ -724,7 +724,8 @@
    	$lyric_band=str_replace(" ", "_", $artist_name);
    	$lyric_band = preg_replace ( '/[^a-z0-9A-Z]_/i', '',  $lyric_band); 
 		$lyric_name =	explode("(", $track_name)[0];
-		$lyric_name = strtolower(preg_replace ( '/[^a-z0-9]/i', '', $lyric_name)); 
+		$lyric_name=str_replace(" ", "_", $lyric_name);
+		$lyric_name = preg_replace ( '/[^a-z0-9]_/i', '', $lyric_name); 
 		$url="include/prox.php?artist=".$lyric_band."&song=".$lyric_name;	
 		$content='
 			<td class="list_image">
