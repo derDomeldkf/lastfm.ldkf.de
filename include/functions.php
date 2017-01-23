@@ -152,8 +152,8 @@
 			$gettrack = $db->query("SELECT `artist` FROM `track` WHERE name LIKE '$track_name_get'"); 
 			if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 				$tid = $gettrack->fetch_assoc()['artist'];
-				$getartist = $db->query("SELECT `id` FROM `artists` WHERE name LIKE '$artist_name_get' and id=='$tid' "); 
-				if(isset($getartist->num_rows) and  $getartist->num_rows!= 0) {
+				$getartist = $db->query("SELECT `name` FROM `artists` WHERE id=='$tid' "); 
+				if(isset($getartist->num_rows) and  $getartist->num_rows!= 0 and $getartist->fetch_assoc()['name'] == $artist_name_get) {
 					$aid = $getartist->fetch_assoc()['id'];
 					$content = '
 						<td class="list" style="padding:0; padding-left:1px; padding-right:9px;">
