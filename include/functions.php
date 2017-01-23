@@ -153,7 +153,7 @@
 			if(isset($getartist->num_rows) and  $getartist->num_rows!= 0) {
 				$aid = $getartist->fetch_assoc()['id'];
 				
-				$gettrack = $db->query("SELECT `id` FROM `track` WHERE artist == '$aid' and name LIKE '$track_name_get'"); 
+				$gettrack = $db->query("SELECT `id` FROM `track` WHERE `artist` LIKE '$aid' and `name` LIKE '$track_name_get'"); 
 				if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 					$tid = $gettrack->fetch_assoc()['artist'];
 				
