@@ -152,13 +152,9 @@
 			$getartist = $db->query("SELECT `id` FROM `artists` WHERE name LIKE '$artist_name_get' "); 
 			if(isset($getartist->num_rows) and  $getartist->num_rows!= 0) {
 				$aid = $getartist->fetch_assoc()['id'];
-				
 				$gettrack = $db->query("SELECT `id` FROM `track` WHERE `artist` LIKE '$aid' and `name` LIKE '$track_name_get'"); 
 				if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 					$tid = $gettrack->fetch_assoc()['id'];
-				
-				
-				
 					$content = '
 						<td class="list" style="padding:0; padding-left:1px; padding-right:9px;">
 							<a href="lastfm.php?p='.$tid.'&user='.$user_in.'&method_get='.$method_in.'&limitin='.$limit_in.'&pagein='.$page_in.'">
