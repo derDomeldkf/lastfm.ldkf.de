@@ -149,12 +149,16 @@
 		if(isset($_SESSION['user'])) {
 			$track_name_get=mysql_escape_string( utf8_encode(rep($track_name)));
 			$artist_name_get=mysql_escape_string( utf8_encode(rep($artist_name)));
-			$gettrack = $db->query("SELECT `artist` FROM `track` WHERE name LIKE '$track_name_get'"); 
-			if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
-				$tid = $gettrack->fetch_assoc()['artist'];
-				$getartist = $db->query("SELECT `name` FROM `artists` WHERE id=='$tid' "); 
-				if(isset($getartist->num_rows) and  $getartist->num_rows!= 0 and $getartist->fetch_assoc()['name'] == $artist_name_get) {
-					$aid = $getartist->fetch_assoc()['id'];
+			$getartist = $db->query("SELECT `id` FROM `artists` WHERE name LIKE '$artist_name_get' "); 
+			if(isset($getartist->num_rows) and  $getartist->num_rows!= 0) {
+				$aid = $getartist->fetch_assoc()['id'];
+				
+				$gettrack = $db->query("SELECT `id` FROM `track` WHERE artist == '$aid' and name LIKE '$track_name_get'"); 
+				if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
+					$tid = $gettrack->fetch_assoc()['artist'];
+				
+				
+				
 					$content = '
 						<td class="list" style="padding:0; padding-left:1px; padding-right:9px;">
 							<a href="lastfm.php?p='.$tid.'&user='.$user_in.'&method_get='.$method_in.'&limitin='.$limit_in.'&pagein='.$page_in.'">
