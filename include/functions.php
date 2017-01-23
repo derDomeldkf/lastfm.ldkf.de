@@ -149,7 +149,7 @@
 		if(isset($_SESSION['user'])) {
 			$track_name_get=mysql_escape_string( utf8_encode(rep($track_name)));
 			$artist_name_get=mysql_escape_string( utf8_encode(rep($artist_name)));
-			$gettrack = $db->query("SELECT `id` FROM `track` WHERE name LIKE '$track_name_get'"); 
+			$gettrack = $db->query("SELECT `artist` FROM `track` WHERE name LIKE '$track_name_get'"); 
 			if(isset($gettrack->num_rows) and  $gettrack->num_rows!= 0) {
 				$tid = $gettrack->fetch_assoc()['id'];
 				$getartist = $db->query("SELECT `id` FROM `artists` WHERE name LIKE '$artist_name_get' and id=='$tid' "); 
