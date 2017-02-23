@@ -335,8 +335,8 @@
    	
 			   	if (cl.find( "img" ).attr("src")==="pic/love.png") {
 			   		cl.click(function() {
-			   			var artist=$( ".love" ).parent().parent().parent().find('.chartlist-artists').find( "a" ).text();
-			   			var titel=$( ".love" ).parent().parent().parent().find('.chartlist-titel').find( "a" ).text();
+			   			var artist=$( ".love" ).parent().parent().parent().parent().find('.chartlist-artists').find( "a" ).text();
+			   			var titel=$( ".love" ).parent().parent().parent().parent().find('.chartlist-titel').find( "a" ).text();
 			   			alert(titel);
 						});
 			   		cl.mouseover(function() {
@@ -348,8 +348,8 @@
 			   	}
 			   	else {
 			   		cl.click(function() {
-			   			var artist=$( ".love" ).parent().parent().parent().find('.chartlist-artists').find( "a" ).text();
-			   			var titel=$( ".love" ).parent().parent().parent().find('.chartlist-titel').find( "a" ).text();
+			   			var artist=cl.parent().parent().parent().parent().find('.chartlist-artists').find( "a" ).text();
+			   			var titel=cl.parent().parent().parent().parent().find('.chartlist-titel').find( "a" ).text();
 			   			alert(titel);
 						});
 			   		cl.mouseover(function() {
