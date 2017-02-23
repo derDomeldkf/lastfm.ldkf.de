@@ -210,8 +210,8 @@
 			
   			else {
   				$content= '
-					<label class="love" style="cursor:pointer" title="unlove">
-      				<img width="18px" height="18px;" src="pic/love.png">
+					<label class="love" style="cursor:pointer" title="love">
+      				<img width="18px" height="18px;" src="pic/nolove.png">
       			</label>
       		';
    			/*$content= '

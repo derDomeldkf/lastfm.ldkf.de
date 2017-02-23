@@ -179,9 +179,11 @@
          						<a href="http://www.last.fm/de/user/'.$user[1].'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
         						</span>
 								<span class="artist-name-spacer"> — </span>
-								<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         
-    								'.$track_name.'
-  	  							</a>
+								<span class="chartlist-titel">
+									<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         
+    									'.$track_name.'
+  	  								</a>
+  	  							</span>
  	  	 					</span>
 						</td>
 					';
