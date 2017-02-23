@@ -340,7 +340,6 @@
 		   		var that=$( this )
 					$.post( "include/do.php", { f: action, artist: artist,  track: track} ).done(function( data ) {
 		    			that.find( "img" ).attr("src", "pic/"+data.replace(" \n", "")+".png");
-		    			alert("pic/"+data.replace(" \n", "")+".png")
 		  			});
 		  			if (action==="love") {
 		  				$(this).attr("title", "unlove_"+artist+"_"+track)
