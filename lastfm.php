@@ -325,41 +325,45 @@
 
      
  		<script type="text/javascript">
-           $(document).ready(function(){
-               $('body').on('hidden.bs.modal', '.modal', function () {
-                   $(this).removeData('bs.modal');
-               });   
-               
-               
-               var cl= $( ".love" );
-   	
-			   	if (cl.find( "img" ).attr("src")==="pic/love.png") {
-			   		cl.click(function() {
-			   			var artist=$( ".love" ).parent().parent().parent().parent().find('.chartlist-artists').find( "a" ).text();
-			   			var titel=$( ".love" ).parent().parent().parent().parent().find('.chartlist-titel').find( "a" ).text();
-			   			alert(titel);
-						});
-			   		cl.mouseover(function() {
-			   			$( this ).find( "img" ).attr("src", "pic/nolove.png");
-						});
-				  		cl.mouseout(function() {
-			    			$( this ).find( "img" ).attr("src", "pic/love.png");
-			  			});	
-			   	}
-			   	else {
-			   		cl.click(function() {
-			   			var artist=cl.parent().parent().parent().parent().find('.chartlist-artists').find( "a" ).text();
-			   			var titel=cl.parent().parent().parent().parent().find('.chartlist-titel').find( "a" ).text();
-			   			alert(titel);
-						});
-			   		cl.mouseover(function() {
-			   			$( this ).find( "img" ).attr("src", "pic/love.png");
-						});
-				  		cl.mouseout(function() {
-			    			$( this ).find( "img" ).attr("src", "pic/nolove.png");
-			  			});
-			   	}
-				
+        $(document).ready(function(){
+            $('body').on('hidden.bs.modal', '.modal', function () {
+                $(this).removeData('bs.modal');
+            });   
+            
+            
+            var cl= $( ".love" );
+		   	cl.click(function() {
+		   		var cont=$(this).attr("title");
+		   		var splits=cont.split('_');
+		   		var action=splits[0]
+		   		var artist=splits[1];
+		   		var title=splits[2];
+		   		alert(action);
+		   		
+				});
+		   	cl.mouseover(function() {
+		   		var cont=$(this).attr("title");
+		   		var splits=cont.split('_');
+		   		var action=splits[0]
+					if (action==="love") {
+						$( this ).find( "img" ).attr("src", "pic/love.png");
+					}
+					else {
+						$( this ).find( "img" ).attr("src", "pic/nolove.png");
+					}
+		   		
+				});
+			  	cl.mouseout(function() {
+			  		var cont=$(this).attr("title");
+		   		var splits=cont.split('_');
+		   		var action=splits[0]
+		   		if (action==="love") {
+						$( this ).find( "img" ).attr("src", "pic/nolove.png");
+					}
+					else {
+						$( this ).find( "img" ).attr("src", "pic/love.png");
+					}
+		  		});	
 				
 				
           });
