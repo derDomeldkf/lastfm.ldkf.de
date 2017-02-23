@@ -338,7 +338,9 @@
 		   		var action=splits[0]
 		   		var artist=splits[1];
 		   		var title=splits[2];
-		   		alert(action);
+		   		$.post( "include/do.php", { f: action, artist: artist,  track: track} ).done(function( data ) {
+    					alert( "Data Loaded: " + data );
+  					});
 		   		
 				});
 		   	cl.mouseover(function() {
