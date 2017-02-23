@@ -329,13 +329,46 @@
                $('body').on('hidden.bs.modal', '.modal', function () {
                    $(this).removeData('bs.modal');
                });   
+               
+               
+               var cl= $( ".love" );
+   	
+			   	if (cl.find( "img" ).attr("src")==="pic/love.png") {
+			   		cl.click(function() {
+			   			var artist=$( ".love" ).parent().parent().parent().find('.chartlist-artists').find( "a" ).text();
+			   			var titel=$( ".love" ).parent().parent().parent().find('.chartlist-titel').find( "a" ).text();
+			   			alert(titel);
+						});
+			   		cl.mouseover(function() {
+			   			$( this ).find( "img" ).attr("src", "pic/nolove.png");
+						});
+				  		cl.mouseout(function() {
+			    			$( this ).find( "img" ).attr("src", "pic/love.png");
+			  			});	
+			   	}
+			   	else {
+			   		cl.click(function() {
+			   			var artist=$( ".love" ).parent().parent().parent().find('.chartlist-artists').find( "a" ).text();
+			   			var titel=$( ".love" ).parent().parent().parent().find('.chartlist-titel').find( "a" ).text();
+			   			alert(titel);
+						});
+			   		cl.mouseover(function() {
+			   			$( this ).find( "img" ).attr("src", "pic/love.png");
+						});
+				  		cl.mouseout(function() {
+			    			$( this ).find( "img" ).attr("src", "pic/nolove.png");
+			  			});
+			   	}
+				
+				
+				
           });
         	
       </script>
       <?php if($method_in==4 or ($method_in==6 and $limit_in>20) or ($method_in==7 and $limit_in>20) or ($method_in==8 and $out[1]>20) or $method_in==9 or $method_in==10): ?>
       
       
-      <script>
+      <script type="text/javascript">
       	$(window).scrollTop(0);
 			$(document).ready(function(){
 				var back_to_top_button = ['<button class="back-to-top"></button>'].join("");
@@ -363,36 +396,6 @@
 			});
 			
 			$(document).ready(function(){
-				var cl= $( ".love" );
-   	
-		   	if (cl.find( "img" ).attr("src")==="pic/love.png") {
-		   		cl.click(function() {
-		   			var artist=$( ".love" ).parent().parent().parent().find('.chartlist-artists').find( "a" ).text();
-		   			var titel=$( ".love" ).parent().parent().parent().find('.chartlist-titel').find( "a" ).text();
-		   			alert(titel);
-					});
-		   		cl.mouseover(function() {
-		   			$( this ).find( "img" ).attr("src", "pic/nolove.png");
-					});
-			  		cl.mouseout(function() {
-		    			$( this ).find( "img" ).attr("src", "pic/love.png");
-		  			});	
-		   	}
-		   	else {
-		   		cl.click(function() {
-		   			var artist=$( ".love" ).parent().parent().parent().find('.chartlist-artists').find( "a" ).text();
-		   			var titel=$( ".love" ).parent().parent().parent().find('.chartlist-titel').find( "a" ).text();
-		   			alert(titel);
-					});
-		   		cl.mouseover(function() {
-		   			$( this ).find( "img" ).attr("src", "pic/love.png");
-					});
-			  		cl.mouseout(function() {
-		    			$( this ).find( "img" ).attr("src", "pic/nolove.png");
-		  			});
-		   	}
-				
-				
 				
 				
 				$(".back-to-bottom").hide();
