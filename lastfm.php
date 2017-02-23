@@ -339,7 +339,7 @@
 		   		var artist=splits[1];
 		   		var track=splits[2];
 		   		$.post( "include/do.php", { f: action, artist: artist,  track: track} ).done(function( data ) {
-    					alert( "Data Loaded: " + data );
+    					$( this ).find( "img" ).attr("src", "pic/"+data+".png");
   					});
 		   		
 				});
