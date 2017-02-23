@@ -337,7 +337,7 @@
 		   		var splits=cont.split('_');
 		   		var action=splits[0]
 		   		var artist=splits[1];
-		   		var title=splits[2];
+		   		var track=splits[2];
 		   		$.post( "include/do.php", { f: action, artist: artist,  track: track} ).done(function( data ) {
     					alert( "Data Loaded: " + data );
   					});
