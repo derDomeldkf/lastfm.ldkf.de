@@ -191,18 +191,34 @@
  	function love($love,$artist_name, $track_name, $method_in, $limit_in, $user_in, $page_in) {
  		if(isset($_SESSION['user']) and $_SESSION['user']==$user_in) {
 			if($love==1) {
-				$content= '
+				/*$content= '
 					<a href="include/do.php?f=unlove&meth='.$method_in.'&lim='.$limit_in.'&page='.$page_in.'&artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
 						<img width="18px" height="18px;" src="pic/love.png">
 					</a>
-				';
+				';*/
+				$content= '
+					<label class="love" style="cursor:pointer" title="unlove">
+      				<img width="18px" height="18px;" src="pic/love.png">
+      			</label>
+      		';
 			}
+			
+#include/do.php
+#f=love
+#artist='. urlencode($artist_name) .'
+#track='. urlencode($track_name) .'			
+			
   			else {
-   			$content= '
-					<a href="include/do.php?f=love&meth='.$method_in.'&lim='.$limit_in.'&page='.$page_in.'&artist='. urlencode($artist_name) .'&track='. urlencode($track_name) .'" style="padding:1px; margin:0;">
+  				$content= '
+					<label class="love" style="cursor:pointer" title="unlove">
+      				<img width="18px" height="18px;" src="pic/love.png">
+      			</label>
+      		';
+   			/*$content= '
+					<a href="#" class="love" style="padding:1px; margin:0;">
 						<img width="18px" height="18px;" src="pic/nolove.png">
 					</a>
-				';
+				';*/
     		} 
     	}
     	else {
