@@ -161,7 +161,7 @@
        				</td>
         				<td class="list" style="padding-left:10px; min-width:20px;">
    	  					<span class="">
-           					<span class="chartlist-image">
+           					<span class="'. str_replace(" ","_", $artist_name).'__'. str_replace(" ","_", $track_name).'">
       						'; 
         						echo love($love,$artist_name, $track_name, $method_in, $limit_in, $user_in, $page_in);
            					if($date_decode=="wird gerade gehört") {

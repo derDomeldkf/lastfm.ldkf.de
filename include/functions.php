@@ -197,7 +197,7 @@
 					</a>
 				';*/
 				$content= '
-					<label class="love" style="cursor:pointer" title="unlove_'.$artist_name.'_'.$track_name.'">
+					<label class="love" style="cursor:pointer" title="unlove">
       				<img width="18px" height="18px;" src="pic/love.png">
       			</label>
       		';

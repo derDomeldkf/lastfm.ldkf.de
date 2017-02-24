@@ -332,20 +332,20 @@
             
             var cl= $( ".love" );
 		   	cl.click(function() {
-		   		var cont=$(this).attr("title");
-		   		var splits=cont.split('_');
-		   		var action=splits[0]
-		   		var artist=splits[1];
-		   		var track=splits[2];
-		   		var that=$( this )
+		   		var action=$(this).attr("title");
+		   		var cont=$(this).parent().attr("class");
+		   		var splits=cont.split('__');
+		   		var artist=splits[0].replace(new RegExp('_', 'g'), ' ');
+		   		var track=splits[1];
+		   		var that=$( this );
 					$.post( "include/do.php", { f: action, artist: artist,  track: track} ).done(function( data ) {
-    					$( ".love:contains("+cont+")" ).find( "img" ).attr("src", "pic/"+data.replace(" \n", "")+".png");
+		    			$("."+cont).find( "img" ).attr("src", "pic/"+data.replace(" \n", "")+".png");
 		  			});
 		  			if (action==="love") {
-		  				$(this).attr("title", "unlove_"+artist+"_"+track)
+		  				$("."+cont).find("label").attr("title", "unlove");
 		  			}
 		  			else {
-		  				$(this).attr("title", "love_"+artist+"_"+track)
+		  				$("."+cont).find("label").attr("title", "love");
 		  			}
 		   		
 				});
@@ -362,9 +362,7 @@
 		   		
 				});
 			  	cl.mouseout(function() {
-			  		var cont=$(this).attr("title");
-		   		var splits=cont.split('_');
-		   		var action=splits[0]
+			  		var action=$(this).attr("title");
 		   		if (action==="love") {
 		   			if ($( this ).find( "img" ).attr("src")==="pic/love.png") {
 		   				$( this ).find( "img" ).attr("src", "pic/nolove.png");
