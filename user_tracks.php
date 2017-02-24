@@ -73,8 +73,6 @@
 				$album_decode= $track->album;
 				$track_name= $track->name;
 				$track_mbid=$track->mbid;
-				echo $track_name."<br>";
-				echo $track_mbid."<br><br>";
 				$url= $track->url;
 				$image_decode= $track->image;
 				if(isset($track->date)) {
