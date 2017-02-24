@@ -210,7 +210,7 @@
 			
   			else {
   				$content= '
-					<label class="love" style="cursor:pointer" title="love_'.$artist_name.'_'.$track_name.'">
+					<label class="love" style="cursor:pointer" title="love">
       				<img width="18px" height="18px;" src="pic/nolove.png">
       			</label>
       		';
