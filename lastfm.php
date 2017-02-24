@@ -330,29 +330,28 @@
                 $(this).removeData('bs.modal');
             });   
             
-            var cl= $( ".love" );
+           var cl= $( ".love" );
 		   	cl.click(function() {
-		   		var action=$(this).attr("title");
-		   		var cont=$(this).parent().attr("class");
-		   		var splits=cont.split('__');
-		   		var artist=splits[0].replace(new RegExp('_', 'g'), ' ');
-		   		var track=splits[1].replace(new RegExp('_', 'g'), ' ');
+		   		var cont=$(this).attr("title");
+		   		var mbid=$(this).parent().attr("class");
+		   		var splits=cont.split('_');
+		   		var action=splits[0];
+		   		var artist=splits[1];
+		   		var track=splits[2];
 		   		var that=$( this );
 					$.post( "include/do.php", { f: action, artist: artist,  track: track} ).done(function( data ) {
-		    			$("."+cont).find( "img" ).attr("src", "pic/"+data.replace(" \n", "")+".png");
+		    			$("."+mbid).find( "img" ).attr("src", "pic/"+data.replace(" \n", "")+".png");
 		  			});
 		  			if (action==="love") {
-		  				$("."+cont).find("label").attr("title", "unlove");
+		  				$("."+mbid).find("label").attr("title", "unlove_"+artist+"_"+track);
 		  			}
 		  			else {
-		  				$("."+cont).find("label").attr("title", "love");
+		  				$("."+mbid).find("label").attr("title", "love_"+artist+"_"+track);
 		  			}
 		   		
 				});
 		   	cl.mouseover(function() {
-		   		var cont=$(this).attr("title");
-		   		var splits=cont.split('_');
-		   		var action=splits[0]
+		   		var action=$(this).attr("title").split("_")[0];
 					if (action==="love") {
 						$( this ).find( "img" ).attr("src", "pic/love.png");
 					}
@@ -362,7 +361,7 @@
 		   		
 				});
 			  	cl.mouseout(function() {
-			  		var action=$(this).attr("title");
+			  		var action=$(this).attr("title").split("_")[0];
 		   		if (action==="love") {
 		   			if ($( this ).find( "img" ).attr("src")==="pic/love.png") {
 		   				$( this ).find( "img" ).attr("src", "pic/nolove.png");
@@ -374,7 +373,7 @@
 							$( this ).find( "img" ).attr("src", "pic/love.png");
 						}
 					}
-		  		});	
+		  		});
 				
 				
           });

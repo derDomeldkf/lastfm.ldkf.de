@@ -72,6 +72,7 @@
 				$love= $track->loved;
 				$album_decode= $track->album;
 				$track_name= $track->name;
+				$track_mbid=$track->mbid
 				$url= $track->url;
 				$image_decode= $track->image;
 				if(isset($track->date)) {
@@ -89,6 +90,7 @@
 				}
 				$image_array = get_object_vars($image_decode[0]);
 				$artist_name=$artist_array['name'];
+				$artist_mbid=$artist_array['mbid'];
 				$album_name=$album_array['#text'];
 				if($date_decode!="wird gerade gehört") {
 					$date_uts=$date_array['uts']+3600;  //lastfm fehler ausgleichen
@@ -161,7 +163,7 @@
        				</td>
         				<td class="list" style="padding-left:10px; min-width:20px;">
    	  					<span class="">
-           					<span class="'. str_replace(" ","_", $artist_name).'__'. str_replace(" ","_", $track_name).'">
+           					<span class="'.$track_mbid.'">
       						'; 
         						echo love($love,$artist_name, $track_name, $method_in, $limit_in, $user_in, $page_in);
            					if($date_decode=="wird gerade gehört") {

@@ -197,7 +197,7 @@
 					</a>
 				';*/
 				$content= '
-					<label class="love" style="cursor:pointer" title="unlove">
+					<label class="love" style="cursor:pointer" title="unlove_'.$artist_name.'_'.$track_name.'">
       				<img width="18px" height="18px;" src="pic/love.png">
       			</label>
       		';
@@ -210,7 +210,7 @@
 			
   			else {
   				$content= '
-					<label class="love" style="cursor:pointer" title="love">
+					<label class="love" style="cursor:pointer" title="love_'.$artist_name.'_'.$track_name.'">
       				<img width="18px" height="18px;" src="pic/nolove.png">
       			</label>
       		';
