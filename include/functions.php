@@ -126,7 +126,7 @@
 				$content .='<li style="padding-left:10px; padding-top:11px;"><audio src="'. $path .'" controls onloadstart="this.volume=0.15" autoplay></audio></li>';
 			}		
     	}
-     	return $content;
+     	//return $content;
 	}
  
 #################################################################################################################################################################
