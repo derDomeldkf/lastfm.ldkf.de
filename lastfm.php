@@ -336,7 +336,7 @@
 		   		var cont=$(this).parent().attr("class");
 		   		var splits=cont.split('__');
 		   		var artist=splits[0].replace(new RegExp('_', 'g'), ' ');
-		   		var track=splits[1];
+		   		var track=splits[1].replace(new RegExp('_', 'g'), ' ');
 		   		var that=$( this );
 					$.post( "include/do.php", { f: action, artist: artist,  track: track} ).done(function( data ) {
 		    			$("."+cont).find( "img" ).attr("src", "pic/"+data.replace(" \n", "")+".png");
