@@ -340,7 +340,6 @@
 		   		var that=$( this );
 					$.post( "include/do.php", { f: action, artist: artist,  track: track} ).done(function( data ) {
 		    			$("."+cont).find( "img" ).attr("src", "pic/"+data.replace(" \n", "")+".png");
-		    			alert(data);
 		  			});
 		  			if (action==="love") {
 		  				$("."+cont).find("label").attr("title", "unlove");
