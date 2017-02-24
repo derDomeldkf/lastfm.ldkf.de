@@ -8,8 +8,8 @@
 		$artist=str_replace("The ", "", $artist); //get name for later replacement
 	}
 //echo $artist;
-	$url="http://www.azlyrics.com/lyrics/". strtolower(preg_replace ( '/[^a-z0-9]/i', '', $artist))."/".  strtolower(preg_replace ( '/[^a-z0-9]/i', '', $_GET["song"]).".html");
-	if(get_headers($url, 1)[0]!="HTTP/1.1 200 OK") {
+	//$url="http:///lyrics/". strtolower(preg_replace ( '/[^a-z0-9]/i', '', $artist))."/".  strtolower(preg_replace ( '/[^a-z0-9]/i', '', $_GET["song"]).".html");
+	//if(get_headers($url, 1)[0]!="HTTP/1.1 200 OK") {
 		$url2="http://www.plyrics.com/lyrics/". strtolower(preg_replace ( '/[^a-z0-9]/i', '', $artist))."/".  strtolower(preg_replace ( '/[^a-z0-9]/i', '', $_GET["song"]).".html");
 		if(get_headers($url2, 1)[0]!="HTTP/1.1 200 OK") {
 			$url3="https://www.musixmatch.com/lyrics/". str_replace("_", "-",$artist_got)."/". str_replace("_", "-",$_GET["song"]);
@@ -51,7 +51,7 @@
     		echo lyrics_text($ly, $link);
     		
 		}
-	}
+	/*}
 	else {
     	$response=  file_get_contents($url);
     	$ly=substr(preg_replace("/^(.*)END OF JANGO PLAYER -->(.*)<!-- MxM banner -->(.*)/s", "$2", $response), 2, -23);
@@ -62,6 +62,6 @@
     	echo lyrics_text($ly, $link);  
     	
 
-	}
+	}*/
 
 ?> 
