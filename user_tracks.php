@@ -72,7 +72,7 @@
 				$love= $track->loved;
 				$album_decode= $track->album;
 				$track_name= $track->name;
-				$track_mbid=$track=hash($track_name);
+				$track_mbid=$track=md5($track_name);
 				$url= $track->url;
 				$image_decode= $track->image;
 				if(isset($track->date)) {
