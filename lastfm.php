@@ -377,16 +377,20 @@
 		  			}
 		   		
 				});
-		   	cl.mouseover(function() {
-		   		var action=$(this).attr("title").split("_")[0];
+				$('body').on('mouseover', '.love', function() {
+					var action=$(this).attr("title").split("_")[0];
 					if (action==="love") {
 						$( this ).find( "img" ).attr("src", "pic/love.png");
 					}
 					else {
 						$( this ).find( "img" ).attr("src", "pic/nolove.png");
 					}
-		   		
+
 				});
+		   //	cl.mouseover(function() {
+		   		
+		   		
+			//	});
 			  	cl.mouseout(function() {
 			  		var action=$(this).attr("title").split("_")[0];
 		   		if (action==="love") {
