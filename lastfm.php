@@ -358,7 +358,7 @@
             });   
             
            var cl= $( ".love" );
-		   	cl.click(function() {
+				$('body').on('click', '.love', function() {
 		   		var cont=$(this).attr("title");
 		   		var mbid=$(this).parent().attr("class");
 		   		var splits=cont.split('_');
@@ -387,11 +387,8 @@
 					}
 
 				});
-		   //	cl.mouseover(function() {
-		   		
-		   		
-			//	});
-			  	cl.mouseout(function() {
+
+				$('body').on('mouseout', '.love', function() {
 			  		var action=$(this).attr("title").split("_")[0];
 		   		if (action==="love") {
 		   			if ($( this ).find( "img" ).attr("src")==="pic/love.png") {
