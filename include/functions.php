@@ -673,7 +673,8 @@
 					$getimage_row = $getimage->fetch_assoc();
 					if(!isset($getimage_row) or $getimage_row=="") {
 						$pfad="covers/".$image_db;
-						if (copy($images, $pfad)==1){						
+						
+						if ($l=copy($images, $pfad)==1){						
 							$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album) VALUES ('$image_db', '$artist_name', '$album')"); 
 						}
 					}
