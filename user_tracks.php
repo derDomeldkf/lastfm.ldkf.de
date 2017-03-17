@@ -216,40 +216,7 @@
      		 	else {
 					$playing=1;           			
       		}
-    	
-  			/*	if($page_in==1 and $user[3] > 1) {
-					echo'		
- 						<script type="text/javascript">
-  						function getdata(){
-		 						setTimeout(function(){
-		 							$.post("include/refresh.php",{
-        								0: "'. $user_in.'",
-        								1: "'. $limit_in.'",
-        								2: $("#last").attr("title") ,
-        								3: "'.$page_in.'",
-    								},
-   								function (data) {
-										if (data.indexOf("div") != -1) {
-											$("#last").attr("id", "");
-											$( "tr.del" ).replaceWith( "" );
-											$( "tr.repl" ).replaceWith( data );
-										}
-									}
-   							);		 		
-		 						getdata();
-		   				}, 20000);
-							}
-							$(document).ready(
-     							function(){
-           						setTimeout(function(){  
-    									getdata();
-          						}, 4000);
-						   	}
-							); 
-					</script>';
-					$skript=1;  
-  				}*/
-			$m++;
+  			$m++;
 			} 
 			if($user[3] > 1) {
 				echo '
@@ -259,6 +226,6 @@
   		'; 
   	}
   	}
-  	else { print (1);}//close head()
+  	else { echo 1;}//close head()
 
 ?>

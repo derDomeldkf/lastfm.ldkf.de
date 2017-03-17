@@ -241,6 +241,33 @@
 									break;
 								case 2:
 									include "user_tracks.php";	 
+									echo'		
+					 				<script type="text/javascript">
+										$(document).ready(
+				     						function(){
+
+				           					setInterval(function(){  
+													$.post("include/refresh.php",{
+				        								0: "'. $user_in.'",
+				        								1: "'. $limit_in.'",
+				        								2: $("#last").attr("title") ,
+				        								3: "'.$page_in.'",
+				    								},
+				   								function (data) {
+														if (data.replace(" \n", "") == 1) {
+
+														}
+														else{
+															$("#last").attr("id", "");
+															$( "tr.del" ).replaceWith( "" );
+															$( "tr.repl" ).replaceWith( data );
+														}
+													});
+				        						}, 6000);
+								   		}
+										);
+					
+										</script>';
 									break;
 								case 3:
 									
