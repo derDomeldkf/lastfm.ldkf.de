@@ -210,10 +210,6 @@
 					K&uuml;nstler — Titel
 				</td>
 				'.$td.'>
-				</td>
-				'.$td.'>
-				</td>
-				'.$td.'>
 					'.$period.'				
 				</td> 	
 			</tr>';
