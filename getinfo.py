@@ -129,7 +129,7 @@ def artist_album():
 def album():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
   d=db.cursor()
-  d.execute("""SELECT id, aid, name, mbid  FROM lastfm_album WHERE id>-1""")
+  d.execute("""SELECT id, aid, name, mbid  FROM lastfm_album WHERE id>320""")
   data= d.fetchall()
   for album  in data:
     alid=album[0]
