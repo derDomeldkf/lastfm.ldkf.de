@@ -6,7 +6,7 @@ def getartists(user, page, uid):
   try:
     a.execute("""SELECT id  FROM """+str(uid)+"""_artists""")
   except:
-    a.execute("""CREATE TABLE """+str(uid)+"""_artists (id INTEGER PRIMARY KEY AUTO_INCREMENT, aid INTEGER(6), playcount INTEGER(5), playtime INTEGER(11), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP))""")
+    a.execute("""CREATE TABLE """+str(uid)+"""_artists (id INTEGER PRIMARY KEY AUTO_INCREMENT, aid INTEGER(6), playcount INTEGER(5), playtime INTEGER(11), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP)""")
     db.commit()
   methode="method=user.getTopArtists&user="+user+"&page="+str(page);
   api_key="830d6e2d4d737d56aa1f94f717a477df"
