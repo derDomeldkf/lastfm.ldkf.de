@@ -323,14 +323,14 @@ def album_playtime():
 
 
 print("Künstler")
-#artist_user()
+artist_user()
 print("Alben der Künstler")
-#artist_album() #alben der künstler einlesen
+artist_album() #alben der künstler einlesen
 print("Info Alben")
-#album() #titel der alben und albeninfos auslesen#
+album() #titel der alben und albeninfos auslesen#
 print("Tracks")
-#track() #trackdaten auslesen
+track() #trackdaten auslesen
 print("Alben Playtime")
-#album_playtime() #trackdaten auf album hochrechnen
+album_playtime() #trackdaten auf album hochrechnen
 print("Künstler Playtime")
 artist_playtime() #trackdaten auf künstler hochrechnen
