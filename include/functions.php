@@ -16,7 +16,7 @@
 		$get_decode=strtolower($method);
 		$user_info_array = get_object_vars($decode->$get_decode);
 		$user_decode= $user_info_array['@attr'];
-		strpos($get_decode,"artist")!==false ?	$get_array="artist" : $get_array="track";
+		if($method=="TopArtists"){ $get_array="artist";}elseif(strpos($method,"Album")) { $get_array="album";}else { $get_array="track";}
 		$user[0] = $user_info_array[$get_array];
 		$user[1] = $user_decode->user;
 		$user[2] = $user_decode->page;
@@ -277,7 +277,7 @@
 			<div class="nav footer">
 				<table>
 					<tr>';
-					if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7) {
+					if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7 or $method_in==11) {
 						$content .= '
 						<td class="navfooter" style="color:white;">
             			Seite '.$page.' von '.$totalPages.'
@@ -342,7 +342,7 @@
    	         		<td class="navfooter">
    	         			<form action="?" style="margin:0; padding:0;" method="POST">
    								<select class="form-control"  name="limitin" id="myselect" onchange="this.form.submit()" style="padding:3px; font-size:12pt" style="padding-top:6px; padding-bottom:6px;">';
-   								if($method_in==6 or $method_in==7) {
+   								if($method_in==6 or $method_in==7 or $method_in==11) {
    									for($i=20; $i<=60; $i=$i+20){
   	 										$content .='<option class="option"'; 
   	 										($perPage==$i) ? $content .= " selected" : "";
@@ -389,7 +389,7 @@
   				$content .='<li><a href="./">Startseite<span class="sr-only">(current)</span></a></li>';
   			}
 		$content .='<li><a href="https://scrobbler.ldkf.de" target="_blank">Scrobbler</a></li>';
-		if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7) {
+		if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7 or $method_in==11) {
 			$getname = $db->query("SELECT `id` FROM `ldkf_lastfm` WHERE `username` LIKE ('".$user_in."')");
 			$user = $getname->fetch_assoc();
 			if(isset($user) and $user!="") {
@@ -468,6 +468,26 @@
 				</li>
 				<li>
 			';
+			if($method_in!=11) { //gelange zu 7
+				$content .='
+  					<form class="form_member" method="post" action="lastfm.php">
+						<input type="hidden" name="username" value="'.$user_in.'">
+						<input type="hidden" name="method" value="11">
+						<button type="submit" class="userButton">
+					';
+			}
+			if($method_in==11) { 
+				$content .= '<b>Top Album: '.$totaltracks.'</b>';
+			}
+			else {
+				$content .= 'Top Album';
+			}
+			$content .='</button>
+				</form>
+				</li>
+				<li>
+			';
+			
 			if($method_in!=7) { //gelange zu 7
 				$content .='
   					<form class="form_member" method="post" action="lastfm.php">
@@ -482,6 +502,7 @@
 			else {
 				$content .= 'Top Titel';
 			}
+			
 			$content .='</button>
 				</form>
 				</li>

@@ -19,14 +19,14 @@
 				$images=$image_array['#text'];
 				$album="";
 				$image=image($images, $artist_name, $db, $album);
-
-				$artist_name=str_replace("'", "_", $artist_name);
+				$adb=utf8_encode($artist_name);
+				$tdb=utf8_encode($track_name);
 				$playtime=0;
-				$getid = $db->query("SELECT id FROM `lastfm_artists` WHERE name = '$artist_name'"); 
+				$getid = $db->query("SELECT id FROM `lastfm_artists` WHERE name = '$adb'"); 
 				$aid=$getid->fetch_assoc()['id'];
-				$tdb=str_replace("'", "_", $track_name);
 				#echo $aid.$track_name;
-				$getids = $db->query("SELECT id FROM `lastfm_tracks` WHERE aid= '$aid' and name LIKE '$tdb'"); 
+				$trackid = array();
+				$getids = $db->query("SELECT id FROM `lastfm_album` WHERE aid= '$aid' and name = '$tdb'"); 
 				while(isset($getids->num_rows) and  $getids->num_rows!= 0 and $tracks = $getids->fetch_assoc()){
 					$trackid[]=$tracks['id'];
 				} 
@@ -34,16 +34,15 @@
 				#var_dump($trackid );
 				$playtime=0;
 				#echo "<br>";
-				if(isset($trackid) and $trackid) {
+				if(isset($trackid) and $trackid)  {
 					foreach ($trackid as $tid) {
-						$getplaytime = $db->query("SELECT playtime FROM `".$id."_tracks` WHERE tid = '$tid'"); 
+						$getplaytime = $db->query("SELECT playtime FROM `".$id."_album` WHERE id = '$tid'"); 
                	if(isset($getplaytime->num_rows) and  $getplaytime->num_rows!= 0) {
 							$playtime=$getplaytime->fetch_assoc()['playtime'];
 						}
 					}
-					
 				}
-				$trackid="";
+				unset($trackid);
 				if($counter_cont==1) {
 					$count_max=$count;
 				}
@@ -118,7 +117,7 @@
 						$st=3+(60/$page_in)*$playtime/($count_max*300);    				
     					echo'      	   
       	   				<div class="'; 
-      	   				if($st>strlen($count)*2){ 
+      	   				if($st>strlen($count)*3){ 
       	   					echo'textunter';
       	   				}
       	   				echo '">'; 

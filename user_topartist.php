@@ -4,6 +4,8 @@
 	$page_l=$user[2]-1;
 	$place=(($page_in-1)*$limit_in)+1;
 	$counter_cont=1;
+	$getid = $db->query("SELECT id FROM `ldkf_lastfm` WHERE username LIKE '$user_in'"); 
+	$id=$getid->fetch_assoc()['id'];
 	echo '
 		<div style="margin-left:40px;">
 			<table>
@@ -17,6 +19,19 @@
 				$image_decode= $track->image;
 				$image_array = get_object_vars($image_decode[0]);
 				$images=$image_array['#text'];
+            $adb=utf8_encode($artist_name);
+				$playtime=0;
+				$getid = $db->query("SELECT id FROM `lastfm_artists` WHERE name = '$adb'"); 
+				$aid=$getid->fetch_assoc()['id'];
+				#echo $artist_name;
+				#var_dump($trackid );
+				$playtime=0;
+				#echo "<br>";
+				$getplaytime = $db->query("SELECT playtime FROM `".$id."_artists` WHERE aid = '$aid'"); 
+            if(isset($getplaytime->num_rows) and  $getplaytime->num_rows!= 0) {
+					$playtime=$getplaytime->fetch_assoc()['playtime'];
+				}
+							
 				if(isset($images) and $images!="") {
 					$getimage = $db->query("SELECT `name` FROM `last_fm_covers` WHERE artist LIKE '$artist_name_db' and album LIKE 'NULL'"); 
 					if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
@@ -102,10 +117,40 @@
     							>
     								'.$count.'
     							</span>
+    						</div>';
+    						
+							$m=0; 
+						$st=3+(60/$page_in)*$playtime/($count_max*200);    				
+    					echo'      	   
+      	   				<div class="'; 
+      	   				if($st>strlen($count)*3){ 
+      	   					echo'textunter';
+      	   				}
+      	   				echo '">'; 
+    							while($m<$st) {
+    								echo '<img style="'; 
+    								if($m==0) {
+    									echo 'border-top-left-radius:3px; border-bottom-left-radius:3px;';
+    								} 
+    								if($m+1>=$st) {
+    									echo 'border-top-right-radius:3px; border-bottom-right-radius:3px';
+    								} 
+    								echo'" src="pic/time.png" height:15px;>'; 
+									$m++; 					
+    							}
+    							echo '<span';
+    							if($st>strlen($count)*2){}
+    							else { 
+    								echo' style="padding-left:5px;"';
+    							}
+    							echo '
+    								>'.$playtime.'    						
+    					   							
+    							</span>
     						</div>
-         			</td>
-					</tr>
-        		';
+            		</td>
+        			</tr>
+         	';
         		if($i==0){$i++;}
         		else {$i--;}
         		$place++;

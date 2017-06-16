@@ -193,6 +193,9 @@
 		case 7:
 			$user=get_info("TopTracks", $user_in, $page_in, $limit_in, $api_key);
 			break;
+		case 11:
+			$user=get_info("TopAlbums", $user_in, $page_in, $limit_in, $api_key);
+			break;
 		default:
 		$user = array("", "","", "", "", "");
 			break;
@@ -336,8 +339,8 @@
 									echo group2($db_name, $period, $db, $method_in, $td);	   
 									break;
 								case 11:
-									
-									break;	
+									include "user_topalbum.php";	        				
+									break;
 								default:
 									echo '<div style="margin:40px;"><h3>Benutzer "'.$user_in.'" existiert nicht.</h3></div>';
 									break;
