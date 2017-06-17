@@ -114,7 +114,7 @@ def topalbum(mbida, art_name, aid, page, db):
             db.commit() #album in user_db eintragen, wenn aid in der user_artist stand (diese dann für getinfo, weil username
    # else:
     #  print("null")
-  return pages
+  return pages#
 
 def artist_album():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
