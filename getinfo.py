@@ -73,10 +73,8 @@ def topalbum(mbida, art_name, aid, page, db):
      #ripinpeace
       mbid=""
     d=db.cursor()
-    try:
-      name.decode('utf-8')
-    except UnicodeDecodeError:
-      print("fail")
+    if re.match(u"[^\u0000-\uffff]", name):
+      print("passt")
     d.execute("""SELECT id FROM lastfm_album WHERE name =%s and aid=%s""", [name, aid])
     res=d.fetchone()
     if name != "(null)":
