@@ -118,7 +118,7 @@ def topalbum(mbida, art_name, aid, page, db):
 def artist_album():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
   c=db.cursor()
-  c.execute("""SELECT mbid, name, id FROM lastfm_artists WHERE id >842""")
+  c.execute("""SELECT mbid, name, id FROM lastfm_artists WHERE id >1823""")
   data= c.fetchall()
   for artist  in data:
     mbida=artist[0]
@@ -185,36 +185,36 @@ def album():
           db.commit()
           #killalbum=killalbum+1
           print("deleted "+name+" from "+user)
-        for track in tracks['track']:
-          rank=track['@attr']['rank']
-          duration=track['duration']
-          name=track['name']
-          #print(name)
-          d=db.cursor()
-          d.execute("""SELECT id FROM lastfm_tracks WHERE name =%s and alid=%s and aid=%s""", [name, alid, aid])
-          res=d.fetchone()
-          if not res and int(count)!=0:
-            d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, %s, %s, 0, %s, %s)""", [aid, alid, name, duration, rank])
-            db.commit()
-          if int(count)>0:
-            a=db.cursor()
-            try:
-              a.execute("""SELECT id  FROM """+str(uid)+"""_tracks""")
-              res=a.fetchone()
-            except:
-              a.execute("""CREATE TABLE """+str(uid)+"""_tracks (id INTEGER PRIMARY KEY AUTO_INCREMENT, alid INTEGER(8), aid INTEGER(6), tid INTEGER(10), playcount INTEGER(8), playtime INTEGER(11), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP)""")
-              db.commit() #tabelle anlegen, wenn für track nicht existent
+          for track in tracks['track']:
+            rank=track['@attr']['rank']
+            duration=track['duration']
+            name=track['name']
+            #print(name)
             d=db.cursor()
-            d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and alid=%s and aid=%s""", [name, alid, aid])
-            res=d.fetchone()
-            tid=res[0]
-            d=db.cursor()
-            d.execute("""SELECT id FROM """+str(uid)+"""_tracks WHERE tid =%s""", [tid])
+            d.execute("""SELECT id FROM lastfm_tracks WHERE name =%s and alid=%s and aid=%s""", [name, alid, aid])
             res=d.fetchone()
             if not res and int(count)!=0:
-              c=db.cursor()
-              c.execute( """INSERT INTO """+str(uid)+"""_tracks (alid, aid, tid, playcount, playtime) VALUES (%s, %s, %s, 0, 0)""", [alid, aid, tid])
-              db.commit() 
+              d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, %s, %s, 0, %s, %s)""", [aid, alid, name, duration, rank])
+              db.commit()
+            if int(count)>0:
+              a=db.cursor()
+              try:
+                a.execute("""SELECT id  FROM """+str(uid)+"""_tracks""")
+                res=a.fetchone()
+              except:
+                a.execute("""CREATE TABLE """+str(uid)+"""_tracks (id INTEGER PRIMARY KEY AUTO_INCREMENT, alid INTEGER(8), aid INTEGER(6), tid INTEGER(10), playcount INTEGER(8), playtime INTEGER(11), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP)""")
+                db.commit() #tabelle anlegen, wenn für track nicht existent
+              d=db.cursor()
+              d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and alid=%s and aid=%s""", [name, alid, aid])
+              res=d.fetchone()
+              tid=res[0]
+              d=db.cursor()
+              d.execute("""SELECT id FROM """+str(uid)+"""_tracks WHERE tid =%s""", [tid])
+              res=d.fetchone()
+              if not res and int(count)!=0:
+                c=db.cursor()
+                c.execute( """INSERT INTO """+str(uid)+"""_tracks (alid, aid, tid, playcount, playtime) VALUES (%s, %s, %s, 0, 0)""", [alid, aid, tid])
+                db.commit() 
        # else:
               #print(name+": Track already in Database")
       #if killalbum==countofuser:
@@ -228,7 +228,7 @@ def album():
 def track():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
   c=db.cursor()
-  c.execute("""SELECT username, id  FROM ldkf_lastfm WHERE id>4""")
+  c.execute("""SELECT username, id  FROM ldkf_lastfm WHERE id>-1""")
   data= c.fetchall()
   for userinfo  in data:
     user=userinfo[0]
