@@ -74,7 +74,9 @@ def topalbum(mbida, art_name, aid, page, db):
       mbid=""
     d=db.cursor()
     if re.match(u"[^\u0000-\uffff]", name):
-      print("passt")
+      print("Kein UTF8")
+    else:
+      print("utf8")
     d.execute("""SELECT id FROM lastfm_album WHERE name =%s and aid=%s""", [name, aid])
     res=d.fetchone()
     if name != "(null)":
