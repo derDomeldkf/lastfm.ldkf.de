@@ -118,7 +118,7 @@ def topalbum(mbida, art_name, aid, page, db):
 def artist_album():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
   c=db.cursor()
-  c.execute("""SELECT mbid, name, id FROM lastfm_artists WHERE id >3000""")
+  c.execute("""SELECT mbid, name, id FROM lastfm_artists WHERE id >2000""")
   data= c.fetchall()
   for artist  in data:
     mbida=artist[0]
