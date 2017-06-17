@@ -122,6 +122,7 @@ def artist_album():
   data= c.fetchall()
   for artist  in data:
     mbida=artist[0]
+    print(aid)
     art_name=artist[1]
     aid=artist[2]
     page=1
