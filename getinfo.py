@@ -112,7 +112,7 @@ def topalbum(mbida, art_name, aid, page, db):
               c.execute( """INSERT INTO """+str(uid)+"""_album (alid, aid, playcount, playtime) VALUES (%s, %s, 0, 0)""", [alid, aid])
               db.commit() #album in user_db eintragen, wenn aid in der user_artist stand (diese dann für getinfo, weil username
    # else:
-    #  print("null")
+    #  print("null")#
   return pages
 
 def artist_album():
