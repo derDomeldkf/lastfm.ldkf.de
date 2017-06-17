@@ -175,16 +175,15 @@ def album():
         except:
           count=0
         #print(album['name']+" Playcount: "+str(count)+" ("+user+")")
-        if int(count)>0:
-          c=db.cursor()
-          c.execute( """Update """+str(uid)+"""_album SET playcount=%s WHERE alid=%s""", [int(count), alid])
-          db.commit()
-        else:
+        if int(count)<1:
           d=db.cursor()
           d.execute("""DELETE FROM """+str(uid)+"""_album WHERE alid = %s""", [alid])
           db.commit()
-          #killalbum=killalbum+1
           print("deleted "+name+" from "+user)
+        else:
+          c=db.cursor()
+          c.execute( """Update """+str(uid)+"""_album SET playcount=%s WHERE alid=%s""", [int(count), alid])
+          db.commit()
           for track in tracks['track']:
             rank=track['@attr']['rank']
             duration=track['duration']
