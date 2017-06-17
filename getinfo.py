@@ -73,12 +73,16 @@ def topalbum(mbida, art_name, aid, page, db):
      #ripinpeace
       mbid=""
     d=db.cursor()
+    try:
+      name.decode('utf-8')
+    except UnicodeDecodeError:
+      print("fail")
     d.execute("""SELECT id FROM lastfm_album WHERE name =%s and aid=%s""", [name, aid])
     res=d.fetchone()
     if name != "(null)":
       if not res:
         d.execute( """INSERT INTO lastfm_album (aid, name, mbid) VALUES (%s, %s, %s)""", [aid, name, mbid])
-        db.commit()#klappt
+        db.commit()
       c=db.cursor()
       c.execute("""SELECT username, id  FROM ldkf_lastfm""")
       data= c.fetchall()
@@ -115,7 +119,7 @@ def topalbum(mbida, art_name, aid, page, db):
 def artist_album():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
   c=db.cursor()
-  c.execute("""SELECT mbid, name, id FROM lastfm_artists WHERE id >320""")
+  c.execute("""SELECT mbid, name, id FROM lastfm_artists WHERE id >326""")
   data= c.fetchall()
   for artist  in data:
     mbida=artist[0]
