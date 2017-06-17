@@ -18,7 +18,7 @@
 	$i=0;	 
 	$place=1;		
 	foreach($places as $artist_name){
-		if($i<60) {
+		if($i<40) {
 			$getartist = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$artist_name'"); 
 			$artist = $getartist->fetch_assoc();
 			$count=$artist['playcount'];
@@ -27,7 +27,7 @@
 			$users= $getuser->fetch_assoc();
 			$users_names=$users['user'];
 			$user =  str_replace("&&", ", ",$users_names);
-			$cont= $place.". ".$artist_name." (".$user.")";
+			$cont= "<b>".$place.". ".$artist_name."</b>".PHP_EOL."  (".$user.")";
 			if($i>0) {
 				$content[$i]=$content[$i-1].''.PHP_EOL.''.$cont;
 			}	
@@ -41,7 +41,7 @@
 	$output=urlencode(html_entity_decode ($content[$i-1]));
 	$getid = $db->query("SELECT `telegram-id` FROM `last_fm`"); 
 	while($id_db = $getid->fetch_assoc()){
-		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&text='.$output; 
+		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&parse_mode=HTML&text='.$output; 
 		$result = file_get_contents($url);	
 	}		
 
