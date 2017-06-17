@@ -122,10 +122,10 @@ def artist_album():
   data= c.fetchall()
   for artist  in data:
     mbida=artist[0]
-    print(aid)
     art_name=artist[1]
     aid=artist[2]
     page=1
+    print(aid)
     pages=topalbum(mbida, art_name, aid, page, db)
    
   db.close()
