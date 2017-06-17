@@ -76,42 +76,41 @@ def topalbum(mbida, art_name, aid, page, db):
     if re.match(u"[^\u0000-\uffff]", name):
       print("Kein UTF8")
     else:
-      print("utf8")
-    d.execute("""SELECT id FROM lastfm_album WHERE name =%s and aid=%s""", [name, aid])
-    res=d.fetchone()
-    if name != "(null)":
-      if not res:
-        d.execute( """INSERT INTO lastfm_album (aid, name, mbid) VALUES (%s, %s, %s)""", [aid, name, mbid])
-        db.commit()
-      c=db.cursor()
-      c.execute("""SELECT username, id  FROM ldkf_lastfm""")
-      data= c.fetchall()
-      for userinfo  in data:
-        user=userinfo[0]
-        uid=userinfo[1]
-        a=db.cursor()
-        try:
-          a.execute("""SELECT id  FROM """+str(uid)+"""_album""")
-          res=a.fetchone()
-        except:
-          a.execute("""CREATE TABLE """+str(uid)+"""_album (id INTEGER PRIMARY KEY AUTO_INCREMENT, alid INTEGER(8), aid INTEGER(6), playcount INTEGER(5), playtime INTEGER(11), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP)""")
-          db.commit() #tabelle anlegen, wenn für album nicht existent
-        d=db.cursor()
-        d.execute("""SELECT id  FROM lastfm_album WHERE name =%s and aid=%s""", [name, aid])
-        res=d.fetchone()
-        alid=res[0]
-        b=db.cursor()
-        b.execute("""SELECT id  FROM """+str(uid)+"""_artists WHERE aid=%s""", [aid]) #id vom user_artist, wo die artist id dieses albums steht (wenn es da steht)
-        rest=b.fetchone()
-        #print(res[0])
-        if rest and rest[0]!="":
+      d.execute("""SELECT id FROM lastfm_album WHERE name =%s and aid=%s""", [name, aid])
+      res=d.fetchone()
+      if name != "(null)":
+        if not res:
+          d.execute( """INSERT INTO lastfm_album (aid, name, mbid) VALUES (%s, %s, %s)""", [aid, name, mbid])
+          db.commit()
+        c=db.cursor()
+        c.execute("""SELECT username, id  FROM ldkf_lastfm""")
+        data= c.fetchall()
+        for userinfo  in data:
+          user=userinfo[0]
+          uid=userinfo[1]
           a=db.cursor()
-          a.execute("""SELECT id  FROM """+str(uid)+"""_album WHERE alid=%s""", [alid])
-          resa=a.fetchone()
-          if not resa:
-            c=db.cursor()
-            c.execute( """INSERT INTO """+str(uid)+"""_album (alid, aid, playcount, playtime) VALUES (%s, %s, 0, 0)""", [alid, aid])
-            db.commit() #album in user_db eintragen, wenn aid in der user_artist stand (diese dann für getinfo, weil username
+          try:
+            a.execute("""SELECT id  FROM """+str(uid)+"""_album""")
+            res=a.fetchone()
+          except:
+            a.execute("""CREATE TABLE """+str(uid)+"""_album (id INTEGER PRIMARY KEY AUTO_INCREMENT, alid INTEGER(8), aid INTEGER(6), playcount INTEGER(5), playtime INTEGER(11), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP)""")
+            db.commit() #tabelle anlegen, wenn für album nicht existent
+          d=db.cursor()
+          d.execute("""SELECT id  FROM lastfm_album WHERE name =%s and aid=%s""", [name, aid])
+          res=d.fetchone()
+          alid=res[0]
+          b=db.cursor()
+          b.execute("""SELECT id  FROM """+str(uid)+"""_artists WHERE aid=%s""", [aid]) #id vom user_artist, wo die artist id dieses albums steht (wenn es da steht)
+          rest=b.fetchone()
+          #print(res[0])
+          if rest and rest[0]!="":
+            a=db.cursor()
+            a.execute("""SELECT id  FROM """+str(uid)+"""_album WHERE alid=%s""", [alid])
+            resa=a.fetchone()
+            if not resa:
+              c=db.cursor()
+              c.execute( """INSERT INTO """+str(uid)+"""_album (alid, aid, playcount, playtime) VALUES (%s, %s, 0, 0)""", [alid, aid])
+              db.commit() #album in user_db eintragen, wenn aid in der user_artist stand (diese dann für getinfo, weil username
    # else:
     #  print("null")
   return pages
