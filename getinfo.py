@@ -132,25 +132,27 @@ def artist_album():
 
 def album():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
-  d=db.cursor()
-  d.execute("""SELECT id, aid, name, mbid  FROM lastfm_album WHERE id>-1""")
-  data= d.fetchall()
-  for album  in data:
-    alid=album[0]
-    aid=album[1]
-    name=album[2]
-    try:
-      mbid=album[3]
-    except:
-      mbid=""
-    c=db.cursor()
-    c.execute("""SELECT username, id  FROM ldkf_lastfm""")
-    data= c.fetchall()
-    killalbum=0
-    countofuser=len(data)
-    for userinfo  in data:
-      user=userinfo[0]
-      uid=userinfo[1]
+  c.execute("""SELECT username, id  FROM ldkf_lastfm""")
+  data= c.fetchall()
+  countofuser=len(data)
+  for userinfo  in data:
+    user=userinfo[0]
+    uid=userinfo[1]
+    d=db.cursor()
+    d.execute("""SELECT alid aid FROM """+str(uid)+"""_album WHERE id>-1""") ####erst von user, dann album
+    data= d.fetchall()
+    for album  in data:
+      alid=album[0]
+      aid=album[1]
+      al=db.cursor()
+      al.execute("""SELECT name, mbid FROM lastfm_album WHERE id =%s""", [alid])
+      res=al.fetchone()
+      name=res[0]
+      try:
+        mbid=album[1]
+      except:
+        mbid=""
+      d=db.cursor()
       if mbid=="":
         d.execute("""SELECT name  FROM lastfm_artists WHERE id =%s""", [aid])
         res=d.fetchone()
