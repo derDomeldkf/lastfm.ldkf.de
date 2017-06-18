@@ -698,6 +698,7 @@
 						//echo file_get_contents($images);
 						$stat=file_put_contents($pfad, file_get_contents($images))	;			
 						echo $stat;	
+						echo $pfad;
 						$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album, stat) VALUES ('$image_db', '$artist_name', '$album', '$stat')"); 
 						
 					}
