@@ -150,7 +150,7 @@ def album():
       res=al.fetchone()
       name=res[0]
       try:
-        mbid=album[1]
+        mbid=res[1]
       except:
         mbid=""
       d=db.cursor()
