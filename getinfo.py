@@ -188,14 +188,14 @@ def album():
             rank=track['@attr']['rank']
             duration=track['duration']
             name=track['name']
-            print(name)
+           # print(name)
             d=db.cursor()
             d.execute("""SELECT id FROM lastfm_tracks WHERE name =%s and alid=%s and aid=%s""", [name, alid, aid]) 
             res=d.fetchone()
-            if not res and int(count)!=0:
+            if not res and int(count)!=0 and name!="[untitled]":
               d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, %s, %s, 0, %s, %s)""", [aid, alid, name, duration, rank])
               db.commit()
-            if int(count)>0:
+            if int(count)>0 and name!="[untitled]":
               a=db.cursor()
               try:
                 a.execute("""SELECT id  FROM """+str(uid)+"""_tracks""")
