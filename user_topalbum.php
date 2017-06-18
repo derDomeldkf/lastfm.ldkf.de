@@ -75,7 +75,7 @@
         						</span>
 								<span class="artist-name-spacer"> — </span>
 									<a href="'.$url.'" title="'.$artist_name.'-'.$album_name.'" target="_blank" class="link-block-target">                                                         
-    									'.$track_name.'
+    									'.$album_name.'
   	  								</a>
  	  	 						</span>
       	   			</td>
