@@ -140,7 +140,7 @@ def album():
     user=userinfo[0]
     uid=userinfo[1]
     d=db.cursor()
-    d.execute("""SELECT alid, aid FROM """+str(uid)+"""_album WHERE id>-1""") ####erst von user, dann album
+    d.execute("""SELECT alid, aid FROM """+str(uid)+"""_album WHERE id>19200""") ####erst von user, dann album
     data= d.fetchall()
     for album  in data:
       alid=album[0]
@@ -338,10 +338,10 @@ print("Künstler")
 print("Alben der Künstler")
 #artist_album() #alben der künstler einlesen
 print("Info Alben")
-#album() #titel der alben und albeninfos auslesen#
+album() #titel der alben und albeninfos auslesen#
 print("Tracks")
-track() #trackdaten auslesen
+#track() #trackdaten auslesen
 print("Alben Playtime")
-album_playtime() #trackdaten auf album hochrechnen
+#album_playtime() #trackdaten auf album hochrechnen
 print("Künstler Playtime")
-artist_playtime() #trackdaten auf künstler hochrechnen.
+#artist_playtime() #trackdaten auf künstler hochrechnen.
