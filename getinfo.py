@@ -338,7 +338,7 @@ print("Künstler")
 print("Alben der Künstler")
 #artist_album() #alben der künstler einlesen
 print("Info Alben")
-album() #titel der alben und albeninfos auslesen#
+#album() #titel der alben und albeninfos auslesen#
 print("Tracks")
 track() #trackdaten auslesen
 print("Alben Playtime")
