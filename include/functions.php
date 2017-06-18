@@ -703,7 +703,7 @@
 						$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album, stat) VALUES ('$image_db', '$artist_name', '$album', '$stat')"); 
 						
 					}
-					elseif($getimage_row->fetch_assoc()['stat']==0) {
+					elseif($getimage->fetch_assoc()['stat']==0) {
 						$pfad="covers/".$image_db;
 						$stat=file_put_contents($pfad, file_get_contents($images))	;
 						$update = $db->query("UPDATE last_fm_covers SET stat='$stat' where name LIKE '$image_db'");  
