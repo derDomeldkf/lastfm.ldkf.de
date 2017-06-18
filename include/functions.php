@@ -477,10 +477,10 @@
 					';
 			}
 			if($method_in==11) { 
-				$content .= '<b>Top Album: '.$totaltracks.'</b>';
+				$content .= '<b>Top Alben: '.$totaltracks.'</b>';
 			}
 			else {
-				$content .= 'Top Album';
+				$content .= 'Top Alben';
 			}
 			$content .='</button>
 				</form>
