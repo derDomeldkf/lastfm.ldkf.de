@@ -10,7 +10,7 @@
 	
 			foreach($user[0] as $track){
 				$playtime=0;
-				$track_name= $track->name;
+				$album_name= $track->name;
 				$count= $track->playcount;
 				$artist_name= $track->artist->name;
 				$url= $track->url;
@@ -18,9 +18,9 @@
 				$image_array = get_object_vars($image_decode[0]);
 				$images=$image_array['#text'];
 				$album="";
-				$image=image($images, $artist_name, $db, $album);
+				$image=image($images, $artist_name, $db, $album_name);
 				$adb=utf8_encode($artist_name);
-				$tdb=utf8_encode($track_name);
+				$tdb=utf8_encode($album_name);
 				$playtime=0;
 				$getid = $db->query("SELECT id FROM `lastfm_artists` WHERE name = '$adb'"); 
 				$aid=$getid->fetch_assoc()['id'];
@@ -36,9 +36,9 @@
 				#echo "<br>";
 				if(isset($trackid) and $trackid)  {
 					foreach ($trackid as $tid) {
-						$getplaytime = $db->query("SELECT playtime FROM `".$id."_album` WHERE id = '$tid'"); 
+						$getplaytime = $db->query("SELECT playcount FROM `".$id."_album` WHERE id = '$tid'"); #change to playtime
                	if(isset($getplaytime->num_rows) and  $getplaytime->num_rows!= 0) {
-							$playtime=$getplaytime->fetch_assoc()['playtime'];
+							$playtime=$getplaytime->fetch_assoc()['playcount'];#change to playtime
 						}
 					}
 				}
