@@ -158,6 +158,7 @@ def album():
         d.execute("""SELECT name  FROM lastfm_artists WHERE id =%s""", [aid])
         res=d.fetchone()
         artist_name=res[0]
+        print(artist_name+": "+name)
         methode="method=album.getInfo&user="+user+"&artist="+artist_name+"&album="+name+"&autocorrect=1";
       else:
          methode="method=album.getInfo&user="+user+"&mbid="+mbid;
