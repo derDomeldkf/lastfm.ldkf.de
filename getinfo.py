@@ -188,7 +188,7 @@ def album():
             rank=track['@attr']['rank']
             duration=track['duration']
             name=track['name']
-            #print(name)
+            print(name)
             d=db.cursor()
             d.execute("""SELECT id FROM lastfm_tracks WHERE name =%s and alid=%s and aid=%s""", [name, alid, aid])
             res=d.fetchone()
