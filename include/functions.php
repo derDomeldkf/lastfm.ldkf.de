@@ -690,7 +690,7 @@
 					//$image_db =  str_replace("https://secure-img2.last.fm/i/u/34s/", "",$image_db);
 					//$image_db =  str_replace("https://lastfm-img2.akamaized.net/i/u/34s/", "",$image_db);
 					$image_db =	explode("i/u/34s/", $images)[1];
-					$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
+					$getimage = $db->query("SELECT `stat` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
 					$getimage_row = $getimage->fetch_assoc();
 					var_dump($getimage_row);
 					if(!isset($getimage_row) or $getimage_row=="") {
@@ -702,6 +702,11 @@
 						echo $pfad;
 						$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album, stat) VALUES ('$image_db', '$artist_name', '$album', '$stat')"); 
 						
+					}
+					elseif($getimage_row->fetch_assoc()['stat']==0) {
+						$pfad="covers/".$image_db;
+						$stat=file_put_contents($pfad, file_get_contents($images))	;
+						$update = $db->query("UPDATE last_fm_covers SET stat='$stat' where name LIKE '$image_db'");  
 					}
 					else {
 						$getimage = $db->query("SELECT `album` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
