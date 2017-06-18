@@ -74,14 +74,12 @@
          	   				<a href="http://www.last.fm/de/user/'.$user[1].'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
         						</span>
 								<span class="artist-name-spacer"> — </span>
-									<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         
+									<a href="'.$url.'" title="'.$artist_name.'-'.$album_name.'" target="_blank" class="link-block-target">                                                         
     									'.$track_name.'
   	  								</a>
  	  	 						</span>
       	   			</td>
       	   		'; 
-      	   		echo lyric($artist_name, $track_name);	
-      	   		echo play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in, $user_in);							
       	  			$m=0; 
 						$st=3+(60/$page_in)*$count/$count_max;    				
     					echo'      	   
