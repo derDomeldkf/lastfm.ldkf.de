@@ -159,7 +159,7 @@ def album():
         res=d.fetchone()
         artist_name=res[0]
         print(artist_name+": "+name)
-        methode="method=album.getInfo&user="+user+"&artist="+artist_name+"&album="+urllib.urlencode(name)+"&autocorrect=1";
+        methode="method=album.getInfo&user="+user+"&artist="+artist_name+"&album="+urllib.parse.quote_plus(name)+"&autocorrect=1";
       else:
          methode="method=album.getInfo&user="+user+"&mbid="+mbid;
       api_key="830d6e2d4d737d56aa1f94f717a477df"
