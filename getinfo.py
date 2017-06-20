@@ -133,7 +133,7 @@ def artist_album():
 def album():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
   c=db.cursor()
-  c.execute("""SELECT username, id  FROM ldkf_lastfm WHERE id>2""")
+  c.execute("""SELECT username, id  FROM ldkf_lastfm WHERE id>7""")
   data= c.fetchall()
   countofuser=len(data)
   for userinfo  in data:
