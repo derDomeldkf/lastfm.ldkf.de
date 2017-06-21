@@ -133,17 +133,14 @@ def artist_album():
 def album():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
   c=db.cursor()
-  c.execute("""SELECT username, id  FROM ldkf_lastfm WHERE id>5""")
+  c.execute("""SELECT username, id  FROM ldkf_lastfm WHERE id>6""")
   data= c.fetchall()
   countofuser=len(data)
   for userinfo  in data:
     user=userinfo[0]
     uid=userinfo[1]
     d=db.cursor()
-    if uid==6:
-      d.execute("""SELECT alid, aid FROM """+str(uid)+"""_album WHERE id>20000""") ####erst von user, dann album
-    else:
-      d.execute("""SELECT alid, aid FROM """+str(uid)+"""_album WHERE id>-1""") ####erst von user, dann album
+    d.execute("""SELECT alid, aid FROM """+str(uid)+"""_album WHERE id>-1""") ####erst von user, dann album
     data= d.fetchall()
     for album  in data:
       alid=album[0]
