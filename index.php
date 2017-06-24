@@ -36,8 +36,8 @@
 				overflow: hidden;
 			}
 			#hintergrund {
-				min-width: 100%;
-				min-height: 100%;
+				/*min-width: 100%;
+				min-height: 100%;*/
 				position: absolute;
 				z-index: 0;
 			}
@@ -51,7 +51,7 @@
 	</head>
 	<body style="">
 		<div>
-			<!--<img id="hintergrund" src="pic/bg.jpg"/>-->
+			<img id="hintergrund" src="pic/bg.jpg"/>
 		</div>
 		<div id="content" class="main-content" role="main" style="height:100%">
 			<div class="overlay-content">
