@@ -36,13 +36,13 @@
 				overflow: hidden;
 			}
 			#hintergrund {
-				/*min-width: 100%;
-				min-height: 100%;*/
+				min-width: 100%;
+				min-height: 100%;
 				position: absolute;
 				z-index: 0;
 			}
 			.middle{
-				/*width:410px; */
+				width:410px;
 				padding:30px; 
 				background-color: rgba(0, 0, 0, 0.6);
 				border-radius: 6px;
