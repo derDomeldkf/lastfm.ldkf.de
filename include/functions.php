@@ -701,14 +701,14 @@
 					$image_db =	explode("i/u/34s/", $images)[1];
 					$getimage = $db->query("SELECT `stat` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
 					$getimage_row = $getimage->fetch_assoc();
-					var_dump($getimage_row);
+					#var_dump($getimage_row);
 					if(!isset($getimage_row) or $getimage_row=="") {
 						$pfad="covers/".$image_db;
 						//echo $pfad;
 						//echo file_get_contents($images);
 						$stat=file_put_contents($pfad, file_get_contents($images))	;			
-						echo $stat;	
-						echo $pfad;
+						#echo $stat;	
+						#echo $pfad;
 						$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album, stat) VALUES ('$image_db', '$artist_name', '$album', '$stat')"); 
 						
 					}
