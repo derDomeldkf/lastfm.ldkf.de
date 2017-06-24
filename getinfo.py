@@ -281,7 +281,7 @@ def artist_playtime():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
   c=db.cursor()
   c.execute("""SELECT username, id  FROM ldkf_lastfm""")
-  data= c.fetchall()urllib.parse.quote_plus(
+  data= c.fetchall()
   for userinfo  in data:
     user=userinfo[0]
     print(user)
