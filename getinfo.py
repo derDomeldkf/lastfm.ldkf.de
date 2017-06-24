@@ -253,7 +253,7 @@ def track():
       d.execute("""SELECT name  FROM lastfm_artists WHERE id =%s""", [aid])
       res=d.fetchone()
       artistname=res[0]
-      methode="method=track.getInfo&track="+trackname+"&username="+user+"&artist="+artistname+"&autocorrect=1";
+      methode="method=track.getInfo&track="+urllib.parse.quote_plus(trackname)+"&username="+user+"&artist="+artistname+"&autocorrect=1";
       api_key="830d6e2d4d737d56aa1f94f717a477df"
       r = requests.get('https://ws.audioscrobbler.com/2.0/?format=json&api_key='+api_key+'&'+methode)
       data = json.loads(r.text)
@@ -281,7 +281,7 @@ def artist_playtime():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
   c=db.cursor()
   c.execute("""SELECT username, id  FROM ldkf_lastfm""")
-  data= c.fetchall()
+  data= c.fetchall()urllib.parse.quote_plus(
   for userinfo  in data:
     user=userinfo[0]
     print(user)
@@ -339,10 +339,10 @@ print("Künstler")
 print("Alben der Künstler")
 #artist_album() #alben der künstler einlesen
 print("Info Alben")
-album() #titel der alben und albeninfos auslesen#
+#album() #titel der alben und albeninfos auslesen#
 print("Tracks")
 track() #trackdaten auslesen
 print("Alben Playtime")
-#album_playtime() #trackdaten auf album hochrechnen
+album_playtime() #trackdaten auf album hochrechnen
 print("Künstler Playtime")
-#artist_playtime() #trackdaten auf künstler hochrechnen.
+artist_playtime() #trackdaten auf künstler hochrechnen.
