@@ -686,7 +686,7 @@
 				if($stat==0) {
 					if(isset($images) and $images!="") {				
 						$image_db =	explode("i/u/34s/", $images)[1];
-						$pfad="covers/".$image_db;
+						$pfad="/var/www/projekte/last_fm/covers/".$image_db;
 						$stat=file_put_contents($pfad, file_get_contents($images))	;		
 			      	$update = $db->query("UPDATE last_fm_covers SET stat='$stat' where name LIKE '$image_db'");  
 					}				
@@ -703,7 +703,7 @@
 					$getimage_row = $getimage->fetch_assoc();
 					#var_dump($getimage_row);
 					if(!isset($getimage_row) or $getimage_row=="") {
-						$pfad="covers/".$image_db;
+						$pfad="/var/www/projekte/last_fm/covers/".$image_db;
 						//echo $pfad;
 						//echo file_get_contents($images);
 						$stat=file_put_contents($pfad, file_get_contents($images))	;			
