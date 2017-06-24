@@ -112,7 +112,7 @@ html, body {
 	position:absolute;
 	background-color:#222; 
 	width:100%;
-	min-width:500px;
+ /*  min-width:500px;*/
 	color:white;
 	padding:10px 1px 10px 100px;
    bottom: 0;
