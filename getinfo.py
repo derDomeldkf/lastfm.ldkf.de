@@ -300,7 +300,7 @@ def artist_playtime():
         playcount=playcount+tracks[0]
         playtime=playtime+tracks[1]
       c=db.cursor()
-      c.execute( """Update """+str(uid)+"""_artists SET playcount = %s, playtime = %s WHERE aid=%s""", [int(playcount), int(playtime), aid])
+      c.execute( """Update """+str(uid)+"""_artists SET  playtime = %s WHERE aid=%s""", [int(playtime), aid])
       db.commit()
   db.close()  
   
