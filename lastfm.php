@@ -244,6 +244,7 @@
 									break;
 								case 2:
 									include "user_tracks.php";	 
+									if($page_in==1) {
 									echo'		
 					 				<script type="text/javascript">
 										$(document).ready(
@@ -271,6 +272,7 @@
 										);
 					
 										</script>';
+									}
 									break;
 								case 3:
 									
