@@ -287,7 +287,7 @@ def artist_playtime():
     print(user)
     uid=userinfo[1]
     b=db.cursor()
-    b.execute("""SELECT id  FROM """+str(uid)+"""_artists""") 
+    b.execute("""SELECT aid  FROM """+str(uid)+"""_artists""") 
     data= b.fetchall()
     for artists  in data:
       aid=artists[0]
@@ -300,7 +300,7 @@ def artist_playtime():
         playcount=playcount+tracks[0]
         playtime=playtime+tracks[1]
       c=db.cursor()
-      c.execute( """Update """+str(uid)+"""_artists SET playcount = %s, playtime = %s WHERE id=%s""", [int(playcount), int(playtime), aid])
+      c.execute( """Update """+str(uid)+"""_artists SET playcount = %s, playtime = %s WHERE aid=%s""", [int(playcount), int(playtime), aid])
       db.commit()
   db.close()  
   
@@ -315,7 +315,7 @@ def album_playtime():
     print(user)
     uid=userinfo[1]
     b=db.cursor()
-    b.execute("""SELECT id  FROM """+str(uid)+"""_album""") 
+    b.execute("""SELECT alid  FROM """+str(uid)+"""_album""") 
     data= b.fetchall()
     for album  in data:
       alid=album[0]
@@ -329,20 +329,137 @@ def album_playtime():
         playtime=playtime+tracks[1]
       ######check if track in db cause of deleting above#or just dont delete it
       c=db.cursor()
-      c.execute( """Update """+str(uid)+"""_album SET playtime = %s WHERE id=%s""", [int(playtime), alid])
+      c.execute( """Update """+str(uid)+"""_album SET playtime = %s WHERE alid=%s""", [int(playtime), alid])
       db.commit()
   db.close()
 
+def toptrack(user, page):
+  methode="method=user.getTopTracks&user="+user+"&page="+page+"&limit=50";
+  api_key="830d6e2d4d737d56aa1f94f717a477df"
+  r = requests.get('https://ws.audioscrobbler.com/2.0/?format=json&api_key='+api_key+'&'+methode)
+  data = json.loads(r.text)
+  pages=int(data['toptracks']['@attr']['totalPages'])
+  for track  in data['topartists']['artist']:
+    name=track['name']
+    artist=track['artist']['name']
+    ambid=artist=track['artist']['mbid']
+    try:
+      mbid=track['mbid']
+      print("mbid")
+    except:
+      mbid=""
+      print("no mbid")
+    playcount=track['playcount']
+    d.execute("""SELECT id  FROM lastfm_artists WHERE name =%s""", [artist])
+    res=d.fetchone()
+    if not res:
+      print("no Artist")
+      d.execute( """INSERT INTO lastfm_artists (name, mbid) VALUES (%s, %s)""", [artist, ambid])
+      db.commit()
+    d.execute("""SELECT id  FROM lastfm_artists WHERE name =%s""", [artist])
+    res=d.fetchone()
+    aid=res[0]
+    d=db.cursor()
+    if mbid!="":
+      d.execute("""SELECT id  FROM lastfm_tracks WHERE mbid =%s""", [mbid])
+      res=d.fetchone()
+      if not res:
+        d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+        res=d.fetchone()
+        if not res: 
+          print("new track")
+          d=db.cursor()
+          d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, 0, %s, %s, 0, 0)""", [aid, name, mbid])
+          db.commit()
+          d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+          res=d.fetchone()
+          tid=res[0]
+        else:
+          tid=res[0]
+      else:
+        tid=res[0]
+    else:
+      d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+      res=d.fetchone()
+      if not res: 
+        print("new track")
+        d=db.cursor()
+        d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, 0, %s, %s, 0, 0)""", [aid, name, mbid])
+        db.commit()
+        d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+        res=d.fetchone()
+        tid=res[0]
+      else:
+        tid=res[0]
+    methode="method=track.getInfo&track="+urllib.parse.quote_plus(name)+"&username="+user+"&artist="+artistname+"&autocorrect=1";
+    api_key="830d6e2d4d737d56aa1f94f717a477df"
+    r = requests.get('https://ws.audioscrobbler.com/2.0/?format=json&api_key='+api_key+'&'+methode)
+    data = json.loads(r.text)
+    try:
+      track=data['track']
+    except:
+      print(name)
+    try:
+      playcount=track['userplaycount'] 
+    except:
+      playcount=0
+    try:
+      mbid=track['mbid']
+    #print(mbid)
+    except:
+      mbid=""
+    duration=track['duration']
+    print(data)
+    d=db.cursor()
+    rank=0
+    alid=0
+    d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, %s, %s, %s, %s, %s)""", [aid, alid, name, duration, rank])
+    db.commit()
+    try:
+      a.execute("""SELECT id  FROM """+str(uid)+"""_tracks""")
+      res=a.fetchone()
+    except:
+      a.execute("""CREATE TABLE """+str(uid)+"""_tracks (id INTEGER PRIMARY KEY AUTO_INCREMENT, alid INTEGER(8), aid INTEGER(6), tid INTEGER(10), playcount INTEGER(8), playtime INTEGER(11), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP)""")
+      db.commit() #tabelle anlegen, wenn für track nicht existent
+    d=db.cursor()
+    d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and alid=%s and aid=%s""", [name, alid, aid])
+    res=d.fetchone()
+    tid=res[0]
+    d=db.cursor()
+    d.execute("""SELECT id FROM """+str(uid)+"""_tracks WHERE tid =%s""", [tid])
+    res=d.fetchone()
+    playtime=int(playcount)*int(duration)
+    if not res and int(count)!=0:
+      c=db.cursor()
+      c.execute( """INSERT INTO """+str(uid)+"""_tracks (alid, aid, tid, playcount, playtime) VALUES (%s, %s, %s,%s, %s)""", [alid, aid, tid, playcount, playtime])
+      db.commit() 
+  return pages       
+    
 
+def trackall():
+  db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
+  c=db.cursor()
+  c.execute("""SELECT username, id  FROM ldkf_lastfm""")
+  data= c.fetchall()
+  for userinfo in data:
+    user=userinfo[0]
+    uid=userinfo[1]
+    i=1
+    page=1
+    while toptrack(user, page)>i:
+      i=i+1
+      page=i
+  
+  
 print("Künstler")
 #artist_user()
 print("Alben der Künstler")
 #artist_album() #alben der künstler einlesen
 print("Info Alben")
-album() #titel der alben und albeninfos auslesen#
+#album() #titel der alben und albeninfos auslesen#
 print("Tracks")
 #track() #trackdaten auslesen
 print("Alben Playtime")
-#album_playtime() #trackdaten auf album hochrechnen
+album_playtime() #trackdaten auf album hochrechnen
 print("Künstler Playtime")
-#artist_playtime() #trackdaten auf künstler hochrechnen.
+artist_playtime() #trackdaten auf künstler hochrechnen.
