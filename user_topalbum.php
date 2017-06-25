@@ -36,9 +36,9 @@
 				#echo "<br>";
 				if(isset($trackid) and $trackid)  {
 					foreach ($trackid as $tid) {
-						$getplaytime = $db->query("SELECT playcount FROM `".$id."_album` WHERE id = '$tid'"); #change to playtime
+						$getplaytime = $db->query("SELECT playtime FROM `".$id."_album` WHERE id = '$tid'"); #change to playtime
                	if(isset($getplaytime->num_rows) and  $getplaytime->num_rows!= 0) {
-							$playtime=$getplaytime->fetch_assoc()['playcount'];#change to playtime
+							$playtime=$getplaytime->fetch_assoc()['playtime'];#change to playtime
 						}
 					}
 				}
