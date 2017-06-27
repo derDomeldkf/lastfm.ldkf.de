@@ -368,7 +368,7 @@ def toptrack(user, page, db, uid):
         d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
         res=d.fetchone()
         if not res: 
-          print("new track")
+          print("new track "+name)
           d=db.cursor()
           d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, 0, %s, %s, 0, 0)""", [aid, name, mbid])
           db.commit()
@@ -386,7 +386,7 @@ def toptrack(user, page, db, uid):
       d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
       res=d.fetchone()
       if not res: 
-        print("new track")
+        print("new track "+name)
         d=db.cursor()
         d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, 0, %s, %s, 0, 0)""", [aid, name, mbid])
         db.commit()
