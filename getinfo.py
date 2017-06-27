@@ -451,7 +451,7 @@ def toptrack(user, page, db, uid):
           db.commit()
         else:
           c=db.cursor()
-          c.execute( """Update """+str(uid)+"""_tracks SET playcount = %s, playtime = %s, time= CURRENT_TIMESTAMP WHERE id=%s""", [playcount, int(duration)*int(playcount), pid])
+          c.execute( """Update """+str(uid)+"""_tracks SET playcount = %s, playtime = %s, time= CURRENT_TIMESTAMP WHERE id=%s""", [playcount, int(duration)*int(playcount), tid])
           db.commit()
   return pages       
     
