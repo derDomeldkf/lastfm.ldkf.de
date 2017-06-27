@@ -139,7 +139,7 @@
     								echo' style="padding-left:5px;"';
     							}
     							echo '
-    								>'.$playtime.'    						
+    								>'. floor($playtime/3600) .':'.($playtime /60) % 60 .':'. $playtime % 60 .'    						
     					   							
     							</span>
     						</div>
