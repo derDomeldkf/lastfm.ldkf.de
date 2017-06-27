@@ -60,7 +60,7 @@ def topalbum(mbida, art_name, aid, page, db):
   if mbida != "":
     methode="method=artist.getTopAlbums&mbid="+mbida+"&limit=50"+"&page="+str(page)
   else:
-    methode="method=artist.getTopAlbums&artist="+art_name+"&limit=50"+"&page="+str(page)
+    methode="method=artist.getTopAlbums&artist="+urllib.parse.quote_plus(art_name)+"&limit=50"+"&page="+str(page)
   api_key="830d6e2d4d737d56aa1f94f717a477df"
   r = requests.get('https://ws.audioscrobbler.com/2.0/?format=json&api_key='+api_key+'&'+methode)
   data = json.loads(r.text)
@@ -159,7 +159,7 @@ def album():
         res=d.fetchone()
         artist_name=res[0]
         print(artist_name+": "+name)
-        methode="method=album.getInfo&user="+user+"&artist="+artist_name+"&album="+urllib.parse.quote_plus(name)+"&autocorrect=1";
+        methode="method=album.getInfo&user="+user+"&artist="+urllib.parse.quote_plus(artist_name)+"&album="+urllib.parse.quote_plus(name)+"&autocorrect=1";
       else:
          methode="method=album.getInfo&user="+user+"&mbid="+mbid;
       api_key="830d6e2d4d737d56aa1f94f717a477df"
@@ -253,7 +253,7 @@ def track():
       d.execute("""SELECT name  FROM lastfm_artists WHERE id =%s""", [aid])
       res=d.fetchone()
       artistname=res[0]
-      methode="method=track.getInfo&track="+urllib.parse.quote_plus(trackname)+"&username="+user+"&artist="+artistname+"&autocorrect=1";
+      methode="method=track.getInfo&track="+urllib.parse.quote_plus(trackname)+"&username="+user+"&artist="+urllib.parse.quote_plus(artistname)+"&autocorrect=1";
       api_key="830d6e2d4d737d56aa1f94f717a477df"
       r = requests.get('https://ws.audioscrobbler.com/2.0/?format=json&api_key='+api_key+'&'+methode)
       data = json.loads(r.text)
@@ -333,22 +333,23 @@ def album_playtime():
       db.commit()
   db.close()
 
-def toptrack(user, page):
-  methode="method=user.getTopTracks&user="+user+"&page="+page+"&limit=50";
+def toptrack(user, page, db, uid):
+  methode="method=user.getTopTracks&user="+user+"&page="+str(page)+"&limit=50";
   api_key="830d6e2d4d737d56aa1f94f717a477df"
   r = requests.get('https://ws.audioscrobbler.com/2.0/?format=json&api_key='+api_key+'&'+methode)
   data = json.loads(r.text)
   pages=int(data['toptracks']['@attr']['totalPages'])
-  for track  in data['topartists']['artist']:
+  for track  in data['toptracks']['track']:
     name=track['name']
     artist=track['artist']['name']
-    ambid=artist=track['artist']['mbid']
+    ambid=track['artist']['mbid']
     try:
       mbid=track['mbid']
       print("mbid")
     except:
       mbid=""
       print("no mbid")
+    d=db.cursor()
     playcount=track['playcount']
     d.execute("""SELECT id  FROM lastfm_artists WHERE name =%s""", [artist])
     res=d.fetchone()
@@ -361,44 +362,49 @@ def toptrack(user, page):
     aid=res[0]
     d=db.cursor()
     if mbid!="":
-      d.execute("""SELECT id  FROM lastfm_tracks WHERE mbid =%s""", [mbid])
+      d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE mbid =%s""", [mbid])
       res=d.fetchone()
       if not res:
-        d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+        d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
         res=d.fetchone()
         if not res: 
           print("new track")
           d=db.cursor()
           d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, 0, %s, %s, 0, 0)""", [aid, name, mbid])
           db.commit()
-          d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+          d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
           res=d.fetchone()
           tid=res[0]
+          alid=res[2]
         else:
           tid=res[0]
+          alid=res[2]
       else:
         tid=res[0]
+        alid=res[2]
     else:
-      d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+      d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
       res=d.fetchone()
       if not res: 
         print("new track")
         d=db.cursor()
         d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, 0, %s, %s, 0, 0)""", [aid, name, mbid])
         db.commit()
-        d.execute("""SELECT id  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+        d.execute("""SELECT id, aid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
         res=d.fetchone()
         tid=res[0]
+        alid=0
       else:
         tid=res[0]
-    methode="method=track.getInfo&track="+urllib.parse.quote_plus(name)+"&username="+user+"&artist="+artistname+"&autocorrect=1";
+        alid=res[2]
+    methode="method=track.getInfo&track="+urllib.parse.quote_plus(name)+"&username="+user+"&artist="+urllib.parse.quote_plus(artist)+"&autocorrect=1";
     api_key="830d6e2d4d737d56aa1f94f717a477df"
     r = requests.get('https://ws.audioscrobbler.com/2.0/?format=json&api_key='+api_key+'&'+methode)
     data = json.loads(r.text)
     try:
       track=data['track']
     except:
-      print(name)
+      print(name+" not found")
     try:
       playcount=track['userplaycount'] 
     except:
@@ -409,12 +415,14 @@ def toptrack(user, page):
     except:
       mbid=""
     duration=track['duration']
-    print(data)
     d=db.cursor()
     rank=0
-    alid=0
-    d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, %s, %s, %s, %s, %s)""", [aid, alid, name, duration, rank])
-    db.commit()
+    d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+    res=d.fetchone()
+    if not res: 
+      d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, %s, %s, %s, %s, %s)""", [aid, alid, name, mbid, duration, rank])
+      db.commit()
+    a=db.cursor()
     try:
       a.execute("""SELECT id  FROM """+str(uid)+"""_tracks""")
       res=a.fetchone()
@@ -429,7 +437,7 @@ def toptrack(user, page):
     d.execute("""SELECT id FROM """+str(uid)+"""_tracks WHERE tid =%s""", [tid])
     res=d.fetchone()
     playtime=int(playcount)*int(duration)
-    if not res and int(count)!=0:
+    if not res and int(playcount)!=0:
       c=db.cursor()
       c.execute( """INSERT INTO """+str(uid)+"""_tracks (alid, aid, tid, playcount, playtime) VALUES (%s, %s, %s,%s, %s)""", [alid, aid, tid, playcount, playtime])
       db.commit() 
@@ -446,9 +454,10 @@ def trackall():
     uid=userinfo[1]
     i=1
     page=1
-    while toptrack(user, page)>i:
+    while int(toptrack(user, page, db, uid))>i:
       i=i+1
       page=i
+  db.close()
   
   
 print("Künstler")
@@ -462,4 +471,6 @@ print("Tracks")
 print("Alben Playtime")
 #album_playtime() #trackdaten auf album hochrechnen
 print("Künstler Playtime")
-artist_playtime() #trackdaten auf künstler hochrechnen.
+#artist_playtime() #trackdaten auf künstler hochrechnen.
+print("Top Titel")
+trackall()
