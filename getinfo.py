@@ -341,30 +341,51 @@ def toptrack(user, page, db, uid):
   pages=int(data['toptracks']['@attr']['totalPages'])
   for track  in data['toptracks']['track']:
     name=track['name']
-    artist=track['artist']['name']
-    ambid=track['artist']['mbid']
-    try:
-      mbid=track['mbid']
-      #print("mbid")
-    except:
-      mbid=""
-      print("no mbid")
-    d=db.cursor()
-    playcount=track['playcount']
-    d.execute("""SELECT id  FROM lastfm_artists WHERE name =%s""", [artist])
-    res=d.fetchone()
-    if not res:
-      print("no Artist")
-      d.execute( """INSERT INTO lastfm_artists (name, mbid) VALUES (%s, %s)""", [artist, ambid])
-      db.commit()
-    d.execute("""SELECT id  FROM lastfm_artists WHERE name =%s""", [artist])
-    res=d.fetchone()
-    aid=res[0]
-    d=db.cursor()
-    if mbid!="":
-      d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE mbid =%s""", [mbid])
+    if re.match(u"[^\u0000-\uffff]", name):
+      print("Kein UTF8")
+    else:
+      artist=track['artist']['name']
+      ambid=track['artist']['mbid']
+      try:
+        mbid=track['mbid']
+        #print("mbid")
+      except:
+        mbid=""
+        print("no mbid")
+      d=db.cursor()
+      playcount=track['playcount']
+      d.execute("""SELECT id  FROM lastfm_artists WHERE name =%s""", [artist])
       res=d.fetchone()
       if not res:
+        print("no Artist")
+        d.execute( """INSERT INTO lastfm_artists (name, mbid) VALUES (%s, %s)""", [artist, ambid])
+        db.commit()
+      d.execute("""SELECT id  FROM lastfm_artists WHERE name =%s""", [artist])
+      res=d.fetchone()
+      aid=res[0]
+      d=db.cursor()
+      if mbid!="":
+        d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE mbid =%s""", [mbid])
+        res=d.fetchone()
+        if not res:
+          d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+          res=d.fetchone()
+          if not res: 
+            print("new track "+name)
+            d=db.cursor()
+            d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, 0, %s, %s, 0, 0)""", [aid, name, mbid])
+            db.commit()
+            d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+            res=d.fetchone()
+            tid=res[0]
+            alid=res[2]
+          else:
+            tid=res[0]
+            alid=res[2]
+        else:
+          tid=res[0]
+          alid=res[2]
+      else:
         d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
         res=d.fetchone()
         if not res: 
@@ -372,94 +393,76 @@ def toptrack(user, page, db, uid):
           d=db.cursor()
           d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, 0, %s, %s, 0, 0)""", [aid, name, mbid])
           db.commit()
-          d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+          d.execute("""SELECT id, aid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
           res=d.fetchone()
           tid=res[0]
-          alid=res[2]
+          alid=0
         else:
           tid=res[0]
           alid=res[2]
-      else:
-        tid=res[0]
-        alid=res[2]
-    else:
-      d.execute("""SELECT id, aid, alid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+      d.execute("""SELECT playtime FROM """+str(uid)+"""_tracks WHERE tid =%s""", [tid])
       res=d.fetchone()
-      if not res: 
-        print("new track "+name)
-        d=db.cursor()
-        d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, 0, %s, %s, 0, 0)""", [aid, name, mbid])
-        db.commit()
-        d.execute("""SELECT id, aid  FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
-        res=d.fetchone()
-        tid=res[0]
-        alid=0
-      else:
-        tid=res[0]
-        alid=res[2]
-    d.execute("""SELECT playtime FROM """+str(uid)+"""_tracks WHERE tid =%s""", [tid])
-    res=d.fetchone()
-    if not res or res[0]==0:    
-      methode="method=track.getInfo&track="+urllib.parse.quote_plus(name)+"&username="+user+"&artist="+urllib.parse.quote_plus(artist)+"&autocorrect=1";
-      api_key="830d6e2d4d737d56aa1f94f717a477df"
-      r = requests.get('https://ws.audioscrobbler.com/2.0/?format=json&api_key='+api_key+'&'+methode)
-      data = json.loads(r.text)
-      try:
-        track=data['track']
-      except:
-        print(name+" not found")
-      try:
-        playcount=track['userplaycount'] 
-      except:
-        playcount=0
-      try:
-        mbid=track['mbid']
-      #print(mbid)
-      except:
-        mbid=""
-      print(playcount)
-      duration=int(int(track['duration'])/1000)
-      print(duration)
-      if duration > 0:
-        d=db.cursor()
-        rank=0
-        d.execute("""SELECT id FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
-        res=d.fetchone()
-        if not res: 
-          d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, %s, %s, %s, %s, %s)""", [aid, alid, name, mbid, duration, rank])
-          db.commit()
-        d.execute("""SELECT id FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
-        res=d.fetchone()  
-        tid=res[0]
-        c=db.cursor()
-        c.execute( """Update lastfm_tracks SET duration = %s WHERE id=%s""", [duration, tid])
-        db.commit()
-        a=db.cursor()
+      if not res or res[0]==0:    
+        methode="method=track.getInfo&track="+urllib.parse.quote_plus(name)+"&username="+user+"&artist="+urllib.parse.quote_plus(artist)+"&autocorrect=1";
+        api_key="830d6e2d4d737d56aa1f94f717a477df"
+        r = requests.get('https://ws.audioscrobbler.com/2.0/?format=json&api_key='+api_key+'&'+methode)
+        data = json.loads(r.text)
         try:
-          a.execute("""SELECT id  FROM """+str(uid)+"""_tracks""")
-          res=a.fetchone()
+          track=data['track']
         except:
-          a.execute("""CREATE TABLE """+str(uid)+"""_tracks (id INTEGER PRIMARY KEY AUTO_INCREMENT, alid INTEGER(8), aid INTEGER(6), tid INTEGER(10), playcount INTEGER(8), playtime INTEGER(11), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP)""")
-          db.commit() #tabelle anlegen, wenn für track nicht existent
-        d=db.cursor()
-        d.execute("""SELECT id FROM """+str(uid)+"""_tracks WHERE tid =%s""", [tid])
-        res=d.fetchone()
-        playtime=int(playcount)*int(duration)
-        if not res and int(playcount)!=0:
+          print(name+" not found")
+        try:
+          playcount=track['userplaycount'] 
+        except:
+          playcount=0
+        try:
+          mbid=track['mbid']
+        #print(mbid)
+        except:
+          mbid=""
+        print(playcount)
+        duration=int(int(track['duration'])/1000)
+        print(duration)
+        if duration > 0:
+          d=db.cursor()
+          rank=0
+          d.execute("""SELECT id FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+          res=d.fetchone()
+          if not res: 
+            d.execute( """INSERT INTO lastfm_tracks (aid, alid, name, mbid, duration, rank) VALUES (%s, %s, %s, %s, %s, %s)""", [aid, alid, name, mbid, duration, rank])
+            db.commit()
+          d.execute("""SELECT id FROM lastfm_tracks WHERE name =%s and aid=%s""", [name, aid])        
+          res=d.fetchone()  
+          tid=res[0]
           c=db.cursor()
-          c.execute( """INSERT INTO """+str(uid)+"""_tracks (alid, aid, tid, playcount, playtime) VALUES (%s, %s, %s,%s, %s)""", [alid, aid, tid, playcount, playtime])
+          c.execute( """Update lastfm_tracks SET duration = %s WHERE id=%s""", [duration, tid])
           db.commit()
-        else:
-          c=db.cursor()
-          c.execute( """Update """+str(uid)+"""_tracks SET playcount = %s, playtime = %s, time= CURRENT_TIMESTAMP WHERE id=%s""", [playcount, int(duration)*int(playcount), tid])
-          db.commit()
+          a=db.cursor()
+          try:
+            a.execute("""SELECT id  FROM """+str(uid)+"""_tracks""")
+            res=a.fetchone()
+          except:
+            a.execute("""CREATE TABLE """+str(uid)+"""_tracks (id INTEGER PRIMARY KEY AUTO_INCREMENT, alid INTEGER(8), aid INTEGER(6), tid INTEGER(10), playcount INTEGER(8), playtime INTEGER(11), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP)""")
+            db.commit() #tabelle anlegen, wenn für track nicht existent
+          d=db.cursor()
+          d.execute("""SELECT id FROM """+str(uid)+"""_tracks WHERE tid =%s""", [tid])
+          res=d.fetchone()
+          playtime=int(playcount)*int(duration)
+          if not res and int(playcount)!=0:
+            c=db.cursor()
+            c.execute( """INSERT INTO """+str(uid)+"""_tracks (alid, aid, tid, playcount, playtime) VALUES (%s, %s, %s,%s, %s)""", [alid, aid, tid, playcount, playtime])
+            db.commit()
+          else:
+            c=db.cursor()
+            c.execute( """Update """+str(uid)+"""_tracks SET playcount = %s, playtime = %s, time= CURRENT_TIMESTAMP WHERE id=%s""", [playcount, int(duration)*int(playcount), tid])
+            db.commit()
   return pages       
     
 
 def trackall():
   db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
   c=db.cursor()
-  c.execute("""SELECT username, id  FROM ldkf_lastfm""")
+  c.execute("""SELECT username, id  FROM ldkf_lastfm WHERE id > 9""")
   data= c.fetchall()
   for userinfo in data:
     user=userinfo[0]
