@@ -22,7 +22,12 @@
             $adb=utf8_encode($artist_name);
 				$playtime=0;
 				$getid = $db->query("SELECT id FROM `lastfm_artists` WHERE name = '$adb'"); 
-				$aid=$getid->fetch_assoc()['id'];
+				if(isset($getid->num_rows) and  $getid->num_rows!= 0) {
+				  $aid=$getid->fetch_assoc()['id'];
+				}
+				else {
+				  $aid="";
+				}
 				#echo $artist_name;
 				#var_dump($trackid );
 				$playtime=0;
