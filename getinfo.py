@@ -484,8 +484,8 @@ print("Info Alben")
 print("Tracks")
 #track() #trackdaten auslesen
 print("Alben Playtime")
-#album_playtime() #trackdaten auf album hochrechnen
+album_playtime() #trackdaten auf album hochrechnen
 print("Künstler Playtime")
-#artist_playtime() #trackdaten auf künstler hochrechnen.
+artist_playtime() #trackdaten auf künstler hochrechnen.
 print("Top Track")
-trackall()
+#trackall()
