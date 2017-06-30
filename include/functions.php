@@ -681,14 +681,25 @@
 		if($album!="") {
 			$getimage = $db->query("SELECT `name`, `stat`  FROM `last_fm_covers` WHERE album LIKE '$album'"); 
 			if(isset($getimage->num_rows) and  $getimage->num_rows!= 0) {
-				$getimages = $getimage->fetch_assoc()['name'];
-				$stat= $getimage->fetch_assoc()['stat'];
-				if($stat==0) {
+				while($cov = $getimage->fetch_assoc()){
+					$getimages=$cov['name'];
+					$stat=$cov['stat'];
+				}
+
+				if($stat==0 or $stat=="") {
 					if(isset($images) and $images!="") {				
 						$image_db =	explode("i/u/34s/", $images)[1];
 						$pfad="/var/www/projekte/last_fm/covers/".$image_db;
-						$stat=file_put_contents($pfad, file_get_contents($images))	;		
-			      	$update = $db->query("UPDATE last_fm_covers SET stat='$stat' where name LIKE '$image_db'");  
+						$stat=file_put_contents($pfad, file_get_contents($images))	;
+						
+						echo $album;
+						echo "<br>";
+						if($getimages==$image_db) {
+			      		$update = $db->query("UPDATE last_fm_covers SET stat='$stat' where name LIKE '$image_db'");  
+						}
+						else {
+							$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album, stat) VALUES ('$image_db', '$artist_name', '$album', '$stat')"); 
+						}
 					}				
 				}
 				$image="covers/".$getimages; 
@@ -709,6 +720,7 @@
 						$stat=file_put_contents($pfad, file_get_contents($images))	;			
 						#echo $stat;	
 						#echo $pfad;
+						echo "new image";
 						$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album, stat) VALUES ('$image_db', '$artist_name', '$album', '$stat')"); 
 						
 					}
