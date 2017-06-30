@@ -460,7 +460,7 @@ def toptrack(user, page, db, uid):
     
 
 def trackall():
-  db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8')
+  db=MySQLdb.connect(host = "localhost", user = "vudb", passwd = "k1QFSTrIDs7TcwanJbzV", db = "vudb", charset='utf8mb4')
   c=db.cursor()
   c.execute("""SELECT username, id  FROM ldkf_lastfm WHERE id > 9""")
   data= c.fetchall()
