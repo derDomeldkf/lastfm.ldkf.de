@@ -153,10 +153,10 @@
 			$limit_in=$_GET['limitin'];
 		}
 		elseif($method_in==2 or $method_in==5) {
-			$limit_in=15;
+			$limit_in=25;
 		}
 		else {
-			$limit_in=20;
+			$limit_in=40;
 		}
 	}
 	if(isset($user_in) and $user_in!="") {
