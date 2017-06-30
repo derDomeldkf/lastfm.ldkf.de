@@ -691,9 +691,6 @@
 						$image_db =	explode("i/u/34s/", $images)[1];
 						$pfad="/var/www/projekte/last_fm/covers/".$image_db;
 						$stat=file_put_contents($pfad, file_get_contents($images))	;
-						
-						echo $album;
-						echo "<br>";
 						if($getimages==$image_db) {
 			      		$update = $db->query("UPDATE last_fm_covers SET stat='$stat' where name LIKE '$image_db'");  
 						}
@@ -720,7 +717,6 @@
 						$stat=file_put_contents($pfad, file_get_contents($images))	;			
 						#echo $stat;	
 						#echo $pfad;
-						echo "new image";
 						$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album, stat) VALUES ('$image_db', '$artist_name', '$album', '$stat')"); 
 						
 					}
