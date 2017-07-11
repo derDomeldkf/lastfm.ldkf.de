@@ -148,7 +148,6 @@
 						else{
 							$(th).parent().hide();
 							$( "#login" ).show();
-							alert(data);
 						}
 					});
 
