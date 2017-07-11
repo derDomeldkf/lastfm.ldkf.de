@@ -2,6 +2,10 @@
 	background: url("../pic/go-up.png") ; 
 	text-decoration: none;
 }
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+   padding: 2px 0px 2px 0px;
+   vertical-align: middle;
+}
 
 
 .back-to-top {
@@ -133,3 +137,24 @@ html, body {
 .userButton:active {
 	position:relative;
 }
+
+/*
+a.mem:link {
+   background-color: #428BCA;
+   color:            white;
+}
+
+a.mem:visited {
+   background-color: #428BCA;
+   color:            white;
+}
+
+a.mem:hover {
+   background-color: white;
+   color:            #428BCA;
+}
+
+a.mem:active {
+   background-color: #428BCA;
+   color:            grey;
+}*/

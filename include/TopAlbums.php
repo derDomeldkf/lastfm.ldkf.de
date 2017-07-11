@@ -6,11 +6,13 @@
 	$counter_cont=1;
 	$getid = $db->query("SELECT id FROM `ldkf_lastfm` WHERE username LIKE '$user_in'"); 
 	$id=$getid->fetch_assoc()['id'];
-	echo head();
+	if($user[3] > 1 and $user[2]==1) {
+		echo head("TopAlbums", $user_in);
+	}
 	
 			foreach($user[0] as $track){
 				$playtime=0;
-				$track_name= $track->name;
+				$album_name= $track->name;
 				$count= $track->playcount;
 				$artist_name= $track->artist->name;
 				$url= $track->url;
@@ -18,15 +20,15 @@
 				$image_array = get_object_vars($image_decode[0]);
 				$images=$image_array['#text'];
 				$album="";
-				$image=image($images, $artist_name, $db, $album);
-
-				$artist_name=str_replace("'", "_", $artist_name);
+				$image=image($images, $artist_name, $db, $album_name);
+				$adb=utf8_encode($artist_name);
+				$tdb=utf8_encode($album_name);
 				$playtime=0;
-				$getid = $db->query("SELECT id FROM `lastfm_artists` WHERE name = '$artist_name'"); 
+				$getid = $db->query("SELECT id FROM `lastfm_artists` WHERE name = '$adb'"); 
 				$aid=$getid->fetch_assoc()['id'];
-				$tdb=str_replace("'", "_", $track_name);
 				#echo $aid.$track_name;
-				$getids = $db->query("SELECT id FROM `lastfm_tracks` WHERE aid= '$aid' and name LIKE '$tdb'"); 
+				$trackid = array();
+				$getids = $db->query("SELECT id FROM `lastfm_album` WHERE aid= '$aid' and name = '$tdb'"); 
 				while(isset($getids->num_rows) and  $getids->num_rows!= 0 and $tracks = $getids->fetch_assoc()){
 					$trackid[]=$tracks['id'];
 				} 
@@ -34,27 +36,19 @@
 				#var_dump($trackid );
 				$playtime=0;
 				#echo "<br>";
-				if(isset($trackid) and $trackid) {
+				if(isset($trackid) and $trackid)  {
 					foreach ($trackid as $tid) {
-						$getplaytime = $db->query("SELECT playtime FROM `".$id."_tracks` WHERE tid = '$tid'"); 
+						$getplaytime = $db->query("SELECT playtime FROM `".$id."_album` WHERE alid = '$tid'"); #change to playtime
                	if(isset($getplaytime->num_rows) and  $getplaytime->num_rows!= 0) {
-							$playtime=$getplaytime->fetch_assoc()['playtime'];
+							$playtime=$getplaytime->fetch_assoc()['playtime'];#change to playtime
 						}
 					}
-					
 				}
-				$trackid="";
-				if($counter_cont==1) {
-					$count_max=$count;
-				}
+				unset($trackid);
+				if($counter_cont==1 and $user[2]==1) {$count_max=$count;}
+				elseif($counter_cont==1 and $user[2]!=1) {$count_max=$_POST[5] ;}
 				echo'
-					<tr class="" style="
-				';
-				if($i==0) { 
-					echo'background-color: #F2F2F2;';
-				}
-				echo'
-					">
+					<tr class="" style="">
 						<td class="list">
    	  	    			<span class="">
            	     			<span class="chartlist-image">
@@ -69,24 +63,22 @@
         						</span>
  	  	 					</span>         		
       	   		</td>
-    					<td class="list" style="padding-right:5px; padding-left:8px; min-width:400px;">
+    					<td class="list" style="padding-right:5px; padding-left:8px;">
    	        			<span class="chartlist-ellipsis-wrap">
       	         	   <span class="chartlist-artists">
          	   				<a href="http://www.last.fm/de/user/'.$user[1].'/library/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
         						</span>
 								<span class="artist-name-spacer"> — </span>
-									<a href="'.$url.'" title="'.$artist_name.'-'.$track_name.'" target="_blank" class="link-block-target">                                                         
-    									'.$track_name.'
+									<a href="'.$url.'" title="'.$artist_name.'-'.$album_name.'" target="_blank" class="link-block-target">                                                         
+    									'; echo (strlen($album_name)>40) ? "<br>" : ""; echo $album_name.'
   	  								</a>
  	  	 						</span>
       	   			</td>
       	   		'; 
-      	   		echo lyric($artist_name, $track_name);	
-      	   		echo play($track_name, $artist_name, $db, $method_in, $limit_in, $page_in, $user_in);							
       	  			$m=0; 
-						$st=3+(60/$page_in)*$count/$count_max;    				
+						$st=((50)*$count/$count_max);	    				
     					echo'      	   
-      	   			<td class="list" style="padding-right:8px; min-width:200px;">
+      	   			<td class="list visible-lg-block visible-md-block" style="padding-right:8px; min-width:200px;">
       	   				<div class="'; 
       	   				if($st>strlen($count)*2){ 
       	   					echo'textunter';
@@ -108,8 +100,8 @@
     							else { 
     								echo' style="padding-left:5px;"';
     							}
-    							echo '
-    								>'.$count.'
+    							echo ' id="'.$method.'_'.$counter_cont.'_'.$page_in.'">
+    								'.$count.'
     							</span>
     							
     						</div>';
@@ -118,7 +110,7 @@
 						$st=3+(60/$page_in)*$playtime/($count_max*300);    				
     					echo'      	   
       	   				<div class="'; 
-      	   				if($st>strlen($count)*2){ 
+      	   				if($st>strlen($count)*3){ 
       	   					echo'textunter';
       	   				}
       	   				echo '">'; 
@@ -139,7 +131,7 @@
     								echo' style="padding-left:5px;"';
     							}
     							echo '
-    								>'. floor($playtime/3600) .':'.($playtime /60) % 60 .':'. $playtime % 60 .'    						
+    								>'. floor($playtime/3600) .':'.($playtime /60) % 60 .':'. $playtime % 60 .'     						
     					   							
     							</span>
     						</div>
@@ -151,9 +143,11 @@
            	$place++;
          	$counter_cont++;
          }  		
-			echo '
-</tbody>
-			</table>
-		</div>
-	';
+			if($user[3] > 1 and $user[2]==1) {
+				echo '
+  					</tbody>
+  				</table>
+  			</div>
+  		'; 
+  	}
 ?>

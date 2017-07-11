@@ -6,11 +6,9 @@
 	$counter_cont=1;
 	$getid = $db->query("SELECT id FROM `ldkf_lastfm` WHERE username LIKE '$user_in'"); 
 	$id=$getid->fetch_assoc()['id'];
-	echo '
-		<div style="margin-left:40px;">
-			<table>
-   			<tbody>
-   		';
+	if($user[3] > 1 and $user[2]==1) {
+		echo head("TopArtists", $user_in);
+	}
 			foreach($user[0] as $track){
 				$artist_name= $track->name;
 				$artist_name_db=rep($artist_name);
@@ -49,7 +47,7 @@
 						$getimage = $db->query("SELECT `id` FROM `last_fm_covers` WHERE name LIKE '$image_db'"); 
 						$getimage_row = $getimage->fetch_assoc();
 						if(!isset($getimage_row) or $getimage_row=="") {
-							$pfad="covers/".$image_db;
+							$pfad="../covers/".$image_db;
 							copy($images, $pfad);
 							$insert = $db->query("INSERT INTO last_fm_covers (name, artist, album) VALUES ('$image_db', '$artist_name_db', 'NULL')"); 
 						}
@@ -59,17 +57,10 @@
 				else {
 					$image="pic/empty.png";
 				}
-				if($counter_cont==1) {$count_max=$count;}
+				if($counter_cont==1 and $user[2]==1) {$count_max=$count;}
+				elseif($counter_cont==1 and $user[2]!=1) {$count_max=$_POST[5] ;}
 				echo'
-					<tr class="" style="
-				';
-				if($i==0) { 
-					echo'
-						background-color: #F2F2F2;
-					';
-				}
-				echo '
-					">
+					<tr class="" style="">
 						<td class="list">
    	  	    			<span class="">
           	   			<span class="chartlist-image">
@@ -84,7 +75,7 @@
       						</span>
  	  						</span>         		
       				</td>
-    					<td class="list" style="padding-right:5px; padding-left:8px; min-width:400px;">
+    					<td class="list" style="padding-right:5px; padding-left:8px; white-space: nowrap;">
    	  					<span class="chartlist-ellipsis-wrap">
       						<span class="chartlist-artists">
         							<a href="http://www.last.fm/de/music/'. urlencode($artist_name).'" title="'.$artist_name.'" target="_blank">'.$artist_name.'</a>
@@ -93,9 +84,9 @@
       				</td>
       			'; 
       			$m=0; 
-					$st=3+((80/$page_in)*$count/$count_max);    				
+					$st=((60)*$count/$count_max)+10;				
     				echo'      	   
-      				<td class="list" style="padding-right:8px; min-width:200px;">
+      				<td class="list visible-lg-block visible-md-block visible-sm-block" style="padding-right:8px; ">
       						<div class="
       					';
       					if($st>strlen($count)*2){ 
@@ -119,7 +110,7 @@
     							echo' style="padding-left:5px;"';
     						}
     						echo '
-    							>
+    							id="'.$method.'_'.$counter_cont.'_'.$page_in.'">
     								'.$count.'
     							</span>
     						</div>';
@@ -161,9 +152,11 @@
         		$place++;
         		$counter_cont++;
 			} 
-			echo '
-</tbody>
-			</table>
-		</div>
-	';
+			if($user[3] > 1 and $user[2]==1) {
+				echo '
+  					</tbody>
+  				</table>
+  			</div>
+  		'; 
+  	}
 ?>

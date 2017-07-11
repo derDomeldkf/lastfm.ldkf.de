@@ -1,6 +1,6 @@
 <?php
 
-	function group($db_name, $period, $db, $post, $date, $td) {
+	function group($db_name, $period, $db, $post, $date, $td, $id) {
  		$content="";
  		if(!isset($_POST['userselc'][0])) {
 			$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC"); 
@@ -27,20 +27,18 @@
 		while($getplaces = $getplace->fetch_assoc()){
 			$places[]=$getplaces['artist'];
 		}
-		if(!isset($places) and isset($ua)) {
-			$content .='
-				<div class="row" style="margin:0">
-					<div class="col-md-9" style="padding-left:40px;">
-						<h3>Diese Benutzer habe keine gemeinsam gehörten Künstler.</h3>
-			';		
-		}
-		else {
+	
+
 			$content .='		
-				<div class="row" style="margin:0">
-					<div class="col-md-9" style="padding-left:40px;">
- 						<table style="">
+				<div class="row group cont" style="margin:0" id="'.$id.'" >';
+			if (strpos($id, "week") !== false) {
+				$content .='<div style="padding-left:60px"><h4>'.$date.'</h4></div>';
+			} 			
+			$content .='<div class="col-md-9" style="padding-left:0px;">
+						
+ 						<table class="table table-striped" id="'.$id.'_table">
  							<tbody>
- 								<tr>
+ 								<tr style="font-size:12pt">
  									'.$td.'>
  									</td>
 									'.$td.' style="padding-left:10px;">
@@ -71,9 +69,6 @@
 										if($count>1) {
 											$content .='
 												<tr class="" style="';
-											if($i==0) { 
-												$content .='background-color: #F2F2F2;';
-											}
 											$content .='">';
 											$content .= image_artist($artist_name, $db); 				
 											$content .='
@@ -87,12 +82,12 @@
  	     	  									<td class="list" style="padding-left:8px; ">
   	  												<span>('.$count.')</span>
  	         								</td>     
- 	   										<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px; min-width:260px;">
+ 	   										<td class="chartlist-ellipsis-wrap list" style="padding-left:10px; padding-right:4px;">
    	   										<span class="chartlist-ellipsis-wrap">
   														<a href="http://www.last.fm/music/'.$artist_name.'" target="_blank">'.$artist_name.'</a>
  	  	 											</span>
 												</td>
-  	  										<td class="list" style="padding-right:3px; min-width:360px;">
+  	  										<td class="list" style="padding-right:3px;">
  	   										<span>'.$user.'</span>
  	           							</td>
 										</tr>';
@@ -106,14 +101,14 @@
 	 					$content .= '
  							</tbody>
 						</table>';
-		}
+		
 		$content .= '
 		</div>
 		<div class="col-md-3" style="padding-left:30px; padding-top:20px;">
 
 		';
 		if($db_name=="last_fm_charts_all") {
-			$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
+			/*$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
 				while($members = $getmembers->fetch_assoc()){
 					$member[]=$members['username'];
 				}
@@ -152,10 +147,10 @@
    			$content .= '
    			</div>	
    			</div>
-			';
+			';*/
 		}
 		else {
-			$getid = $db->query("SELECT id FROM `tables` ORDER BY id DESC"); 
+			/*$getid = $db->query("SELECT id FROM `tables` ORDER BY id DESC"); 
 			while($getplaces = $getid->fetch_assoc()){
 				$ids[]=$getplaces['id']; 
 			}
@@ -177,7 +172,7 @@
 			}
 			$content .= '
    			</div>	
-			';
+			';*/
 		}	
 				
 		$content .= '
@@ -191,14 +186,19 @@
 
 #################################################################################################################################################################
 	
-	function group2($db_name, $period, $db, $method_in, $td) {
- 		$content=head();
+	function group2($db_name, $period, $db, $td, $id, $date) {
+ 		$content='<div class="cont group" style="padding:0" id="'.$id.'">';
+				if (strpos($id, "week") !== false) {
+				$content .='<div style="padding-left:60px"><h4>'.$date.'</h4></div>';
+			}            
+				$content .='<table class="table table-striped">
+				<tbody>';
 		$getplace = $db->query("SELECT `titel` FROM ".$db_name." ORDER BY playcount DESC "); 
 		while($getplaces = $getplace->fetch_assoc()){
 			$places[]=$getplaces['titel'];
 		}
 		$content .='
- 			<tr>
+ 			<tr  style="font-size:12pt;">
  				'.$td.'>
  				</td>
 				'.$td.' style="padding-left:10px;">
@@ -254,8 +254,8 @@
     							<a href="http://www.last.fm/music/'.$artist_name.'/_/'.$track_name.'" target="_blank">'.$track_name.'</a>
  	  	 				</span>
 					</td>';
-					$content .= lyric($artist_name, $track_name);			
-					$content .= play($track_name, $artist_name, $db, $method_in, "", "", "");
+					//$content .= lyric($artist_name, $track_name);			
+					//$content .= play($track_name, $artist_name, $db, $method_in, "", "", "");
 					$content .= '  	  				
   	  				<td class="list" style="padding-right:3px; min-width:360px;">
  	   				<span>'.$user.'</span>

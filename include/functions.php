@@ -10,7 +10,7 @@
 #################################################################################################################################################################
 	
 	function get_info($method, $user_in, $page_in, $limit_in, $api_key){
-		$methode="method=user.get".$method."&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1&nowplaying=true";
+		$methode="method=user.get".$method."&user=".$user_in."&page=".$page_in."&limit=".$limit_in."&extended=1";
 		$out = post($methode, $api_key);
 		$decode=json_decode($out);
 		$get_decode=strtolower($method);
@@ -27,11 +27,7 @@
 	}
 
 #################################################################################################################################################################
-	
-	function footer_limit($perPage){
-		$content=' value="'.$perPage.'">'.$perPage.' Eintr&auml;ge Pro Seite</option>';
-		return $content;
-   }	     							
+     							
 
 #################################################################################################################################################################
 	
@@ -188,7 +184,7 @@
  
 #################################################################################################################################################################
  	
- 	function love($love,$artist_name, $track_name, $method_in, $limit_in, $user_in, $page_in) {
+ 	function love($love,$artist_name, $track_name, $limit_in, $user_in, $page_in) {
  		if(isset($_SESSION['user']) and $_SESSION['user']==$user_in) {
 			if($love==1) {
 				/*$content= '
@@ -241,8 +237,9 @@
  	
  	function logout($user_in, $db) {
  		$update = $db->query("UPDATE last_fm_users SET stat='0' where username = '$user_in'"); 
- 		setcookie("user","",time() - 3600); 
+ 		setcookie("user", "", time()-3600, "/");
 		session_destroy();
+		return $_COOKIE['user'];
   	} 
 
 
@@ -269,149 +266,22 @@
 	
 #################################################################################################################################################################	
 	
-	function footer($method_in, $page, $totalPages, $user_in, $limit_in, $perPage) {	
-	 	$content="";
-		$page_n=$page+1;
-		$page_l=$page-1;
-		$content= '
-			<div class="nav footer">
-				<table>
-					<tr>';
-					if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7 or $method_in==11) {
-						$content .= '
-						<td class="navfooter" style="color:white;">
-            			Seite '.$page.' von '.$totalPages.'
-            		</td>
-						<td class="navfooter">
-					';
-					if($page>2) {
-						$content .= nav_footer($user_in, $method_in, $limit_in);
-						$content .= '  							
-   				   		<input type="hidden" name="pagein" value="1">
-								<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
-									|<<
-								</button>
-							</form>
-						';
-					}
-					$content .= '
-						</td>
-						<td class="navfooter">
-					';
-					if($page!=1) {
-						$content .= nav_footer($user_in, $method_in, $limit_in);
-						$content .= '
-						 		<input type="hidden" name="pagein" value="'. $page_l .'">
-								<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
-									<<
-								</button>
-							</form>
-						';
-					}								
-					$content .='
-						</td>
-						<td class="navfooter">
-					';
-					if($page<$totalPages) {
-						$content .= nav_footer($user_in, $method_in, $limit_in);
-						$content .= '
-   					   	<input type="hidden" name="pagein" value="'. $page_n .'">
-								<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
-									>>
-								</button>
-							</form>
-						';
-					}
-						$content .='
-							</td>   
-							<td class="navfooter">
-						';
-						if($page+1<$totalPages) {
-							$content .= nav_footer($user_in, $method_in, $limit_in);
-							$content .= '
-   					   		<input type="hidden" name="pagein" value="'. $totalPages .'">
-									<button type="submit" class="btn btn-primary" style="padding-top:6px; padding-bottom:6px;">
-										>>|
-									</button>
-								</form>
-							';
-							}
-							$content .='
-							</td>';          			
-							$content .='   	         		
-   	         		<td class="navfooter">
-   	         			<form action="?" style="margin:0; padding:0;" method="POST">
-   								<select class="form-control"  name="limitin" id="myselect" onchange="this.form.submit()" style="padding:3px; font-size:12pt" style="padding-top:6px; padding-bottom:6px;">';
-   								if($method_in==6 or $method_in==7 or $method_in==11) {
-   									for($i=20; $i<=60; $i=$i+20){
-  	 										$content .='<option class="option"'; 
-  	 										($perPage==$i) ? $content .= " selected" : "";
-   	     								$content .= footer_limit($i);
-   	     							}
-   	     						}
-   	     						else {
-  	      							for($i=15; $i<=35; $i=$i+10){
-  	 										$content .='<option class="option"'; 
-  	 										($perPage==$i) ? $content .= " selected" : "";
-   	     								$content .= footer_limit($i);
-   	     							}    						
-  	      						}
- 	  							$content .='</select>
-  	 							<input type="hidden" name="username" value='.$user_in.'>
- 	  							<input type="hidden" name="method" value="'.$method_in.'">
- 	  							<input type="hidden" name="pagein" value="'. $page .'">
-							</form>
-						</td>';
-					}
-					$content .='
-						<td>
-							<span class="text-muted" style="padding-left:30px;"> <a  href="impressum.html" target="_blank">Impressum</a> - <a target="_blank" href="datenschutzerklaerung.html" >Datenschutz</a></span>  
-						</td>
-					</tr>
-				</table>
-			</div>
-			';
-		
-  		return $content;
-	}
 	
 #################################################################################################################################################################
 	
 	function nav($method_in, $user_in, $image, $totalTracks, $starttime, $totaltracks, $db, $page_in, $limit, $secret, $api_key) {
 
 		$content="";
-		if((isset($_SESSION['user']) and !isset($_GET['methodlogout'])) and !isset($_GET['methodlogout']) ) {
-			$content .='
-				<li><a href="./lastfm.php?method_get=2">Home</a></li>
-			';
-		}
-		else {
-  				$content .='<li><a href="./">Startseite<span class="sr-only">(current)</span></a></li>';
-  			}
-		$content .='<li><a href="https://scrobbler.ldkf.de" target="_blank">Scrobbler</a></li>';
+
+
 		if($method_in==2 or $method_in==5 or $method_in==6 or $method_in==7 or $method_in==11) {
-			$getname = $db->query("SELECT `id` FROM `ldkf_lastfm` WHERE `username` LIKE ('".$user_in."')");
-			$user = $getname->fetch_assoc();
-			if(isset($user) and $user!="") {
-				$content .='<li><a href="./lastfm.php?method=4">Gruppe</a></li>
-					<li><a href="http://explr.fm/?username='.$user_in.'" target="_blank">Explr.fm</a></li>
-				';
-				if((isset($_SESSION['user']) and $_SESSION['user']==$user_in) and !isset($_GET['methodlogout'])) {				
-					$content .='<li><a href="./lastfm.php?logout=1&user='.$user_in.'&methodlogout='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Logout</a></li>';
-				}
-				elseif(!isset($_SESSION['user']) or isset($_GET['methodlogout'])) {
-					$content .='<li><a href="./lastfm.php?login=1&user='.$user_in.'&methodlogin='.$method_in.'&page='.$page_in.'&limit='.$limit.'" >Login</a></li>';
-				}
-  			}	
-			$content .= audioplayer($db, $secret, $user_in, $api_key);
-        	$content .= '
-        		</ul>
-   				<ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
-   					<li class="dropdown" style="width:200px;">
+			$content .= '
+        		
+   					<li>
       					<a href="#" class="dropdown-toggle" style="padding-bottom:6px; padding-top:7px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
       						<img style="border-radius: 18px;" width="36px" src="'.$image.'"> '.$user_in.'<span class="caret"></span>
 							</a>
-         				<ul class="navbar-inverse dropdown-menu" style="color:white; font-size:11pt; padding: 15px 10px 15px 30px; border-radius:0; width:240px;">
+						</li>
            					<li>
            				';
 			if($method_in!=2) { 
@@ -689,7 +559,7 @@
 				if($stat==0 or $stat=="") {
 					if(isset($images) and $images!="") {				
 						$image_db =	explode("i/u/34s/", $images)[1];
-						$pfad="/var/www/projekte/last_fm/covers/".$image_db;
+						$pfad="../covers/".$image_db; ///var/www/projekte/last_fm/
 						$stat=file_put_contents($pfad, file_get_contents($images))	;
 						if($getimages==$image_db) {
 			      		$update = $db->query("UPDATE last_fm_covers SET stat='$stat' where name LIKE '$image_db'");  
@@ -711,7 +581,7 @@
 					$getimage_row = $getimage->fetch_assoc();
 					#var_dump($getimage_row);
 					if(!isset($getimage_row) or $getimage_row=="") {
-						$pfad="/var/www/projekte/last_fm/covers/".$image_db;
+						$pfad="../covers/".$image_db; ///var/www/projekte/last_fm/
 						//echo $pfad;
 						//echo file_get_contents($images);
 						$stat=file_put_contents($pfad, file_get_contents($images))	;			
@@ -747,30 +617,12 @@
 	
 #################################################################################################################################################################
 	
-	function head() {
+	function head($id, $username) {
 		$content="";
 		$content= '
-			<div style="margin-left:40px;">
-				<div class="modal fade" id="modaleins" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- 					<div class="modal-dialog" role="document">
-    					<div class="modal-content">
-      					<div class="modal-header" style="padding-top:5px; padding-bottom:20px; padding-right:10px;">
-      						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      							<span aria-hidden="true">&times;</span>
-      						</button>
-      					</div>
-      					<div class="modal-body" id="modal_text">
-      						<div style="heihgt:70px;">
-      							<h4>Lyrics werden geladen</h4>
-      					 		<figure style="">
-  							     		<img src="pic/loading.gif" width="40px" height="40px">
-  							  		</figure>
-  							 	</div>
-      					</div>
-      				</div>
-  					</div>
-				</div>           
-				<table id="t1">
+			<div class="cont '.$username.' '.$id.' user" style="padding:0">
+				           
+				<table class="table table-striped">
 				<tbody>
    			';
    	return $content;
