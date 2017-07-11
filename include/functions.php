@@ -582,7 +582,7 @@
 					$getimage_row = $getimage->fetch_assoc();
 					#var_dump($getimage_row);
 					if(!isset($getimage_row) or $getimage_row=="") {
-						$pfad="../covers/".$image_db; ///var/www/projekte/last_fm/
+						$pfad="/var/www/projekte/last_fm/covers/".$image_db; ///var/www/projekte/last_fm/
 						//echo $pfad;
 						//echo file_get_contents($images);
 						$stat=file_put_contents($pfad, file_get_contents($images))	;			
