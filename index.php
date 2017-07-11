@@ -2,7 +2,6 @@
 <?php
 	session_start();
 	//setcookie('user', "microsofthater2", time()+(3600*24*365), "/"); 
-
 	include "include/config.php";
 	if(isset($_COOKIE['user']) and $_COOKIE['user']!="") {	
 		include "include/db_connect.php";
