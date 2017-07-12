@@ -1,6 +1,6 @@
  
 <?php
-
+	session_start();
 	if(isset($_POST[1])) {
 
 		include "config.php";
