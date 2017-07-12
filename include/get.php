@@ -1,8 +1,7 @@
  
 <?php
-	session_start();
 	if(isset($_POST[1])) {
-
+		session_start();
 		include "config.php";
 		include "db_connect.php";
 		include "functions.php";
@@ -15,6 +14,7 @@
 		}
 	}
 	else {
+
 		$user_in=$_SESSION['user'];
 		$limit_in=35;
 		$page_in=1;
