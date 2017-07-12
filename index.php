@@ -88,10 +88,11 @@
 
 
   		   
-			function userob(pagein, stopload, method) {
+			function userob(pagein, stopload, method, stat) {
   				this.pagein=pagein;
   				this.stopload=stopload;
   				this.max_count=$("#"+method+"_1_1").text();
+  				this.stat=stat;
  				
 			}
  		   
@@ -104,8 +105,8 @@
 						
 	     		 		}
 	          		if (!users[user][cl[2]]) {
-	          			users[user]["RecentTracks"]=new userob(1, false, "RecentTracks");
-	          			users[user][cl[2]]=new userob(1, false, cl[2]); // user/methode -> neues objekt anlegen, mit eigenschaften der
+	          			users[user]["RecentTracks"]=new userob(1, false, "RecentTracks", 0);
+	          			users[user][cl[2]]=new userob(1, false, cl[2], 0); // user/methode -> neues objekt anlegen, mit eigenschaften der
 	     		 		}
 		     		 	if (users[user][cl[2]].stopload == false) {  
 
@@ -190,7 +191,7 @@
 			   function new_user(users, user) { 	
 				 	if (!users[user]) {
 						users[user]={};
-						users[user]["RecentTracks"]=new userob(1, false, "RecentTracks");
+						users[user]["RecentTracks"]=new userob(1, false, "RecentTracks", 0);
 	     		 	}
 					var element=$('.RecentTracks.cont'+'.'+user); 
 					document.title = user;  		 // 2 klassen .a.b
@@ -312,25 +313,28 @@
 				setInterval(function(){  
   				  	if($('.user.cont').length > 0){
 						$.each(users, function(us, value) {
-							$.post("include/get.php",{
-  								0: us,
-		      				1: "1",
-		      				2: "1",
-		      				3: "RecentTracks",
-		      				4: "true",
-		      				5: $(".last."+us).attr("title") ,
- 							},
-							function (data) {
-								if (data.replace(" \n", "") == 1) {
-								}
-								else{
-									$(".last."+us).attr("class", us);
-									$( "tr.del."+us ).replaceWith( "" );
-									$( "tr.repl."+us ).replaceWith( data );
-
-								}
-							});
-							
+							if(users[us]["RecentTracks"].stat==0){
+								users[us]["RecentTracks"].stat=1;
+								$.post("include/get.php",{
+	  								0: us,
+			      				1: "1",
+			      				2: "1",
+			      				3: "RecentTracks",
+			      				4: "true",
+			      				5: $(".last."+us).attr("title") ,
+	 							},
+								function (data) {
+									if (data.replace(" \n", "") == 1) {
+									}
+									else{
+										$(".last."+us).attr("class", us);
+										$( "tr.del."+us ).replaceWith( "" );
+										$( "tr.repl."+us ).replaceWith( data );
+	
+									}
+									users[us]["RecentTracks"].stat=0;
+								});
+							}
 						});
 					}
   				}, 20000);
