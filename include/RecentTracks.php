@@ -125,7 +125,7 @@
 									if($m==0 and $date_decode!="jetzt") {							
 										echo 'repl';
 									}
-									else {
+									elseif($m==1) {
 										echo 'del';
 									} 
 								}
