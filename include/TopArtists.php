@@ -119,7 +119,7 @@
 						$st=3+(60/$page_in)*$playtime/($count_max*200);    				
     					echo'      	   
       	   				<div class="'; 
-      	   				if($st>strlen($count)*3){ 
+      	   				if($st>strlen($playtime)*2){ 
       	   					echo'textunter';
       	   				}
       	   				echo '">'; 
