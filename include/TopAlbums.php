@@ -87,18 +87,18 @@
     							while($m<$st) {
     								echo '<img style="'; 
     								if($m==0) {
-    									echo 'border-top-left-radius:3px; border-bottom-left-radius:3px;';
+    									//echo 'border-top-left-radius:3px; border-bottom-left-radius:3px;';
     								} 
     								if($m+1>=$st) {
-    									echo 'border-top-right-radius:3px; border-bottom-right-radius:3px';
+    									//echo 'border-top-right-radius:3px; border-bottom-right-radius:3px';
     								} 
     								echo'" src="pic/count.png" height:15px;>'; 
 									$m++; 					
     							}
-    							echo '<span';
+    							echo '<span style="padding-left:5px;"';
     							if($st>strlen($count)*2){}
     							else { 
-    								echo' style="padding-left:5px;"';
+    								echo' ';
     							}
     							echo ' id="'.$method.'_'.$counter_cont.'_'.$page_in.'">
     								'.$count.'
@@ -117,18 +117,18 @@
     							while($m<$st) {
     								echo '<img style="'; 
     								if($m==0) {
-    									echo 'border-top-left-radius:3px; border-bottom-left-radius:3px;';
+    								//	echo 'border-top-left-radius:3px; border-bottom-left-radius:3px;';
     								} 
     								if($m+1>=$st) {
-    									echo 'border-top-right-radius:3px; border-bottom-right-radius:3px';
+    								//	echo 'border-top-right-radius:3px; border-bottom-right-radius:3px';
     								} 
     								echo'" src="pic/time.png" height:15px;>'; 
 									$m++; 					
     							}
-    							echo '<span';
+    							echo '<span style="padding-left:5px;"';
     							if($st>strlen($count)*2){}
     							else { 
-    								echo' style="padding-left:5px;"';
+    								echo' ';
     							}
     							echo '
     								>'. floor($playtime/3600) .':'.($playtime /60) % 60 .':'. $playtime % 60 .'     						
