@@ -34,7 +34,7 @@
 			if (strpos($id, "week") !== false) {
 				$content .='<div style="padding-left:60px"><h4>'.$date.'</h4></div>';
 			} 			
-			$content .='<div class="col-md-9" style="padding-left:0px;">
+			$content .='
 						
  						<table class="table table-striped" id="'.$id.'_table">
  							<tbody>
@@ -102,11 +102,7 @@
  							</tbody>
 						</table>';
 		
-		$content .= '
-		</div>
-		<div class="col-md-3" style="padding-left:30px; padding-top:20px;">
-
-		';
+	
 		if($db_name=="last_fm_charts_all") {
 			/*$getmembers = $db->query("SELECT `username` FROM `ldkf_lastfm` order by `username` ASC"); 
 				while($members = $getmembers->fetch_assoc()){
