@@ -160,7 +160,7 @@
 						element.show();
 					}
 			  	});
-			  	function getcontent(user, method) { 
+			  	function getcontent(user, method, users) { 
 	    			$.post("include/get.php",{
 		   			0: user,
 		      		1: "35",
@@ -175,7 +175,10 @@
 						else{
 							change("user", method);
 							$( ".table-responsive" ).append( data);
-	
+							if (method=="RecentTracks") {
+								users[user][method]=new userob(1, false, method, 0);
+							}
+							
 						}
 					});
 	  			}
@@ -190,7 +193,7 @@
 			   function new_user(users, user) { 	
 				 	if (!users[user]) {
 						users[user]={};
-						users[user]["RecentTracks"]=new userob(1, false, "RecentTracks", 0);
+						users[user]["RecentTracks"]=new userob(1, false, "RecentTracks", 1);
 	     		 	}
 					var element=$('.RecentTracks.cont'+'.'+user); 
 					document.title = user;  		 // 2 klassen .a.b
@@ -199,7 +202,7 @@
 						element.show();
 					}
 					else {
-						 getcontent(user, "RecentTracks");
+						 getcontent(user, "RecentTracks", users);
 						 
 					}
 				}	
@@ -333,6 +336,9 @@
 									}
 									users[us]["RecentTracks"].stat=0;
 								});
+							}
+							else {
+								
 							}
 						});
 					}
