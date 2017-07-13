@@ -176,7 +176,7 @@
 							change("user", method);
 							$( ".table-responsive" ).append( data);
 							if (method=="RecentTracks") {
-								users[user][method]=new userob(1, false, method, 0);
+								users[user][method].stat=0;
 							}
 							
 						}
