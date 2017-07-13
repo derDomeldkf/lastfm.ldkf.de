@@ -97,7 +97,7 @@
 			}
  		   
 		    $(window).scroll(function() {
-		      if ($(window).scrollTop()+00 >= ($(document).height() - ($(window).height()))) {
+		      if ($(window).scrollTop()+200 >= ($(document).height() - ($(window).height()))) {
 					if($('.user.cont:visible').length > 0){
 	          		var cl = $('.user.cont:visible').attr("class").split(' ');	
 	          		if (!users[user]) {
@@ -115,7 +115,6 @@
 							max_count = users[user][cl[2]].max_count; 
 							users[user][cl[2]].pagein=(users[user][cl[2]].pagein)+1
 			           //$("#loader").show();
-
 			 	 			$.post("include/get.php",{
 						   	0: cl[1],
 						      1: "35",
