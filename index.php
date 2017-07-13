@@ -211,6 +211,7 @@
 				$( "form" ).submit(function( event ) {
 					user=$( "#user_input_value" ).val().trim();
 					new_user(users, user);
+					$("#explr").attr("href", "http://explr.fm?username="+user);
 	   			event.preventDefault();
 	   			return user;
 				});
@@ -237,7 +238,7 @@
 								element.show();
 							}
 							else {
-												
+								$("#explr").attr("href", "http://explr.fm");			
 								$.post("include/artist_week.php",{
 					   			0: true,
 					      	},
@@ -349,6 +350,7 @@
 		    	$("#userlist").on("click",".mem", function(){
 		    		user=this.id;
   					new_user(users, user);
+  					$("#explr").attr("href", "http://explr.fm?username="+user);
 				});
 		 	})
 		 			  
@@ -378,7 +380,7 @@
 		          	<li><a class="group_link" href="#">Gruppe</a></li>
 						<li style="display:<?php echo (isset($user) and $user!="") ? 'block' : 'none';?>"><a id="logout" href="#">Logout</a></li>
 						<li id="login" style="display:<?php echo (isset($user) and $user!="") ? 'none' : 'block';?>"><a target="" href="http://www.last.fm/api/auth?api_key=<?php echo $api_key; ?>&cb=https://lastfm.ldkf.de/login.php">Login</a></li>
-		         	<li><a href="http://explr.fm" target="_blank">Explr.fm</a></li><!-- ?username=username-->		        
+		         	<li><a href="http://explr.fm<?php echo (isset($user)) ? '?username='.$user : "";?>" id="explr" target="_blank">Explr.fm</a></li><!-- ?username=username-->		        
 		        	</ul>
 		         <form class="navbar-form navbar-right" id="ff">
 		         	<div class="input-group">
