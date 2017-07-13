@@ -84,7 +84,7 @@
 			if (getCookie("user")!="") {
 				user=getCookie("user");
 				new_user(users, user);
-				users[user][method].stat=0;
+				users[user]["RecentTracks"].stat=0;
 			} 
 
 
