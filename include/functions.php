@@ -62,16 +62,16 @@
 		$user =  str_replace("&&", ", ",$users_names);
 		if(substr_count($user, ', ')>2){
 			$teile = explode(",", $user, 4);
-			$teil =  str_replace(", ", '</li><li style="padding-left:15px;">',$teile[3]);
+			$teil =  str_replace(", ", '</li><li style="padding: 3px 0 3px 10px;">',$teile[3]);
 			$user='
-				<ul class="nav navbar-nav">
+				<ul class="nav">
       			<li class="dropdown">
          			<a href="#" class="dropdown-toggle" style="padding:0px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
          				'.$teile[0].', '.$teile[1].', '.$teile[2].' ...
 							<span class="caret"></span>
 						</a>
-         			<ul class="navbar-inverse dropdown-menu" style="border-radius: 6px; width:100%; margin-top:10px; color:white;">
-           				<li style="padding-left:15px;">
+         			<ul class="navbar-inverse dropdown-menu" style="border-radius:0; width:100%; margin-top:10px; padding:7px; color:white;">
+           				<li style="padding: 3px 0 3px 10px;">
            					'.$teil.'
            				</li>
 						</ul>
