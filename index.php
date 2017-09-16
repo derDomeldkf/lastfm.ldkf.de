@@ -115,7 +115,7 @@
 		          		var el=$('.'+cl[2]+'.cont'+'.'+cl[1]);   		 // 2 klassen .a.b
 							max_count = users[user][cl[2]].max_count; 
 							users[user][cl[2]].pagein=(users[user][cl[2]].pagein)+1
-			           //$("#loader").show();
+			           
 			 	 			$.post("include/get.php",{
 						   	0: cl[1],
 						      1: "35",
@@ -129,7 +129,7 @@
 								}
 								else{
 									$( el ).children().append( data);
-									 users[user][cl[2]].stopload = false;
+									users[user][cl[2]].stopload = false;
 								}
 							});
 			 			}
@@ -162,6 +162,8 @@
 					}
 			  	});
 			  	function getcontent(user, method, users) { 
+			  	
+			  	 	$("#loading").show();
 	    			$.post("include/get.php",{
 		   			0: user,
 		      		1: "35",
@@ -179,7 +181,7 @@
 							if (method=="RecentTracks") {
 								users[user][method].stat=0;
 							}
-							
+							$("#loading").hide();
 						}
 					});
 	  			}
@@ -393,9 +395,10 @@
 	        	</div>
 			</div>
 		</nav>
-		<div class="container-fluid">
+		<div id="loading" style="display:none; width:100%; height:100%; opacity:0.7;  z-index: 2; position:absolute; font-size:15px; background-color:black; color:white; padding:40px;"></div>
+		<div class="container-fluid" style=" z-index: 1;">
 	   	<div class="row sr" style="display:<?php echo (isset($user) and $user!="") ? 'block' : 'none'?>">
-	      	<div class="col-sm-3 col-md-2 sidebar" style="display:block">
+	      	<div class="col-sm-3 col-md-2 sidebar" style="display:block; z-index: 1;">
 	         	<ul class="nav nav-sidebar bar user" id="user_bar" style="display:<?php echo (isset($user) and $user!="") ? 'block' : 'none'; ?>">
 		            <li <?php echo ( isset($user) and $user!="" and isset($_SESSION['user']) ) ? ' class="active"' : '' ?>><a class="user RecentTracks" href="#">Zuletzt gehört</a></li>
 		        		<li><a class="user LovedTracks" href="#">Lieblingslieder</a></li>
@@ -421,6 +424,8 @@
 					</div>
 	       	</div>
 	        	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" style="margin-top:20px;"> <!-- hier ausblenden / neues div einfügen -->
+	         	
+
 	         	<div class="table-responsive">
 	         		<?php
 		         		if(isset($user) and $user!="" and isset($_SESSION['user'])) {
