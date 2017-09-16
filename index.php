@@ -240,6 +240,7 @@
 								element.show();
 							}
 							else {
+								$("#loading").show();
 								$("#explr").attr("href", "http://explr.fm");			
 								$.post("include/artist_week.php",{
 					   			0: true,
@@ -250,9 +251,10 @@
 									else{
 										change("group", "group_link, .artist_week");
 										$( ".table-responsive" ).append( data);
-				
+										$("#loading").hide();
 									}
 								});	
+								$("#loading").show();
 								$.post("include/getmembers.php",{
 					   			0: true,
 					      	},
@@ -261,7 +263,7 @@
 									}
 									else{
 										$( "#userlist" ).append( data);
-				
+										$("#loading").hide();
 									}
 								});
 							}
@@ -274,6 +276,7 @@
 									element.show();
 								}
 								else {
+									$("#loading").show();
 									$.post("include/"+name[1]+".php",{
 					   				0: name[1],
 						      	},
@@ -283,7 +286,7 @@
 										else{
 											change("group", "group_link, ."+name[1]);
 											$( ".table-responsive" ).append( data);
-					
+											$("#loading").hide();
 										}
 									});
 								}
