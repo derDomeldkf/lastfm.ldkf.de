@@ -110,12 +110,10 @@
 	          			users[user][cl[2]]=new userob(1, false, cl[2], 0); // user/methode -> neues objekt anlegen, mit eigenschaften der
 	     		 		}
 		     		 	if (users[user][cl[2]].stopload == false) {  
-
 			    	    	users[user][cl[2]].stopload = true;
 		          		var el=$('.'+cl[2]+'.cont'+'.'+cl[1]);   		 // 2 klassen .a.b
 							max_count = users[user][cl[2]].max_count; 
-							users[user][cl[2]].pagein=(users[user][cl[2]].pagein)+1
-			           
+							users[user][cl[2]].pagein=(users[user][cl[2]].pagein)+1;
 			 	 			$.post("include/get.php",{
 						   	0: cl[1],
 						      1: "35",
@@ -298,13 +296,6 @@
 						}
 					}
 
-			/*		if ($(that).parent().parent().id=="userlist") {
-									user=this.attr('value');
-									alert("tr");
-									new_user(users, user);
-								}
-					
-					*/
 					if (that.id=="userlist_nav") {
 						if ($("#userlist:visible").length > 0) {
 							$( "#userlist").hide();

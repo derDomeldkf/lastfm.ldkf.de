@@ -48,6 +48,8 @@
 		#$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id=78597075&parse_mode=HTML&text='.$output; 
 		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&parse_mode=HTML&text='.$output; 
 		$result = file_get_contents($url);	
+		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id=78597075&parse_mode=HTML&text=Nachricht an'.$id_db['telegram-id'].' gesendet'; 
+		$result = file_get_contents($url);
 	}		
 
 	$db_name="last_fm_charts_all";

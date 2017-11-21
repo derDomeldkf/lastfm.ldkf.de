@@ -106,7 +106,8 @@
 					//$images="";
 					$image=image($images, $artist_name, $db, $album_name);
 					if($date_decode!="jetzt") {
-						$gmdate = gmdate("H:i", $date_uts+7200);
+						date_default_timezone_set('Europe/Berlin');
+						$gmdate = gmdate("H:i", $date_uts+3600);
 						$ch_m_in=gmdate("d", $date_uts);
 						$show_date=0;
 						if(!isset($check_date) or $check_date=="" ) {
