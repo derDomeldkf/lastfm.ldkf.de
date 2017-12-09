@@ -10,14 +10,14 @@
 	$db_name = date('YW');
 	$insert = $db->query("INSERT INTO tables (table_name) VALUES ('$db_name')"); 
 	$command="user.getTopArtists&period=7day"; 	
- 	//refresh($db_name, $command, $db, $api_key);
+ 	refresh($db_name, $command, $db, $api_key);
 	$getplace = $db->query("SELECT `artist` FROM `".$db_name."` ORDER BY playcount DESC "); 
 	while($getplaces = $getplace->fetch_assoc()){
 		$places[]=$getplaces['artist'];
 	}
 	$i=0;	 
 	$place=1;		
-	/*foreach($places as $artist_name){
+	foreach($places as $artist_name){
 		if($i<40) {
 			$getartist = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$artist_name'"); 
 			$artist = $getartist->fetch_assoc();
@@ -41,13 +41,13 @@
 			$place++;
 			$i++;
 		}
-	}*/
-	//$output=urlencode(html_entity_decode ('<a href="https://lastfm.ldkf.de">Lastfm Gruppencharts</a>'.PHP_EOL.''.$content[$i-1]));
+	}
+	$output=urlencode(html_entity_decode ('<a href="https://lastfm.ldkf.de">Lastfm Gruppencharts</a>'.PHP_EOL.''.$content[$i-1]));
 	$getid = $db->query("SELECT `telegram-id` FROM `last_fm`"); 
 	while($id_db = $getid->fetch_assoc()){
 		#$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id=78597075&parse_mode=HTML&text='.$output; 
-		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&parse_mode=HTML&text=test'; 
-		//$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&parse_mode=HTML&text='.$output; 
+		//$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&parse_mode=HTML&text=test'; 
+		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&parse_mode=HTML&text='.$output; 
 		$result = file_get_contents($url);	
 		//$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id=78597075&parse_mode=HTML&text=Nachricht an'.$id_db['telegram-id'].' gesendet'; 
 		//$result = file_get_contents($url);
@@ -55,5 +55,5 @@
 
 	$db_name="last_fm_charts_all";
 	$command="user.getTopArtists&period=overall";
- 	//refresh($db_name, $command, $db, $api_key);
+ 	refresh($db_name, $command, $db, $api_key);
 ?>
