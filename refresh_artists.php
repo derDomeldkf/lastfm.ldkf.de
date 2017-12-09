@@ -43,7 +43,7 @@
 		}
 	}*/
 	//$output=urlencode(html_entity_decode ('<a href="https://lastfm.ldkf.de">Lastfm Gruppencharts</a>'.PHP_EOL.''.$content[$i-1]));
-	//$getid = $db->query("SELECT `telegram-id` FROM `last_fm`"); 
+	$getid = $db->query("SELECT `telegram-id` FROM `last_fm`"); 
 	while($id_db = $getid->fetch_assoc()){
 		#$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id=78597075&parse_mode=HTML&text='.$output; 
 		$url = 'https://api.telegram.org/bot'.$bot_id.'/sendMessage?chat_id='.$id_db['telegram-id'].'&parse_mode=HTML&text=test'; 
