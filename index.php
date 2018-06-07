@@ -441,6 +441,9 @@
 				       	</p>
 				       	<p>Du kannst direkt anfangen indem du entweder auf einen Link in der Navigationsleiste klickst oder dort nach einem Lastfm-Benutzer suchst.
 				       	</p>
+						<a  href="impressum.html" target="_blank">Impressum</a>
+						<a target="_blank" href="datenschutzerklaerung.html" >Datenschutz</a>
+
 				     	</div>
 
 		
