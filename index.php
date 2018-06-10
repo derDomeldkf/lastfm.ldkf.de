@@ -37,6 +37,19 @@
 			}
 		}
 	}
+	else {
+	
+echo 	'<script language="JavaScript">
+			<!-- hide 
+			var password;
+			var pass="baum";
+			password=prompt();
+			if (password  != pass) {
+				window.location="rip.html";			
+			}  	
+    	-->
+    	</script>';
+	}
 
 ?>
 <html lang="de">
@@ -63,16 +76,7 @@
     	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     	<script src="js/ie10-viewport-bug-workaround.js"></script>
     	
-    	<script language="JavaScript">
-			<!-- hide 
-			var password;
-			var pass="baum";
-			password=prompt();
-			if (password  != pass) {
-				window.location="rip.html";			
-			}  	
-    	-->
-    	</script>
+    	
 		<script type="text/javascript">
 		  $(document).ready(function(){
 		  	var users = {};
