@@ -29,7 +29,7 @@
 	    	"format" => "json"
 		);
 	
-		$url = 'https://ws.audioscrobbler.com/2.0/'; 
+		$url = 'http://ws.audioscrobbler.com/2.0/'; 
 	 
 	   $options = array(
 			'http' => array(
