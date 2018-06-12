@@ -14,8 +14,40 @@
   		$artist=urlencode($_POST['artist']);
       $sk=$_SESSION['session'];
 		$sig=$_SESSION['sig'];
-		$methode="method=track.love&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
-		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
+		//$methode="&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
+
+
+
+		$postData = array(
+	   	"method" => "track.love", 
+	    	"track" => $track,
+			"artist" => $artist,
+			"api_sig" => $sig,
+			"sk" => $sk,
+			"api_key" => "830d6e2d4d737d56aa1f94f717a477df",
+
+	    	"format" => "json"
+		);
+	
+		$url = 'https://ws.audioscrobbler.com/2.0/'; 
+	 
+	   $options = array(
+			'http' => array(
+	      	'header' => "Content-type: application/x-www-form-urlencoded",
+	      	'method' => 'POST',
+	      	'content' => http_build_query($postData),
+	  		),
+	  	);
+	   $context = stream_context_create($options);
+	   $result = @file_get_contents($url, false, $context);
+	   if ($result === FALSE) {
+	   	$error=1;
+	      $result="0";
+	 	}		
+		
+		
+		
+		//$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=&" . $methode);
 		echo "love";
 	}
 ?> 

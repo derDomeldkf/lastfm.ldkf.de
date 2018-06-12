@@ -40,7 +40,7 @@
 	else {
 	
 echo 	'<script language="JavaScript">
-			<!-- hide 
+			<!--hide 
 			var password;
 			var pass="baum";
 			password=prompt();
