@@ -45,6 +45,6 @@
 		
 		
 		//$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=&" . $methode);
-		echo "love";
+		//echo "love";
 	}
 ?> 
