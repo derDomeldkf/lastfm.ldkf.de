@@ -35,11 +35,11 @@
 			'http' => array(
 	      	'header' => "Content-type: application/x-www-form-urlencoded",
 	      	'method' => 'POST',
-	      	'content' => stream_context_create($postData),
+	      	'content' => http_build_query($postData),
 	  		),
 	  	);
 	   $context = stream_context_create($options);
-	   $result = @file_get_contents($url, false, $context);
+	   $result = file_get_contents($url, false, $context);
 	   echo 	$result;
 		
 		
