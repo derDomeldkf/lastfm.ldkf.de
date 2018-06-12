@@ -67,7 +67,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	  	);
 	   $context = stream_context_create($options);
 	   $result = file_get_contents($url, false, $context);*/
-	  echo  $post;
+	  var_dump(  $post);
 		
 		
 		
