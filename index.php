@@ -488,6 +488,7 @@ echo 	'<script language="JavaScript">
 		   		var that=$( this );
 					$.post( "include/do.php", { f: action, artist: artist,  track: track} ).done(function( data ) {
 		    			$("."+mbid).find( "img" ).attr("src", "pic/"+data.replace(" \n", "")+".png");
+		    			alert(data);
 		  			});
 		  			if (action==="love") {
 		  				$("."+mbid).find("label").attr("title", "unlove_"+artist+"_"+track);
