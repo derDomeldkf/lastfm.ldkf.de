@@ -28,12 +28,12 @@
 			"artist" => utf8_encode($artist),
 			"api_sig" => $sig,
 			"sk" => $sk,
-			"api_key" => "830d6e2d4d737d56aa1f94f717a477dfxxxx",
+			"api_key" => "830d6e2d4d737d56aa1f94f717a477df",
 
 	    	"format" => "json",
 		];
 	
-		$ch = curl_init('https://ws.audioscrobbler.com/2.0/');
+		$ch = curl_init('http://ws.audioscrobbler.com/2.0/');
 				
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
