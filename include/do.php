@@ -41,7 +41,7 @@ $ch = curl_init('https://ws.audioscrobbler.com/2.0/');
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		echo curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
 		// execute!
 		$response = curl_exec($ch);
@@ -67,7 +67,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	  	);
 	   $context = stream_context_create($options);
 	   $result = file_get_contents($url, false, $context);*/
-	   echo 	$response;
+	  echo  $post;
 		
 		
 		
