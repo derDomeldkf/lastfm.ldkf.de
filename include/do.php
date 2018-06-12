@@ -18,18 +18,39 @@
 
 
 
-		$postData = array(
-	   	"method" => "track.love", 
+	//	$postData = array(
+	   	
+	//	);
+	
+		$post = [
+    		"method" => "track.love", 
 	    	"track" => $track,
 			"artist" => $artist,
 			"api_sig" => $sig,
 			"sk" => $sk,
 			"api_key" => "830d6e2d4d737d56aa1f94f717a477df",
 
-	    	"format" => "json"
-		);
+	    	"format" => "json",
+		];
+
+		$ch = curl_init('https://ws.audioscrobbler.com/2.0/');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+		// execute!
+		$response = curl_exec($ch);
+
+		// close the connection, release resources used
+		curl_close($ch);
+
+		// do anything you want with your response
+		var_dump($response);
 	
-		$url = 'http://ws.audioscrobbler.com/2.0/'; 
+	
+	
+	
+	
+		/*$url = 'http://ws.audioscrobbler.com/2.0/'; 
 	 
 	   $options = array(
 			'http' => array(
@@ -39,8 +60,8 @@
 	  		),
 	  	);
 	   $context = stream_context_create($options);
-	   $result = file_get_contents($url, false, $context);
-	   echo 	$result;
+	   $result = file_get_contents($url, false, $context);*/
+	   echo 	$response;
 		
 		
 		
