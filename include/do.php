@@ -32,7 +32,13 @@
 
 	    	"format" => "json",
 		];
+$headers = [
+    
+    'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
+    
+];
 
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		$ch = curl_init('https://ws.audioscrobbler.com/2.0/');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
