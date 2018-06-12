@@ -23,12 +23,12 @@
 	//	);
 	
 		$post = [
-    		//"method" => "track.love", 
+    		"method" => "track.love", 
 	    	"track" => utf8_encode($track),
 			"artist" => utf8_encode($artist),
 			"api_sig" => $sig,
 			"sk" => $sk,
-			"api_key" => "830d6e2d4d737d56aa1f94f717a477df",
+			"api_key" => "830d6e2d4d737d56aa1f94f717a477dfxxxx",
 
 	    	"format" => "json",
 		];
