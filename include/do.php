@@ -23,7 +23,7 @@
 	//	);
 	
 		$post = [
-    		"method" => "track.love", 
+    		//"method" => "track.love", 
 	    	"track" => utf8_encode($track),
 			"artist" => utf8_encode($artist),
 			"api_sig" => $sig,
@@ -32,24 +32,19 @@
 
 	    	"format" => "json",
 		];
-$headers = [
-    
-    'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
-    
-];
-$ch = curl_init('https://ws.audioscrobbler.com/2.0/');
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		
+	
+		$ch = curl_init('https://ws.audioscrobbler.com/2.0/');
+				
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
-		// execute!
+		
 		$response = curl_exec($ch);
 
-		// close the connection, release resources used
+		
 		curl_close($ch);
 
-		// do anything you want with your response
+		
 		var_dump($response);
 	
 	
