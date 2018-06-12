@@ -33,7 +33,7 @@
 	    	"format" => "json",
 		];
 	
-		$ch = curl_init('http://ws.audioscrobbler.com/2.0');
+		$ch = curl_init('http://ws.audioscrobbler.com');
 				
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
