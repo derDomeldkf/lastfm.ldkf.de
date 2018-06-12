@@ -19,7 +19,7 @@
 
 
 		$postData = array(
-	   	"method" => "track.love", 
+	   	//"method" => "track.love", 
 	    	"track" => $track,
 			"artist" => $artist,
 			"api_sig" => $sig,
