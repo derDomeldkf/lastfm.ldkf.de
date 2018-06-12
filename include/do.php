@@ -19,7 +19,7 @@
 
 
 		$postData = array(
-	   	//"method" => "track.love", 
+	   	"method" => "track.love", 
 	    	"track" => $track,
 			"artist" => $artist,
 			"api_sig" => $sig,
@@ -35,7 +35,7 @@
 			'http' => array(
 	      	'header' => "Content-type: application/x-www-form-urlencoded",
 	      	'method' => 'POST',
-	      	'content' => http_build_query($postData),
+	      	'content' => stream_context_create($postData),
 	  		),
 	  	);
 	   $context = stream_context_create($options);
