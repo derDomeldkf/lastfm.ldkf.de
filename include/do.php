@@ -5,7 +5,7 @@
   		$artist=($_POST['artist']);
       $sk=$_SESSION['session'];
 		$sig=$_SESSION['sig'];
-		$methode="method=track.unlove&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
+		$methode="method=track.unlove&track=".$track."&artist=".$artist."&api_sig=".$sig."&sk=".$sk;
 		$out_user = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
 		echo "nolove";
 	}
@@ -32,11 +32,11 @@
 
 	    	"format" => "json",
 		];
-	$methode="method=track.love&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
-		$ch = curl_init("https://ws.audioscrobbler.com/2.0/?format=json&api_key=830d6e2d4d737d56aa1f94f717a477df&" . $methode);
-				
+	
+		$ch = curl_init('http://ws.audioscrobbler.com/2.0/');
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);	
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		#curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
 		
 		$response = curl_exec($ch);
