@@ -1,8 +1,8 @@
 <?php
 	session_start();
   	if(isset($_POST['f']) and $_POST['f']=="unlove") {
-  		$track=urlencode($_POST['track']);
-  		$artist=urlencode($_POST['artist']);
+  		$track=($_POST['track']);
+  		$artist=($_POST['artist']);
       $sk=$_SESSION['session'];
 		$sig=$_SESSION['sig'];
 		$methode="method=track.unlove&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
@@ -10,8 +10,8 @@
 		echo "nolove";
 	}
 	if(isset($_POST['f']) and $_POST['f']=="love") {
-  		$track=urlencode($_POST['track']);
-  		$artist=urlencode($_POST['artist']);
+  		$track=($_POST['track']);
+  		$artist=($_POST['artist']);
       $sk=$_SESSION['session'];
 		$sig=$_SESSION['sig'];
 		//$methode="&track=".$track."&artist=".$artist."&api_sig".$sig."&sk=".$sk;
