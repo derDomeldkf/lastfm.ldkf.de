@@ -26,10 +26,9 @@
     		"method" => "track.love", 
 	    	"track" => ($track),
 			"artist" => ($artist),
+			"api_key" => "830d6e2d4d737d56aa1f94f717a477df",			
 			"api_sig" => $sig,
 			"sk" => $sk,
-			"api_key" => "830d6e2d4d737d56aa1f94f717a477df",
-
 	    	"format" => "json",
 		];
 	
