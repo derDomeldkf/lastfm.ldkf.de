@@ -24,16 +24,16 @@
 	
 		$post = [
     		"method" => "track.love", 
-	    	"track" => urlencode($track),
-			"artist" => urlencode($artist),
+	    	"track" => ($track),
+			"artist" => ($artist),
 			"api_sig" => $sig,
 			"sk" => $sk,
-			"api_key" => "830d6e2d4d737d56aa1f94f717a477df",
+			"api_key" => "830d6e2d4d737d56aa1f94f717a477df#",
 
 	    	"format" => "json",
 		];
 	
-		$ch = curl_init('https://ws.audioscrobbler.com/2.0/');
+		$ch = curl_init('http://ws.audioscrobbler.com/2.0/');
 			//curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);	
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
