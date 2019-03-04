@@ -4,7 +4,7 @@
 	$page_l=$user[2]-1;
 	$place=(($page_in-1)*$limit_in)+1;
 	$counter_cont=1;
-	$trackid=[];
+	$trackid=array();
 	$getid = $db->query("SELECT id FROM `ldkf_lastfm` WHERE username LIKE '$user_in'"); 
 	$id=$getid->fetch_assoc()['id'];
 	if($user[3] > 1 and $user[2]==1) {
