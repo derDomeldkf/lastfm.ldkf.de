@@ -35,30 +35,29 @@
 						foreach($user_info['artist'] as $top) {
 							$info=get_object_vars($top);
 							$name=rep($info["name"]);
-							if($name !="Taylor Swift") {
-								$playcount=$info["playcount"];
-								$url=$info["url"];
-								$image = get_object_vars($info["image"][0]);
-								$image_path=$image['#text'];
-								if(!isset($image_path) or $image_path=="") {
-									$image_path="pic/empty.png";
-								}
-								$getcounter = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$name'"); 
-								if(isset($getcounter->num_rows) and  $getcounter->num_rows!= 0) {
-									$counter = $getcounter->fetch_assoc()['playcount'];
-								}
-								if(isset($counter) and $counter!="") {
-									$getuser_add = $db->query("SELECT `user` FROM `".$db_name."` WHERE artist LIKE '$name' "); 
-									$user_db = $getuser_add->fetch_assoc()['user'];
-									$counter_insert=$counter+$playcount;
-									$user_insert=$user_db."&&".$user_in;
-									$update = $db->query("UPDATE `".$db_name."` SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'");  
-								}
-								else {
-									$insert = $db->query("INSERT INTO `".$db_name."` (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')"); 
-								}
-								$counter="";
-							}	
+							$playcount=$info["playcount"];
+							$url=$info["url"];
+							$image = get_object_vars($info["image"][0]);
+							$image_path=$image['#text'];
+							if(!isset($image_path) or $image_path=="") {
+								$image_path="pic/empty.png";
+							}
+							$getcounter = $db->query("SELECT `playcount` FROM `".$db_name."` WHERE artist LIKE '$name'"); 
+							if(isset($getcounter->num_rows) and  $getcounter->num_rows!= 0) {
+								$counter = $getcounter->fetch_assoc()['playcount'];
+							}
+							if(isset($counter) and $counter!="") {
+								$getuser_add = $db->query("SELECT `user` FROM `".$db_name."` WHERE artist LIKE '$name' "); 
+								$user_db = $getuser_add->fetch_assoc()['user'];
+								$counter_insert=$counter+$playcount;
+								$user_insert=$user_db."&&".$user_in;
+								$update = $db->query("UPDATE `".$db_name."` SET user = '$user_insert', playcount ='$counter_insert'  where artist = '$name'");  
+							}
+							else {
+								$insert = $db->query("INSERT INTO `".$db_name."` (playcount, artist, user) VALUES ('$playcount', '$name', '$user_in')"); 
+							}
+							$counter="";
+							
 						}
 						
 					}
