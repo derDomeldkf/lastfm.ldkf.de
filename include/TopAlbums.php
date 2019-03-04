@@ -107,7 +107,7 @@
     						</div>';
     						
 							$m=0; 
-						$st=3+(60/$page_in)*$playtime/($count_max*300);    				
+						$st=(int)3+(60/(int)$page_in)*(int)$playtime/((int)$count_max*300);    				
     					echo'      	   
       	   				<div class="'; 
       	   				if($st>strlen($playtime)*3){ 
