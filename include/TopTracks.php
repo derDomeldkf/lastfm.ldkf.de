@@ -45,7 +45,7 @@
 					}
 					
 				}
-				$trackid="";
+				unset($trackid);
 				if($counter_cont==1 and $user[2]==1) {$count_max=$count;}
 				elseif($counter_cont==1 and $user[2]!=1) {$count_max=$_POST[5] ;}
 				echo'
