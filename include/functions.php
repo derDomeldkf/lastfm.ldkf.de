@@ -90,7 +90,10 @@
     		$content=file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=".$api_key."&" . $methode);
 		} catch (Exception $e) {
    		try {
-    		$content=file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=".$api_key."&" . $methode);
+   			$opts = array('http' => array('header' => "User-Agent:MyAgent/1.0\r\n"));
+				$context = stream_context_create($opts);
+				$content = file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=".$api_key."&" . $methode, FALSE, $context);
+    		
 		} catch (Exception $e) {
    		echo 'Post-Fehler';
 		}	
