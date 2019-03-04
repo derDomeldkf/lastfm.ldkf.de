@@ -89,7 +89,11 @@
 		try {
     		$content=file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=".$api_key."&" . $methode);
 		} catch (Exception $e) {
-   		$content=file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=".$api_key."&" . $methode);
+   		try {
+    		$content=file_get_contents("https://ws.audioscrobbler.com/2.0/?format=json&api_key=".$api_key."&" . $methode);
+		} catch (Exception $e) {
+   		echo 'Post-Fehler';
+		}	
 		}	
 		return $content;
 	} 
