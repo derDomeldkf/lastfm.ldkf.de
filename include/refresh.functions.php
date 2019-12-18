@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
  	function refresh($db_name, $command, $db, $api_key) {
 		$getusers = $db->query("SELECT `username` FROM `ldkf_lastfm`"); 
  		while ($getuser = $getusers->fetch_assoc()) {
@@ -66,6 +68,7 @@
 				$d++;
 			}  
 		}
+		error_log("Hallo Alwin.", 0);
 	}
 
 #############################################################################################################################
